@@ -1,0 +1,46 @@
+# Composite indicators
+composeR
+dplyr::case_when
+
+## Composite with 1 categorical variable - select one
+e.g. improved source of water
+```{r }
+# data_set <- data_set %>%
+#   mutate(case_when XXXX)
+
+```
+
+## Composite with 2 categorical variables
+e.g. access to improved source of water and distance
+```{r }
+# data_set <- data_set %>%
+#   mutate(case_when XXXX)
+
+```
+
+## Composite with 1 categorical variable - select multiple
+e.g. improved source of water
+```{r }
+# data_set <- data_set %>%
+#   mutate(case_when XXXX)
+
+```
+
+## Composite with 1 numerical variable
+e.g. FCS
+```{r }
+# data_set <- data_set %>%
+#   mutate(case_when XXXX)
+
+```
+
+## Composite with 2 numerical variables
+```{r }
+# data_set <- data_set %>%
+#   mutate(case_when XXXX)
+
+```
+
+## New indicators from a loop to main dataset
+e.g. aggregating the number of children going to school from a loop
+

@@ -1,6 +1,6 @@
 ---
-title: "A Book"
-author: "Frida Gomam"
+title: "R cookbook for analysis with REACH"
+author: "R CoP"
 site: bookdown::bookdown_site
 documentclass: book
 output:
