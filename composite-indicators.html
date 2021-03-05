@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R cookbook for analysis with REACH</title>
-  <meta name="description" content="R cookbook for analysis with REACH" />
+  <title>4 Composite indicators | R cookbook for analysis with REACH</title>
+  <meta name="description" content="4 Composite indicators | R cookbook for analysis with REACH" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R cookbook for analysis with REACH" />
+  <meta property="og:title" content="4 Composite indicators | R cookbook for analysis with REACH" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R cookbook for analysis with REACH" />
+  <meta name="twitter:title" content="4 Composite indicators | R cookbook for analysis with REACH" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="meta-information.html"/>
+<link rel="prev" href="cleaning.html"/>
+<link rel="next" href="analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -167,24 +167,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R cookbook for analysis with REACH</h1>
-<p class="author"><em>R CoP</em></p>
+<div id="composite-indicators" class="section level1">
+<h1><span class="header-section-number">4</span> Composite indicators</h1>
+<p>composeR
+dplyr::case_when</p>
+<div id="composite-with-1-categorical-variable---select-one" class="section level2">
+<h2><span class="header-section-number">4.1</span> Composite with 1 categorical variable - select one</h2>
+<p>e.g. improved source of water</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="composite-indicators.html#cb2-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb2-2"><a href="composite-indicators.html#cb2-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
 </div>
-<div id="hello-world" class="section level1">
-<h1><span class="header-section-number">1</span> Hello World</h1>
-<p>Hi.</p>
-<p>Bye.</p>
-<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
+<div id="composite-with-2-categorical-variables" class="section level2">
+<h2><span class="header-section-number">4.2</span> Composite with 2 categorical variables</h2>
+<p>e.g. access to improved source of water and distance</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="composite-indicators.html#cb3-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb3-2"><a href="composite-indicators.html#cb3-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+</div>
+<div id="composite-with-1-categorical-variable---select-multiple" class="section level2">
+<h2><span class="header-section-number">4.3</span> Composite with 1 categorical variable - select multiple</h2>
+<p>e.g. improved source of water</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="composite-indicators.html#cb4-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb4-2"><a href="composite-indicators.html#cb4-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+</div>
+<div id="composite-with-1-numerical-variable" class="section level2">
+<h2><span class="header-section-number">4.4</span> Composite with 1 numerical variable</h2>
+<p>e.g. FCS</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="composite-indicators.html#cb5-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb5-2"><a href="composite-indicators.html#cb5-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+</div>
+<div id="composite-with-2-numerical-variables" class="section level2">
+<h2><span class="header-section-number">4.5</span> Composite with 2 numerical variables</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="composite-indicators.html#cb6-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb6-2"><a href="composite-indicators.html#cb6-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+</div>
+<div id="new-indicators-from-a-loop-to-main-dataset" class="section level2">
+<h2><span class="header-section-number">4.6</span> New indicators from a loop to main dataset</h2>
+<p>e.g. aggregating the number of children going to school from a loop</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="meta-information.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cleaning.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

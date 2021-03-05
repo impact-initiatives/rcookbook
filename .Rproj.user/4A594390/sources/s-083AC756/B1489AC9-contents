@@ -1,0 +1,72 @@
+---
+title: "R cookbook for analysis with REACH"
+author: "R CoP"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+  #bookdown::pdf_book: default
+---
+
+# Hello World
+
+Hi.
+
+Bye.
+
+<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
+
+<!--chapter:end:index.Rmd-->
+
+# Meta information
+
+There should be here the dataset, odk and sampling frame and any other thing.
+
+
+
+<!--chapter:end:00_meta-information.Rmd-->
+
+# Cleaning
+
+Hi.
+
+Bye.
+
+<!--chapter:end:01_cleaning.Rmd-->
+
+# Composite indicators
+
+## Example one
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+## Example two
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+<!--chapter:end:02_composite-indicators.Rmd-->
+
+# Analysis
+
+Hi.
+
+Bye.
+
+
+<!--chapter:end:03_analysis.Rmd-->
+
+# Outputs
+
+Hi.
+
+Bye.
+
+<!--chapter:end:04_outputs.Rmd-->
+
