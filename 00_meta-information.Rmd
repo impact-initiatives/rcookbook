@@ -5,3 +5,6 @@ There should be here the dataset, odk and sampling frame and any other thing.
 ```{r, tidy=FALSE}
 # dataset <- read.csv("xxx")
 ```
+
+
+Probably which packages are used and version

@@ -2,31 +2,31 @@
 
 ## Frequencies with categorical variables
 hypegrammaR / koboquest / butteR
-###select_one 
-###select_mutiple
+### select_one 
+### select_mutiple
 
 ## Analysis with numerical variables
 Summarytools (CRAN package)
 Spatstat
 hypegrammaR / koboquest / butteR
-###Averages
-###Median
+### Averages
+### Median
 
 ## Analysis by strata or subset
-###By strata, overall, dissagregatios
+### By strata, overall, dissagregatios
 
-##Weights
+## Weights
 surveyweights
 survey (CRAN package)
 srvyr (CRAN package)
 
-##Repeating the above
+## Repeating the above
 
-##Top 3
+## Top 3
 
-##Borda count
+## Borda count
 
-##Hypothesis testing
+## Hypothesis testing
 ### T-test
 ### ANOVA
 ### chi-squares
