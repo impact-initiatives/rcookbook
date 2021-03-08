@@ -3,10 +3,8 @@
 There should be here the dataset, odk and sampling frame and any other thing.
 
 ```{r, tidy=FALSE}
-main_dataset <- readxl::read_excel("inputs/UKR2007_MSNA20_HH_dataset_rcop.xlsx",
-                                   sheet = "dataset")
-loop_dataset <- readxl::read_excel("inputs/UKR2007_MSNA20_HH_dataset_rcop.xlsx",
-                                   sheet = "combained_member_of_hh_profile")
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv")
 ```
 Note that some variables were NA (age, etc.) In addition, it seems the weights are alredy added, and both loops where combined already.
 
