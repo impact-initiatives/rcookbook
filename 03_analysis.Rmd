@@ -1,7 +1,11 @@
 # Analysis
 
 ## Frequencies with categorical variables
-hypegrammaR / koboquest / butteR
+hypegrammaR / koboquest / butteR/ srvyr
+
+```{r, tidy=FALSE}
+###makes some additions. 
+```
 ### select_one 
 ### select_mutiple
 
