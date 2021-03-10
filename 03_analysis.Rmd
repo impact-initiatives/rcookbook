@@ -7,7 +7,7 @@ hypegrammaR / koboquest / butteR
 
 ## Analysis with numerical variables
 Summarytools (CRAN package)
-Spatstat
+Spatstat - (CRAN package, useful for weighted medians)
 hypegrammaR / koboquest / butteR
 ### Averages
 ### Median
