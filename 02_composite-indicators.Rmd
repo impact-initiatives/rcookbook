@@ -3,17 +3,77 @@ composeR
 dplyr::case_when
 
 ## Composite with 1 categorical variable - select one
-e.g. improved source of water
-```{r }
-# data_set <- data_set %>%
-#   mutate(case_when XXXX)
 
+This example will look at build an improved source of water variable. The indicator of interest is *f11_dinking_water_source* and the options for un-improved source of water are:
+
+- trucked_in_water_truck_with_a_tank_etc
+- drinking_water_from_water_kiosk_booth_with_water_for_bottling
+- bottled_water_water_purchased_in_bottles
+- other_specify
+
+```{r }
+#Creating a vector of un-improved source of water
+unimproved_source <- c("trucked_in_water_truck_with_a_tank_etc", "drinking_water_from_water_kiosk_booth_with_water_for_bottling", "bottled_water_water_purchased_in_bottles", "other_specify")
+
+#Using base R
+main_dataset$wash_improved_source_baser <- ifelse(main_dataset$f11_dinking_water_source %in% unimproved_source, "not_improved", "improved")
+table(main_dataset$f11_dinking_water_source, main_dataset$wash_improved_source_baser, useNA = "ifany")
+
+#Using base R 
+main_dataset$wash_improved_source_baser2 <- NA
+main_dataset$wash_improved_source_baser2[main_dataset$f11_dinking_water_source %in% unimproved_source] <- "not_improved"
+main_dataset$wash_improved_source_baser2[!(main_dataset$f11_dinking_water_source %in% unimproved_source)] <- "improved"
+
+#Same same
+table(main_dataset$wash_improved_source_baser, main_dataset$wash_improved_source_baser2, useNA = "ifany")
+
+#Using case_when
+main_dataset <- main_dataset %>%
+  mutate(wash_improved_source_dplyr = case_when(f11_dinking_water_source %in% unimproved_source ~ "not_improved",
+                                                TRUE ~ "improved"))
+table(main_dataset$f11_dinking_water_source, main_dataset$wash_improved_source_dplyr, useNA = "ifany")
+
+#Same same
+table(main_dataset$wash_improved_source_baser, main_dataset$wash_improved_source_dplyr)
 ```
+
+In the previous example, there was no missing value. For this example, the indicator to be built will turn a yes/no question into a dummy variable (1 and 0). The variable of interest is  *b16_hohh_pension_eligible* 
+
+```{r }
+table(main_dataset$b16_hohh_pension_eligible, useNA = "ifany")
+
+#Using base R
+main_dataset$hohh_pension_eligible_dummy_baser <- ifelse(main_dataset$b16_hohh_pension_eligible == "yes", 1, 0)
+
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_baser, useNA = "ifany")
+
+#Using case_when
+main_dataset <- main_dataset %>%
+  mutate(hohh_pension_eligible_dummy_dplyr = case_when(b16_hohh_pension_eligible == "yes" ~ 1,
+                                                b16_hohh_pension_eligible == "no" ~ 0))
+
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_dplyr, useNA = "ifany")
+
+#Same same
+table(main_dataset$hohh_pension_eligible_dummy_baser, main_dataset$hohh_pension_eligible_dummy_dplyr, useNA = "ifany")
+```
+
+```{r }
+#Watch out for NA. This was is not correct. 
+main_dataset <- main_dataset %>%
+  mutate(hohh_pension_eligible_dummy_dplyr2 = case_when(b16_hohh_pension_eligible == "yes" ~ 1,
+                                                TRUE ~ 0))
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_dplyr2, useNA = "ifany")
+
+#Not same same
+table(main_dataset$hohh_pension_eligible_dummy_baser, main_dataset$hohh_pension_eligible_dummy_dplyr2, useNA = "ifany")
+```
+
 
 ## Composite with 2 categorical variables
 e.g. access to improved source of water and distance
 ```{r }
-# data_set <- data_set %>%
+# main_dataset <- main_dataset %>%
 #   mutate(case_when XXXX)
 
 ```
@@ -21,7 +81,7 @@ e.g. access to improved source of water and distance
 ## Composite with 1 categorical variable - select multiple
 e.g. improved source of water
 ```{r }
-# data_set <- data_set %>%
+# main_dataset <- main_dataset %>%
 #   mutate(case_when XXXX)
 
 ```
@@ -29,14 +89,14 @@ e.g. improved source of water
 ## Composite with 1 numerical variable
 e.g. FCS
 ```{r }
-# data_set <- data_set %>%
+# main_dataset <- main_dataset %>%
 #   mutate(case_when XXXX)
 
 ```
 
 ## Composite with 2 numerical variables
 ```{r }
-# data_set <- data_set %>%
+# main_dataset <- main_dataset %>%
 #   mutate(case_when XXXX)
 
 ```

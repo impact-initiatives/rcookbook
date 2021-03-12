@@ -1,11 +1,17 @@
 # Meta information
 
-There should be here the dataset, odk and sampling frame and any other thing.
+There should be here the libraries, dataset, odk and sampling frame and any other thing.
 
-```{r, tidy=FALSE}
-main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
-loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv")
+```{r}
+library(magrittr)
+library(dplyr)
+```
+
+```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
 ```
 Note that some variables were NA (age, etc.) In addition, it seems the weights are alredy added, and both loops where combined already.
+
 
 Probably which packages are used and version
