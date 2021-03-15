@@ -144,8 +144,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.6</b> New indicators from a loop to main dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a><ul>
-<li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#frequencies-with-categorical-variables"><i class="fa fa-check"></i><b>5.1</b> Frequencies with categorical variables</a></li>
-<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.2</b> Analysis with numerical variables</a></li>
+<li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#frequencies-with-categorical-variables"><i class="fa fa-check"></i><b>5.1</b> Frequencies with categorical variables</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.1.1</b> select_one</a></li>
+<li class="chapter" data-level="5.1.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.1.2</b> select_mutiple</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.2</b> Analysis with numerical variables</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>5.2.1</b> Averages</a></li>
+<li class="chapter" data-level="5.2.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>5.2.2</b> Median</a></li>
+</ul></li>
 <li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#analysis-by-strata-or-subset"><i class="fa fa-check"></i><b>5.3</b> Analysis by strata or subset</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#by-strata-overall-dissagregatios"><i class="fa fa-check"></i><b>5.3.1</b> By strata, overall, dissagregatios</a></li>
 </ul></li>
@@ -198,32 +204,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 dplyr::case_when</p>
 <div id="composite-with-1-categorical-variable---select-one" class="section level2">
 <h2><span class="header-section-number">4.1</span> Composite with 1 categorical variable - select one</h2>
-<p>e.g. improved source of water</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="composite-indicators.html#cb2-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
-<span id="cb2-2"><a href="composite-indicators.html#cb2-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+<p>For this example, we will build an improved source of water variable. In this dataset, the indicator we are looking at is <em>f11_dinking_water_source</em> and the options for un-improved source of water are:</p>
+<ul>
+<li>trucked_in_water_truck_with_a_tank_etc</li>
+<li>drinking_water_from_water_kiosk_booth_with_water_for_bottling</li>
+<li>bottled_water_water_purchased_in_bottles</li>
+<li>other_specify</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="composite-indicators.html#cb6-1"></a><span class="co">#Creating a vector of un-improved source of water</span></span>
+<span id="cb6-2"><a href="composite-indicators.html#cb6-2"></a>unimproved_source &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;trucked_in_water_truck_with_a_tank_etc&quot;</span>, <span class="st">&quot;drinking_water_from_water_kiosk_booth_with_water_for_bottling&quot;</span>, <span class="st">&quot;bottled_water_water_purchased_in_bottles&quot;</span>, <span class="st">&quot;other_specify&quot;</span>)</span>
+<span id="cb6-3"><a href="composite-indicators.html#cb6-3"></a></span>
+<span id="cb6-4"><a href="composite-indicators.html#cb6-4"></a><span class="co">#Using base R</span></span>
+<span id="cb6-5"><a href="composite-indicators.html#cb6-5"></a>main_dataset<span class="op">$</span>wash_improved_source_baser &lt;-<span class="st"> </span><span class="kw">ifelse</span>(main_dataset<span class="op">$</span>f11_dinking_water_source <span class="op">%in%</span><span class="st"> </span>unimproved_source, <span class="st">&quot;not_improved&quot;</span>, <span class="st">&quot;improved&quot;</span>)</span>
+<span id="cb6-6"><a href="composite-indicators.html#cb6-6"></a><span class="kw">table</span>(main_dataset<span class="op">$</span>f11_dinking_water_source, main_dataset<span class="op">$</span>wash_improved_source_baser, <span class="dt">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<pre><code>##                                                                
+##                                                                 improved
+##   bottled_water_water_purchased_in_bottles                             0
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling        0
+##   other_specify                                                        0
+##   personal_well                                                      414
+##   public_well_or_boreholes_shared_access                             187
+##   tap_drinking_water_centralized_water_supply                        479
+##   technical_piped_water                                                2
+##   trucked_in_water_truck_with_a_tank_etc                               0
+##                                                                
+##                                                                 not_improved
+##   bottled_water_water_purchased_in_bottles                                68
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling          366
+##   other_specify                                                           11
+##   personal_well                                                            0
+##   public_well_or_boreholes_shared_access                                   0
+##   tap_drinking_water_centralized_water_supply                              0
+##   technical_piped_water                                                    0
+##   trucked_in_water_truck_with_a_tank_etc                                  90</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="composite-indicators.html#cb8-1"></a><span class="co">#Using case_when</span></span>
+<span id="cb8-2"><a href="composite-indicators.html#cb8-2"></a>main_dataset &lt;-<span class="st"> </span>main_dataset <span class="op">%&gt;%</span></span>
+<span id="cb8-3"><a href="composite-indicators.html#cb8-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wash_improved_source_dplyr =</span> <span class="kw">case_when</span>(f11_dinking_water_source <span class="op">%in%</span><span class="st"> </span>unimproved_source <span class="op">~</span><span class="st"> &quot;not_improved&quot;</span>,</span>
+<span id="cb8-4"><a href="composite-indicators.html#cb8-4"></a>                                                <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;improved&quot;</span>))</span>
+<span id="cb8-5"><a href="composite-indicators.html#cb8-5"></a><span class="kw">table</span>(main_dataset<span class="op">$</span>f11_dinking_water_source, main_dataset<span class="op">$</span>wash_improved_source_dplyr, <span class="dt">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<pre><code>##                                                                
+##                                                                 improved
+##   bottled_water_water_purchased_in_bottles                             0
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling        0
+##   other_specify                                                        0
+##   personal_well                                                      414
+##   public_well_or_boreholes_shared_access                             187
+##   tap_drinking_water_centralized_water_supply                        479
+##   technical_piped_water                                                2
+##   trucked_in_water_truck_with_a_tank_etc                               0
+##                                                                
+##                                                                 not_improved
+##   bottled_water_water_purchased_in_bottles                                68
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling          366
+##   other_specify                                                           11
+##   personal_well                                                            0
+##   public_well_or_boreholes_shared_access                                   0
+##   tap_drinking_water_centralized_water_supply                              0
+##   technical_piped_water                                                    0
+##   trucked_in_water_truck_with_a_tank_etc                                  90</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="composite-indicators.html#cb10-1"></a><span class="co">#Same same</span></span>
+<span id="cb10-2"><a href="composite-indicators.html#cb10-2"></a><span class="kw">table</span>(main_dataset<span class="op">$</span>wash_improved_source_baser, main_dataset<span class="op">$</span>wash_improved_source_dplyr)</span></code></pre></div>
+<pre><code>##               
+##                improved not_improved
+##   improved         1082            0
+##   not_improved        0          535</code></pre>
 </div>
 <div id="composite-with-2-categorical-variables" class="section level2">
 <h2><span class="header-section-number">4.2</span> Composite with 2 categorical variables</h2>
 <p>e.g. access to improved source of water and distance</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="composite-indicators.html#cb3-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
-<span id="cb3-2"><a href="composite-indicators.html#cb3-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="composite-indicators.html#cb12-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb12-2"><a href="composite-indicators.html#cb12-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
 </div>
 <div id="composite-with-1-categorical-variable---select-multiple" class="section level2">
 <h2><span class="header-section-number">4.3</span> Composite with 1 categorical variable - select multiple</h2>
 <p>e.g. improved source of water</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="composite-indicators.html#cb4-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
-<span id="cb4-2"><a href="composite-indicators.html#cb4-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="composite-indicators.html#cb13-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb13-2"><a href="composite-indicators.html#cb13-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
 </div>
 <div id="composite-with-1-numerical-variable" class="section level2">
 <h2><span class="header-section-number">4.4</span> Composite with 1 numerical variable</h2>
 <p>e.g. FCS</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="composite-indicators.html#cb5-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
-<span id="cb5-2"><a href="composite-indicators.html#cb5-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="composite-indicators.html#cb14-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb14-2"><a href="composite-indicators.html#cb14-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
 </div>
 <div id="composite-with-2-numerical-variables" class="section level2">
 <h2><span class="header-section-number">4.5</span> Composite with 2 numerical variables</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="composite-indicators.html#cb6-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
-<span id="cb6-2"><a href="composite-indicators.html#cb6-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="composite-indicators.html#cb15-1"></a><span class="co"># data_set &lt;- data_set %&gt;%</span></span>
+<span id="cb15-2"><a href="composite-indicators.html#cb15-2"></a><span class="co">#   mutate(case_when XXXX)</span></span></code></pre></div>
 </div>
 <div id="new-indicators-from-a-loop-to-main-dataset" class="section level2">
 <h2><span class="header-section-number">4.6</span> New indicators from a loop to main dataset</h2>

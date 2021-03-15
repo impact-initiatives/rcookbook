@@ -195,7 +195,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="meta-information" class="section level1">
 <h1><span class="header-section-number">2</span> Meta information</h1>
 <p>There should be here the dataset, odk and sampling frame and any other thing.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="meta-information.html#cb1-1"></a><span class="co"># dataset &lt;- read.csv(&quot;xxx&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="meta-information.html#cb1-1"></a>main_dataset &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="meta-information.html#cb1-2"></a>loop_dataset &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv&quot;</span>)</span></code></pre></div>
+<p>Note that some variables were NA (age, etc.) In addition, it seems the weights are alredy added, and both loops where combined already.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="meta-information.html#cb2-1"></a><span class="kw">library</span>(magrittr)</span>
+<span id="cb2-2"><a href="meta-information.html#cb2-2"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
 <p>Probably which packages are used and version</p>
 
 </div>
