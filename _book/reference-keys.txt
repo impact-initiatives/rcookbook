@@ -1,5 +1,7 @@
 hello-world
 meta-information
+importing-dataset-and-questionnaire
+creating-the-questionnaire-object
 cleaning
 example-one
 example-two
@@ -12,6 +14,8 @@ composite-with-2-numerical-variables
 new-indicators-from-a-loop-to-main-dataset
 analysis
 frequencies-with-categorical-variables
+select_one
+select_mutiple
 analysis-with-numerical-variables
 analysis-by-strata-or-subset
 by-strata-overall-dissagregatios
