@@ -3,21 +3,107 @@
 ## Frequencies with categorical variables
 hypegrammaR / koboquest / butteR/ srvyr
 
+
 ```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
 ###makes some additions. 
 
 ```
-## butteR survey_collapse
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=F}
-dt_set_options<- function(x){
-    DT::datatable(x,
-    options = list(
-      autoWidth=F,
-      dom= 't',
-     list(list(width = '20%', targets = list(1,2,3,4,5,6,7)))
-     )
-    )}
+
+## srvyr package
+
+"The srvyr package aims to add dplyr like syntax to the survey package." It is a very useful package for a variety of aggregations of survey data.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+###makes some additions. 
+library(tidyverse)
+library(butteR)
+library(srvyr)
+library(kableExtra)
+df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+dfsvy<-as_survey(df)
 ```
+
+### Categorical variables
+srvyr package allows categorical variables to be broken down using a similar syntax as dplyr.  Using dplyr you might typically calculate a percent mean as follows:
+```{r}
+
+df %>% 
+  group_by(b9_hohh_marital_status) %>% 
+  summarise(
+    n=n()
+  ) %>% 
+  ungroup() %>% 
+  mutate(
+    pct_mean=n/sum(n)
+  )
+
+```
+
+To calculate the percent mean of a categorical variable using srvyr object is required. The syntax is quite similar to dplyr, but a bit less verbose. By specifying the vartype as "ci" we also get the upper and lower confidence intervals
+
+```{r}
+dfsvy %>% 
+  group_by(b9_hohh_marital_status) %>% 
+  summarise(
+    pct_mean = survey_mean(vartype = "ci")
+  )
+
+```
+
+
+### Numeric variables
+srvyr treats the calculation/aggregation of numeric variables differently in an attempt to mirror dplyr syntax 
+
+to calculate the mean and median expenditure in dplyr you would likely do the following
+```{r}
+
+df %>% 
+  summarise(
+    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),
+    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),
+    )
+
+```
+
+If you wanted to subset this by another variable in dplyr you would add the group_by argument
+```{r}
+
+df %>% 
+  group_by(strata) %>% 
+  summarise(
+    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),
+    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),
+    )
+
+```
+
+This is the reason why the syntax also varies between categorical and numeric variables in srvyr. Therefore, to do the same using srvyr you would do the following (with a survey object). Note that due to this difference in syntax the na.rm argument works for numeric variables, but **does not work** for categorical variables. This was modified when srvyr was updated from v 0.3.8
+
+```{r}
+dfsvy %>% 
+  summarise(
+   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = "ci"),
+  )
+
+
+```
+
+similar to dplyr you can easily add a group_by argument to add a subset calculation
+```{r}
+dfsvy %>% 
+  group_by(strata) %>% 
+  summarise(
+   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = "ci"),
+  )
+
+
+```
+
+## butteR survey_collapse
+
+
+
+
 The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged. 
 
 The main advantages of survey_collapse
