@@ -40,7 +40,7 @@ change-from-label-to-xml
 dashboarding---sharing-information
 outputs-with-hypothesis-testing-results
 miscellaneous
-select_one
-select_mutiple
 averages
 median
+custom-packages-with-cleaning-functions
+butter-survey_collapse
