@@ -3,18 +3,44 @@
 ## Frequencies with categorical variables
 hypegrammaR / koboquest / butteR/ srvyr
 
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+###makes some additions. 
 
+```
+## butteR survey_collapse
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=F}
+dt_set_options<- function(x){
+    DT::datatable(x,
+    options = list(
+      autoWidth=F,
+      dom= 't',
+     list(list(width = '20%', targets = list(1,2,3,4,5,6,7)))
+     )
+    )}
+```
+The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged. 
+
+The main advantages of survey_collapse
+
+1. The standardized output produced
+2. Ability to analyze both categorical and numerical columns with a consistent syntax
+3. Batch analyses and ability to perform many different subsetting investigations with ease
+
+Below is an example of its use.
+
+First we must read in some data and make it into a srvyr object
 
 ```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
 ###makes some additions. 
 library(tidyverse)
 library(butteR)
 library(srvyr)
+library(kableExtra)
 df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
 dfsvy<-as_survey(df)
 ```
-The survey_collapse function available in butteR aggregates both categorical and numerical columns of srvyr object. It provides a standardized format output that includes mean/pct mean (point estimate), and the upper/lower confidence intervals along with the unweight number/frequency of each option. The main utility of survey_collapse is for batch analyses and its ability to collapse binary categorical (select multiple), categorical (select one), and numeric intervals
 
+For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorica), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
 ```{r,message=F,warning=F, results="hide"}
 # here are some random concatenated select multiple parent questions
 select_multiple_parent_cols<-c("l4_which_difficult_access_health",
@@ -24,19 +50,35 @@ numeric_cols<- c("b7_hohh_age",
 select_one_cols<- c("b9_hohh_marital_status",
                     "d1_hh_displacement_status")
 mixed_columns<- c(select_multiple_parent_cols, numeric_cols, select_one_cols)
-
-outputs<-list()
-outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>% 
-  mutate(analysis_level= "overall")
-outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>% 
-  mutate(analysis_level= "strata")
-
-
-
 ```
 
-All of the columns provided to the function are analyzed in a standard long format so that multiple types of analyses and aggregations can be run and binded together and then easily piped into a ggplot work flow
 
+A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.
+
+Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It's a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated
+
+```{r,message=F,warning=F, results="hide"}
+outputs<-list()
+
+outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>% 
+  mutate(analysis_level= "overall")
+
+outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>% 
+  mutate(analysis_level= "strata")
+```
+
+
+Here is an example of what the long format data looks like as a table.
+```{r, echo =F}
+outputs$strata %>% 
+  head(100) %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+This is a great format for manipulating/filtering and then graphing with ggplot
 ```{r}
 output_df<- bind_rows(outputs)
 
