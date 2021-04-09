@@ -1,12 +1,162 @@
 # Analysis
 
-## Frequencies with categorical variables
-hypegrammaR / koboquest / butteR/ srvyr
+## hypegrammaR 
+hypegrammaR follow the case mapping logic to compute analysis. It will also use the kobo questionnaire tool to help some of decision to be made.
 
+This just load the information that will be need to conduct the analysis :
+
+- dataset, 
+- kobotool (questions and choices), 
+- sample frame
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(hypegrammaR)
+library(magrittr)
+library(surveyweights)
+library(srvyr)
+library(readxl)
+
+#load dataset
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+
+#load kobotool
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+#load sampling frame
+my_sampling_frame <- read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
+                             sheet = "for_r")
+```
+
+The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#create a questionnaire object
+my_questionnaire <- hypegrammaR::load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
+
+The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset **HAS** to be the same. 
+What it does, it create a function that will calculate the weights based on your dataset. 
+*(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)*
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#create a weigthing function
+my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
+                                                                      data.stratum.column = "strata",
+                                                                      sampling.frame.population.column = "population", 
+                                                                      sampling.frame.stratum.column = "strata", 
+                                                                      data = main_dataset)
+```
+If you want to add the weights to your dataframe this is how you can do it.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#optional, if you want to add the weights into the dataset.
+main_dataset$stratum.weight <- my_weigthing_function(main_dataset)
+
+```
+
+
+hypegrammaR uses cases to choose what type analysis to do. A "case" for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :
+
+- XXXX: hypothesis type (group_difference, direct_reporting)  
+- YYYY: dependent var type (categorical, numerical)  
+- ZZZZ: independent var type (categorical, numerical, *empty* if no independent variable) . 
+
+All cases implemented can been seen with this code.
 
 ```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-###makes some additions. 
+hypegrammaR:::list_all_cases(implemented_only = T)
+```
 
+
+If you want to know what are the different proportion of the displacement status for each strata. The following information I need are:
+hypothesis : group_difference  
+dependent variable : d1_hh_displacement_status -> categorical  
+independent_variable : strata -> categorical 
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#analysis 
+my_case <- hypegrammaR::map_to_case(hypothesis.type = "group_difference",
+                       dependent.var.type = "categorical",
+                       independent.var.type = "categorical")
+
+my_case
+```
+
+The function map_to_result will calculate your summary statistics, it will take a couple of arguments.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+my_results <- hypegrammaR::map_to_result(data = main_dataset, 
+                            dependent.var = "d1_hh_displacement_status", 
+                            independent.var = "strata",
+                            case = my_case, 
+                            weighting = my_weigthing_function,
+                            questionnaire = my_questionnaire,
+                            confidence_level = .90)
+```
+
+The result object is a list with several information:
+
+- parameters: returns the information used of that analysis
+- summary statistics: returns the summary statistics in a tidy format
+- hypothesis test: returns hypothesis testing information (if avalaible)
+- message: returns a message (if the analysis went well or not)
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+my_results$summary.statistic
+```
+
+
+If you need to run several analysis, you can use a data analysis plan (DAP) file which is a file that comprises of the following columns:
+  
+- dependent.variable: name of the dependent variable (kobo name, column name)  
+- dependent.variable.type: type of the dependent variable (categorical or numerical or empty)  
+- independent.variable: name of the independent variable (kobo name, column name)  
+- independent.variable.type: type of the independent variable (categorical or numerical or empty)  
+- repeat.for.variable: name of the variable to repeat the analysis for (e.g per camp or district or governorate)  
+- hypothesis.type: type of hypothesis (group_difference, direct_reporting)
+- you can have other columns to help you write the analysis plan such as RQ and sub RQ
+
+**You cannot have duplicate columns**
+
+Below, I am creating the DAP, but you could read a csv file. It has :
+
+- 2 categorical variables, (select multiple type in kobo), *l4_which_difficult_access_health* and *j10_education_security_concerns_in_the_vicinity_of_facility*
+- 2 categorical variables, (select one type in kobo), *b9_hohh_marital_status* and *d1_hh_displacement_status*,
+- 2 numerical variables (integer type in kobo): *b7_hohh_age* and *b5_age*
+
+It will repeat the analysis 3 times for each dependent variable:
+
+- using the *strata* variable as independent variable (first 6 rows), 
+- using no independent variable, for the complete dataset (national level?), (second 6 rows),
+- using the *b9_hohh_marital_status* as independent variable but repeating each strata (last 6 rows)
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+
+#dap 
+my_dap <- data.frame(dependent.variable = rep(c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
+                 "b5_age", "b9_hohh_marital_status",
+                    "d1_hh_displacement_status"), 3),
+                     dependent.variable.type = rep(c("categorical", "categorical", "numerical", "numerical", "categorical", "categorical"),3),
+                     independent.variable = c(rep("strata", 6), rep(NA, 6), rep("b9_hohh_marital_status", 6)),
+                     independent.variable.type = c(rep("categorical", 6), rep(NA, 6), rep("categorical", 6)), 
+                     hypothesis.type = c(rep("group_difference", 6), rep("direct_reporting", 6), rep("group_difference", 6)), 
+                     repeat.for.variable = c(rep(NA, 12), rep("strata", 6))
+                     )
+
+my_dap
+```
+
+To use a DAP, you need to use the function **from_analysisplan_map_to_output** instead of the combination of **map_to_case** and **map_to_result**. It will look for the case itself. **from_analysisplan_map_to_output** a list of list of results. So you need to wriggle a bit around to come to a master dataframe.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+my_results <- hypegrammaR::from_analysisplan_map_to_output(data =main_dataset,
+                                analysisplan = my_dap,
+                                weighting = my_weigthing_function,
+                                questionnaire = my_questionnaire,
+                                confidence_level = .90)
+
+long_table <- my_results$results %>% 
+  lapply(function(x) x[["summary.statistic"]]) %>% 
+  do.call(rbind, .)
+
+long_table %>% head(20)
 ```
 
 ## srvyr package
@@ -126,7 +276,7 @@ df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
 dfsvy<-as_survey(df)
 ```
 
-For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorica), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
+For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
 ```{r,message=F,warning=F, results="hide"}
 # here are some random concatenated select multiple parent questions
 select_multiple_parent_cols<-c("l4_which_difficult_access_health",
@@ -214,9 +364,6 @@ Spatstat
 hypegrammaR / koboquest / butteR
 ### Averages
 ### Median
-
-## Analysis by strata or subset
-### By strata, overall, dissagregatios
 
 ## Weights
 surveyweights
