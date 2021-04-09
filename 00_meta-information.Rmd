@@ -1,11 +1,36 @@
 # Meta information
+There should be here the libraries, dataset, odk and sampling frame and any other thing.
 
-There should be here the dataset, odk and sampling frame and any other thing.
 
-```{r, tidy=FALSE}
-main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
-loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv")
+```{r}
+## Importing dataset and questionnaire 
+library(magrittr)
+library(dplyr)
+library(readxl)
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
 ```
-Note that some variables were NA (age, etc.) In addition, it seems the weights are alredy added, and both loops where combined already.
+
+Note that some variables were NA'ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
+
+## Creating the questionnaire object
+
+```{r, tidy=FALSE, warning=FALSE, results='hide', message=FALSE}
+
+main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
+
+questionnaire <- load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
 
 Probably which packages are used and version
+
+

@@ -1,7 +1,360 @@
 # Analysis
 
-## Frequencies with categorical variables
-hypegrammaR / koboquest / butteR
+## hypegrammaR 
+hypegrammaR follow the case mapping logic to compute analysis. It will also use the kobo questionnaire tool to help some of decision to be made.
+
+This just load the information that will be need to conduct the analysis :
+
+- dataset, 
+- kobotool (questions and choices), 
+- sample frame
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(hypegrammaR)
+library(magrittr)
+library(surveyweights)
+library(srvyr)
+library(readxl)
+
+#load dataset
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+
+#load kobotool
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+#load sampling frame
+my_sampling_frame <- read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
+                             sheet = "for_r")
+```
+
+The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#create a questionnaire object
+my_questionnaire <- hypegrammaR::load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
+
+The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset **HAS** to be the same. 
+What it does, it create a function that will calculate the weights based on your dataset. 
+*(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)*
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#create a weigthing function
+my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
+                                                                      data.stratum.column = "strata",
+                                                                      sampling.frame.population.column = "population", 
+                                                                      sampling.frame.stratum.column = "strata", 
+                                                                      data = main_dataset)
+```
+If you want to add the weights to your dataframe this is how you can do it.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#optional, if you want to add the weights into the dataset.
+main_dataset$stratum.weight <- my_weigthing_function(main_dataset)
+
+```
+
+
+hypegrammaR uses cases to choose what type analysis to do. A "case" for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :
+
+- XXXX: hypothesis type (group_difference, direct_reporting)  
+- YYYY: dependent var type (categorical, numerical)  
+- ZZZZ: independent var type (categorical, numerical, *empty* if no independent variable) . 
+
+All cases implemented can been seen with this code.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+hypegrammaR:::list_all_cases(implemented_only = T)
+```
+
+
+If you want to know what are the different proportion of the displacement status for each strata. The following information I need are:
+hypothesis : group_difference  
+dependent variable : d1_hh_displacement_status -> categorical  
+independent_variable : strata -> categorical 
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#analysis 
+my_case <- hypegrammaR::map_to_case(hypothesis.type = "group_difference",
+                       dependent.var.type = "categorical",
+                       independent.var.type = "categorical")
+
+my_case
+```
+
+The function map_to_result will calculate your summary statistics, it will take a couple of arguments.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+my_results <- hypegrammaR::map_to_result(data = main_dataset, 
+                            dependent.var = "d1_hh_displacement_status", 
+                            independent.var = "strata",
+                            case = my_case, 
+                            weighting = my_weigthing_function,
+                            questionnaire = my_questionnaire,
+                            confidence_level = .90)
+```
+
+The result object is a list with several information:
+
+- parameters: returns the information used of that analysis
+- summary statistics: returns the summary statistics in a tidy format
+- hypothesis test: returns hypothesis testing information (if avalaible)
+- message: returns a message (if the analysis went well or not)
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+my_results$summary.statistic
+```
+
+
+If you need to run several analysis, you can use a data analysis plan (DAP) file which is a file that comprises of the following columns:
+  
+- dependent.variable: name of the dependent variable (kobo name, column name)  
+- dependent.variable.type: type of the dependent variable (categorical or numerical or empty)  
+- independent.variable: name of the independent variable (kobo name, column name)  
+- independent.variable.type: type of the independent variable (categorical or numerical or empty)  
+- repeat.for.variable: name of the variable to repeat the analysis for (e.g per camp or district or governorate)  
+- hypothesis.type: type of hypothesis (group_difference, direct_reporting)
+- you can have other columns to help you write the analysis plan such as RQ and sub RQ
+
+**You cannot have duplicate columns**
+
+Below, I am creating the DAP, but you could read a csv file. It has :
+
+- 2 categorical variables, (select multiple type in kobo), *l4_which_difficult_access_health* and *j10_education_security_concerns_in_the_vicinity_of_facility*
+- 2 categorical variables, (select one type in kobo), *b9_hohh_marital_status* and *d1_hh_displacement_status*,
+- 2 numerical variables (integer type in kobo): *b7_hohh_age* and *b5_age*
+
+It will repeat the analysis 3 times for each dependent variable:
+
+- using the *strata* variable as independent variable (first 6 rows), 
+- using no independent variable, for the complete dataset (national level?), (second 6 rows),
+- using the *b9_hohh_marital_status* as independent variable but repeating each strata (last 6 rows)
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+
+#dap 
+my_dap <- data.frame(dependent.variable = rep(c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
+                 "b5_age", "b9_hohh_marital_status",
+                    "d1_hh_displacement_status"), 3),
+                     dependent.variable.type = rep(c("categorical", "categorical", "numerical", "numerical", "categorical", "categorical"),3),
+                     independent.variable = c(rep("strata", 6), rep(NA, 6), rep("b9_hohh_marital_status", 6)),
+                     independent.variable.type = c(rep("categorical", 6), rep(NA, 6), rep("categorical", 6)), 
+                     hypothesis.type = c(rep("group_difference", 6), rep("direct_reporting", 6), rep("group_difference", 6)), 
+                     repeat.for.variable = c(rep(NA, 12), rep("strata", 6))
+                     )
+
+my_dap
+```
+
+To use a DAP, you need to use the function **from_analysisplan_map_to_output** instead of the combination of **map_to_case** and **map_to_result**. It will look for the case itself. **from_analysisplan_map_to_output** a list of list of results. So you need to wriggle a bit around to come to a master dataframe.
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+my_results <- hypegrammaR::from_analysisplan_map_to_output(data =main_dataset,
+                                analysisplan = my_dap,
+                                weighting = my_weigthing_function,
+                                questionnaire = my_questionnaire,
+                                confidence_level = .90)
+
+long_table <- my_results$results %>% 
+  lapply(function(x) x[["summary.statistic"]]) %>% 
+  do.call(rbind, .)
+
+long_table %>% head(20)
+```
+
+## srvyr package
+
+"The srvyr package aims to add dplyr like syntax to the survey package." It is a very useful package for a variety of aggregations of survey data.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+###makes some additions. 
+library(tidyverse)
+library(butteR)
+library(srvyr)
+library(kableExtra)
+df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+dfsvy<-as_survey(df)
+```
+
+### Categorical variables
+srvyr package allows categorical variables to be broken down using a similar syntax as dplyr.  Using dplyr you might typically calculate a percent mean as follows:
+```{r}
+
+df %>% 
+  group_by(b9_hohh_marital_status) %>% 
+  summarise(
+    n=n()
+  ) %>% 
+  ungroup() %>% 
+  mutate(
+    pct_mean=n/sum(n)
+  )
+
+```
+
+To calculate the percent mean of a categorical variable using srvyr object is required. The syntax is quite similar to dplyr, but a bit less verbose. By specifying the vartype as "ci" we also get the upper and lower confidence intervals
+
+```{r}
+dfsvy %>% 
+  group_by(b9_hohh_marital_status) %>% 
+  summarise(
+    pct_mean = survey_mean(vartype = "ci")
+  )
+
+```
+
+
+### Numeric variables
+srvyr treats the calculation/aggregation of numeric variables differently in an attempt to mirror dplyr syntax 
+
+to calculate the mean and median expenditure in dplyr you would likely do the following
+```{r}
+
+df %>% 
+  summarise(
+    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),
+    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),
+    )
+
+```
+
+If you wanted to subset this by another variable in dplyr you would add the group_by argument
+```{r}
+
+df %>% 
+  group_by(strata) %>% 
+  summarise(
+    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),
+    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),
+    )
+
+```
+
+This is the reason why the syntax also varies between categorical and numeric variables in srvyr. Therefore, to do the same using srvyr you would do the following (with a survey object). Note that due to this difference in syntax the na.rm argument works for numeric variables, but **does not work** for categorical variables. This was modified when srvyr was updated from v 0.3.8
+
+```{r}
+dfsvy %>% 
+  summarise(
+   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = "ci"),
+  )
+
+
+```
+
+similar to dplyr you can easily add a group_by argument to add a subset calculation
+```{r}
+dfsvy %>% 
+  group_by(strata) %>% 
+  summarise(
+   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = "ci"),
+  )
+
+
+```
+
+## butteR survey_collapse
+
+
+
+
+The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged. 
+
+The main advantages of survey_collapse
+
+1. The standardized output produced
+2. Ability to analyze both categorical and numerical columns with a consistent syntax
+3. Batch analyses and ability to perform many different subsetting investigations with ease
+
+Below is an example of its use.
+
+First we must read in some data and make it into a srvyr object
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+###makes some additions. 
+library(tidyverse)
+library(butteR)
+library(srvyr)
+library(kableExtra)
+df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+dfsvy<-as_survey(df)
+```
+
+For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
+```{r,message=F,warning=F, results="hide"}
+# here are some random concatenated select multiple parent questions
+select_multiple_parent_cols<-c("l4_which_difficult_access_health",
+                        "j10_education_security_concerns_in_the_vicinity_of_facility")
+numeric_cols<- c("b7_hohh_age",
+                 "b5_age")
+select_one_cols<- c("b9_hohh_marital_status",
+                    "d1_hh_displacement_status")
+mixed_columns<- c(select_multiple_parent_cols, numeric_cols, select_one_cols)
+```
+
+
+A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.
+
+Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It's a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated
+
+```{r,message=F,warning=F, results="hide"}
+outputs<-list()
+
+outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>% 
+  mutate(analysis_level= "overall")
+
+outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>% 
+  mutate(analysis_level= "strata")
+```
+
+
+Here is an example of what the long format data looks like as a table.
+```{r, echo =F}
+outputs$strata %>% 
+  head(100) %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+This is a great format for manipulating/filtering and then graphing with ggplot
+```{r}
+output_df<- bind_rows(outputs)
+
+output_df %>% 
+  filter(analysis_level=="overall") %>% 
+  mutate(question_val= paste0(variable,".",variable_val)) %>% 
+  ggplot(aes(x= question_val,y= `mean/pct`))+
+  geom_point(stat="identity", position = position_dodge(width = 0.3))+
+  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
+                width=0.2,position = position_dodge(width = 0.3))+
+  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+  coord_flip()+
+  theme_bw()+
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_text(angle=90),
+    legend.title= element_blank()
+  ) 
+
+
+# Easy to plot subset findings as well!
+output_df %>% 
+  filter(analysis_level=="strata") %>% 
+  mutate(question_val= paste0(variable,".",variable_val)) %>% 
+  ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+
+  geom_point(stat="identity", position = position_dodge(width = 0.3))+
+  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
+                width=0.2,position = position_dodge(width = 0.3))+
+  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+  coord_flip()+
+  theme_bw()+
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_text(angle=90),
+    legend.title= element_blank()
+  ) 
+
+
+```
+
 ### select_one 
 ### select_mutiple
 
@@ -11,9 +364,6 @@ Spatstat
 hypegrammaR / koboquest / butteR
 ### Averages
 ### Median
-
-## Analysis by strata or subset
-### By strata, overall, dissagregatios
 
 ## Weights
 surveyweights
