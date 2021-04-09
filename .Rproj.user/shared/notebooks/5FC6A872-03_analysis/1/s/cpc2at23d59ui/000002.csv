@@ -1,0 +1,7 @@
+"0","my_results <- hypegrammaR::map_to_result(data = main_dataset, "
+"0","                            dependent.var = ""d1_hh_displacement_status"", "
+"0","                            independent.var = ""strata"","
+"0","                            case = my_case, "
+"0","                            weighting = my_weigthing_function,"
+"0","                            questionnaire = my_questionnaire,"
+"0","                            confidence_level = .90)"

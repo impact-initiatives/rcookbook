@@ -1,0 +1,32 @@
+{
+    "id": "A6FC1144",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1617979942909.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "expression": "my_dap",
+        "caption": "my_dap",
+        "totalObservations": "17",
+        "displayedObservations": "17",
+        "variables": "6",
+        "cacheKey": "9BEBED52",
+        "object": "my_dap",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=my_dap&cache_key=9BEBED52&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2839359489284665200,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1617979942909,
+    "read_only": false,
+    "read_only_alternatives": []
+}

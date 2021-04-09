@@ -50,6 +50,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -130,10 +132,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello World</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a></li>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a><ul>
+<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a><ul>
-<li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.1</b> Example one</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.2</b> Example two</a></li>
+<li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#custom-packages-with-cleaning-functions"><i class="fa fa-check"></i><b>3.1</b> Custom packages with cleaning functions</a></li>
+<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.2</b> Example one</a></li>
+<li class="chapter" data-level="3.3" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.3</b> Example two</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a><ul>
 <li class="chapter" data-level="4.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>4.1</b> Composite with 1 categorical variable - select one</a></li>
@@ -141,22 +146,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>4.3</b> Composite with 1 categorical variable - select multiple</a></li>
 <li class="chapter" data-level="4.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>4.4</b> Composite with 1 numerical variable</a></li>
 <li class="chapter" data-level="4.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>4.5</b> Composite with 2 numerical variables</a></li>
-<li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.6</b> New indicators from a loop to main dataset</a></li>
+<li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>4.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="4.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.7</b> New indicators from a loop to main dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a><ul>
-<li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#frequencies-with-categorical-variables"><i class="fa fa-check"></i><b>5.1</b> Frequencies with categorical variables</a></li>
-<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.2</b> Analysis with numerical variables</a></li>
-<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#analysis-by-strata-or-subset"><i class="fa fa-check"></i><b>5.3</b> Analysis by strata or subset</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#by-strata-overall-dissagregatios"><i class="fa fa-check"></i><b>5.3.1</b> By strata, overall, dissagregatios</a></li>
+<li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>5.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>5.2.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="5.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>5.2.2</b> Numeric variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.4</b> Weights</a></li>
-<li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.5</b> Repeating the above</a></li>
-<li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.6</b> Top 3</a></li>
-<li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.7</b> Borda count</a></li>
-<li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.8</b> Hypothesis testing</a><ul>
-<li class="chapter" data-level="5.8.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.8.1</b> T-test</a></li>
-<li class="chapter" data-level="5.8.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.8.2</b> ANOVA</a></li>
-<li class="chapter" data-level="5.8.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.8.3</b> chi-squares</a></li>
+<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.3.1</b> select_one</a></li>
+<li class="chapter" data-level="5.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.3.2</b> select_mutiple</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a></li>
+<li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.5</b> Weights</a></li>
+<li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.6</b> Repeating the above</a></li>
+<li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.7</b> Top 3</a></li>
+<li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.8</b> Borda count</a></li>
+<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.9.1</b> T-test</a></li>
+<li class="chapter" data-level="5.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.9.3</b> chi-squares</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a><ul>
@@ -194,10 +205,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="meta-information" class="section level1">
 <h1><span class="header-section-number">2</span> Meta information</h1>
-<p>There should be here the dataset, odk and sampling frame and any other thing.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="meta-information.html#cb1-1"></a><span class="co"># dataset &lt;- read.csv(&quot;xxx&quot;)</span></span></code></pre></div>
+<p>There should be here the libraries, dataset, odk and sampling frame and any other thing.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="meta-information.html#cb1-1"></a><span class="co">## Importing dataset and questionnaire </span></span>
+<span id="cb1-2"><a href="meta-information.html#cb1-2"></a><span class="kw">library</span>(magrittr)</span>
+<span id="cb1-3"><a href="meta-information.html#cb1-3"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="meta-information.html#cb5-1"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb5-2"><a href="meta-information.html#cb5-2"></a><span class="kw">library</span>(hypegrammaR)</span></code></pre></div>
+<pre><code>## Loading required package: survey</code></pre>
+<pre><code>## Loading required package: grid</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Loading required package: survival</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survey&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     dotchart</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: ggthemes</code></pre>
+<pre><code>## Loading required package: tidyr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;tidyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:Matrix&#39;:
+## 
+##     expand, pack, unpack</code></pre>
+<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
+## 
+##     extract</code></pre>
+<pre><code>## Loading required package: crayon</code></pre>
+<pre><code>## 
+## Attaching package: &#39;crayon&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="meta-information.html#cb21-1"></a>main_dataset &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-2"><a href="meta-information.html#cb21-2"></a>loop_dataset &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-3"><a href="meta-information.html#cb21-3"></a></span>
+<span id="cb21-4"><a href="meta-information.html#cb21-4"></a>questions &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="dt">sheet=</span><span class="st">&quot;survey&quot;</span>)</span></code></pre></div>
+<pre><code>## New names:
+## * `` -&gt; ...19
+## * `` -&gt; ...20
+## * `` -&gt; ...21
+## * `` -&gt; ...22
+## * `` -&gt; ...23</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="meta-information.html#cb23-1"></a>choices &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="dt">sheet=</span><span class="st">&quot;choices&quot;</span>)</span></code></pre></div>
+<p>Note that some variables were NA’ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.</p>
+<div id="creating-the-questionnaire-object" class="section level2">
+<h2><span class="header-section-number">2.1</span> Creating the questionnaire object</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="meta-information.html#cb24-1"></a>main_dataset &lt;-<span class="st"> </span>main_dataset <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="op">!</span>(<span class="kw">all</span>(<span class="kw">is.na</span>(.x)) <span class="op">|</span><span class="st"> </span><span class="kw">all</span>(. <span class="op">==</span><span class="st"> &quot;&quot;</span>)))</span>
+<span id="cb24-2"><a href="meta-information.html#cb24-2"></a></span>
+<span id="cb24-3"><a href="meta-information.html#cb24-3"></a>questionnaire &lt;-<span class="st"> </span><span class="kw">load_questionnaire</span>(<span class="dt">data =</span> main_dataset,</span>
+<span id="cb24-4"><a href="meta-information.html#cb24-4"></a>                                    <span class="dt">questions =</span> questions,</span>
+<span id="cb24-5"><a href="meta-information.html#cb24-5"></a>                                    <span class="dt">choices =</span> choices,</span>
+<span id="cb24-6"><a href="meta-information.html#cb24-6"></a>                                    <span class="dt">choices.label.column.to.use =</span> <span class="st">&quot;label::English&quot;</span>)</span></code></pre></div>
 <p>Probably which packages are used and version</p>
 
+</div>
 </div>
             </section>
 
