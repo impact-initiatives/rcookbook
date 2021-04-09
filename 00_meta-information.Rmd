@@ -7,7 +7,6 @@ There should be here the libraries, dataset, odk and sampling frame and any othe
 library(magrittr)
 library(dplyr)
 library(readxl)
-library(hypegrammaR)
 
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
 loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
@@ -17,7 +16,7 @@ choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",she
 
 ```
 
-Note that some variables were NA (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
+Note that some variables were NA'ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
 
 ## Creating the questionnaire object
 
