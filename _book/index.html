@@ -32,7 +32,6 @@
   
 
 <link rel="next" href="meta-information.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,21 +49,24 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -84,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -130,60 +132,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello World</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#importing-dataset-and-questionnaire"><i class="fa fa-check"></i><b>2.1</b> Importing dataset and questionnaire</a></li>
-<li class="chapter" data-level="2.2" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.2</b> Creating the questionnaire object</a></li>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a><ul>
+<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.1</b> Example one</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.2</b> Example two</a></li>
+<li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a><ul>
+<li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#custom-packages-with-cleaning-functions"><i class="fa fa-check"></i><b>3.1</b> Custom packages with cleaning functions</a></li>
+<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.2</b> Example one</a></li>
+<li class="chapter" data-level="3.3" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.3</b> Example two</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a>
-<ul>
+<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a><ul>
 <li class="chapter" data-level="4.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>4.1</b> Composite with 1 categorical variable - select one</a></li>
 <li class="chapter" data-level="4.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>4.2</b> Composite with 2 categorical variables</a></li>
 <li class="chapter" data-level="4.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>4.3</b> Composite with 1 categorical variable - select multiple</a></li>
 <li class="chapter" data-level="4.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>4.4</b> Composite with 1 numerical variable</a></li>
 <li class="chapter" data-level="4.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>4.5</b> Composite with 2 numerical variables</a></li>
-<li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.6</b> New indicators from a loop to main dataset</a></li>
+<li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>4.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="4.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.7</b> New indicators from a loop to main dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#frequencies-with-categorical-variables"><i class="fa fa-check"></i><b>5.1</b> Frequencies with categorical variables</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.1.1</b> select_one</a></li>
-<li class="chapter" data-level="5.1.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.1.2</b> select_mutiple</a></li>
+<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>5.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>5.2.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="5.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>5.2.2</b> Numeric variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.2</b> Analysis with numerical variables</a></li>
-<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#analysis-by-strata-or-subset"><i class="fa fa-check"></i><b>5.3</b> Analysis by strata or subset</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#by-strata-overall-dissagregatios"><i class="fa fa-check"></i><b>5.3.1</b> By strata, overall, dissagregatios</a></li>
+<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.3.1</b> select_one</a></li>
+<li class="chapter" data-level="5.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.3.2</b> select_mutiple</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.4</b> Weights</a></li>
-<li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.5</b> Repeating the above</a></li>
-<li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.6</b> Top 3</a></li>
-<li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.7</b> Borda count</a></li>
-<li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.8</b> Hypothesis testing</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.8.1</b> T-test</a></li>
-<li class="chapter" data-level="5.8.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.8.2</b> ANOVA</a></li>
-<li class="chapter" data-level="5.8.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.8.3</b> chi-squares</a></li>
+<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a></li>
+<li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.5</b> Weights</a></li>
+<li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.6</b> Repeating the above</a></li>
+<li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.7</b> Top 3</a></li>
+<li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.8</b> Borda count</a></li>
+<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.9.1</b> T-test</a></li>
+<li class="chapter" data-level="5.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="5.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.9.3</b> chi-squares</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a>
-<ul>
+<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a><ul>
 <li class="chapter" data-level="6.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>6.1</b> From long to large table</a></li>
 <li class="chapter" data-level="6.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>6.2</b> Merge file</a></li>
-<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a>
-<ul>
+<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>6.3.1</b> spider graphs</a></li>
 <li class="chapter" data-level="6.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>6.3.2</b> prison graphs</a></li>
 <li class="chapter" data-level="6.3.3" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>6.3.3</b> venn diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a>
-<ul>
+<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>6.4.1</b> change from xml to label</a></li>
 <li class="chapter" data-level="6.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>6.4.2</b> change from label to xml</a></li>
 </ul></li>
@@ -212,7 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">R cookbook for analysis with REACH</h1>
 <p class="author"><em>R CoP</em></p>
 </div>
-<div id="hello-world" class="section level1" number="1">
+<div id="hello-world" class="section level1">
 <h1><span class="header-section-number">1</span> Hello World</h1>
 <p>Hi.</p>
 <p>Bye.</p>

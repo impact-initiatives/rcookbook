@@ -7,6 +7,7 @@ There should be here the libraries, dataset, odk and sampling frame and any othe
 library(magrittr)
 library(dplyr)
 library(readxl)
+library(hypegrammaR)
 
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
 loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
