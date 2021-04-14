@@ -1,0 +1,10 @@
+event,node,start,end
+form start,,1596111334134,
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_office_city,1596111334135,1596111335325
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_id,1596111335340,1596111336374
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596111336387,1596111339002
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a6_the_end,1596111339011,1596111340121
+end screen,,1596111340143,1596111341336
+form save,,1596111341788,
+form exit,,1596111341788,
+form finalize,,1596111341788,

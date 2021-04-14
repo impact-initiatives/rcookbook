@@ -1,0 +1,17 @@
+event,node,start,end
+form start,,1596109809340,
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_office_city,1596109809341,1596109815227
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_id,1596109815239,1596109816719
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596109816732,1596109821141
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a6_the_end,1596109821153,1596109823831
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596109823840,1596109827605
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a6_the_end,1596109827618,1596109830653
+end screen,,1596109830670,1596109836746
+form save,,1596109836945,
+form exit,,1596109836945,
+form resume,,1596121161546,
+jump,,1596121161546,1596121163619
+end screen,,1596121163641,1596121164946
+form save,,1596121165228,
+form exit,,1596121165228,
+form finalize,,1596121165228,
