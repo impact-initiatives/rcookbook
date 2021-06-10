@@ -101,6 +101,7 @@ Rows 1 and 2 are duplications.
 duplicated(dummy_test)
 ```
 
+**find_duplicates()** and **duplicated()** functions will return position or value **only of one** duplicated record. But after identification of the duplicate, it will be good to check how many of such duplicated records in the dataset and check if they have any other duplicated columns. Based on your investigation, you will need to delete one or several records. e.g. Enumerator submitted the first survey by mistake and after some time submitted a corrected survey with the same id (in case we allow for the enumerator to select the id of the enterprise or sample). In such a way, find_duplicates() will identify the second survey but we will need to delete the first one.
 
 ##	Data checks	
 ### Check for outliers	
