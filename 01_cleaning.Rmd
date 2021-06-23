@@ -1,9 +1,49 @@
 # Cleaning
 
 ## Custom packages with cleaning functions
-kobold/ butteR/ auditCheckR
+kobold/ butteR/ auditCheckR / Cleaninginspector
 
-## Example one
+## Setup 
+```{r, message=FALSE}
+# load packages
+library(tidyverse) 
+library(cleaninginspectoR)
 
-## Example two
+# load raw dataset
+df <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", stringsAsFactors = F)
+```
+
+## Cleaninginspector 
+
+### Check for duplicates
+```{r}
+duplicated_uuid <- find_duplicates_uuid(df)
+head(duplicated_uuid) # check the output
+# blank data frame will be returned if no duplicates found.
+```
+
+
+### Check outliers 
+```{r}
+outliers <- find_outliers(df)
+head(outliers) # numerical values with outlier values will be flagged
+```
+
+
+### Check survey time taken
+when checking the survey time taken, make sure the survey start and end time are included in your data. and also get the estimated survey time treshold durring the training or piloting stage so you can have a parameter to check if the survey were filled with the expected time range or not. in this case we'll assume the minimum time that the survey can be filled is 20 minutes and the maximum time is 40 minutes. so all surveys that fall out of this range will be flagged for verification.
+
+```{r}
+survey_time <- check_time(df, duration_threshold_lower = 20,
+                          duration_threshold_upper = 40)
+head(survey_time)
+```
+
+### Check other options
+```{r}
+check_others <- find_other_responses(df)
+head(check_others)
+```
+
+
 
