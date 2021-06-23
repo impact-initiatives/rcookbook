@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Cleaning | R cookbook for analysis with REACH</title>
   <meta name="description" content="3 Cleaning | R cookbook for analysis with REACH" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Cleaning | R cookbook for analysis with REACH" />
   <meta property="og:type" content="book" />
@@ -32,6 +32,7 @@
   
 <link rel="prev" href="meta-information.html"/>
 <link rel="next" href="composite-indicators.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,24 +50,23 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -132,15 +132,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello World</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a><ul>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a><ul>
+<li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#custom-packages-with-cleaning-functions"><i class="fa fa-check"></i><b>3.1</b> Custom packages with cleaning functions</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.2</b> Example one</a></li>
-<li class="chapter" data-level="3.3" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.3</b> Example two</a></li>
+<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#setup"><i class="fa fa-check"></i><b>3.2</b> Setup</a></li>
+<li class="chapter" data-level="3.3" data-path="cleaning.html"><a href="cleaning.html#cleaninginspector"><i class="fa fa-check"></i><b>3.3</b> Cleaninginspector</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="cleaning.html"><a href="cleaning.html#check-for-duplicates"><i class="fa fa-check"></i><b>3.3.1</b> Check for duplicates</a></li>
+<li class="chapter" data-level="3.3.2" data-path="cleaning.html"><a href="cleaning.html#check-outliers"><i class="fa fa-check"></i><b>3.3.2</b> Check outliers</a></li>
+<li class="chapter" data-level="3.3.3" data-path="cleaning.html"><a href="cleaning.html#check-survey-time-taken"><i class="fa fa-check"></i><b>3.3.3</b> Check survey time taken</a></li>
+<li class="chapter" data-level="3.3.4" data-path="cleaning.html"><a href="cleaning.html#check-other-options"><i class="fa fa-check"></i><b>3.3.4</b> Check other options</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a><ul>
+</ul></li>
+<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>4.1</b> Composite with 1 categorical variable - select one</a></li>
 <li class="chapter" data-level="4.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>4.2</b> Composite with 2 categorical variables</a></li>
 <li class="chapter" data-level="4.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>4.3</b> Composite with 1 categorical variable - select multiple</a></li>
@@ -149,36 +158,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>4.6</b> Composite with 2 or more numerical variables</a></li>
 <li class="chapter" data-level="4.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.7</b> New indicators from a loop to main dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a><ul>
+<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>5.1</b> hypegrammaR</a></li>
-<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a><ul>
+<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>5.2.1</b> Categorical variables</a></li>
 <li class="chapter" data-level="5.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>5.2.2</b> Numeric variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a><ul>
+<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.3.1</b> select_one</a></li>
 <li class="chapter" data-level="5.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.3.2</b> select_mutiple</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a></li>
+<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>5.4.1</b> Averages</a></li>
+<li class="chapter" data-level="5.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>5.4.2</b> Median</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.5</b> Weights</a></li>
 <li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.6</b> Repeating the above</a></li>
 <li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.7</b> Top 3</a></li>
 <li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.8</b> Borda count</a></li>
-<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a>
+<ul>
 <li class="chapter" data-level="5.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.9.1</b> T-test</a></li>
 <li class="chapter" data-level="5.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.9.2</b> ANOVA</a></li>
 <li class="chapter" data-level="5.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.9.3</b> chi-squares</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a><ul>
+<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>6.1</b> From long to large table</a></li>
 <li class="chapter" data-level="6.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>6.2</b> Merge file</a></li>
-<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a><ul>
+<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>6.3.1</b> spider graphs</a></li>
 <li class="chapter" data-level="6.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>6.3.2</b> prison graphs</a></li>
 <li class="chapter" data-level="6.3.3" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>6.3.3</b> venn diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a><ul>
+<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>6.4.1</b> change from xml to label</a></li>
 <li class="chapter" data-level="6.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>6.4.2</b> change from label to xml</a></li>
 </ul></li>
@@ -203,18 +223,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="cleaning" class="section level1">
+<div id="cleaning" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Cleaning</h1>
-<div id="custom-packages-with-cleaning-functions" class="section level2">
+<div id="custom-packages-with-cleaning-functions" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Custom packages with cleaning functions</h2>
-<p>kobold/ butteR/ auditCheckR</p>
+<p>kobold/ butteR/ auditCheckR / Cleaninginspector</p>
 </div>
-<div id="example-one" class="section level2">
-<h2><span class="header-section-number">3.2</span> Example one</h2>
+<div id="setup" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Setup</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="cleaning.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-2"><a href="cleaning.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb1-3"><a href="cleaning.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cleaninginspectoR)</span>
+<span id="cb1-4"><a href="cleaning.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="cleaning.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># load raw dataset</span></span>
+<span id="cb1-6"><a href="cleaning.html#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span></code></pre></div>
 </div>
-<div id="example-two" class="section level2">
-<h2><span class="header-section-number">3.3</span> Example two</h2>
+<div id="cleaninginspector" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Cleaninginspector</h2>
+<div id="check-for-duplicates" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Check for duplicates</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="cleaning.html#cb2-1" aria-hidden="true" tabindex="-1"></a>duplicated_uuid <span class="ot">&lt;-</span> <span class="fu">find_duplicates_uuid</span>(df)</span>
+<span id="cb2-2"><a href="cleaning.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(duplicated_uuid) <span class="co"># check the output</span></span></code></pre></div>
+<pre><code>## [1] index      value      variable   has_issue  issue_type
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="cleaning.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># blank data frame will be returned if no duplicates found.</span></span></code></pre></div>
+</div>
+<div id="check-outliers" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Check outliers</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cleaning.html#cb5-1" aria-hidden="true" tabindex="-1"></a>outliers <span class="ot">&lt;-</span> <span class="fu">find_outliers</span>(df)</span>
+<span id="cb5-2"><a href="cleaning.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(outliers) <span class="co"># numerical values with outlier values will be flagged</span></span></code></pre></div>
+<pre><code>##   index value        variable has_issue                      issue_type
+## 1    26 30000 b15_hohh_income      TRUE log normal distribution outlier
+## 2   117   210 b15_hohh_income      TRUE log normal distribution outlier
+## 3   225   400 b15_hohh_income      TRUE log normal distribution outlier
+## 4   384   300 b15_hohh_income      TRUE log normal distribution outlier
+## 5   517   300 b15_hohh_income      TRUE log normal distribution outlier
+## 6   710 24000 b15_hohh_income      TRUE log normal distribution outlier</code></pre>
+</div>
+<div id="check-survey-time-taken" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Check survey time taken</h3>
+<p>when checking the survey time taken, make sure the survey start and end time are included in your data. and also get the estimated survey time treshold durring the training or piloting stage so you can have a parameter to check if the survey were filled with the expected time range or not. in this case we’ll assume the minimum time that the survey can be filled is 20 minutes and the maximum time is 40 minutes. so all surveys that fall out of this range will be flagged for verification.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cleaning.html#cb7-1" aria-hidden="true" tabindex="-1"></a>survey_time <span class="ot">&lt;-</span> <span class="fu">check_time</span>(df, <span class="at">duration_threshold_lower =</span> <span class="dv">20</span>,</span>
+<span id="cb7-2"><a href="cleaning.html#cb7-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">duration_threshold_upper =</span> <span class="dv">40</span>)</span>
+<span id="cb7-3"><a href="cleaning.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(survey_time)</span></code></pre></div>
+<pre><code>##                                  index value                  variable
+## 1 1a8f5939-fc1e-43f8-ac75-86fb6de3ae4c 14.50 Completion Duration (min)
+## 2 ed87c6df-d78d-47bc-92dc-27d478073a53 18.24 Completion Duration (min)
+## 3 54068bec-c615-446b-943f-e4354096057f 16.07 Completion Duration (min)
+## 4 f086a293-d2b6-4447-97db-e0ad2fb7f4af 15.93 Completion Duration (min)
+## 5 a2b0f489-36d8-4ff2-b5af-7d07feba2ef6 15.88 Completion Duration (min)
+## 6 ea864b82-4879-4eba-bc8a-efb0cf19b4ce 19.69 Completion Duration (min)
+##   has_issue              issue_type
+## 1      TRUE form duration too short
+## 2      TRUE form duration too short
+## 3      TRUE form duration too short
+## 4      TRUE form duration too short
+## 5      TRUE form duration too short
+## 6      TRUE form duration too short</code></pre>
+</div>
+<div id="check-other-options" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Check other options</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning.html#cb9-1" aria-hidden="true" tabindex="-1"></a>check_others <span class="ot">&lt;-</span> <span class="fu">find_other_responses</span>(df)</span>
+<span id="cb9-2"><a href="cleaning.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(check_others)</span></code></pre></div>
+<pre><code>##   index                                                               value
+## 1    NA                              &quot;Child of war&quot; status /// instances: 1
+## 2    NA &quot;Child of war&quot; status, &quot;Veteran of labour&quot; status  /// instances: 1
+## 3    NA                       A carer for a disabled child /// instances: 1
+## 4    NA                      A carer for a disabled person /// instances: 1
+## 5    NA                               Chernobyl liquidator /// instances: 3
+## 6    NA                                      Child custody /// instances: 1
+##                         variable has_issue                           issue_type
+## 1 b10_1_hohh_vulnerability_other      TRUE &#39;other&#39; response. may need recoding.
+## 2 b10_1_hohh_vulnerability_other      TRUE &#39;other&#39; response. may need recoding.
+## 3 b10_1_hohh_vulnerability_other      TRUE &#39;other&#39; response. may need recoding.
+## 4 b10_1_hohh_vulnerability_other      TRUE &#39;other&#39; response. may need recoding.
+## 5 b10_1_hohh_vulnerability_other      TRUE &#39;other&#39; response. may need recoding.
+## 6 b10_1_hohh_vulnerability_other      TRUE &#39;other&#39; response. may need recoding.</code></pre>
 
+</div>
 </div>
 </div>
             </section>
