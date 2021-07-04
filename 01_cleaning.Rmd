@@ -39,10 +39,99 @@ survey_time <- check_time(df, duration_threshold_lower = 20,
 head(survey_time)
 ```
 
-### Check other options
+### Check cleaning log, raw dataset and cleaned dataset
 ```{r}
-check_others <- find_other_responses(df)
-head(check_others)
+
+
+"%notin%" <- Negate("%in%")
+
+# finding the variation between two datasets, by each value
+diff_datasets <- function(df1, df2, uid, vars = vector()){
+  
+  # General Variables to be in output
+  uuid <- vector()
+  question.name <- vector()
+  old.value <- vector()
+  new.value <- vector()
+  
+  # Extra vars
+  ext_vars <- vars
+  
+  # Checks columns
+  check_cols <- identical(names(df1), names(df2))
+  ext_existed <- ext_vars %in% colnames(df1)
+  
+  
+  if(check_cols){
+    if(nrow(df1) == nrow(df2) && ncol(df1) == ncol(df2)){
+      # Walks through cols
+      for(cl in colnames(df1)){
+        
+        # Vectoris each col and take care of NAs
+        tt <- (raw[cl] == df2[cl]) | (is.na(df1[cl]) & is.na(df2[cl]))
+        tt[is.na(tt)] <- FALSE
+        tt <- which(!(tt))
+        
+        # Go through each variance and pick it up
+        if(length(tt) > 0){
+          for(i in tt){
+            uuid <- c(uuid, df1[[i, uid]])
+            question.name <- c(question.name, names(df1[cl]))
+            old.value <- c(old.value, df1[[i, cl]])
+            new.value <- c(new.value, df2[[i, cl]])
+          }
+        }
+      }
+      
+      cleaning_log_diff2 <- data.frame(uuid, question.name, old.value, new.value)
+      
+      if(length(ext_vars) > 0 && length(which(!(ext_existed))) == 0){
+        extra_data <- df1[df1[[uid]] %in% unique(cleaning_log_diff2[["uuid"]]), c(uid,ext_vars)]
+        output <- merge(x = cleaning_log_diff2, y = extra_data, by.x = "uuid", by.y = uid)
+      }else{
+        cat("\nExtra columns are not existed in dataset!\n")
+        output <- cleaning_log_diff2
+      }
+      
+    }else{
+      cat("\nColumn/row numbers does not match!\n")
+    }
+    
+    return(output)
+  }
+}
+
+
+log_duplication <- function(log, uid = "uuid"){
+  if(nrow(log) > 0){
+    log["concat"] <- paste0(log[[uid]], log[["question.name"]])
+    log["concat_all"] <- paste0(log[[uid]], log[["question.name"]], log[["old.value"]], log[["new.value"]])
+    log["duplicated_all"] <- duplicated(log["concat_all"])
+    log <- log[log$duplicated_all == FALSE,]
+    log["duplicated"] <- duplicated(log["concat"], fromLast = T) | duplicated(log["concat"], fromLast = F) 
+    output <- log %>% 
+      select(-c("concat", "concat_all", "duplicated_all")) %>% 
+      arrange(duplicated)
+  }else{
+    output <- "Log file has not any records"
+  }
+  return(output)
+}
+
+
+
+diff_cleaning_log <- function(output_log, log){
+  if(nrow(output_log) > 0){
+    log["concat"] <- paste0(log[["uuid"]],log[["question.name"]])
+    output_log["concat"] <- paste0(output_log[["uuid"]],output_log[["question.name"]])
+    cl_diff <- log[log[["concat"]] %notin% output_log[["concat"]],] %>% select(-concat) 
+    return(cl_diff)
+  }
+}
+
+
+
+
 ```
 
 
