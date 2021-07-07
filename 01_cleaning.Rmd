@@ -12,8 +12,9 @@ choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",she
 ```
 
 ```{r, tidy=FALSE, eval = F}
-devtools::install_github("https://github.com/impact-initiatives/xlsformfill/")
-devtools::install_github("https://github.com/impact-initiatives/cleaninginspectoR/")
+#** un-comment those if you need them to be installed
+# devtools::install_github("https://github.com/impact-initiatives/xlsformfill/")
+# devtools::install_github("https://github.com/impact-initiatives/cleaninginspectoR/")
 ```
 
 *
@@ -179,7 +180,7 @@ oth_log  %>%
   scroll_box(width = "100%", box_css = "border: 0px;")
 ```
 
-
+*Please note that it takes the values as they are. You may want to trim and remove caps or any other regex work if you want better summary *
 
 This other example looks at the frequency of a given *other* option, it could be used to see if some should be recoded as options directly.
 
