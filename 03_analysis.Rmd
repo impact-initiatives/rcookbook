@@ -14,6 +14,7 @@ library(magrittr)
 library(surveyweights)
 library(srvyr)
 library(readxl)
+library(spatstat)
 
 #load dataset
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
@@ -363,11 +364,63 @@ output_df %>%
 ### select_mutiple
 
 ## Analysis with numerical variables
-Summarytools (CRAN package)
-Spatstat
-hypegrammaR / koboquest / butteR
 ### Averages
+###Summarytools (CRAN package)
+
+###hypegrammaR / koboquest / butteR
+
 ### Median
+####Spatstat
+[Spatstat](https://cran.r-project.org/web/packages/spatstat/index.html) - library with set of different functions for analyzing Spatial Point Patterns but also quite useful for analysis of weighted data.
+
+At first let's select all numerical variables from the dataset using Kobo questionnaire and dataset. It can be done with the following custom function:
+```{r}
+select_numerical <- function(dataset, kobo){
+  kobo_questions <- kobo[grepl("integer|decimal|calculate", kobo$type),c("type","name")]
+  names.use <- names(dataset)[(names(dataset) %in% as.character(kobo_questions$name))]
+  numerical <- dataset[,c(names.use,"X_uuid",'strata','stratum.weight')] #Here we can select any other relevant variables
+  numerical[names.use] <- lapply(numerical[names.use], gsub, pattern = 'NA', replacement = NA)
+  numerical[names.use] <- lapply(numerical[names.use], as.numeric)
+  return(numerical)
+}
+
+numerical_questions <- select_numerical(main_dataset, questions)
+
+numerical_classes <- sapply(numerical_questions[,1:c(ncol(numerical_questions)-3)], class) #Here we can check class of each selected variable
+numerical_classes <- numerical_classes["character" %in% numerical_classes] #and here we check if any variable has class "character"
+numerical_questions <- numerical_questions[ , !names(numerical_questions) %in% numerical_classes] #if any variable has a character class then we remove it
+rm(numerical_classes)#and here we removing vector with classes from our environment
+
+```
+
+Now let's calculate weighted median for "n1_HH_total_expenditure".
+```{r}
+weighted.median(numerical_questions$n1_HH_total_expenditure, numerical_questions$stratum.weight, na.rm=TRUE)
+```
+
+But if we want to calculate weighted medians for each variable we will need to iterate this function on those variables. But first we will need to exclude variables with less than 3 observations.
+```{r}
+counts <- numerical_questions %>%
+select(-X_uuid, -strata) %>%
+summarise(across(.cols = everything(), .fns= ~sum(!is.na(.)) ))%>%
+t()#Calculating count of observation for each variable
+
+numerical_questions <- numerical_questions[ , (names(numerical_questions) %in% rownames(subset(counts, counts[,1] > 3)))]
+#removing variables with less than 3 observations
+
+
+medians <- lapply(numerical_questions[1:46], weighted.median, w = numerical_questions$stratum.weight, na.rm=TRUE)%>%
+  as.data.frame()
+```
+
+Now we can transpond resulting vector and add description to the calculation
+```{r}
+medians <- as.data.frame(t(medians),stringsAsFactors = FALSE)
+names(medians)[1] <- "Median_wght"
+head(medians)
+```
+
+
 
 ## Weights
 surveyweights

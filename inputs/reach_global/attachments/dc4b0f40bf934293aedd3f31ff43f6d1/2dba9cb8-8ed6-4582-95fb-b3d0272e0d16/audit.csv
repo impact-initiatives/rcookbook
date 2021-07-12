@@ -1,0 +1,18 @@
+event,node,start,end
+form start,,1596106083818,
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_office_city,1596106083819,1596106087569
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_id,1596106087608,1596106088507
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596106088516,1596106089959
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_id,1596106089966,1596106090791
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596106090800,1596106092997
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a6_the_end,1596106093007,1596106095024
+end screen,,1596106095038,1596106095945
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a6_the_end,1596106095945,1596106096434
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596106096440,1596106099093
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/enum_id,1596106099099,1596106099983
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a1_informed_consent,1596106099992,1596106103035
+question,/a9gAn3VFyg5pQXK4GGviSN/metadata/a6_the_end,1596106103040,1596106104674
+end screen,,1596106104687,1596106106154
+form save,,1596106106405,
+form exit,,1596106106405,
+form finalize,,1596106106405,
