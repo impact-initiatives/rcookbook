@@ -394,8 +394,12 @@ weighted.median(numerical_questions$n1_HH_total_expenditure, numerical_questions
 
 But if we want to calculate weighted medians for each variable we will need to iterate this function on those variables. But first we will need to exclude variables with less than 3 observations.
 ```{r}
-counts <- lapply(numerical_questions[,1:52], sum, na.rm = TRUE) #Calculating count of observation for each variable
-numerical_questions <- numerical_questions[ , !(names(numerical_questions) %in% names(subset(counts, counts < 3)))]
+counts <- numerical_questions %>%
+select(-X_uuid, -strata) %>%
+summarise(across(.cols = everything(), .fns= ~sum(!is.na(.)) ))%>%
+t()#Calculating count of observation for each variable
+
+numerical_questions <- numerical_questions[ , (names(numerical_questions) %in% rownames(subset(counts, counts[,1] > 3)))]
 #removing variables with less than 3 observations
 
 
