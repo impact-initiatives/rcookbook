@@ -385,6 +385,12 @@ select_numerical <- function(dataset, kobo){
 }
 
 numerical_questions <- select_numerical(main_dataset, questions)
+
+numerical_classes <- sapply(numerical_questions[,1:c(ncol(numerical_questions)-3)], class) #Here we can check class of each selected variable
+numerical_classes <- numerical_classes["character" %in% numerical_classes] #and here we check if any variable has class "character"
+numerical_questions <- numerical_questions[ , !names(numerical_questions) %in% numerical_classes] #if any variable has a character class then we remove it
+rm(numerical_classes)#and here we removing vector with classes from our environment
+
 ```
 
 Now let's calculate weighted median for "n1_HH_total_expenditure".
