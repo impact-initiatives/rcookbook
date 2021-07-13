@@ -1,9 +1,261 @@
-# Cleaning
+# Data Collection and Processing
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(magrittr)
+library(dplyr)
+library(kableExtra)
+library(readxl)
 
-## Custom packages with cleaning functions
-kobold/ butteR/ auditCheckR
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
 
-## Example one
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+```
 
-## Example two
+```{r, tidy=FALSE, eval = F}
+#** un-comment those if you need them to be installed
+# devtools::install_github("https://github.com/impact-initiatives/xlsformfill/")
+# devtools::install_github("https://github.com/impact-initiatives/cleaninginspectoR/")
+```
+
+*
+Notes on **cleaninginspectoR**:
+- The function will return a dataframe with indexes not the uuid.
+- cleanninginspectoR uses function from the **magrittr** and **dplyr** packages. Don't forget to load them before using it.
+*
+
+## Testing the tool
+
+### Creating dummy data
+
+**xlsformfill** has a function **xlsform_fill** that will create dataset based on your KOBO questionnaire. It takes 3 arguments: your questions, your choices and how many rows you want.
+
+*Notes:
+- All questions will be filled. 
+- Skip logic are not implemented.
+- Constraints are not implemented.
+- Integers and text will be generated randomly
+*
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+dummy_dataset <- xlsformfill::xlsform_fill(questions = questions, choices = choices, n = 300)
+```
+```{r, tidy=FALSE, eval = F}
+dummy_dataset %>% head(10)
+```
+```{r, echo =F, message= F, warning=F,}
+dummy_dataset  %>% 
+  head(10) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+## Download data
+
+### download from API 
+
+koboapi
+koboloadeR 
+kobohr_apitoolbox
+
+## Data collection follow-up
+
+### checking surveys against sampling frame
+
+## Data falsification
+
+### Check for time (in the dataset)
+lubridate
+Custom script
+
+### Check for time (audit files)	
+Custom script (using ???)
+
+### Silouhette analysis	
+Custom script (using ???)
+
+### Check for duplicates	
+#### cleaninginspectoR - find_duplicates
+
+**find_duplicates** will take the dataset and a column name to look for duplicates as arguments.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+cleaninginspectoR::find_duplicates(main_dataset, duplicate.column.name = "X_uuid")
+
+dummy_dataset[301, ] <- dummy_dataset[300, ]
+cleaninginspectoR::find_duplicates(dummy_dataset, duplicate.column.name = "uuid")
+```
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+cleaninginspectoR::find_duplicates(dummy_dataset, duplicate.column.name = "start")
+```
+
+#### base - duplicated
+
+If you are looking in duplicates value in several columns (first and second name, names and ID number,etc.), you can use the **duplicated**. 
+
+```{r, tidy=T}
+dummy_test <- data.frame(col_a = c("a", "a", "c"), 
+                         col_b = c("b", "b", "f"))
+dummy_test
+```
+Rows 1 and 2 are duplications. 
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+duplicated(dummy_test)
+```
+
+**find_duplicates()** and **duplicated()** functions will return position or value **only of one** duplicated record. But after identification of the duplicate, it will be good to check how many of such duplicated records in the dataset and check if they have any other duplicated columns. Based on your investigation, you will need to delete one or several records. e.g. Enumerator submitted the first survey by mistake and after some time submitted a corrected survey with the same id (in case we allow for the enumerator to select the id of the enterprise or sample). In such a way, find_duplicates() will identify the second survey but we will need to delete the first one.
+
+##	Data checks	
+### Check for outliers	
+There are 2 commons ways to detect outliers :
+
+- Using the range of 3 standards deviations from the mean. 
+- Using the range of 1.5 inter quartile from the 1st and 3rd quartile. 
+
+Outliers can exist but it is important to check them.
+
+#### cleaninginspectoR - find_outliers
+The function find_outliers will use the rule of the 3 standards deviations from the mean for normal values and log values. 
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+cleaning_log <- cleaninginspectoR::find_outliers(main_dataset)
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+###	Check others
+#### cleaninginspectoR - find_other_responses
+
+**find_other_responses** will look for all columns with "other", "Other", "autre", "Autre",  and return their values.
+
+*Notes:
+- If your *other* questions do not have those 4 strings in their names, the function will not pick it.
+*
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+cleaning_log <- cleaninginspectoR::find_other_responses(main_dataset)
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log %>% head(10)
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log  %>% 
+  head(10) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+#### base + dplyr
+
+This example will take all the text type from the questionnaire, filter for the ones that are in the dataset and return all the values. 
+```{r, tidy=FALSE, echo=T}
+oth <- questions$name[questions$type == "text"]
+oth <- oth[oth %in% names(main_dataset)]
+oth_log <- oth %>% 
+  lapply(function(x) {
+    main_dataset %>% 
+      select("X_uuid", !!sym(x)) %>% 
+      filter(!is.na(!!sym(x))) %>%
+      as.data.frame() %>% 
+      mutate(col_names = x) %>%
+      rename(other_text = !!sym(x)) %>%
+      arrange(other_text)}) %>% 
+  do.call(rbind,.)
+```
+```{r, tidy=FALSE, eval = F}
+oth_log %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+oth_log  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+*Please note that it takes the values as they are. You may want to trim and remove caps or any other regex work if you want better summary *
+
+This other example looks at the frequency of a given *other* option, it could be used to see if some should be recoded as options directly.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+oth_prop <- oth %>% 
+  lapply(function(x) {
+    main_dataset %>% 
+      select(!!sym(x)) %>% 
+      table() %>% 
+      as.data.frame() %>% 
+      # rename(other_text = `.`) %>%
+      arrange(`.`) %>% 
+      mutate(col_names = x, 
+             prop = Freq/nrow(main_dataset))
+  }) %>%
+  do.call(rbind,.)
+```
+```{r, tidy=FALSE, eval = F}
+oth_prop %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+oth_prop  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+###	Check for logical check	
+hum hum hum ?? 
+Custom script (using dplyr?)
+		
+- Any value that is arbitrary set (from an informed source e.g. an informal setttlement cannot be lower than 15 households). This type of outliers could also be considered as logical checks.
+
+## cleaninginspectoR - inspect_all
+
+cleanninginspectoR has a function inspect *inspect_all* that will look for outliers, others responses that may need recoding, duplicated uuid and possible sensitive columns. It takes as arguments the dataset and the uuid column name. 
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+cleaning_log <- cleaninginspectoR::inspect_all(main_dataset, "X_uuid")
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+## Data cleaning		
+### Clean data base on cleaning log	
+clog
+butteR
+
+### Check cleaning log, raw dataset and clean dataset	
+dplyr
+waldo 
+arsenal
+
+## Data cleaning - miscellaneous		
+###	Check for data sanity	check if the data follow ODK format (select_one, select_multiple, xxx, choices)
+To be created
+
+###	Turns label to xml	
+Custom script (using ???)
+
+###	Statistical Disclosure Control Methods	
+sdcMicro
+
+
+
+
+
+
 
