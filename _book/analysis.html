@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Analysis | R cookbook for analysis with REACH</title>
   <meta name="description" content="5 Analysis | R cookbook for analysis with REACH" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Analysis | R cookbook for analysis with REACH" />
   <meta property="og:type" content="book" />
@@ -32,6 +32,7 @@
   
 <link rel="prev" href="composite-indicators.html"/>
 <link rel="next" href="outputs.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,24 +50,23 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -119,6 +119,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -132,15 +133,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello World</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a><ul>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a><ul>
-<li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#custom-packages-with-cleaning-functions"><i class="fa fa-check"></i><b>3.1</b> Custom packages with cleaning functions</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.2</b> Example one</a></li>
-<li class="chapter" data-level="3.3" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.3</b> Example two</a></li>
+<li class="chapter" data-level="3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>3</b> Data Collection and Processing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>3.1</b> Testing the tool</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>3.1.1</b> Creating dummy data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a><ul>
+<li class="chapter" data-level="3.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>3.2</b> Download data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-from-api"><i class="fa fa-check"></i><b>3.2.1</b> download from API</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>3.3</b> Data collection follow-up</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-sampling-frame"><i class="fa fa-check"></i><b>3.3.1</b> checking surveys against sampling frame</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>3.4</b> Data falsification</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>3.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>3.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>3.4.3</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="3.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>3.4.4</b> Check for duplicates</a></li>
+<li class="chapter" data-level="3.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>3.4.5</b> Check for outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>3.5</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="3.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>3.6</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>3.6.1</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="3.6.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>3.6.2</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>3.7</b> Data cleaning - miscellaneous</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>4.1</b> Composite with 1 categorical variable - select one</a></li>
 <li class="chapter" data-level="4.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>4.2</b> Composite with 2 categorical variables</a></li>
 <li class="chapter" data-level="4.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>4.3</b> Composite with 1 categorical variable - select multiple</a></li>
@@ -149,36 +177,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>4.6</b> Composite with 2 or more numerical variables</a></li>
 <li class="chapter" data-level="4.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.7</b> New indicators from a loop to main dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a><ul>
+<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>5.1</b> hypegrammaR</a></li>
-<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a><ul>
+<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>5.2.1</b> Categorical variables</a></li>
 <li class="chapter" data-level="5.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>5.2.2</b> Numeric variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a><ul>
+<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.3.1</b> select_one</a></li>
 <li class="chapter" data-level="5.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.3.2</b> select_mutiple</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a></li>
+<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>5.4.1</b> Averages</a></li>
+<li class="chapter" data-level="5.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>5.4.2</b> Median</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.5</b> Weights</a></li>
 <li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.6</b> Repeating the above</a></li>
 <li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.7</b> Top 3</a></li>
 <li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.8</b> Borda count</a></li>
-<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a>
+<ul>
 <li class="chapter" data-level="5.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.9.1</b> T-test</a></li>
 <li class="chapter" data-level="5.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.9.2</b> ANOVA</a></li>
 <li class="chapter" data-level="5.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.9.3</b> chi-squares</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a><ul>
+<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>6.1</b> From long to large table</a></li>
 <li class="chapter" data-level="6.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>6.2</b> Merge file</a></li>
-<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a><ul>
+<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>6.3.1</b> spider graphs</a></li>
 <li class="chapter" data-level="6.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>6.3.2</b> prison graphs</a></li>
 <li class="chapter" data-level="6.3.3" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>6.3.3</b> venn diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a><ul>
+<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>6.4.1</b> change from xml to label</a></li>
 <li class="chapter" data-level="6.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>6.4.2</b> change from label to xml</a></li>
 </ul></li>
@@ -203,9 +242,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="analysis" class="section level1">
+<div id="analysis" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Analysis</h1>
-<div id="hypegrammar" class="section level2">
+<div id="hypegrammar" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> hypegrammaR</h2>
 <p>hypegrammaR follow the case mapping logic to compute analysis. It will also use the kobo questionnaire tool to help some of decision to be made.</p>
 <p>This just load the information that will be need to conduct the analysis :</p>
@@ -214,40 +253,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>kobotool (questions and choices),</li>
 <li>sample frame</li>
 </ul>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="analysis.html#cb55-1"></a><span class="kw">library</span>(hypegrammaR)</span>
-<span id="cb55-2"><a href="analysis.html#cb55-2"></a><span class="kw">library</span>(magrittr)</span>
-<span id="cb55-3"><a href="analysis.html#cb55-3"></a><span class="kw">library</span>(surveyweights)</span>
-<span id="cb55-4"><a href="analysis.html#cb55-4"></a><span class="kw">library</span>(srvyr)</span>
-<span id="cb55-5"><a href="analysis.html#cb55-5"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb55-6"><a href="analysis.html#cb55-6"></a></span>
-<span id="cb55-7"><a href="analysis.html#cb55-7"></a><span class="co">#load dataset</span></span>
-<span id="cb55-8"><a href="analysis.html#cb55-8"></a>main_dataset &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb55-9"><a href="analysis.html#cb55-9"></a></span>
-<span id="cb55-10"><a href="analysis.html#cb55-10"></a><span class="co">#load kobotool</span></span>
-<span id="cb55-11"><a href="analysis.html#cb55-11"></a>questions &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="dt">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
-<span id="cb55-12"><a href="analysis.html#cb55-12"></a>choices &lt;-<span class="st"> </span><span class="kw">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="dt">sheet=</span><span class="st">&quot;choices&quot;</span>)</span>
-<span id="cb55-13"><a href="analysis.html#cb55-13"></a></span>
-<span id="cb55-14"><a href="analysis.html#cb55-14"></a><span class="co">#load sampling frame</span></span>
-<span id="cb55-15"><a href="analysis.html#cb55-15"></a>my_sampling_frame &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx&quot;</span>, </span>
-<span id="cb55-16"><a href="analysis.html#cb55-16"></a>                             <span class="dt">sheet =</span> <span class="st">&quot;for_r&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="analysis.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hypegrammaR)</span>
+<span id="cb1-2"><a href="analysis.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-3"><a href="analysis.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(surveyweights)</span>
+<span id="cb1-4"><a href="analysis.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb1-5"><a href="analysis.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-6"><a href="analysis.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb1-7"><a href="analysis.html#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="analysis.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#load dataset</span></span>
+<span id="cb1-9"><a href="analysis.html#cb1-9" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb1-10"><a href="analysis.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="analysis.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#load kobotool</span></span>
+<span id="cb1-12"><a href="analysis.html#cb1-12" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
+<span id="cb1-13"><a href="analysis.html#cb1-13" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;choices&quot;</span>)</span>
+<span id="cb1-14"><a href="analysis.html#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="analysis.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#load sampling frame</span></span>
+<span id="cb1-16"><a href="analysis.html#cb1-16" aria-hidden="true" tabindex="-1"></a>my_sampling_frame <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx&quot;</span>, </span>
+<span id="cb1-17"><a href="analysis.html#cb1-17" aria-hidden="true" tabindex="-1"></a>                             <span class="at">sheet =</span> <span class="st">&quot;for_r&quot;</span>)</span></code></pre></div>
 <p>The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="analysis.html#cb56-1"></a><span class="co">#create a questionnaire object</span></span>
-<span id="cb56-2"><a href="analysis.html#cb56-2"></a>my_questionnaire &lt;-<span class="st"> </span>hypegrammaR<span class="op">::</span><span class="kw">load_questionnaire</span>(<span class="dt">data =</span> main_dataset,</span>
-<span id="cb56-3"><a href="analysis.html#cb56-3"></a>                                    <span class="dt">questions =</span> questions,</span>
-<span id="cb56-4"><a href="analysis.html#cb56-4"></a>                                    <span class="dt">choices =</span> choices,</span>
-<span id="cb56-5"><a href="analysis.html#cb56-5"></a>                                    <span class="dt">choices.label.column.to.use =</span> <span class="st">&quot;label::English&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="analysis.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a questionnaire object</span></span>
+<span id="cb2-2"><a href="analysis.html#cb2-2" aria-hidden="true" tabindex="-1"></a>my_questionnaire <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">load_questionnaire</span>(<span class="at">data =</span> main_dataset,</span>
+<span id="cb2-3"><a href="analysis.html#cb2-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">questions =</span> questions,</span>
+<span id="cb2-4"><a href="analysis.html#cb2-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">choices =</span> choices,</span>
+<span id="cb2-5"><a href="analysis.html#cb2-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">choices.label.column.to.use =</span> <span class="st">&quot;label::English&quot;</span>)</span></code></pre></div>
 <p>The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset <strong>HAS</strong> to be the same.
 What it does, it create a function that will calculate the weights based on your dataset.
 <em>(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)</em></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="analysis.html#cb57-1"></a><span class="co">#create a weigthing function</span></span>
-<span id="cb57-2"><a href="analysis.html#cb57-2"></a>my_weigthing_function &lt;-<span class="st"> </span>surveyweights<span class="op">::</span><span class="kw">weighting_fun_from_samplingframe</span>(<span class="dt">sampling.frame =</span> my_sampling_frame,</span>
-<span id="cb57-3"><a href="analysis.html#cb57-3"></a>                                                                      <span class="dt">data.stratum.column =</span> <span class="st">&quot;strata&quot;</span>,</span>
-<span id="cb57-4"><a href="analysis.html#cb57-4"></a>                                                                      <span class="dt">sampling.frame.population.column =</span> <span class="st">&quot;population&quot;</span>, </span>
-<span id="cb57-5"><a href="analysis.html#cb57-5"></a>                                                                      <span class="dt">sampling.frame.stratum.column =</span> <span class="st">&quot;strata&quot;</span>, </span>
-<span id="cb57-6"><a href="analysis.html#cb57-6"></a>                                                                      <span class="dt">data =</span> main_dataset)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="analysis.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a weigthing function</span></span>
+<span id="cb3-2"><a href="analysis.html#cb3-2" aria-hidden="true" tabindex="-1"></a>my_weigthing_function <span class="ot">&lt;-</span> surveyweights<span class="sc">::</span><span class="fu">weighting_fun_from_samplingframe</span>(<span class="at">sampling.frame =</span> my_sampling_frame,</span>
+<span id="cb3-3"><a href="analysis.html#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">data.stratum.column =</span> <span class="st">&quot;strata&quot;</span>,</span>
+<span id="cb3-4"><a href="analysis.html#cb3-4" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">sampling.frame.population.column =</span> <span class="st">&quot;population&quot;</span>, </span>
+<span id="cb3-5"><a href="analysis.html#cb3-5" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">sampling.frame.stratum.column =</span> <span class="st">&quot;strata&quot;</span>, </span>
+<span id="cb3-6"><a href="analysis.html#cb3-6" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">data =</span> main_dataset)</span></code></pre></div>
 <p>If you want to add the weights to your dataframe this is how you can do it.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="analysis.html#cb58-1"></a><span class="co">#optional, if you want to add the weights into the dataset.</span></span>
-<span id="cb58-2"><a href="analysis.html#cb58-2"></a>main_dataset<span class="op">$</span>stratum.weight &lt;-<span class="st"> </span><span class="kw">my_weigthing_function</span>(main_dataset)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="analysis.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#optional, if you want to add the weights into the dataset.</span></span>
+<span id="cb4-2"><a href="analysis.html#cb4-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>stratum.weight <span class="ot">&lt;-</span> <span class="fu">my_weigthing_function</span>(main_dataset)</span></code></pre></div>
 <p>hypegrammaR uses cases to choose what type analysis to do. A “case” for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :</p>
 <ul>
 <li>XXXX: hypothesis type (group_difference, direct_reporting)<br />
@@ -257,7 +297,7 @@ What it does, it create a function that will calculate the weights based on your
 <li>ZZZZ: independent var type (categorical, numerical, <em>empty</em> if no independent variable) .</li>
 </ul>
 <p>All cases implemented can been seen with this code.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="analysis.html#cb59-1"></a>hypegrammaR<span class="op">:::</span><span class="kw">list_all_cases</span>(<span class="dt">implemented_only =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="analysis.html#cb5-1" aria-hidden="true" tabindex="-1"></a>hypegrammaR<span class="sc">:::</span><span class="fu">list_all_cases</span>(<span class="at">implemented_only =</span> T)</span></code></pre></div>
 <pre><code>##  [1] &quot;CASE_group_difference_categorical_categorical&quot;
 ##  [2] &quot;CASE_group_difference_numerical_categorical&quot;  
 ##  [3] &quot;CASE_direct_reporting_numerical_&quot;             
@@ -272,23 +312,23 @@ What it does, it create a function that will calculate the weights based on your
 hypothesis : group_difference<br />
 dependent variable : d1_hh_displacement_status -&gt; categorical<br />
 independent_variable : strata -&gt; categorical</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="analysis.html#cb61-1"></a><span class="co">#analysis </span></span>
-<span id="cb61-2"><a href="analysis.html#cb61-2"></a>my_case &lt;-<span class="st"> </span>hypegrammaR<span class="op">::</span><span class="kw">map_to_case</span>(<span class="dt">hypothesis.type =</span> <span class="st">&quot;group_difference&quot;</span>,</span>
-<span id="cb61-3"><a href="analysis.html#cb61-3"></a>                       <span class="dt">dependent.var.type =</span> <span class="st">&quot;categorical&quot;</span>,</span>
-<span id="cb61-4"><a href="analysis.html#cb61-4"></a>                       <span class="dt">independent.var.type =</span> <span class="st">&quot;categorical&quot;</span>)</span>
-<span id="cb61-5"><a href="analysis.html#cb61-5"></a></span>
-<span id="cb61-6"><a href="analysis.html#cb61-6"></a>my_case</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="analysis.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#analysis </span></span>
+<span id="cb7-2"><a href="analysis.html#cb7-2" aria-hidden="true" tabindex="-1"></a>my_case <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">map_to_case</span>(<span class="at">hypothesis.type =</span> <span class="st">&quot;group_difference&quot;</span>,</span>
+<span id="cb7-3"><a href="analysis.html#cb7-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependent.var.type =</span> <span class="st">&quot;categorical&quot;</span>,</span>
+<span id="cb7-4"><a href="analysis.html#cb7-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">independent.var.type =</span> <span class="st">&quot;categorical&quot;</span>)</span>
+<span id="cb7-5"><a href="analysis.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="analysis.html#cb7-6" aria-hidden="true" tabindex="-1"></a>my_case</span></code></pre></div>
 <pre><code>## [1] &quot;CASE_group_difference_categorical_categorical&quot;
 ## attr(,&quot;class&quot;)
 ## [1] &quot;analysis_case&quot;</code></pre>
 <p>The function map_to_result will calculate your summary statistics, it will take a couple of arguments.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="analysis.html#cb63-1"></a>my_results &lt;-<span class="st"> </span>hypegrammaR<span class="op">::</span><span class="kw">map_to_result</span>(<span class="dt">data =</span> main_dataset, </span>
-<span id="cb63-2"><a href="analysis.html#cb63-2"></a>                            <span class="dt">dependent.var =</span> <span class="st">&quot;d1_hh_displacement_status&quot;</span>, </span>
-<span id="cb63-3"><a href="analysis.html#cb63-3"></a>                            <span class="dt">independent.var =</span> <span class="st">&quot;strata&quot;</span>,</span>
-<span id="cb63-4"><a href="analysis.html#cb63-4"></a>                            <span class="dt">case =</span> my_case, </span>
-<span id="cb63-5"><a href="analysis.html#cb63-5"></a>                            <span class="dt">weighting =</span> my_weigthing_function,</span>
-<span id="cb63-6"><a href="analysis.html#cb63-6"></a>                            <span class="dt">questionnaire =</span> my_questionnaire,</span>
-<span id="cb63-7"><a href="analysis.html#cb63-7"></a>                            <span class="dt">confidence_level =</span> <span class="fl">.90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="analysis.html#cb9-1" aria-hidden="true" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">map_to_result</span>(<span class="at">data =</span> main_dataset, </span>
+<span id="cb9-2"><a href="analysis.html#cb9-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">dependent.var =</span> <span class="st">&quot;d1_hh_displacement_status&quot;</span>, </span>
+<span id="cb9-3"><a href="analysis.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">independent.var =</span> <span class="st">&quot;strata&quot;</span>,</span>
+<span id="cb9-4"><a href="analysis.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">case =</span> my_case, </span>
+<span id="cb9-5"><a href="analysis.html#cb9-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">weighting =</span> my_weigthing_function,</span>
+<span id="cb9-6"><a href="analysis.html#cb9-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">questionnaire =</span> my_questionnaire,</span>
+<span id="cb9-7"><a href="analysis.html#cb9-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">confidence_level =</span> .<span class="dv">90</span>)</span></code></pre></div>
 <p>The result object is a list with several information:</p>
 <ul>
 <li>parameters: returns the information used of that analysis</li>
@@ -296,7 +336,7 @@ independent_variable : strata -&gt; categorical</p>
 <li>hypothesis test: returns hypothesis testing information (if avalaible)</li>
 <li>message: returns a message (if the analysis went well or not)</li>
 </ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="analysis.html#cb64-1"></a>my_results<span class="op">$</span>summary.statistic <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="analysis.html#cb10-1" aria-hidden="true" tabindex="-1"></a>my_results<span class="sc">$</span>summary.statistic <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##               dependent.var independent.var
 ## 1 d1_hh_displacement_status          strata
 ## 2 d1_hh_displacement_status          strata
@@ -346,21 +386,21 @@ independent_variable : strata -&gt; categorical</p>
 <li>using no independent variable, for the complete dataset (national level?), (second 6 rows),</li>
 <li>using the <em>b9_hohh_marital_status</em> as independent variable but repeating each strata (last 6 rows)</li>
 </ul>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="analysis.html#cb66-1"></a><span class="co">#dap </span></span>
-<span id="cb66-2"><a href="analysis.html#cb66-2"></a>my_dap &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">dependent.variable =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
-<span id="cb66-3"><a href="analysis.html#cb66-3"></a>                 <span class="st">&quot;b5_age&quot;</span>, <span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
-<span id="cb66-4"><a href="analysis.html#cb66-4"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>), <span class="dv">2</span>), <span class="kw">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
-<span id="cb66-5"><a href="analysis.html#cb66-5"></a>                 <span class="st">&quot;b5_age&quot;</span>,</span>
-<span id="cb66-6"><a href="analysis.html#cb66-6"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)),</span>
-<span id="cb66-7"><a href="analysis.html#cb66-7"></a>                     <span class="dt">dependent.variable.type =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),<span class="dv">2</span>),<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),</span>
-<span id="cb66-8"><a href="analysis.html#cb66-8"></a>                     <span class="dt">independent.variable =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>, <span class="dv">5</span>)),</span>
-<span id="cb66-9"><a href="analysis.html#cb66-9"></a>                     <span class="dt">independent.variable.type =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">5</span>)), </span>
-<span id="cb66-10"><a href="analysis.html#cb66-10"></a>                     <span class="dt">hypothesis.type =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&quot;direct_reporting&quot;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">5</span>)), </span>
-<span id="cb66-11"><a href="analysis.html#cb66-11"></a>                     <span class="dt">repeat.for.variable =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">12</span>), <span class="kw">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">5</span>))</span>
-<span id="cb66-12"><a href="analysis.html#cb66-12"></a>                     )</span>
-<span id="cb66-13"><a href="analysis.html#cb66-13"></a></span>
-<span id="cb66-14"><a href="analysis.html#cb66-14"></a></span>
-<span id="cb66-15"><a href="analysis.html#cb66-15"></a>my_dap </span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="analysis.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dap </span></span>
+<span id="cb12-2"><a href="analysis.html#cb12-2" aria-hidden="true" tabindex="-1"></a>my_dap <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dependent.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
+<span id="cb12-3"><a href="analysis.html#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>, <span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
+<span id="cb12-4"><a href="analysis.html#cb12-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>), <span class="dv">2</span>), <span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
+<span id="cb12-5"><a href="analysis.html#cb12-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>,</span>
+<span id="cb12-6"><a href="analysis.html#cb12-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)),</span>
+<span id="cb12-7"><a href="analysis.html#cb12-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dependent.variable.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),<span class="dv">2</span>),<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),</span>
+<span id="cb12-8"><a href="analysis.html#cb12-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">independent.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>, <span class="dv">5</span>)),</span>
+<span id="cb12-9"><a href="analysis.html#cb12-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">independent.variable.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">5</span>)), </span>
+<span id="cb12-10"><a href="analysis.html#cb12-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">hypothesis.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;direct_reporting&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">5</span>)), </span>
+<span id="cb12-11"><a href="analysis.html#cb12-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">repeat.for.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">12</span>), <span class="fu">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">5</span>))</span>
+<span id="cb12-12"><a href="analysis.html#cb12-12" aria-hidden="true" tabindex="-1"></a>                     )</span>
+<span id="cb12-13"><a href="analysis.html#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="analysis.html#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="analysis.html#cb12-15" aria-hidden="true" tabindex="-1"></a>my_dap </span></code></pre></div>
 <pre><code>##                                             dependent.variable
 ## 1                             l4_which_difficult_access_health
 ## 2  j10_education_security_concerns_in_the_vicinity_of_facility
@@ -416,16 +456,16 @@ independent_variable : strata -&gt; categorical</p>
 ## 16 group_difference              strata
 ## 17 group_difference              strata</code></pre>
 <p>To use a DAP, you need to use the function <strong>from_analysisplan_map_to_output</strong> instead of the combination of <strong>map_to_case</strong> and <strong>map_to_result</strong>. It will look for the case itself. <strong>from_analysisplan_map_to_output</strong> a list of list of results. So you need to wriggle a bit around to come to a master dataframe.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="analysis.html#cb68-1"></a>my_results &lt;-<span class="st"> </span>hypegrammaR<span class="op">::</span><span class="kw">from_analysisplan_map_to_output</span>(<span class="dt">data =</span>main_dataset,</span>
-<span id="cb68-2"><a href="analysis.html#cb68-2"></a>                                <span class="dt">analysisplan =</span> my_dap,</span>
-<span id="cb68-3"><a href="analysis.html#cb68-3"></a>                                <span class="dt">weighting =</span> my_weigthing_function,</span>
-<span id="cb68-4"><a href="analysis.html#cb68-4"></a>                                <span class="dt">questionnaire =</span> my_questionnaire,</span>
-<span id="cb68-5"><a href="analysis.html#cb68-5"></a>                                <span class="dt">confidence_level =</span> <span class="fl">.90</span>)</span>
-<span id="cb68-6"><a href="analysis.html#cb68-6"></a></span>
-<span id="cb68-7"><a href="analysis.html#cb68-7"></a>long_table &lt;-<span class="st"> </span>my_results<span class="op">$</span>results <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb68-8"><a href="analysis.html#cb68-8"></a><span class="st">  </span><span class="kw">lapply</span>(<span class="cf">function</span>(x) x[[<span class="st">&quot;summary.statistic&quot;</span>]]) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb68-9"><a href="analysis.html#cb68-9"></a><span class="st">  </span><span class="kw">do.call</span>(rbind, .)</span></code></pre></div>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="analysis.html#cb69-1"></a>long_table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="analysis.html#cb14-1" aria-hidden="true" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">from_analysisplan_map_to_output</span>(<span class="at">data =</span>main_dataset,</span>
+<span id="cb14-2"><a href="analysis.html#cb14-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">analysisplan =</span> my_dap,</span>
+<span id="cb14-3"><a href="analysis.html#cb14-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">weighting =</span> my_weigthing_function,</span>
+<span id="cb14-4"><a href="analysis.html#cb14-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">questionnaire =</span> my_questionnaire,</span>
+<span id="cb14-5"><a href="analysis.html#cb14-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">confidence_level =</span> .<span class="dv">90</span>)</span>
+<span id="cb14-6"><a href="analysis.html#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="analysis.html#cb14-7" aria-hidden="true" tabindex="-1"></a>long_table <span class="ot">&lt;-</span> my_results<span class="sc">$</span>results <span class="sc">%&gt;%</span> </span>
+<span id="cb14-8"><a href="analysis.html#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="cf">function</span>(x) x[[<span class="st">&quot;summary.statistic&quot;</span>]]) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-9"><a href="analysis.html#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, .)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="analysis.html#cb15-1" aria-hidden="true" tabindex="-1"></a>long_table <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##                      dependent.var independent.var dependent.var.value
 ## 1 l4_which_difficult_access_health          strata  lack_of_facilities
 ## 2 l4_which_difficult_access_health          strata  lack_of_facilities
@@ -448,29 +488,28 @@ independent_variable : strata -&gt; categorical</p>
 ## 5             &lt;NA&gt;
 ## 6             &lt;NA&gt;</code></pre>
 </div>
-<div id="srvyr-package" class="section level2">
+<div id="srvyr-package" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> srvyr package</h2>
 <p>“The srvyr package aims to add dplyr like syntax to the survey package.” It is a very useful package for a variety of aggregations of survey data.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="analysis.html#cb71-1"></a><span class="co">###makes some additions. </span></span>
-<span id="cb71-2"><a href="analysis.html#cb71-2"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb71-3"><a href="analysis.html#cb71-3"></a><span class="kw">library</span>(butteR)</span>
-<span id="cb71-4"><a href="analysis.html#cb71-4"></a><span class="kw">library</span>(srvyr)</span>
-<span id="cb71-5"><a href="analysis.html#cb71-5"></a><span class="kw">library</span>(kableExtra)</span>
-<span id="cb71-6"><a href="analysis.html#cb71-6"></a>df&lt;-<span class="kw">read_csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
-<span id="cb71-7"><a href="analysis.html#cb71-7"></a>dfsvy&lt;-<span class="kw">as_survey</span>(df)</span></code></pre></div>
-<div id="categorical-variables" class="section level3">
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="analysis.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">###makes some additions. </span></span>
+<span id="cb17-2"><a href="analysis.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb17-3"><a href="analysis.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(butteR)</span>
+<span id="cb17-4"><a href="analysis.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb17-5"><a href="analysis.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb17-6"><a href="analysis.html#cb17-6" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
+<span id="cb17-7"><a href="analysis.html#cb17-7" aria-hidden="true" tabindex="-1"></a>dfsvy<span class="ot">&lt;-</span><span class="fu">as_survey</span>(df)</span></code></pre></div>
+<div id="categorical-variables" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Categorical variables</h3>
 <p>srvyr package allows categorical variables to be broken down using a similar syntax as dplyr. Using dplyr you might typically calculate a percent mean as follows:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="analysis.html#cb72-1"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-2"><a href="analysis.html#cb72-2"></a><span class="st">  </span><span class="kw">group_by</span>(b9_hohh_marital_status) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-3"><a href="analysis.html#cb72-3"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb72-4"><a href="analysis.html#cb72-4"></a>    <span class="dt">n=</span><span class="kw">n</span>()</span>
-<span id="cb72-5"><a href="analysis.html#cb72-5"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-6"><a href="analysis.html#cb72-6"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-7"><a href="analysis.html#cb72-7"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb72-8"><a href="analysis.html#cb72-8"></a>    <span class="dt">pct_mean=</span>n<span class="op">/</span><span class="kw">sum</span>(n)</span>
-<span id="cb72-9"><a href="analysis.html#cb72-9"></a>  )</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="analysis.html#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="analysis.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(b9_hohh_marital_status) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="analysis.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-4"><a href="analysis.html#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n=</span><span class="fu">n</span>()</span>
+<span id="cb18-5"><a href="analysis.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-6"><a href="analysis.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-7"><a href="analysis.html#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-8"><a href="analysis.html#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_mean=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)</span>
+<span id="cb18-9"><a href="analysis.html#cb18-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   b9_hohh_marital_status                        n pct_mean
 ##   &lt;chr&gt;                                     &lt;int&gt;    &lt;dbl&gt;
@@ -481,11 +520,11 @@ independent_variable : strata -&gt; categorical</p>
 ## 5 unmarried_but_living_together                96   0.0594
 ## 6 widowed                                     495   0.306</code></pre>
 <p>To calculate the percent mean of a categorical variable using srvyr object is required. The syntax is quite similar to dplyr, but a bit less verbose. By specifying the vartype as “ci” we also get the upper and lower confidence intervals</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="analysis.html#cb75-1"></a>dfsvy <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb75-2"><a href="analysis.html#cb75-2"></a><span class="st">  </span><span class="kw">group_by</span>(b9_hohh_marital_status) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb75-3"><a href="analysis.html#cb75-3"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb75-4"><a href="analysis.html#cb75-4"></a>    <span class="dt">pct_mean =</span> <span class="kw">survey_mean</span>(<span class="dt">vartype =</span> <span class="st">&quot;ci&quot;</span>)</span>
-<span id="cb75-5"><a href="analysis.html#cb75-5"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="analysis.html#cb20-1" aria-hidden="true" tabindex="-1"></a>dfsvy <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="analysis.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(b9_hohh_marital_status) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="analysis.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-4"><a href="analysis.html#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_mean =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>)</span>
+<span id="cb20-5"><a href="analysis.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   b9_hohh_marital_status                    pct_mean pct_mean_low pct_mean_upp
 ##   &lt;chr&gt;                                        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
@@ -496,27 +535,26 @@ independent_variable : strata -&gt; categorical</p>
 ## 5 unmarried_but_living_together               0.0594       0.0478       0.0709
 ## 6 widowed                                     0.306        0.284        0.329</code></pre>
 </div>
-<div id="numeric-variables" class="section level3">
+<div id="numeric-variables" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Numeric variables</h3>
 <p>srvyr treats the calculation/aggregation of numeric variables differently in an attempt to mirror dplyr syntax</p>
 <p>to calculate the mean and median expenditure in dplyr you would likely do the following</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="analysis.html#cb77-1"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-2"><a href="analysis.html#cb77-2"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb77-3"><a href="analysis.html#cb77-3"></a>    <span class="dt">mean_expenditure=</span> <span class="kw">mean</span>(n1_HH_total_expenditure,<span class="dt">na.rm=</span>T),</span>
-<span id="cb77-4"><a href="analysis.html#cb77-4"></a>    <span class="dt">median_expenditure=</span><span class="kw">median</span>(n1_HH_total_expenditure,<span class="dt">na.rm=</span>T),</span>
-<span id="cb77-5"><a href="analysis.html#cb77-5"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="analysis.html#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="analysis.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-3"><a href="analysis.html#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_expenditure=</span> <span class="fu">mean</span>(n1_HH_total_expenditure,<span class="at">na.rm=</span>T),</span>
+<span id="cb22-4"><a href="analysis.html#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_expenditure=</span><span class="fu">median</span>(n1_HH_total_expenditure,<span class="at">na.rm=</span>T),</span>
+<span id="cb22-5"><a href="analysis.html#cb22-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##   mean_expenditure median_expenditure
 ##              &lt;dbl&gt;              &lt;dbl&gt;
 ## 1            5129.               4000</code></pre>
 <p>If you wanted to subset this by another variable in dplyr you would add the group_by argument</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="analysis.html#cb79-1"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-2"><a href="analysis.html#cb79-2"></a><span class="st">  </span><span class="kw">group_by</span>(strata) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb79-3"><a href="analysis.html#cb79-3"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb79-4"><a href="analysis.html#cb79-4"></a>    <span class="dt">mean_expenditure=</span> <span class="kw">mean</span>(n1_HH_total_expenditure,<span class="dt">na.rm=</span>T),</span>
-<span id="cb79-5"><a href="analysis.html#cb79-5"></a>    <span class="dt">median_expenditure=</span><span class="kw">median</span>(n1_HH_total_expenditure,<span class="dt">na.rm=</span>T),</span>
-<span id="cb79-6"><a href="analysis.html#cb79-6"></a>    )</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="analysis.html#cb24-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="analysis.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(strata) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="analysis.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb24-4"><a href="analysis.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_expenditure=</span> <span class="fu">mean</span>(n1_HH_total_expenditure,<span class="at">na.rm=</span>T),</span>
+<span id="cb24-5"><a href="analysis.html#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_expenditure=</span><span class="fu">median</span>(n1_HH_total_expenditure,<span class="at">na.rm=</span>T),</span>
+<span id="cb24-6"><a href="analysis.html#cb24-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   strata     mean_expenditure median_expenditure
 ##   &lt;chr&gt;                 &lt;dbl&gt;              &lt;dbl&gt;
@@ -525,18 +563,18 @@ independent_variable : strata -&gt; categorical</p>
 ## 3 5km_rural             3919.               3075
 ## 4 5km_urban             4942.               4000</code></pre>
 <p>This is the reason why the syntax also varies between categorical and numeric variables in srvyr. Therefore, to do the same using srvyr you would do the following (with a survey object). Note that due to this difference in syntax the na.rm argument works for numeric variables, but <strong>does not work</strong> for categorical variables. This was modified when srvyr was updated from v 0.3.8</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="analysis.html#cb82-1"></a>dfsvy <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-2"><a href="analysis.html#cb82-2"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb82-3"><a href="analysis.html#cb82-3"></a>   <span class="dt">mean=</span> <span class="kw">survey_mean</span>(n1_HH_total_expenditure,<span class="dt">na.rm=</span>T,<span class="dt">vartype =</span> <span class="st">&quot;ci&quot;</span>),</span>
-<span id="cb82-4"><a href="analysis.html#cb82-4"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="analysis.html#cb26-1" aria-hidden="true" tabindex="-1"></a>dfsvy <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="analysis.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-3"><a href="analysis.html#cb26-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">mean=</span> <span class="fu">survey_mean</span>(n1_HH_total_expenditure,<span class="at">na.rm=</span>T,<span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb26-4"><a href="analysis.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>##       mean mean_low mean_upp
 ## 1 5128.962 4891.389 5366.536</code></pre>
 <p>similar to dplyr you can easily add a group_by argument to add a subset calculation</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="analysis.html#cb84-1"></a>dfsvy <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb84-2"><a href="analysis.html#cb84-2"></a><span class="st">  </span><span class="kw">group_by</span>(strata) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb84-3"><a href="analysis.html#cb84-3"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb84-4"><a href="analysis.html#cb84-4"></a>   <span class="dt">mean=</span> <span class="kw">survey_mean</span>(n1_HH_total_expenditure,<span class="dt">na.rm=</span>T,<span class="dt">vartype =</span> <span class="st">&quot;ci&quot;</span>),</span>
-<span id="cb84-5"><a href="analysis.html#cb84-5"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="analysis.html#cb28-1" aria-hidden="true" tabindex="-1"></a>dfsvy <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="analysis.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(strata) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="analysis.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb28-4"><a href="analysis.html#cb28-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">mean=</span> <span class="fu">survey_mean</span>(n1_HH_total_expenditure,<span class="at">na.rm=</span>T,<span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb28-5"><a href="analysis.html#cb28-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 4
 ##   strata      mean mean_low mean_upp
 ##   &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
@@ -546,7 +584,7 @@ independent_variable : strata -&gt; categorical</p>
 ## 4 5km_urban  4942.    4604.    5280.</code></pre>
 </div>
 </div>
-<div id="butter-survey_collapse" class="section level2">
+<div id="butter-survey_collapse" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> butteR survey_collapse</h2>
 <p>The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged.</p>
 <p>The main advantages of survey_collapse</p>
@@ -557,1731 +595,155 @@ independent_variable : strata -&gt; categorical</p>
 </ol>
 <p>Below is an example of its use.</p>
 <p>First we must read in some data and make it into a srvyr object</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="analysis.html#cb86-1"></a><span class="co">###makes some additions. </span></span>
-<span id="cb86-2"><a href="analysis.html#cb86-2"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb86-3"><a href="analysis.html#cb86-3"></a><span class="kw">library</span>(butteR)</span>
-<span id="cb86-4"><a href="analysis.html#cb86-4"></a><span class="kw">library</span>(srvyr)</span>
-<span id="cb86-5"><a href="analysis.html#cb86-5"></a><span class="kw">library</span>(kableExtra)</span>
-<span id="cb86-6"><a href="analysis.html#cb86-6"></a>df&lt;-<span class="kw">read_csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
-<span id="cb86-7"><a href="analysis.html#cb86-7"></a>dfsvy&lt;-<span class="kw">as_survey</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="analysis.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">###makes some additions. </span></span>
+<span id="cb30-2"><a href="analysis.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb30-3"><a href="analysis.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(butteR)</span>
+<span id="cb30-4"><a href="analysis.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb30-5"><a href="analysis.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb30-6"><a href="analysis.html#cb30-6" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
+<span id="cb30-7"><a href="analysis.html#cb30-7" aria-hidden="true" tabindex="-1"></a>dfsvy<span class="ot">&lt;-</span><span class="fu">as_survey</span>(df)</span></code></pre></div>
 <p>For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="analysis.html#cb87-1"></a><span class="co"># here are some random concatenated select multiple parent questions</span></span>
-<span id="cb87-2"><a href="analysis.html#cb87-2"></a>select_multiple_parent_cols&lt;-<span class="kw">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>,</span>
-<span id="cb87-3"><a href="analysis.html#cb87-3"></a>                        <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>)</span>
-<span id="cb87-4"><a href="analysis.html#cb87-4"></a>numeric_cols&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b7_hohh_age&quot;</span>,</span>
-<span id="cb87-5"><a href="analysis.html#cb87-5"></a>                 <span class="st">&quot;b5_age&quot;</span>)</span>
-<span id="cb87-6"><a href="analysis.html#cb87-6"></a>select_one_cols&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
-<span id="cb87-7"><a href="analysis.html#cb87-7"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)</span>
-<span id="cb87-8"><a href="analysis.html#cb87-8"></a>mixed_columns&lt;-<span class="st"> </span><span class="kw">c</span>(select_multiple_parent_cols, numeric_cols, select_one_cols)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="analysis.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># here are some random concatenated select multiple parent questions</span></span>
+<span id="cb31-2"><a href="analysis.html#cb31-2" aria-hidden="true" tabindex="-1"></a>select_multiple_parent_cols<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>,</span>
+<span id="cb31-3"><a href="analysis.html#cb31-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>)</span>
+<span id="cb31-4"><a href="analysis.html#cb31-4" aria-hidden="true" tabindex="-1"></a>numeric_cols<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b7_hohh_age&quot;</span>,</span>
+<span id="cb31-5"><a href="analysis.html#cb31-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>)</span>
+<span id="cb31-6"><a href="analysis.html#cb31-6" aria-hidden="true" tabindex="-1"></a>select_one_cols<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
+<span id="cb31-7"><a href="analysis.html#cb31-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)</span>
+<span id="cb31-8"><a href="analysis.html#cb31-8" aria-hidden="true" tabindex="-1"></a>mixed_columns<span class="ot">&lt;-</span> <span class="fu">c</span>(select_multiple_parent_cols, numeric_cols, select_one_cols)</span></code></pre></div>
 <p>A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.</p>
 <p>Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It’s a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="analysis.html#cb88-1"></a>outputs&lt;-<span class="kw">list</span>()</span>
-<span id="cb88-2"><a href="analysis.html#cb88-2"></a></span>
-<span id="cb88-3"><a href="analysis.html#cb88-3"></a>outputs<span class="op">$</span>overall&lt;-butteR<span class="op">::</span><span class="kw">survey_collapse</span>(<span class="dt">df =</span> dfsvy,<span class="dt">vars_to_analyze =</span> mixed_columns) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-4"><a href="analysis.html#cb88-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">analysis_level=</span> <span class="st">&quot;overall&quot;</span>)</span>
-<span id="cb88-5"><a href="analysis.html#cb88-5"></a></span>
-<span id="cb88-6"><a href="analysis.html#cb88-6"></a>outputs<span class="op">$</span>strata&lt;-butteR<span class="op">::</span><span class="kw">survey_collapse</span>(<span class="dt">df =</span> dfsvy,<span class="dt">vars_to_analyze =</span> mixed_columns,<span class="dt">disag =</span> <span class="st">&quot;strata&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-7"><a href="analysis.html#cb88-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">analysis_level=</span> <span class="st">&quot;strata&quot;</span>)</span></code></pre></div>
-Here is an example of what the long format data looks like as a table.
-<div style="border: 0px;overflow-x: scroll; width:100%; ">
-<table class="table" style="font-size: 8px; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-variable
-</th>
-<th style="text-align:left;">
-variable_val
-</th>
-<th style="text-align:left;">
-subset_1_name
-</th>
-<th style="text-align:left;">
-subset_1_val
-</th>
-<th style="text-align:right;">
-mean/pct
-</th>
-<th style="text-align:right;">
-mean/pct_low
-</th>
-<th style="text-align:right;">
-mean/pct_upp
-</th>
-<th style="text-align:right;">
-n_unweighted
-</th>
-<th style="text-align:left;">
-analysis_level
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b7_hohh_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b7_hohh_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b7_hohh_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b7_hohh_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b5_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b5_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b5_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-b5_age
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-divorced
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.1007371
-</td>
-<td style="text-align:right;">
-0.0714654
-</td>
-<td style="text-align:right;">
-0.1300089
-</td>
-<td style="text-align:right;">
-41
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-married
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.4594595
-</td>
-<td style="text-align:right;">
-0.4109922
-</td>
-<td style="text-align:right;">
-0.5079267
-</td>
-<td style="text-align:right;">
-187
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-separated_married_but_not_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0196560
-</td>
-<td style="text-align:right;">
-0.0061556
-</td>
-<td style="text-align:right;">
-0.0331565
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-single
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0515971
-</td>
-<td style="text-align:right;">
-0.0300831
-</td>
-<td style="text-align:right;">
-0.0731110
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-unmarried_but_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0884521
-</td>
-<td style="text-align:right;">
-0.0608365
-</td>
-<td style="text-align:right;">
-0.1160677
-</td>
-<td style="text-align:right;">
-36
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-widowed
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.2800983
-</td>
-<td style="text-align:right;">
-0.2364263
-</td>
-<td style="text-align:right;">
-0.3237702
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-divorced
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.1138614
-</td>
-<td style="text-align:right;">
-0.0828546
-</td>
-<td style="text-align:right;">
-0.1448681
-</td>
-<td style="text-align:right;">
-46
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-married
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.4331683
-</td>
-<td style="text-align:right;">
-0.3847987
-</td>
-<td style="text-align:right;">
-0.4815379
-</td>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-separated_married_but_not_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0247525
-</td>
-<td style="text-align:right;">
-0.0095860
-</td>
-<td style="text-align:right;">
-0.0399189
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-single
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.1039604
-</td>
-<td style="text-align:right;">
-0.0741674
-</td>
-<td style="text-align:right;">
-0.1337534
-</td>
-<td style="text-align:right;">
-42
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-unmarried_but_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0495050
-</td>
-<td style="text-align:right;">
-0.0283303
-</td>
-<td style="text-align:right;">
-0.0706796
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-widowed
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.2747525
-</td>
-<td style="text-align:right;">
-0.2311781
-</td>
-<td style="text-align:right;">
-0.3183268
-</td>
-<td style="text-align:right;">
-111
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-divorced
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.1019900
-</td>
-<td style="text-align:right;">
-0.0723749
-</td>
-<td style="text-align:right;">
-0.1316052
-</td>
-<td style="text-align:right;">
-41
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-married
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.3955224
-</td>
-<td style="text-align:right;">
-0.3476737
-</td>
-<td style="text-align:right;">
-0.4433711
-</td>
-<td style="text-align:right;">
-159
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-separated_married_but_not_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0199005
-</td>
-<td style="text-align:right;">
-0.0062339
-</td>
-<td style="text-align:right;">
-0.0335671
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-single
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0820896
-</td>
-<td style="text-align:right;">
-0.0552275
-</td>
-<td style="text-align:right;">
-0.1089516
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-unmarried_but_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0522388
-</td>
-<td style="text-align:right;">
-0.0304647
-</td>
-<td style="text-align:right;">
-0.0740129
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-widowed
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.3482587
-</td>
-<td style="text-align:right;">
-0.3016375
-</td>
-<td style="text-align:right;">
-0.3948799
-</td>
-<td style="text-align:right;">
-140
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-divorced
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.1361386
-</td>
-<td style="text-align:right;">
-0.1026629
-</td>
-<td style="text-align:right;">
-0.1696143
-</td>
-<td style="text-align:right;">
-55
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-married
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.3861386
-</td>
-<td style="text-align:right;">
-0.3386134
-</td>
-<td style="text-align:right;">
-0.4336638
-</td>
-<td style="text-align:right;">
-156
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-separated_married_but_not_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0272277
-</td>
-<td style="text-align:right;">
-0.0113412
-</td>
-<td style="text-align:right;">
-0.0431142
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-single
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0816832
-</td>
-<td style="text-align:right;">
-0.0549482
-</td>
-<td style="text-align:right;">
-0.1084181
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-unmarried_but_living_together
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0470297
-</td>
-<td style="text-align:right;">
-0.0263643
-</td>
-<td style="text-align:right;">
-0.0676951
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b9_hohh_marital_status
-</td>
-<td style="text-align:left;">
-widowed
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.3217822
-</td>
-<td style="text-align:right;">
-0.2761803
-</td>
-<td style="text-align:right;">
-0.3673841
-</td>
-<td style="text-align:right;">
-130
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_and_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0466830
-</td>
-<td style="text-align:right;">
-0.0261663
-</td>
-<td style="text-align:right;">
-0.0671998
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_but_does_not_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0024570
-</td>
-<td style="text-align:right;">
--0.0023578
-</td>
-<td style="text-align:right;">
-0.0072718
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-no
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.9115479
-</td>
-<td style="text-align:right;">
-0.8839323
-</td>
-<td style="text-align:right;">
-0.9391635
-</td>
-<td style="text-align:right;">
-371
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-partially_displaced_and_dont_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0073710
-</td>
-<td style="text-align:right;">
--0.0009479
-</td>
-<td style="text-align:right;">
-0.0156899
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-partially_displaced_and_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0221130
-</td>
-<td style="text-align:right;">
-0.0078116
-</td>
-<td style="text-align:right;">
-0.0364144
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-used_to_be_displaced_but_returned_and_has_no_status_of_idp
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_rural
-</td>
-<td style="text-align:right;">
-0.0098280
-</td>
-<td style="text-align:right;">
-0.0002340
-</td>
-<td style="text-align:right;">
-0.0194220
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_and_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0272277
-</td>
-<td style="text-align:right;">
-0.0113412
-</td>
-<td style="text-align:right;">
-0.0431142
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-no
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.9603960
-</td>
-<td style="text-align:right;">
-0.9413585
-</td>
-<td style="text-align:right;">
-0.9794336
-</td>
-<td style="text-align:right;">
-388
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-partially_displaced_and_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0099010
-</td>
-<td style="text-align:right;">
-0.0002361
-</td>
-<td style="text-align:right;">
-0.0195659
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-used_to_be_displaced_but_returned_and_has_no_status_of_idp
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-20km_urban
-</td>
-<td style="text-align:right;">
-0.0024752
-</td>
-<td style="text-align:right;">
--0.0023753
-</td>
-<td style="text-align:right;">
-0.0073258
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_and_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0895522
-</td>
-<td style="text-align:right;">
-0.0616100
-</td>
-<td style="text-align:right;">
-0.1174944
-</td>
-<td style="text-align:right;">
-36
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_but_does_not_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0049751
-</td>
-<td style="text-align:right;">
--0.0019100
-</td>
-<td style="text-align:right;">
-0.0118603
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-no
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.8781095
-</td>
-<td style="text-align:right;">
-0.8460944
-</td>
-<td style="text-align:right;">
-0.9101245
-</td>
-<td style="text-align:right;">
-353
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-partially_displaced_and_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0024876
-</td>
-<td style="text-align:right;">
--0.0023871
-</td>
-<td style="text-align:right;">
-0.0073622
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-used_to_be_displaced_but_returned_and_has_a_status_of_idp
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0024876
-</td>
-<td style="text-align:right;">
--0.0023871
-</td>
-<td style="text-align:right;">
-0.0073622
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-used_to_be_displaced_but_returned_and_has_no_status_of_idp
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_rural
-</td>
-<td style="text-align:right;">
-0.0223881
-</td>
-<td style="text-align:right;">
-0.0079108
-</td>
-<td style="text-align:right;">
-0.0368653
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_and_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0618812
-</td>
-<td style="text-align:right;">
-0.0383618
-</td>
-<td style="text-align:right;">
-0.0854005
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-displaced_but_does_not_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0049505
-</td>
-<td style="text-align:right;">
--0.0019007
-</td>
-<td style="text-align:right;">
-0.0118017
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-no
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.9108911
-</td>
-<td style="text-align:right;">
-0.8830805
-</td>
-<td style="text-align:right;">
-0.9387017
-</td>
-<td style="text-align:right;">
-368
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-partially_displaced_and_dont_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0024752
-</td>
-<td style="text-align:right;">
--0.0023753
-</td>
-<td style="text-align:right;">
-0.0073258
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-partially_displaced_and_have_idp_status
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0049505
-</td>
-<td style="text-align:right;">
--0.0019007
-</td>
-<td style="text-align:right;">
-0.0118017
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-used_to_be_displaced_but_returned_and_has_a_status_of_idp
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0024752
-</td>
-<td style="text-align:right;">
--0.0023753
-</td>
-<td style="text-align:right;">
-0.0073258
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-d1_hh_displacement_status
-</td>
-<td style="text-align:left;">
-used_to_be_displaced_but_returned_and_has_no_status_of_idp
-</td>
-<td style="text-align:left;">
-strata
-</td>
-<td style="text-align:left;">
-5km_urban
-</td>
-<td style="text-align:right;">
-0.0123762
-</td>
-<td style="text-align:right;">
-0.0015841
-</td>
-<td style="text-align:right;">
-0.0231684
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-strata
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p><strong>note: I am commenting this section as it seems to break with the latest update</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="analysis.html#cb32-1" aria-hidden="true" tabindex="-1"></a>outputs<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb32-2"><a href="analysis.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="analysis.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outputs$overall&lt;-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %&gt;% </span></span>
+<span id="cb32-4"><a href="analysis.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(analysis_level= &quot;overall&quot;)</span></span>
+<span id="cb32-5"><a href="analysis.html#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb32-6"><a href="analysis.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># outputs$strata&lt;-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = &quot;strata&quot;) %&gt;% </span></span>
+<span id="cb32-7"><a href="analysis.html#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(analysis_level= &quot;strata&quot;)</span></span></code></pre></div>
+<p>Here is an example of what the long format data looks like as a table.</p>
 <p>This is a great format for manipulating/filtering and then graphing with ggplot</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="analysis.html#cb89-1"></a>output_df&lt;-<span class="st"> </span><span class="kw">bind_rows</span>(outputs)</span>
-<span id="cb89-2"><a href="analysis.html#cb89-2"></a></span>
-<span id="cb89-3"><a href="analysis.html#cb89-3"></a>output_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-4"><a href="analysis.html#cb89-4"></a><span class="st">  </span><span class="kw">filter</span>(analysis_level<span class="op">==</span><span class="st">&quot;overall&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-5"><a href="analysis.html#cb89-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">question_val=</span> <span class="kw">paste0</span>(variable,<span class="st">&quot;.&quot;</span>,variable_val)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-6"><a href="analysis.html#cb89-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span> question_val,<span class="dt">y=</span> <span class="st">`</span><span class="dt">mean/pct</span><span class="st">`</span>))<span class="op">+</span></span>
-<span id="cb89-7"><a href="analysis.html#cb89-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.3</span>))<span class="op">+</span></span>
-<span id="cb89-8"><a href="analysis.html#cb89-8"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span> <span class="st">`</span><span class="dt">mean/pct_low</span><span class="st">`</span>, <span class="dt">ymax=</span> <span class="st">`</span><span class="dt">mean/pct_upp</span><span class="st">`</span>), </span>
-<span id="cb89-9"><a href="analysis.html#cb89-9"></a>                <span class="dt">width=</span><span class="fl">0.2</span>,<span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.3</span>))<span class="op">+</span></span>
-<span id="cb89-10"><a href="analysis.html#cb89-10"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent,<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>))<span class="op">+</span></span>
-<span id="cb89-11"><a href="analysis.html#cb89-11"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
-<span id="cb89-12"><a href="analysis.html#cb89-12"></a><span class="st">  </span><span class="kw">theme_bw</span>()<span class="op">+</span></span>
-<span id="cb89-13"><a href="analysis.html#cb89-13"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb89-14"><a href="analysis.html#cb89-14"></a>    <span class="dt">axis.title =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb89-15"><a href="analysis.html#cb89-15"></a>    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>),</span>
-<span id="cb89-16"><a href="analysis.html#cb89-16"></a>    <span class="dt">legend.title=</span> <span class="kw">element_blank</span>()</span>
-<span id="cb89-17"><a href="analysis.html#cb89-17"></a>  ) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="analysis.html#cb90-1"></a><span class="co"># Easy to plot subset findings as well!</span></span>
-<span id="cb90-2"><a href="analysis.html#cb90-2"></a>output_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb90-3"><a href="analysis.html#cb90-3"></a><span class="st">  </span><span class="kw">filter</span>(analysis_level<span class="op">==</span><span class="st">&quot;strata&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb90-4"><a href="analysis.html#cb90-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">question_val=</span> <span class="kw">paste0</span>(variable,<span class="st">&quot;.&quot;</span>,variable_val)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb90-5"><a href="analysis.html#cb90-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span> question_val,<span class="dt">y=</span> <span class="st">`</span><span class="dt">mean/pct</span><span class="st">`</span>, <span class="dt">color=</span>subset_<span class="dv">1</span>_val))<span class="op">+</span></span>
-<span id="cb90-6"><a href="analysis.html#cb90-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.3</span>))<span class="op">+</span></span>
-<span id="cb90-7"><a href="analysis.html#cb90-7"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span> <span class="st">`</span><span class="dt">mean/pct_low</span><span class="st">`</span>, <span class="dt">ymax=</span> <span class="st">`</span><span class="dt">mean/pct_upp</span><span class="st">`</span>), </span>
-<span id="cb90-8"><a href="analysis.html#cb90-8"></a>                <span class="dt">width=</span><span class="fl">0.2</span>,<span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">0.3</span>))<span class="op">+</span></span>
-<span id="cb90-9"><a href="analysis.html#cb90-9"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent,<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>))<span class="op">+</span></span>
-<span id="cb90-10"><a href="analysis.html#cb90-10"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
-<span id="cb90-11"><a href="analysis.html#cb90-11"></a><span class="st">  </span><span class="kw">theme_bw</span>()<span class="op">+</span></span>
-<span id="cb90-12"><a href="analysis.html#cb90-12"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb90-13"><a href="analysis.html#cb90-13"></a>    <span class="dt">axis.title =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb90-14"><a href="analysis.html#cb90-14"></a>    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>),</span>
-<span id="cb90-15"><a href="analysis.html#cb90-15"></a>    <span class="dt">legend.title=</span> <span class="kw">element_blank</span>()</span>
-<span id="cb90-16"><a href="analysis.html#cb90-16"></a>  ) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
-<div id="select_one" class="section level3">
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="analysis.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># output_df&lt;- bind_rows(outputs)</span></span>
+<span id="cb33-2"><a href="analysis.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-3"><a href="analysis.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># output_df %&gt;% </span></span>
+<span id="cb33-4"><a href="analysis.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(analysis_level==&quot;overall&quot;) %&gt;% </span></span>
+<span id="cb33-5"><a href="analysis.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(question_val= paste0(variable,&quot;.&quot;,variable_val)) %&gt;% </span></span>
+<span id="cb33-6"><a href="analysis.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x= question_val,y= `mean/pct`))+</span></span>
+<span id="cb33-7"><a href="analysis.html#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point(stat=&quot;identity&quot;, position = position_dodge(width = 0.3))+</span></span>
+<span id="cb33-8"><a href="analysis.html#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), </span></span>
+<span id="cb33-9"><a href="analysis.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                 width=0.2,position = position_dodge(width = 0.3))+</span></span>
+<span id="cb33-10"><a href="analysis.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+</span></span>
+<span id="cb33-11"><a href="analysis.html#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   coord_flip()+</span></span>
+<span id="cb33-12"><a href="analysis.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_bw()+</span></span>
+<span id="cb33-13"><a href="analysis.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(</span></span>
+<span id="cb33-14"><a href="analysis.html#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.title = element_blank(),</span></span>
+<span id="cb33-15"><a href="analysis.html#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.text.x = element_text(angle=90),</span></span>
+<span id="cb33-16"><a href="analysis.html#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     legend.title= element_blank()</span></span>
+<span id="cb33-17"><a href="analysis.html#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) </span></span>
+<span id="cb33-18"><a href="analysis.html#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-19"><a href="analysis.html#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-20"><a href="analysis.html#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co"># # Easy to plot subset findings as well!</span></span>
+<span id="cb33-21"><a href="analysis.html#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="co"># output_df %&gt;% </span></span>
+<span id="cb33-22"><a href="analysis.html#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(analysis_level==&quot;strata&quot;) %&gt;% </span></span>
+<span id="cb33-23"><a href="analysis.html#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(question_val= paste0(variable,&quot;.&quot;,variable_val)) %&gt;% </span></span>
+<span id="cb33-24"><a href="analysis.html#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+</span></span>
+<span id="cb33-25"><a href="analysis.html#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point(stat=&quot;identity&quot;, position = position_dodge(width = 0.3))+</span></span>
+<span id="cb33-26"><a href="analysis.html#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), </span></span>
+<span id="cb33-27"><a href="analysis.html#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="co">#                 width=0.2,position = position_dodge(width = 0.3))+</span></span>
+<span id="cb33-28"><a href="analysis.html#cb33-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+</span></span>
+<span id="cb33-29"><a href="analysis.html#cb33-29" aria-hidden="true" tabindex="-1"></a><span class="co">#   coord_flip()+</span></span>
+<span id="cb33-30"><a href="analysis.html#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_bw()+</span></span>
+<span id="cb33-31"><a href="analysis.html#cb33-31" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(</span></span>
+<span id="cb33-32"><a href="analysis.html#cb33-32" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.title = element_blank(),</span></span>
+<span id="cb33-33"><a href="analysis.html#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.text.x = element_text(angle=90),</span></span>
+<span id="cb33-34"><a href="analysis.html#cb33-34" aria-hidden="true" tabindex="-1"></a><span class="co">#     legend.title= element_blank()</span></span>
+<span id="cb33-35"><a href="analysis.html#cb33-35" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) </span></span></code></pre></div>
+<div id="select_one" class="section level3" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> select_one</h3>
 </div>
-<div id="select_mutiple" class="section level3">
+<div id="select_mutiple" class="section level3" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> select_mutiple</h3>
 </div>
 </div>
-<div id="analysis-with-numerical-variables" class="section level2">
+<div id="analysis-with-numerical-variables" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Analysis with numerical variables</h2>
-<p>Summarytools (CRAN package)
-Spatstat
-hypegrammaR / koboquest / butteR
-### Averages
-### Median</p>
+<div id="averages" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Averages</h3>
+<p>###Summarytools (CRAN package)</p>
+<p>###hypegrammaR / koboquest / butteR</p>
 </div>
-<div id="weights" class="section level2">
+<div id="median" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Median</h3>
+<p>####Spatstat
+<a href="https://cran.r-project.org/web/packages/spatstat/index.html">Spatstat</a> - library with set of different functions for analyzing Spatial Point Patterns but also quite useful for analysis of weighted data.</p>
+<p>At first let’s select all numerical variables from the dataset using Kobo questionnaire and dataset. It can be done with the following custom function:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="analysis.html#cb34-1" aria-hidden="true" tabindex="-1"></a>select_numerical <span class="ot">&lt;-</span> <span class="cf">function</span>(dataset, kobo){</span>
+<span id="cb34-2"><a href="analysis.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  kobo_questions <span class="ot">&lt;-</span> kobo[<span class="fu">grepl</span>(<span class="st">&quot;integer|decimal|calculate&quot;</span>, kobo<span class="sc">$</span>type),<span class="fu">c</span>(<span class="st">&quot;type&quot;</span>,<span class="st">&quot;name&quot;</span>)]</span>
+<span id="cb34-3"><a href="analysis.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  names.use <span class="ot">&lt;-</span> <span class="fu">names</span>(dataset)[(<span class="fu">names</span>(dataset) <span class="sc">%in%</span> <span class="fu">as.character</span>(kobo_questions<span class="sc">$</span>name))]</span>
+<span id="cb34-4"><a href="analysis.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  numerical <span class="ot">&lt;-</span> dataset[,<span class="fu">c</span>(names.use,<span class="st">&quot;X_uuid&quot;</span>,<span class="st">&#39;strata&#39;</span>,<span class="st">&#39;stratum.weight&#39;</span>)] <span class="co">#Here we can select any other relevant variables</span></span>
+<span id="cb34-5"><a href="analysis.html#cb34-5" aria-hidden="true" tabindex="-1"></a>  numerical[names.use] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numerical[names.use], gsub, <span class="at">pattern =</span> <span class="st">&#39;NA&#39;</span>, <span class="at">replacement =</span> <span class="cn">NA</span>)</span>
+<span id="cb34-6"><a href="analysis.html#cb34-6" aria-hidden="true" tabindex="-1"></a>  numerical[names.use] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numerical[names.use], as.numeric)</span>
+<span id="cb34-7"><a href="analysis.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(numerical)</span>
+<span id="cb34-8"><a href="analysis.html#cb34-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-9"><a href="analysis.html#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="analysis.html#cb34-10" aria-hidden="true" tabindex="-1"></a>numerical_questions <span class="ot">&lt;-</span> <span class="fu">select_numerical</span>(main_dataset, questions)</span>
+<span id="cb34-11"><a href="analysis.html#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="analysis.html#cb34-12" aria-hidden="true" tabindex="-1"></a>numerical_classes <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numerical_questions[,<span class="dv">1</span><span class="sc">:</span><span class="fu">c</span>(<span class="fu">ncol</span>(numerical_questions)<span class="sc">-</span><span class="dv">3</span>)], class) <span class="co">#Here we can check class of each selected variable</span></span>
+<span id="cb34-13"><a href="analysis.html#cb34-13" aria-hidden="true" tabindex="-1"></a>numerical_classes <span class="ot">&lt;-</span> numerical_classes[<span class="st">&quot;character&quot;</span> <span class="sc">%in%</span> numerical_classes] <span class="co">#and here we check if any variable has class &quot;character&quot;</span></span>
+<span id="cb34-14"><a href="analysis.html#cb34-14" aria-hidden="true" tabindex="-1"></a>numerical_questions <span class="ot">&lt;-</span> numerical_questions[ , <span class="sc">!</span><span class="fu">names</span>(numerical_questions) <span class="sc">%in%</span> numerical_classes] <span class="co">#if any variable has a character class then we remove it</span></span>
+<span id="cb34-15"><a href="analysis.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(numerical_classes)<span class="co">#and here we removing vector with classes from our environment</span></span></code></pre></div>
+<p>Now let’s calculate weighted median for “n1_HH_total_expenditure”.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="analysis.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted.median</span>(numerical_questions<span class="sc">$</span>n1_HH_total_expenditure, numerical_questions<span class="sc">$</span>stratum.weight, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 4119.113</code></pre>
+<p>But if we want to calculate weighted medians for each variable we will need to iterate this function on those variables. But first we will need to exclude variables with less than 3 observations.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="analysis.html#cb37-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> numerical_questions <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="analysis.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="sc">-</span>X_uuid, <span class="sc">-</span>strata) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="analysis.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">everything</span>(), <span class="at">.fns=</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(.)) ))<span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="analysis.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>()<span class="co">#Calculating count of observation for each variable</span></span>
+<span id="cb37-5"><a href="analysis.html#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="analysis.html#cb37-6" aria-hidden="true" tabindex="-1"></a>numerical_questions <span class="ot">&lt;-</span> numerical_questions[ , (<span class="fu">names</span>(numerical_questions) <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">subset</span>(counts, counts[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="dv">3</span>)))]</span>
+<span id="cb37-7"><a href="analysis.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">#removing variables with less than 3 observations</span></span>
+<span id="cb37-8"><a href="analysis.html#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="analysis.html#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="analysis.html#cb37-10" aria-hidden="true" tabindex="-1"></a>medians <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numerical_questions[<span class="dv">1</span><span class="sc">:</span><span class="dv">46</span>], weighted.median, <span class="at">w =</span> numerical_questions<span class="sc">$</span>stratum.weight, <span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb37-11"><a href="analysis.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<p>Now we can transpond resulting vector and add description to the calculation</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="analysis.html#cb38-1" aria-hidden="true" tabindex="-1"></a>medians <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(medians),<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb38-2"><a href="analysis.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(medians)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Median_wght&quot;</span></span>
+<span id="cb38-3"><a href="analysis.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(medians)</span></code></pre></div>
+<pre><code>##                               Median_wght
+## b15_hohh_income                      2800
+## hohh_age_18                             0
+## age_18                                  0
+## b21_num_additional_hh_members           1
+## age_5_18_number                         0
+## age_5_12_number                         0</code></pre>
+</div>
+</div>
+<div id="weights" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Weights</h2>
 <p>surveyweights
 survey (CRAN package)
 srvyr (CRAN package)</p>
 </div>
-<div id="repeating-the-above" class="section level2">
+<div id="repeating-the-above" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> Repeating the above</h2>
 </div>
-<div id="top-3" class="section level2">
+<div id="top-3" class="section level2" number="5.7">
 <h2><span class="header-section-number">5.7</span> Top 3</h2>
 </div>
-<div id="borda-count" class="section level2">
+<div id="borda-count" class="section level2" number="5.8">
 <h2><span class="header-section-number">5.8</span> Borda count</h2>
 </div>
-<div id="hypothesis-testing" class="section level2">
+<div id="hypothesis-testing" class="section level2" number="5.9">
 <h2><span class="header-section-number">5.9</span> Hypothesis testing</h2>
-<div id="t-test" class="section level3">
+<div id="t-test" class="section level3" number="5.9.1">
 <h3><span class="header-section-number">5.9.1</span> T-test</h3>
 </div>
-<div id="anova" class="section level3">
+<div id="anova" class="section level3" number="5.9.2">
 <h3><span class="header-section-number">5.9.2</span> ANOVA</h3>
 </div>
-<div id="chi-squares" class="section level3">
+<div id="chi-squares" class="section level3" number="5.9.3">
 <h3><span class="header-section-number">5.9.3</span> chi-squares</h3>
 
 </div>
@@ -2316,6 +778,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

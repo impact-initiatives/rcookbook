@@ -298,64 +298,66 @@ A nice feature of the standardized output produced by survey_collapse is that yo
 
 Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It's a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated
 
+**note: I am commenting this section as it seems to break with the latest update**
+
 ```{r,message=F,warning=F, results="hide"}
 outputs<-list()
 
-outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>% 
-  mutate(analysis_level= "overall")
-
-outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>% 
-  mutate(analysis_level= "strata")
+# outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>% 
+#   mutate(analysis_level= "overall")
+# 
+# outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>% 
+#   mutate(analysis_level= "strata")
 ```
 
 
 Here is an example of what the long format data looks like as a table.
 ```{r, echo =F}
-outputs$strata %>% 
-  head(100) %>% 
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
+# outputs$strata %>% 
+#   head(100) %>% 
+#   kable() %>% 
+#   kable_styling(font_size=8) %>%
+#   scroll_box(width = "100%", box_css = "border: 0px;")
 ```
 
 
 This is a great format for manipulating/filtering and then graphing with ggplot
 ```{r}
-output_df<- bind_rows(outputs)
-
-output_df %>% 
-  filter(analysis_level=="overall") %>% 
-  mutate(question_val= paste0(variable,".",variable_val)) %>% 
-  ggplot(aes(x= question_val,y= `mean/pct`))+
-  geom_point(stat="identity", position = position_dodge(width = 0.3))+
-  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
-                width=0.2,position = position_dodge(width = 0.3))+
-  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
-  coord_flip()+
-  theme_bw()+
-  theme(
-    axis.title = element_blank(),
-    axis.text.x = element_text(angle=90),
-    legend.title= element_blank()
-  ) 
-
-
-# Easy to plot subset findings as well!
-output_df %>% 
-  filter(analysis_level=="strata") %>% 
-  mutate(question_val= paste0(variable,".",variable_val)) %>% 
-  ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+
-  geom_point(stat="identity", position = position_dodge(width = 0.3))+
-  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
-                width=0.2,position = position_dodge(width = 0.3))+
-  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
-  coord_flip()+
-  theme_bw()+
-  theme(
-    axis.title = element_blank(),
-    axis.text.x = element_text(angle=90),
-    legend.title= element_blank()
-  ) 
+# output_df<- bind_rows(outputs)
+# 
+# output_df %>% 
+#   filter(analysis_level=="overall") %>% 
+#   mutate(question_val= paste0(variable,".",variable_val)) %>% 
+#   ggplot(aes(x= question_val,y= `mean/pct`))+
+#   geom_point(stat="identity", position = position_dodge(width = 0.3))+
+#   geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
+#                 width=0.2,position = position_dodge(width = 0.3))+
+#   scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+#   coord_flip()+
+#   theme_bw()+
+#   theme(
+#     axis.title = element_blank(),
+#     axis.text.x = element_text(angle=90),
+#     legend.title= element_blank()
+#   ) 
+# 
+# 
+# # Easy to plot subset findings as well!
+# output_df %>% 
+#   filter(analysis_level=="strata") %>% 
+#   mutate(question_val= paste0(variable,".",variable_val)) %>% 
+#   ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+
+#   geom_point(stat="identity", position = position_dodge(width = 0.3))+
+#   geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
+#                 width=0.2,position = position_dodge(width = 0.3))+
+#   scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+#   coord_flip()+
+#   theme_bw()+
+#   theme(
+#     axis.title = element_blank(),
+#     axis.text.x = element_text(angle=90),
+#     legend.title= element_blank()
+#   ) 
 
 
 ```
