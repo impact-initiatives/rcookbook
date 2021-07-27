@@ -1,6 +1,0 @@
-"0","#create a questionnaire object"
-"0","my_questionnaire <- hypegrammaR::load_questionnaire(data = main_dataset,"
-"0","                                    questions = questions,"
-"0","                                    choices = choices,"
-"0","                                    choices.label.column.to.use = ""label::English"")"
-"0",""

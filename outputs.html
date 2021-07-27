@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Outputs | R cookbook for analysis with REACH</title>
   <meta name="description" content="6 Outputs | R cookbook for analysis with REACH" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Outputs | R cookbook for analysis with REACH" />
   <meta property="og:type" content="book" />
@@ -32,6 +32,7 @@
   
 <link rel="prev" href="analysis.html"/>
 <link rel="next" href="miscellaneous.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,24 +50,25 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +88,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -119,6 +121,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -132,15 +135,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello World</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a><ul>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cleaning.html"><a href="cleaning.html"><i class="fa fa-check"></i><b>3</b> Cleaning</a><ul>
-<li class="chapter" data-level="3.1" data-path="cleaning.html"><a href="cleaning.html#custom-packages-with-cleaning-functions"><i class="fa fa-check"></i><b>3.1</b> Custom packages with cleaning functions</a></li>
-<li class="chapter" data-level="3.2" data-path="cleaning.html"><a href="cleaning.html#example-one"><i class="fa fa-check"></i><b>3.2</b> Example one</a></li>
-<li class="chapter" data-level="3.3" data-path="cleaning.html"><a href="cleaning.html#example-two"><i class="fa fa-check"></i><b>3.3</b> Example two</a></li>
+<li class="chapter" data-level="3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>3</b> Data Collection and Processing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>3.1</b> Testing the tool</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>3.1.1</b> Creating dummy data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a><ul>
+<li class="chapter" data-level="3.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>3.2</b> Download data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-from-api"><i class="fa fa-check"></i><b>3.2.1</b> download from API</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>3.3</b> Data collection follow-up</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-sampling-frame"><i class="fa fa-check"></i><b>3.3.1</b> checking surveys against sampling frame</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>3.4</b> Data falsification</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>3.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>3.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>3.4.3</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="3.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>3.4.4</b> Check for duplicates</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>3.5</b> Data checks</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>3.5.1</b> Check for outliers</a></li>
+<li class="chapter" data-level="3.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>3.5.2</b> Check others</a></li>
+<li class="chapter" data-level="3.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>3.5.3</b> Check for logical check</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>3.6</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="3.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>3.7</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>3.7.1</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="3.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>3.7.2</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>3.8</b> Data cleaning - miscellaneous</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>3.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li class="chapter" data-level="3.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>3.8.2</b> Turns label to xml</a></li>
+<li class="chapter" data-level="3.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>3.8.3</b> Statistical Disclosure Control Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>4</b> Composite indicators</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>4.1</b> Composite with 1 categorical variable - select one</a></li>
 <li class="chapter" data-level="4.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>4.2</b> Composite with 2 categorical variables</a></li>
 <li class="chapter" data-level="4.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>4.3</b> Composite with 1 categorical variable - select multiple</a></li>
@@ -149,36 +189,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>4.6</b> Composite with 2 or more numerical variables</a></li>
 <li class="chapter" data-level="4.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>4.7</b> New indicators from a loop to main dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a><ul>
+<li class="chapter" data-level="5" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>5</b> Analysis</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>5.1</b> hypegrammaR</a></li>
-<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a><ul>
+<li class="chapter" data-level="5.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>5.2</b> srvyr package</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>5.2.1</b> Categorical variables</a></li>
 <li class="chapter" data-level="5.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>5.2.2</b> Numeric variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a><ul>
+<li class="chapter" data-level="5.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>5.3</b> butteR survey_collapse</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>5.3.1</b> select_one</a></li>
 <li class="chapter" data-level="5.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>5.3.2</b> select_mutiple</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a></li>
+<li class="chapter" data-level="5.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>5.4</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>5.4.1</b> Averages</a></li>
+<li class="chapter" data-level="5.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>5.4.2</b> Median</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>5.5</b> Weights</a></li>
 <li class="chapter" data-level="5.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>5.6</b> Repeating the above</a></li>
 <li class="chapter" data-level="5.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>5.7</b> Top 3</a></li>
 <li class="chapter" data-level="5.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>5.8</b> Borda count</a></li>
-<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="5.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.9</b> Hypothesis testing</a>
+<ul>
 <li class="chapter" data-level="5.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>5.9.1</b> T-test</a></li>
 <li class="chapter" data-level="5.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>5.9.2</b> ANOVA</a></li>
 <li class="chapter" data-level="5.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>5.9.3</b> chi-squares</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a><ul>
+<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>6.1</b> From long to large table</a></li>
 <li class="chapter" data-level="6.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>6.2</b> Merge file</a></li>
-<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a><ul>
+<li class="chapter" data-level="6.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>6.3</b> Graphs</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>6.3.1</b> spider graphs</a></li>
 <li class="chapter" data-level="6.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>6.3.2</b> prison graphs</a></li>
 <li class="chapter" data-level="6.3.3" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>6.3.3</b> venn diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a><ul>
+<li class="chapter" data-level="6.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>6.4</b> Labels</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>6.4.1</b> change from xml to label</a></li>
 <li class="chapter" data-level="6.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>6.4.2</b> change from label to xml</a></li>
 </ul></li>
@@ -203,45 +254,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="outputs" class="section level1">
+<div id="outputs" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Outputs</h1>
-<div id="from-long-to-large-table" class="section level2">
+<div id="from-long-to-large-table" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> From long to large table</h2>
 <p>How to move from a tidy format to a large format</p>
 </div>
-<div id="merge-file" class="section level2">
+<div id="merge-file" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Merge file</h2>
 <p>How to create a merge file</p>
 </div>
-<div id="graphs" class="section level2">
+<div id="graphs" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Graphs</h2>
-<div id="spider-graphs" class="section level3">
+<div id="spider-graphs" class="section level3" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> spider graphs</h3>
 </div>
-<div id="prison-graphs" class="section level3">
+<div id="prison-graphs" class="section level3" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> prison graphs</h3>
 </div>
-<div id="venn-diagram" class="section level3">
+<div id="venn-diagram" class="section level3" number="6.3.3">
 <h3><span class="header-section-number">6.3.3</span> venn diagram</h3>
 </div>
 </div>
-<div id="labels" class="section level2">
+<div id="labels" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Labels</h2>
-<div id="change-from-xml-to-label" class="section level3">
+<div id="change-from-xml-to-label" class="section level3" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> change from xml to label</h3>
 </div>
-<div id="change-from-label-to-xml" class="section level3">
+<div id="change-from-label-to-xml" class="section level3" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> change from label to xml</h3>
 </div>
 </div>
-<div id="dashboarding---sharing-information" class="section level2">
+<div id="dashboarding---sharing-information" class="section level2" number="6.5">
 <h2><span class="header-section-number">6.5</span> Dashboarding - Sharing information</h2>
 <p>Html files
 Tableau
 Power BI
 Shiny</p>
 </div>
-<div id="outputs-with-hypothesis-testing-results" class="section level2">
+<div id="outputs-with-hypothesis-testing-results" class="section level2" number="6.6">
 <h2><span class="header-section-number">6.6</span> Outputs with hypothesis testing results</h2>
 
 </div>
@@ -275,6 +326,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
