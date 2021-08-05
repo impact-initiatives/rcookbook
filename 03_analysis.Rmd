@@ -204,8 +204,29 @@ dfsvy %>%
   )
 
 ```
+To calculate the weigthed percent mean of a multiple response option you need to created a srvyr object including the weights. The syntax is similar to dyplr and allows for the total columns
+
+```{r}
+weighted_object <- main_dataset %>% as_survey_design(ids = X_uuid, weights = stratum.weight)
+
+weighted_table <- weighted_object %>% 
+                  group_by(adm1NameLat) %>% #group by categorical variable
+                  summarise_at(vars(starts_with("b10_hohh_vulnerability.")), survey_mean) %>% #select multiple response question
+                  ungroup() %>% 
+                  bind_rows(
+                            summarise_at(weighted_object,
+                            vars(starts_with("b10_hohh_vulnerability.")), survey_mean) # bind the total
+                  ) %>%
+                mutate_at(vars(adm1NameLat), ~replace(., is.na(.), "Total")) %>% 
+                select(., -(ends_with("_se"))) %>%  #remove the colums with the variance type calculations
+                mutate_if(is.numeric, ~ . * 100) %>%
+                mutate_if(is.numeric, round, 2)
 
 
+print(weighted_table)
+
+
+```
 ### Numeric variables
 srvyr treats the calculation/aggregation of numeric variables differently in an attempt to mirror dplyr syntax 
 
