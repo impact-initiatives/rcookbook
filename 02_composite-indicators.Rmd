@@ -3,43 +3,163 @@ composeR
 dplyr::case_when
 
 ## Composite with 1 categorical variable - select one
-e.g. improved source of water
-```{r }
-# data_set <- data_set %>%
-#   mutate(case_when XXXX)
 
+This example will look at creating an improved source of water variable. The indicator of interest is **f11_dinking_water_source** and the options for un-improved source of water are:
+
+- trucked_in_water_truck_with_a_tank_etc
+- drinking_water_from_water_kiosk_booth_with_water_for_bottling
+- bottled_water_water_purchased_in_bottles
+- other_specify
+
+```{r }
+#Creating a vector of un-improved source of water
+unimproved_source <- c("trucked_in_water_truck_with_a_tank_etc", "drinking_water_from_water_kiosk_booth_with_water_for_bottling", "bottled_water_water_purchased_in_bottles", "other_specify")
+
+#Using base R
+main_dataset$wash_drinkingwater_improved_source_baser <- ifelse(main_dataset$f11_dinking_water_source %in% unimproved_source, "not_improved", "improved")
+table(main_dataset$f11_dinking_water_source, main_dataset$wash_drinkingwater_improved_source_baser, useNA = "ifany")
+
+#Using base R 
+main_dataset$wash_drinkingwater_improved_source_baser2 <- NA
+main_dataset$wash_drinkingwater_improved_source_baser2[main_dataset$f11_dinking_water_source %in% unimproved_source] <- "not_improved"
+main_dataset$wash_drinkingwater_improved_source_baser2[!(main_dataset$f11_dinking_water_source %in% unimproved_source)] <- "improved"
+
+#Same same
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_drinkingwater_improved_source_baser2, useNA = "ifany")
+
+#Using case_when
+main_dataset <- main_dataset %>%
+  mutate(wash_improved_source_dplyr = case_when(f11_dinking_water_source %in% unimproved_source ~ "not_improved",
+                                                TRUE ~ "improved"))
+table(main_dataset$f11_dinking_water_source, main_dataset$wash_improved_source_dplyr, useNA = "ifany")
+
+#Same same
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_improved_source_dplyr)
 ```
 
-## Composite with 2 categorical variables
-e.g. access to improved source of water and distance
-```{r }
-# data_set <- data_set %>%
-#   mutate(case_when XXXX)
+In the previous example, there was no missing value. For this example, the indicator to be built will turn a yes/no question into a dummy variable (1 and 0). The variable of interest is  *b16_hohh_pension_eligible* 
 
+```{r }
+table(main_dataset$b16_hohh_pension_eligible, useNA = "ifany")
+
+#Using base R
+main_dataset$hohh_pension_eligible_dummy_baser <- ifelse(main_dataset$b16_hohh_pension_eligible == "yes", 1, 0)
+
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_baser, useNA = "ifany")
+
+#Using case_when
+main_dataset <- main_dataset %>%
+  mutate(hohh_pension_eligible_dummy_dplyr = case_when(b16_hohh_pension_eligible == "yes" ~ 1,
+                                                b16_hohh_pension_eligible == "no" ~ 0))
+
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_dplyr, useNA = "ifany")
+
+#Same same
+table(main_dataset$hohh_pension_eligible_dummy_baser, main_dataset$hohh_pension_eligible_dummy_dplyr, useNA = "ifany")
 ```
 
+```{r }
+#Watch out for NA. This was is not correct. 
+main_dataset <- main_dataset %>%
+  mutate(hohh_pension_eligible_dummy_dplyr2 = case_when(b16_hohh_pension_eligible == "yes" ~ 1,
+                                                TRUE ~ 0))
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_dplyr2, useNA = "ifany")
+
+#Not same same
+table(main_dataset$hohh_pension_eligible_dummy_baser, main_dataset$hohh_pension_eligible_dummy_dplyr2, useNA = "ifany")
+```
+
+
+## Composite with 2 categorical variables 
+This example will look at creating an indicator whether or not the sources for drinking and for cooking, cleaning and non-drinking purposes are both improved. The indicators of interest are **f11_dinking_water_source** (and more specifically **wash_drinkingwater_improved_source_baser** from previous paragraph) and **f14_technical_water_source** (*F14_What is your HH's main source of water for cooking, cleaning, and non-drinking purposes*). 
+
+First, a new variable has to be created, **wash_otherwater_improved_source_baser**.
+
+```{r }
+#Using base R
+main_dataset$wash_otherwater_improved_source_baser <- ifelse(main_dataset$f14_technical_water_source %in% unimproved_source, "not_improved", "improved")
+
+main_dataset$wash_bothwater_improved_source_baser <- ifelse(main_dataset$wash_drinkingwater_improved_source_baser == "improved" & main_dataset$wash_otherwater_improved_source_baser == "improved", "both_improved", "not_both_improved")
+
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_otherwater_improved_source_baser, main_dataset$wash_bothwater_improved_source_baser, useNA = "ifany")
+```
+
+Now, the variable will be coded to have 3 categories instead: both improved, at least drinking water and not improved.
+
+```{r }
+main_dataset$wash_bothwater_improved_source_baser2 <- ifelse(main_dataset$wash_drinkingwater_improved_source_baser == "improved" & main_dataset$wash_otherwater_improved_source_baser == "improved", "both_improved", 
+                                                             ifelse(main_dataset$wash_drinkingwater_improved_source_baser == "improved", "at_least_drinking", "not_both_improved"))
+
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_otherwater_improved_source_baser, main_dataset$wash_bothwater_improved_source_baser2, useNA = "ifany")
+```
+
+```{r }
+#Using dplyr
+main_dataset <- main_dataset %>%
+  mutate(wash_bothwater_improved_source_dplyr = case_when(wash_drinkingwater_improved_source_baser == "improved" & wash_otherwater_improved_source_baser == "improved" ~ "both_improved",
+                                                          wash_drinkingwater_improved_source_baser == "improved" ~ "at_least_drinking", 
+                                                          TRUE ~ "not_both_improved"
+                                                          ))
+
+table(main_dataset$wash_bothwater_improved_source_dplyr,  main_dataset$wash_bothwater_improved_source_baser2, useNA = "ifany")
+```
 ## Composite with 1 categorical variable - select multiple
 e.g. improved source of water
 ```{r }
-# data_set <- data_set %>%
+# main_dataset <- main_dataset %>%
 #   mutate(case_when XXXX)
 
 ```
 
 ## Composite with 1 numerical variable
-e.g. FCS
+This example will look at creating one a categorical variable based on a number, **f6_how_many_wood_hh_consumed_last_winter  **, 'less than 5', between 5 (included) and 10 and '10 and above'.
+
 ```{r }
-# data_set <- data_set %>%
-#   mutate(case_when XXXX)
+main_dataset <- main_dataset %>%
+  mutate(wood_consumed_categories = case_when(f6_how_many_wood_hh_consumed_last_winter < 5 ~ "less_than_5",
+                                              f6_how_many_wood_hh_consumed_last_winter < 10 ~ "between5_and10",
+                                              f6_how_many_wood_hh_consumed_last_winter >= 10 ~ "ten_above"))
 
 ```
 
 ## Composite with 2 numerical variables
+
+This example will look at creating one of the indicators necessary to compute the FCS. In some cases, we need to check if the sum of number of days for 2 types of food are above 7 or not. If the sum is above 7, then it has to return 7 otherwise, the sum of both variables.
+
 ```{r }
-# data_set <- data_set %>%
-#   mutate(case_when XXXX)
+# Combine cereals/roots and meat/eggs and make maximum 7 days
+## Using base R
+main_dataset$fcs_cereal_roots  <- ifelse((main_dataset$g1_cereals_consumption + main_dataset$g2_roots_consumption) > 7,
+                                7,
+                                main_dataset$g1_cereals_consumption + main_dataset$g2_roots_consumption)
+
+## Using dplyr
+main_dataset <- main_dataset %>%
+  mutate(fcs_meat_eggs = ifelse((g5_meat_consumption + g6_eggs_consumption) > 7, 7,
+                                 g5_meat_consumption + g6_eggs_consumption))
+
 
 ```
+
+## Composite with 2 or more numerical variables
+
+This example will look at creating the food consumption score. 
+```{r }
+main_dataset <- main_dataset %>%
+  mutate(FCS_score_dplyr = fcs_cereal_roots * 2 + g3_vegetables_consumption * 1 + g4_fruits_consumption * 1 + fcs_meat_eggs * 4 + g7_pulses_consumption * 3 + g8_dairy_consumption * 4 + g9_oil_consumption * 0.5 + g10_sugar_consumption * 0.5)
+
+main_dataset$FCS_score_baser  <- (main_dataset$fcs_cereal_roots * 2)+
+  (main_dataset$g3_vegetables_consumption * 1)+
+  (main_dataset$g4_fruits_consumption * 1)+
+  (main_dataset$fcs_meat_eggs * 4)+
+  (main_dataset$g7_pulses_consumption * 3)+
+  (main_dataset$g8_dairy_consumption * 4)+
+  (main_dataset$g9_oil_consumption * 0.5)+
+  (main_dataset$g10_sugar_consumption * 0.5)
+
+```
+
+
 
 ## New indicators from a loop to main dataset
 e.g. aggregating the number of children going to school from a loop
