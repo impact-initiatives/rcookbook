@@ -12,8 +12,8 @@ library(dplyr)
 library(lubridate)
 
 # Creating a dummy data set
-start <-  c("2020-12-01T09:40:05.750+04:30","2020-12-01T09:40:18.709+04:30","2020-12-01T09:45:40.879+04:30","2020-12-01T09:46:28.328+05:00")
-end <-  c("2020-12-01T09:44:44.438+04:30","2020-12-01T10:01:27.890+04:30","2020-12-01T10:17:44.021+04:30","2020-12-01T10:18:32.717+05:00")
+start <- c("2020-12-01T09:40:05.750+04:30","2020-12-01T09:40:18.709+04:30","2020-12-01T09:45:40.879+04:30","2020-12-01T09:46:28.328+05:00")
+end <- c("2020-12-01T09:44:44.438+04:30","2020-12-01T10:01:27.890+04:30","2020-12-01T10:17:44.021+04:30","2020-12-01T10:18:32.717+05:00")
 
 my_df <- data.frame(start, end)
 
@@ -69,19 +69,19 @@ time_max <- 30
 time_check_audit <- function(df_raw, x_uuid="_uuid", time_min, time_max, audit_dir_path = "./audit_files/", today = "today"){
   if (!any(duplicated(df_raw[[x_uuid]]))) {
     # Audit Checks
-    audit_dir<-audit_dir_path
-    uuids<-dir(audit_dir)
-    uuid_file<-paste0(audit_dir,"\\","\\audit.csv")
-    dfl<-list()
+    audit_dir_path < -audit_dir_path
+    uuids <- dir(audit_dir_path)
+    dfl <- list()
     all_uuids <- length(uuids)
     
     for(i in 1: length(uuids)){
-      df <-read.csv(paste0(audit_dir, uuids[i],"/audit.csv"))
+      df <- read.csv(paste0(audit_dir_path, uuids[i], "/audit.csv"))
       df <- df %>% filter(node != "")
-      duration_ms<- sum(df$end - df$start)
-      duration_secs<-duration_ms/1000
-      duration_minutes<- round(duration_secs/60,1)
-      dfl[[i]]<-data.frame(uuid =uuids[i],duration_ms=duration_ms,durations_secs=duration_secs,duration_minutes= duration_minutes)
+      duration_ms <- sum(df$end - df$start)
+      duration_secs <-duration_ms/1000
+      duration_minutes <- round(duration_secs/60,1)
+      dfl[[i]] <- data.frame(uuid = uuids[i], duration_ms=duration_ms, 
+                             durations_secs=duration_secs, duration_minutes = duration_minutes)
       cat("\014","Running audit: ", round((i/all_uuids) * 100,0),"%\n", sep = "")
     }
     duration_df <- do.call("rbind", dfl)
@@ -89,19 +89,17 @@ time_check_audit <- function(df_raw, x_uuid="_uuid", time_min, time_max, audit_d
     
     
     #time check based on start end time
-    df_no_audit_files <- df_raw %>% mutate(start = ymd_hms(start),
-                                           end = ymd_hms(end),
-                                           start_end = round(as.POSIXct(end) - as.POSIXct(start)))
+    df_str_audit_all <- df_raw %>% 
+      mutate(start_end = difftime(as.POSIXct(ymd_hms(end)), as.POSIXct(ymd_hms(start)), units = "mins"))
+
+    # df_str_audit_all <- df_raw %>%
+    #   left_join(select(df_no_audit_files, x_uuid, start_end), by = c("_uuid"="_uuid"))
     
     # Join Audit checks and main data set
-    df_str_audit_all <- df_raw %>%
-      left_join(select(df_no_audit_files, x_uuid, start_end), by = c("_uuid"="_uuid"))
-    
-    # Calculating time using start - end time for missing audit files
     df_str_audit_all <- df_str_audit_all %>%
       left_join(select(duration_df, x_uuid, duration_minutes), by = c("_uuid"="_uuid"))
-    
-    # Merging both audit checks
+
+    # Checking time duration with audit file, if not available, from dataset start/end.
     df_str_audit_all <- df_str_audit_all %>%
       mutate(interview_duration = if_na(duration_minutes, start_end),
              CHECK_interview_duration = case_when(
@@ -112,7 +110,7 @@ time_check_audit <- function(df_raw, x_uuid="_uuid", time_min, time_max, audit_d
     
     return(df_str_audit_all)
   }else{
-    cat("Error: df_raw has duplicate in uuid column, resolve the duplication to proceed!")
+    stop("Error: df_raw has duplicate in uuid column, resolve the duplication to proceed!")
   }
 }
 
@@ -132,45 +130,65 @@ It needs a location identifier as a parameter to check if the elapsed time is ma
 library(lubridate)
 
 # Creating a dummy data set
-start <-  c("2020-12-01T09:40:05.750+04:30","2020-12-01T09:45:18.709+04:30","2020-12-01T09:45:40.879+04:30","2020-12-01T10:25:28.32+04:30")
-end <-  c("2020-12-01T09:44:44.438+04:30","2020-12-01T10:01:27.890+04:30","2020-12-01T10:17:44.021+04:30","2020-12-01T10:18:32.717+04:30")
-device_id <- c("000215","000215","000216","000216")
-village <- c("Village A","Village A","Village B","Village C")
+start <-  c("2020-12-01T09:40:05.750+04:30",
+            "2020-12-01T09:45:18.709+04:30",
+            "2020-12-01T09:45:40.879+04:30",
+            "2020-12-01T10:02:40.879+04:30",
+            "2020-12-01T10:25:28.32+04:30")
+end <-  c("2020-12-01T09:44:44.438+04:30",
+          "2020-12-01T10:01:27.890+04:30",
+          "2020-12-01T10:17:44.021+04:30",
+          "2020-12-01T10:05:40.879+04:30",
+          "2020-12-01T10:38:32.717+04:30")
+device_id <- c("000215",
+               "000215",
+               "000216",
+               "000215",
+               "000216")
+village <- c("Village A",
+             "Village A",
+             "Village B",
+             "Village A",
+             "Village C")
 
 my_df <- data.frame(start, end, device_id, village)
 
 # declaring the function
-time_btwn_ints <- function(df,device_id,start_col = "start",end_col = "end",village_col, same_village_threshold=3,diff_village_threshold=5){
+time_btwn_ints <- function(df, device_id, start_col = "start", end_col = "end", 
+                           village_col, same_village_threshold = 3, diff_village_threshold = 5){
   checked_df <- df
-  
+
+  # sort by device_id and start_col
   checked_df <- checked_df[order(checked_df[[start_col]]), ]
   checked_df <- checked_df[order(checked_df[[device_id]]), ]
-  
-  end_2 <- checked_df[[end_col]][1]
-  end_2 <- append(end_2, checked_df[[end_col]])
-  checked_df$end_2 <- end_2[-length(end_2)]
-  checked_df$gap_between_ints <- difftime(as.POSIXct(ymd_hms(checked_df[[start_col]])), as.POSIXct(ymd_hms(checked_df$end_2)), units = "mins")
-  
-  village_2 <- checked_df[[village_col]][1]
-  village_2 <- append(village_2, checked_df[[village_col]])
-  checked_df$village_2 <- village_2[-length(village_2)]
-  
-  checked_df$CHECK_gap_between_ints <- "Okay"
-  checked_df$CHECK_gap_between_ints[checked_df[[village_col]]!=checked_df$village_2 & as.numeric(checked_df$gap_between_ints) < diff_village_threshold] <- paste0("the elapsed time between two interviews in different villages is less than ",diff_village_threshold, " minutes")
-  
-  checked_df$CHECK_gap_between_ints[checked_df[[village_col]]==checked_df$village_2 & as.numeric(checked_df$gap_between_ints) < same_village_threshold] <- paste0("the elapsed time between two interviews in the same village is less than ",same_village_threshold, " minutes")
 
-  for (i in unique(checked_df[[device_id]])) {
-    checked_df$gap_between_ints[checked_df[[device_id]] == i][1] <- NA
-    checked_df$CHECK_gap_between_ints[checked_df[[device_id]] == i][1] <- "Okay"
+  # For each row starting from the second row:
+  # 1) calculate the time between the end of the (r-1) survey and the start of the (r) survey
+  # 2) insert the eight check-message based on the calculated time and the village
+  issue.same.village <- paste0("The elapsed time between two interviews in the same village is less than ",same_village_threshold, " minutes")
+  issue.diff.village <- paste0("The elapsed time between two interviews in different villages is less than ", diff_village_threshold, " minutes")
+  checked_df$check <- "OK"
+  checked_df$gap_between_ints <- NA
+  for (r in 2:nrow(checked_df)){
+    if (as.character(checked_df[r, device_id])==as.character(checked_df[r-1, device_id])){
+      checked_df$gap_between_ints[r] <- difftime(as.POSIXct(ymd_hms(checked_df[r, start_col])),
+                                                 as.POSIXct(ymd_hms(checked_df[r-1, end_col])),
+                                                 units = "mins")
+
+      if (as.character(checked_df[r, village_col])==as.character(checked_df[r-1, village_col])){
+        if (checked_df$gap_between_ints[r] < same_village_threshold) checked_df[r, "check"] <- issue.same.village
+      } else{
+        if (checked_df$gap_between_ints[r] < diff_village_threshold) checked_df[r, "check"] <- issue.diff.village
+      }
+    }
   }
-  
-  checked_df <- checked_df[,-which(names(checked_df) %in% c("end_2","village_2"))]
+
   return(checked_df)
 }
 
 # Applying the function to data frame
 processed_df <- time_btwn_ints(df = my_df, device_id = "device_id",village_col = "village", same_village_threshold = 2,diff_village_threshold = 10)
+
 ```
 
 ****
@@ -222,12 +240,8 @@ Execution was haulted due to one of the following issues:
     cleaning_log.changed <- cleaning_log[cleaning_log$question.name %in% names(raw_df) & cleaning_log$uuid %in% raw_df[[uuid_col]], ]
     cleaning_log.changed <- cleaning_log.changed[cleaning_log.changed$changed %in% c("yes","Yes"),]
     
-    #removing uuids and question names that are empty in cleaning log
-    cleaning_log.changed <- cleaning_log.changed [!is.na(cleaning_log.changed$question.name), ]
-    cleaning_log.changed <- cleaning_log.changed [!is.na(cleaning_log.changed$uuid), ]
-    
     # capturing duplicate logs
-    cleaning_log$unique_key <- paste(cleaning_log$uuid, cleaning_log$question.name, cleaning_log$new.value, sep = "_")
+    cleaning_log$unique_key <- paste(cleaning_log$uuid, cleaning_log$question.name, sep = "_")
     duplicate_logs <- cleaning_log[(duplicated(cleaning_log$unique_key) | duplicated(cleaning_log$unique_key, fromLast = T)),]
     
     # cleaning master cleaning log
@@ -243,12 +257,14 @@ Execution was haulted due to one of the following issues:
         var_i <- cleaning_log.changed$question.name[rowi]
         old_i <- cleaning_log.changed$old.value[rowi]
         new_i <- cleaning_log.changed$new.value[rowi]
-        if(class(raw_df_valid[[var_i]])=="character"){
-          new_i<-as.character(new_i)
-        }else if(class(raw_df_valid[[var_i]])=="numeric"){
-          new_i<-as.integer(new_i)
-        }else if(class(raw_df_valid[[var_i]])=="logical"){
-          new_i<-as.integer(new_i)
+        if(class(raw_df_valid[[var_i]]) == "character"){
+          new_i <- as.character(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "numeric"){
+          new_i <- as.numeric(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "logical"){
+          new_i <- as.integer(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "integer"){
+          new_i <- as.integer(new_i)
         }
         # Find the variable according to the row of the cleaning log
         raw_df_valid[raw_df_valid[[uuid_col]] == uuid_i, var_i] <- new_i
