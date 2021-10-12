@@ -67,11 +67,228 @@ kobohr_apitoolbox
 ## Data falsification
 
 ### Check for time (in the dataset)
-lubridate
-Custom script
+
+Required Libraries: "dplyr" and "lubridate"
+
+****
+  
+"time_check" will return the elapsed time for each interview based on it's start and end columns also classifies if it's "too short", "too long", or "okay".
+As an example, we will use a dummy data set to apply the function to it. The function also needs a time_min (the minimum time in minutes that an interview should take to be completed) and a time_max (the maximum time in minutes that an interview should take to be completed) parameters.
+```{r, eval=T}
+library(dplyr)
+library(lubridate)
+
+# Creating a dummy data set
+start <- c("2020-12-01T09:40:05.750+04:30","2020-12-01T09:40:18.709+04:30","2020-12-01T09:45:40.879+04:30","2020-12-01T09:46:28.328+05:00")
+end <- c("2020-12-01T09:44:44.438+04:30","2020-12-01T10:01:27.890+04:30","2020-12-01T10:17:44.021+04:30","2020-12-01T10:18:32.717+05:00")
+
+my_df <- data.frame(start, end)
+
+# Initializing variables
+time_min <- 8
+time_max <- 30
+
+# declaring the function
+time_check <- function(df, time_min, time_max){
+  df <- df %>% mutate(interview_duration = difftime(as.POSIXct(ymd_hms(end)), as.POSIXct(ymd_hms(start)), units = "mins"),
+                      CHECK_interview_duration = case_when(
+                        interview_duration < time_min ~ "Too short",
+                        interview_duration > time_max ~ "Too long",
+                        TRUE ~ "Okay"
+                      )
+  )
+  return(df)
+}
+
+# Applying the function to data frame
+processed_df <- time_check(my_df, time_min, time_max)
+```
+```{r, tidy=FALSE, eval = F}
+processed_df
+```
+```{r, echo =F, message= F, warning=F,}
+processed_df %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+****
 
 ### Check for time (audit files)	
-Custom script (using ???)
+
+  Required Libraries: "dplyr", "lubridate", and "expss"
+
+****
+  
+  "time_check_audit" will calculate the interview duration using the audit files. And, if the audit file for that particular uuid is not found in the audit directory (where you paste the audit files), it will calculate it using start and end time columns in the data set.
+Audit files should be stored inside a folder (to avoid redefining its name while calling the function, call it "audit_files") in the project folder.
+```{r, eval = T, message = F, warning = F, results = 'hide'}
+library(dplyr)
+library(lubridate)
+library(expss)
+
+# reading files.
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+
+# Initializing variables
+time_min <- 8
+time_max <- 30
+
+
+# declaring the function
+time_check_audit <- function(df_raw, x_uuid="_uuid", time_min, time_max, audit_dir_path = "./audit_files/", today = "today"){
+  if (!any(duplicated(df_raw[[x_uuid]]))) {
+    # Audit Checks
+    # audit_dir_path < -audit_dir_path
+    uuids <- dir(audit_dir_path)
+    dfl <- list()
+    all_uuids <- length(uuids)
+
+    for(i in 1: length(uuids)){
+      df <- read.csv(paste0(audit_dir_path, uuids[i], "/audit.csv"))
+      df <- df %>% filter(node != "")
+      duration_ms <- sum(df$end - df$start)
+      duration_secs <-duration_ms/1000
+      duration_minutes <- round(duration_secs/60,1)
+      dfl[[i]] <- data.frame(uuid = uuids[i], duration_ms=duration_ms, 
+                             durations_secs=duration_secs, duration_minutes = duration_minutes)
+      cat("\014","Running audit: ", round((i/all_uuids) * 100,0),"%\n", sep = "")
+    }
+    duration_df <- do.call("rbind", dfl)
+    duration_df <- dplyr::rename(duration_df, `_uuid` = uuid)
+    
+    #time check based on start end time
+    df_str_audit_all <- df_raw %>% 
+      mutate(start_end = difftime(as.POSIXct(ymd_hms(end)), as.POSIXct(ymd_hms(start)), units = "mins")) 
+    
+    #creating a binding column with same name.
+    df_str_audit_all$`_uuid` <- df_str_audit_all[[x_uuid]]
+
+    # Join Audit checks and main data set
+    df_str_audit_all <- df_str_audit_all %>%
+      left_join(select(duration_df, `_uuid`, duration_minutes), by =  "_uuid")
+    
+    # Checking time duration with audit file, if not available, from dataset start/end.
+    df_str_audit_all <- df_str_audit_all %>%
+      mutate(interview_duration = if_na(duration_minutes, start_end),
+             CHECK_interview_duration = case_when(
+               interview_duration < time_min ~ "Too short",
+               interview_duration > time_max ~ "Too long",
+               TRUE ~ "Okay")
+      ) %>% select( -c(duration_minutes,start_end))
+    
+    return(df_str_audit_all)
+  }else{
+    stop("Error: df_raw has duplicate in uuid column, resolve the duplication to proceed!")
+  }
+}
+
+# Applying the function to data frame
+processed_df <- time_check_audit(main_dataset, 
+                                 x_uuid = "X_uuid",
+                                 time_min, time_max, 
+                                 audit_dir_path = "inputs/reach_global/attachments/dc4b0f40bf934293aedd3f31ff43f6d1/")
+```
+```{r, tidy=FALSE, eval = F}
+processed_df %>%
+  select(`_uuid`, interview_duration, CHECK_interview_duration) %>% 
+  head(10)
+```
+```{r, echo =F, message= F, warning=F,}
+processed_df %>% 
+  select(`_uuid`, interview_duration, CHECK_interview_duration) %>% 
+  head(10) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+****
+
+### Check for time - calculating the elapsed time between each interview
+
+Required Libraries: lubridate
+
+****
+  
+"time_btwn_ints" will calculate the elapsed time between the ending time of the first interview of an enumerator and the start time of its second interview, and the process applies for all interviews of each enumerator.
+It needs a location identifier as a parameter to check if the elapsed time is matching with the threshold (given as a parameter) in the same location or not. Also it will be checked if the elapsed time matches the given threshold for interviews in different locations by the same enumerator.
+```{r, eval = T}
+library(lubridate)
+
+# Creating a dummy data set
+start <-  c("2020-12-01T09:40:05.750+04:30",
+            "2020-12-01T09:45:18.709+04:30",
+            "2020-12-01T09:45:40.879+04:30",
+            "2020-12-01T10:02:40.879+04:30",
+            "2020-12-01T10:25:28.32+04:30")
+end <-  c("2020-12-01T09:44:44.438+04:30",
+          "2020-12-01T10:01:27.890+04:30",
+          "2020-12-01T10:17:44.021+04:30",
+          "2020-12-01T10:05:40.879+04:30",
+          "2020-12-01T10:38:32.717+04:30")
+device_id <- c("000215",
+               "000215",
+               "000216",
+               "000215",
+               "000216")
+village <- c("Village A",
+             "Village A",
+             "Village B",
+             "Village A",
+             "Village C")
+
+my_df <- data.frame(start, end, device_id, village)
+
+# declaring the function
+time_btwn_ints <- function(df, device_id, start_col = "start", end_col = "end", 
+                           village_col, same_village_threshold = 3, diff_village_threshold = 5){
+  checked_df <- df
+  
+  # sort by device_id and start_col
+  checked_df <- checked_df[order(checked_df[[start_col]]), ]
+  checked_df <- checked_df[order(checked_df[[device_id]]), ]
+  
+  # For each row starting from the second row:
+  # 1) calculate the time between the end of the (r-1) survey and the start of the (r) survey
+  # 2) insert the eight check-message based on the calculated time and the village
+  issue.same.village <- paste0("The elapsed time between two interviews in the same village is less than ",same_village_threshold, " minutes")
+  issue.diff.village <- paste0("The elapsed time between two interviews in different villages is less than ", diff_village_threshold, " minutes")
+  checked_df$check <- "OK"
+  checked_df$gap_between_ints <- NA
+  for (r in 2:nrow(checked_df)){
+    if (as.character(checked_df[r, device_id])==as.character(checked_df[r-1, device_id])){
+      checked_df$gap_between_ints[r] <- difftime(as.POSIXct(ymd_hms(checked_df[r, start_col])),
+                                                 as.POSIXct(ymd_hms(checked_df[r-1, end_col])),
+                                                 units = "mins")
+      
+      if (as.character(checked_df[r, village_col])==as.character(checked_df[r-1, village_col])){
+        if (checked_df$gap_between_ints[r] < same_village_threshold) checked_df[r, "check"] <- issue.same.village
+      } else{
+        if (checked_df$gap_between_ints[r] < diff_village_threshold) checked_df[r, "check"] <- issue.diff.village
+      }
+    }
+  }
+  
+  return(checked_df)
+}
+
+# Applying the function to data frame
+processed_df <- time_btwn_ints(df = my_df, device_id = "device_id",village_col = "village", same_village_threshold = 2,diff_village_threshold = 10)
+
+```
+```{r, tidy=FALSE, eval = F}
+processed_df
+```
+```{r, echo =F, message= F, warning=F,}
+processed_df %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+****
 
 ### Silouhette analysis	
 Custom script (using ???)
@@ -274,8 +491,149 @@ main_dataset <- replace_columns(main_dataset, generate_from_binaries(main_datase
 
 
 ### Clean data base on cleaning log	
-clog
-butteR
+Required Libraries: Base R Packages
+
+****
+  
+  The function "incorporate_logs" applies cleaning log on raw data. It gets cleaning log in a format that must contain 5 mandatory columns including uuid, question.name, old.value, new.value, and changed. as result it would return the cleaned data frame, master cleaning log (logs that are both applied and not applied on data), the version of cleaning log that was applied on raw data, a report of duplicate logs, and logs that their question name or uuid is not available in raw data frame.
+
+****
+
+```{r, eval = T}
+# Creating a dummy data set
+city_name <- c("kabul", "new dlehi", "peshawar","new york")
+population <- c(4430000, 21750000, 1970000, 8419000)
+uuid <- c("eae001", "eae002", "eae003","eae004")
+
+my_df <- data.frame(city_name, population, uuid)
+
+# Creating a dummy cleaning log
+old.value <- c("kabul", 4430000, "europe","kabul")
+question.name <- c("city_name", "population", "continent","city_name")
+new.value <- c("moscow",11920000,"asia","moscow")
+uuid <- c("eae001","eae001","eae001","eae001")
+changed <- c("yes","yes","yes","yes")
+
+cleaning_log <- data.frame(uuid,question.name, old.value, new.value, changed)
+
+### declaring the function
+incorporate_logs = function(raw_df, cleaning_log, df_group_seprator = "/", uuid_col = "_uuid"){
+  error <- "Error!
+Execution was haulted due to one of the following issues:
+  - Cleaning log is empty
+  - There is no changes in data (in cleaning log changed property for all logs is set to 'NO')
+  - One/morethan one of the (uuid, question.name, old.value, new.value, and changed) columns are missing or column names are misspelled
+"
+  if (sum(grepl("uuid|question.name|old.value|new.value|changed", names(cleaning_log)))==5) {
+    `%nin%` = Negate(`%in%`)
+    # changing the group seprator (operator) from "/" to "."
+    names(raw_df) <- gsub(df_group_seprator,".",names(raw_df))
+    cleaning_log$question.name <- gsub(df_group_seprator,".", cleaning_log$question.name)
+    
+    # subsetting logs that their question is not (available) in dataset
+    logs_not_in_rawdf <- cleaning_log[cleaning_log$question.name %nin% names(raw_df) | cleaning_log$uuid %nin% raw_df[[uuid_col]], ]
+    logs_not_in_rawdf <- logs_not_in_rawdf[logs_not_in_rawdf$changed %in% c("yes","Yes"),]
+    
+    # subsetting logs that their question exist in raw data frame and its new value is changed
+    cleaning_log.changed <- cleaning_log[cleaning_log$question.name %in% names(raw_df) & cleaning_log$uuid %in% raw_df[[uuid_col]], ]
+    cleaning_log.changed <- cleaning_log.changed[cleaning_log.changed$changed %in% c("yes","Yes"),]
+    
+    # capturing duplicate logs
+    cleaning_log$unique_key <- paste(cleaning_log$uuid, cleaning_log$question.name, sep = "_")
+    duplicate_logs <- cleaning_log[(duplicated(cleaning_log$unique_key) | duplicated(cleaning_log$unique_key, fromLast = T)),]
+    
+    # cleaning master cleaning log
+    cleaning_log <- cleaning_log[cleaning_log$uuid %nin% logs_not_in_rawdf$uuid | cleaning_log$question.name %nin% logs_not_in_rawdf$question.name,]
+    cleaning_log <- cleaning_log[!is.na(cleaning_log$question.name), ]
+    cleaning_log <- cleaning_log[!is.na(cleaning_log$uuid), ]
+    
+    raw_df_valid <- raw_df
+    if (nrow(cleaning_log.changed)>0) {
+      # Apply cleaning log on raw data
+      for (rowi in 1:nrow(cleaning_log.changed)){
+        uuid_i <- cleaning_log.changed$uuid[rowi]
+        var_i <- cleaning_log.changed$question.name[rowi]
+        old_i <- cleaning_log.changed$old.value[rowi]
+        new_i <- cleaning_log.changed$new.value[rowi]
+        if(class(raw_df_valid[[var_i]]) == "character"){
+          new_i <- as.character(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "numeric"){
+          new_i <- as.numeric(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "logical"){
+          new_i <- as.integer(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "integer"){
+          new_i <- as.integer(new_i)
+        }
+        # Find the variable according to the row of the cleaning log
+        raw_df_valid[raw_df_valid[[uuid_col]] == uuid_i, var_i] <- new_i
+        print(paste(rowi,"uuid:", uuid_i, "Old value:", old_i, "changed to", new_i, "for", var_i))
+      }
+      return(list(cleaned_df = raw_df_valid, cleaning_log.applied = cleaning_log.changed, logs_not_in_rawDF = logs_not_in_rawdf, duplicate_logs = duplicate_logs, master_cleaning_log = cleaning_log))
+    }else{
+      cat(error)
+      return(list(cleaned_df = raw_df_valid, cleaning_log.applied = cleaning_log.changed,logs_not_in_rawdf = logs_not_in_rawdf))
+    }
+  }else{
+    cat(error)
+  }
+}
+
+### Applying the function to data frame
+incorprated_logs <- incorporate_logs(my_df, cleaning_log, uuid_col = "uuid")
+
+cleaned_data <- incorprated_logs$cleaned_df
+master_cleaning_log <- incorprated_logs$master_cleaning_log
+logs_not_in_rawDf <- incorprated_logs$logs_not_in_rawDF
+cleaning_log.applied <- incorprated_logs$cleaning_log.applied
+duplicate_log <- incorprated_logs$duplicate_logs
+
+```
+```{r, tidy=FALSE, eval = F}
+cleaned_data
+```
+```{r, echo =F, message= F, warning=F,}
+cleaned_data %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+master_cleaning_log
+```
+```{r, echo =F, message= F, warning=F,}
+master_cleaning_log %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+logs_not_in_rawDf
+```
+```{r, echo =F, message= F, warning=F,}
+logs_not_in_rawDf %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log.applied
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log.applied %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+duplicate_log
+```
+```{r, echo =F, message= F, warning=F,}
+duplicate_log %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+****
 
 ### Check cleaning log, raw dataset and clean dataset	
 dplyr
@@ -342,9 +700,5 @@ print(objSDC, "risk")
 #report(objSDC, filename = "disclosure_risk_report",internal = T, verbose = TRUE) 
 
 ```
-
-
-
-
 
 
