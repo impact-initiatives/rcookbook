@@ -38,6 +38,8 @@ questionnaire <- load_questionnaire(data = main_dataset,
 ```
 
 ## Checking the XLS kobo tools for constraints errors 
+This function checks the relevant column in the questionnaire and flag  issues with constraints of type (selected(question_name,question_answer)). 
+
 ```{r include=FALSE}
 check_answer_in_list <- function(constraint) {
   
@@ -51,23 +53,23 @@ check_answer_in_list <- function(constraint) {
   question <- gsub(question_regex, "\\1", str_extract_all(constraint, question_regex)[[1]])
   answer <- gsub(answer_regex, "\\1", str_extract_all(constraint, answer_regex)[[1]])
   
-  listname <- gsub("^.*\\s","",questions %>% 
+  question_type <- questions %>% 
                      filter(name==question) %>% 
                      filter(!grepl("^(begin|end)\\s+group$",type)) %>% 
-                     pull(type))
+                     pull(type)
+  
+  listname <- gsub("^.*\\s","",question_type)
   
   choices_list <- choices %>% filter(list_name==listname) %>% pull(name)
   
-  answer %in% choices_list
+  return(answer %in% choices_list)
   
 }
 
 check_constraints <- function(questions,choices) {
   
-  questions$name <- str_trim(questions$name)
-  questions$type <- str_trim(questions$type)
-  choices$list_name  <- str_trim(choices$list_name)
-  choices$name  <- str_trim(choices$name)
+questions <- mutate_at(questions, c("name", "type"), ~str_trim(.))
+choices <- mutate_at(choices, c("list_name", "name"), ~str_trim(.))
   
   all_contraints <- questions %>% filter(grepl("selected",relevant)) %>% pull(relevant)
   all_contraints <- gsub('"',"'",all_contraints)
@@ -79,9 +81,6 @@ check_constraints <- function(questions,choices) {
   } ) %>% unlist() %>% unique()
   
 }
-
-
-
 ```
 
 Call this function by passing the questionnaire and choices and the output will be the list of wrong constraints of type (selected(question_name,question_answer)) if any. An error means that the answer does not exist in the choices sheet

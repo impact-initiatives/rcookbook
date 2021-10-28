@@ -104,6 +104,7 @@ main_dataset <- main_dataset %>%
 table(main_dataset$wash_bothwater_improved_source_dplyr,  main_dataset$wash_bothwater_improved_source_baser2, useNA = "ifany")
 ```
 ## Composite with 1 categorical variable - select multiple
+In this example we are creating an indicator to score whether or not drinking water is being processed or purified before usage. The indicator is calculated based on one categorical question **f12_drinking_water_treat**
 
 ```{r }
 #Using dplyr
@@ -130,11 +131,7 @@ main_dataset$wash_indicator2 = ifelse(
        main_dataset$f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter == 1 |
        main_dataset$f12_drinking_water_treat.boiling == 1 |
        main_dataset$f12_drinking_water_treat.percolation == 1,
-    1,
-    NA
-  )
-)
-
+    1,NA))
 ```
 
 ## Composite with 1 numerical variable
