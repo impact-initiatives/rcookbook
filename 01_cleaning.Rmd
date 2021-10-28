@@ -324,6 +324,61 @@ duplicated(dummy_test)
 
 **find_duplicates()** and **duplicated()** functions will return position or value **only of one** duplicated record. But after identification of the duplicate, it will be good to check how many of such duplicated records in the dataset and check if they have any other duplicated columns. Based on your investigation, you will need to delete one or several records. e.g. Enumerator submitted the first survey by mistake and after some time submitted a corrected survey with the same id (in case we allow for the enumerator to select the id of the enterprise or sample). In such a way, find_duplicates() will identify the second survey but we will need to delete the first one.
 
+
+#### Find most similar surveys
+
+The function **find_similar_surveys()** compares each survey with each other survey in the dataset and finds the most similar one, i.e., the one with the lowest number of different answers. The function uses the gower matrix to make the comparison more efficient. The function returns a dataframe with the same number of rows (all surveys) and a few additional columns indicating the ID of the most similar survey and how many columns are different.
+
+Depending on the size of the questionnaire and on the data collection methodology, we can set a maximum threshold on the number of differences and follow up on all the surveys that have a matching survey with a lower number of differences than the threshold. For example, in the MSNA in Syria, we used a maximum threshold of 7 differences.
+
+In the version below, the function uses only the data from the main sheet of the survey. If the tools includes loop(s), it makes sense to add a few relevant columns from the loops to the main dataframe so that they are also used in the search of the most similar survey. For example, for an HH survey with a loop for the HH composition, one can add to the main dataframe one column with the concatenation of the genders of the HH components and one column with the concatenation of the ages of the HH components (from the loop).
+
+```{r, eval=F}
+find_similar_surveys <- function(raw.data, tool.survey, uuid="_uuid"){
+  # 1) store UUIDs
+  uuids <- raw.data[[uuid]]
+  
+  # 2) convert all columns to character and tolower
+  raw.data <- mutate_all(raw.data, as.character)
+  raw.data <- mutate_all(raw.data, tolower)
+  
+  # 3) remove columns that are naturally different in each survey:
+  # - columns of type = "start", "end", "text" (for the other responses), etc.
+  # - columns starting with "_"
+  # - option columns for the select multiple -> keeping only the concatenation column
+  types_to_remove <- c("start", "end", "today", "deviceid", "date", "geopoint", "audit", 
+                       "note", "calculate", "text")
+  cols_to_keep <- data.frame(column=colnames(raw.data)) %>% 
+    left_join(select(tool.survey, name, type), by=c("column"="name")) %>% 
+    filter(!(type %in% types_to_remove) & !str_starts(column, "_") & !str_detect(column, "/"))
+  raw.data <- raw.data[, all_of(cols$column)]
+  
+  # 4) remove columns with all NA; convert remaining NA to "NA"; convert all columns to factor
+  raw.data <- raw.data[, colSums(is.na(raw.data))<nrow(raw.data)]
+  raw.data[is.na(raw.data)] <- "NA"
+  raw.data <- raw.data %>% mutate_if(is.character, factor)
+  error.message <- "NAs detected, remove them before proceeding (it can happen when converting to factor)"
+  if (sum(is.na(raw.data))>0) stop(error.message)
+  
+  # 5) calculate gower distance
+  gower_dist <- daisy(raw.data, metric="gower", warnBin=F, warnAsym=F, warnConst=F)
+  gower_mat <- as.matrix(gower_dist)
+  
+  # 6) convert distance to number of differences and determine closest matching survey
+  r <- unlist(lapply(1:nrow(raw.data), function(i) sort(gower_mat[i,]*ncol(raw.data))[2]))
+  
+  # 7) add relevant columns
+  raw.data[["num_cols_not_NA"]] <- rowSums(raw.data!="NA")
+  raw.data[[uuid]] <- uuids
+  raw.data[["_id_most_similar_survey"]] <- uuids[as.numeric(names(r))]
+  raw.data[["number_different_columns"]] <- as.numeric(r)
+  raw.data <- raw.data %>% arrange(number_different_columns, uuid)
+  
+  return(raw.data)
+}
+```
+
+
 ##	Data checks	
 ### Check for outliers	
 There are 2 commons ways to detect outliers :
