@@ -1,6 +1,6 @@
 # Meta information
 There should be here the libraries, dataset, odk and sampling frame and any other thing.
-
+Note that some variables were NA'ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
 
 ```{r, warning=FALSE, message=FALSE }
 ## Importing dataset and questionnaire 
@@ -12,23 +12,17 @@ library(hypegrammaR)
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
 loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
 
+main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
+
 questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
 choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
 
 ```
 
-Note that some variables were NA'ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
-
 ## Creating the questionnaire object
 
 ```{r, tidy=FALSE, warning=FALSE, results='hide', message=FALSE}
 
-library(stringr)
-library(purrr)
-library(qdapRegex)
-
-
-main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
 
 questionnaire <- load_questionnaire(data = main_dataset,
                                     questions = questions,
@@ -36,60 +30,5 @@ questionnaire <- load_questionnaire(data = main_dataset,
                                     choices.label.column.to.use = "label::English")
 
 ```
-
-## Checking the XLS kobo tools for constraints errors 
-This function checks the relevant column in the questionnaire and flag  issues with constraints of type (selected(question_name,question_answer)). 
-
-```{r include=FALSE}
-check_answer_in_list <- function(constraint) {
-  
-  if(!str_detect(constraint,",")){
-    return(TRUE)
-  }
-
-  question_regex <- "\\{([^()]+)\\}"
-  answer_regex <- "\\'([^()]+)\\'"
-  
-  question <- gsub(question_regex, "\\1", str_extract_all(constraint, question_regex)[[1]])
-  answer <- gsub(answer_regex, "\\1", str_extract_all(constraint, answer_regex)[[1]])
-  
-  question_type <- questions %>% 
-                     filter(name==question) %>% 
-                     filter(!grepl("^(begin|end)\\s+group$",type)) %>% 
-                     pull(type)
-  
-  listname <- gsub("^.*\\s","",question_type)
-  
-  choices_list <- choices %>% filter(list_name==listname) %>% pull(name)
-  
-  return(answer %in% choices_list)
-  
-}
-
-check_constraints <- function(questions,choices) {
-  
-questions <- mutate_at(questions, c("name", "type"), ~str_trim(.))
-choices <- mutate_at(choices, c("list_name", "name"), ~str_trim(.))
-  
-  all_contraints <- questions %>% filter(grepl("selected",relevant)) %>% pull(relevant)
-  all_contraints <- gsub('"',"'",all_contraints)
-
-  rs_list <- map(all_contraints,~map_lgl(unlist(ex_default(.x, pattern = "selected\\s*\\([^\\)]*\\)")),check_answer_in_list))
-  
-  map2(rs_list,seq_along(rs_list), ~ if(length(which(!.x))!=0) {
-    return(unlist(ex_default(all_contraints[.y], pattern = "selected\\s*\\([^\\)]*\\)"))[which(!.x)])
-  } ) %>% unlist() %>% unique()
-  
-}
-```
-
-Call this function by passing the questionnaire and choices and the output will be the list of wrong constraints of type (selected(question_name,question_answer)) if any. An error means that the answer does not exist in the choices sheet
-
-```{r}
-check_constraints(questions,choices) 
-
-```
-
-Probably which packages are used and version
 
 

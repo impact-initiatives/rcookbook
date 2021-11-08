@@ -1,6 +1,7 @@
-hello-world
 meta-information
 creating-the-questionnaire-object
+pre-analysis
+checking-the-xls-kobo-tools-for-constraints-errors
 data-collection-and-processing
 testing-the-tool
 creating-dummy-data
@@ -11,10 +12,12 @@ checking-surveys-against-sampling-frame
 data-falsification
 check-for-time-in-the-dataset
 check-for-time-audit-files
+check-for-time---calculating-the-elapsed-time-between-each-interview
 silouhette-analysis
 check-for-duplicates
 cleaninginspector---find_duplicates
 base---duplicated
+find-most-similar-surveys
 data-checks
 check-for-outliers
 cleaninginspector---find_outliers
@@ -24,6 +27,7 @@ base-dplyr
 check-for-logical-check
 cleaninginspector---inspect_all
 data-cleaning
+re-generate-text-column-for-select-multiple-questions
 clean-data-base-on-cleaning-log
 check-cleaning-log-raw-dataset-and-clean-dataset
 data-cleaning---miscellaneous
@@ -63,7 +67,10 @@ merge-file
 graphs
 spider-graphs
 prison-graphs
+euler-diagram
 venn-diagram
+upset-plots
+boxplots
 labels
 change-from-xml-to-label
 change-from-label-to-xml
