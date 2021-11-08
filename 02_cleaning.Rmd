@@ -527,7 +527,7 @@ generate_from_binaries <- function(data,select_multiple_questions) {
     
     df <- data %>% select(grep(paste0("^",question_name,"\\."), names(data))) ## Subseting the dataset to include only dummies related to one question
     df <- mutate_all(df,as.numeric) ## Making sure the dummies columns are numerical
-    colnames(df) <- gsub(".*\\.","",colnames(df)) ## Keeping only the options names in the colnames
+    colnames(df) <- gsub(paste0(question_name,"\\."),"",colnames(df)) ## Keeping only the options names in the colnames
     df <- map2_df(df, names(df), ~  replace(.x, .x==1, .y) %>% replace(. == 0, NA)) ## Replacing a cell with a value of '1' with its respective column name and '0' with NA
     df %>%
       unite(!!sym(question_name),names(df),remove=TRUE,na.rm=TRUE,sep=" ") %>% ## concatenate the columns using " " as a seperator 
