@@ -104,11 +104,34 @@ main_dataset <- main_dataset %>%
 table(main_dataset$wash_bothwater_improved_source_dplyr,  main_dataset$wash_bothwater_improved_source_baser2, useNA = "ifany")
 ```
 ## Composite with 1 categorical variable - select multiple
-e.g. improved source of water
-```{r }
-# main_dataset <- main_dataset %>%
-#   mutate(case_when XXXX)
+In this example we are creating an indicator to score whether or not drinking water is being processed or purified before usage. The indicator is calculated based on one categorical question **f12_drinking_water_treat**
 
+```{r }
+#Using dplyr
+main_dataset <- main_dataset %>%
+   mutate(
+     wash_indicator1 = case_when(
+       f12_drinking_water_treat.do_not_process_purify == 1 ~ 3 ,
+       f12_drinking_water_treat.cleaning_with_chemicals_chlorination == 1 |
+       f12_drinking_water_treat.water_precipitation == 1 |
+       f12_drinking_water_treat.filtering_the_water_pitcher_filter == 1 |
+       f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter == 1 |
+       f12_drinking_water_treat.boiling == 1 |
+       f12_drinking_water_treat.percolation == 1 ~ 1
+   ) )
+
+
+#Using base R
+main_dataset$wash_indicator2 = ifelse(
+  main_dataset$f12_drinking_water_treat.do_not_process_purify == 1,3,
+  ifelse(
+    main_dataset$f12_drinking_water_treat.cleaning_with_chemicals_chlorination == 1 |
+       main_dataset$f12_drinking_water_treat.water_precipitation == 1 |
+       main_dataset$f12_drinking_water_treat.filtering_the_water_pitcher_filter == 1 |
+       main_dataset$f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter == 1 |
+       main_dataset$f12_drinking_water_treat.boiling == 1 |
+       main_dataset$f12_drinking_water_treat.percolation == 1,
+    1,NA))
 ```
 
 ## Composite with 1 numerical variable
