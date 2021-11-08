@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Pre analysis | R cookbook for analysis with REACH</title>
+  <meta name="description" content="3 Pre analysis | R cookbook for analysis with REACH" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Pre analysis | R cookbook for analysis with REACH" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Pre analysis | R cookbook for analysis with REACH" />
+  
+  
+  
+
+<meta name="author" content="R CoP" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="meta-information.html"/>
+<link rel="next" href="data-collection-and-processing.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello</a></li>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>3</b> Pre analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>3.1</b> Checking the XLS kobo tools for constraints errors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>4</b> Data Collection and Processing</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>4.1</b> Testing the tool</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>4.1.1</b> Creating dummy data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>4.2</b> Download data</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-from-api"><i class="fa fa-check"></i><b>4.2.1</b> download from API</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>4.3</b> Data collection follow-up</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-sampling-frame"><i class="fa fa-check"></i><b>4.3.1</b> checking surveys against sampling frame</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>4.4</b> Data falsification</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>4.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="4.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>4.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="4.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>4.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
+<li class="chapter" data-level="4.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>4.4.4</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="4.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>4.4.5</b> Check for duplicates</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>4.5</b> Data checks</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>4.5.1</b> Check for outliers</a></li>
+<li class="chapter" data-level="4.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>4.5.2</b> Check others</a></li>
+<li class="chapter" data-level="4.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>4.5.3</b> Check for logical check</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>4.6</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="4.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>4.7</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>4.7.1</b> Re-generate text column for select multiple questions</a></li>
+<li class="chapter" data-level="4.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>4.7.2</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="4.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>4.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>4.8</b> Data cleaning - miscellaneous</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>4.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li class="chapter" data-level="4.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>4.8.2</b> Turns label to xml</a></li>
+<li class="chapter" data-level="4.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>4.8.3</b> Statistical Disclosure Control Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>5</b> Composite indicators</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>5.1</b> Composite with 1 categorical variable - select one</a></li>
+<li class="chapter" data-level="5.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>5.2</b> Composite with 2 categorical variables</a></li>
+<li class="chapter" data-level="5.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>5.3</b> Composite with 1 categorical variable - select multiple</a></li>
+<li class="chapter" data-level="5.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>5.4</b> Composite with 1 numerical variable</a></li>
+<li class="chapter" data-level="5.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>5.5</b> Composite with 2 numerical variables</a></li>
+<li class="chapter" data-level="5.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>5.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="5.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>5.7</b> New indicators from a loop to main dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>6</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>6.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="6.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>6.2</b> srvyr package</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>6.2.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="6.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>6.2.2</b> Numeric variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>6.3</b> butteR survey_collapse</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>6.3.1</b> select_one</a></li>
+<li class="chapter" data-level="6.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>6.3.2</b> select_mutiple</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>6.4</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>6.4.1</b> Averages</a></li>
+<li class="chapter" data-level="6.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>6.4.2</b> Median</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>6.5</b> Weights</a></li>
+<li class="chapter" data-level="6.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>6.6</b> Repeating the above</a></li>
+<li class="chapter" data-level="6.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>6.7</b> Top 3</a></li>
+<li class="chapter" data-level="6.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>6.8</b> Borda count</a></li>
+<li class="chapter" data-level="6.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>6.9</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>6.9.1</b> T-test</a></li>
+<li class="chapter" data-level="6.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>6.9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="6.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>6.9.3</b> chi-squares</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>7</b> Outputs</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>7.1</b> From long to large table</a></li>
+<li class="chapter" data-level="7.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>7.2</b> Merge file</a></li>
+<li class="chapter" data-level="7.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>7.3</b> Graphs</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>7.3.1</b> spider graphs</a></li>
+<li class="chapter" data-level="7.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>7.3.2</b> prison graphs</a></li>
+<li class="chapter" data-level="7.3.3" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>7.3.3</b> Euler diagram</a></li>
+<li class="chapter" data-level="7.3.4" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>7.3.4</b> Venn diagram</a></li>
+<li class="chapter" data-level="7.3.5" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>7.3.5</b> UpSet plots</a></li>
+<li class="chapter" data-level="7.3.6" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>7.3.6</b> boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>7.4</b> Labels</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>7.4.1</b> change from xml to label</a></li>
+<li class="chapter" data-level="7.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>7.4.2</b> change from label to xml</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>7.5</b> Dashboarding - Sharing information</a></li>
+<li class="chapter" data-level="7.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>7.6</b> Outputs with hypothesis testing results</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>8</b> Miscellaneous</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for analysis with REACH</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pre-analysis" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Pre analysis</h1>
+<p>This section will show you different steps or tools that can be used before the
+analysis takes place such as checking your KOBO tool or following up your data
+collection.</p>
+<div id="checking-the-xls-kobo-tools-for-constraints-errors" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Checking the XLS kobo tools for constraints errors</h2>
+<p>This function checks the relevant column in the questionnaire and flag issues with constraints of type (selected(question_name,question_answer)).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="pre-analysis.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb3-2"><a href="pre-analysis.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb3-3"><a href="pre-analysis.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qdapRegex)</span>
+<span id="cb3-4"><a href="pre-analysis.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="pre-analysis.html#cb3-5" aria-hidden="true" tabindex="-1"></a>check_answer_in_list <span class="ot">&lt;-</span> <span class="cf">function</span>(constraint) {</span>
+<span id="cb3-6"><a href="pre-analysis.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="pre-analysis.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">str_detect</span>(constraint,<span class="st">&quot;,&quot;</span>)){</span>
+<span id="cb3-8"><a href="pre-analysis.html#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb3-9"><a href="pre-analysis.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-10"><a href="pre-analysis.html#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="pre-analysis.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  question_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">{([^()]+)</span><span class="sc">\\</span><span class="st">}&quot;</span></span>
+<span id="cb3-12"><a href="pre-analysis.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  answer_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">&#39;([^()]+)</span><span class="sc">\\</span><span class="st">&#39;&quot;</span></span>
+<span id="cb3-13"><a href="pre-analysis.html#cb3-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-14"><a href="pre-analysis.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  question <span class="ot">&lt;-</span> <span class="fu">gsub</span>(question_regex, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1&quot;</span>, <span class="fu">str_extract_all</span>(constraint, question_regex)[[<span class="dv">1</span>]])</span>
+<span id="cb3-15"><a href="pre-analysis.html#cb3-15" aria-hidden="true" tabindex="-1"></a>  answer <span class="ot">&lt;-</span> <span class="fu">gsub</span>(answer_regex, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1&quot;</span>, <span class="fu">str_extract_all</span>(constraint, answer_regex)[[<span class="dv">1</span>]])</span>
+<span id="cb3-16"><a href="pre-analysis.html#cb3-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-17"><a href="pre-analysis.html#cb3-17" aria-hidden="true" tabindex="-1"></a>  question_type <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span> </span>
+<span id="cb3-18"><a href="pre-analysis.html#cb3-18" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(name<span class="sc">==</span>question) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-19"><a href="pre-analysis.html#cb3-19" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^(begin|end)</span><span class="sc">\\</span><span class="st">s+group$&quot;</span>,type)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-20"><a href="pre-analysis.html#cb3-20" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">pull</span>(type)</span>
+<span id="cb3-21"><a href="pre-analysis.html#cb3-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-22"><a href="pre-analysis.html#cb3-22" aria-hidden="true" tabindex="-1"></a>  listname <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;^.*</span><span class="sc">\\</span><span class="st">s&quot;</span>,<span class="st">&quot;&quot;</span>,question_type)</span>
+<span id="cb3-23"><a href="pre-analysis.html#cb3-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-24"><a href="pre-analysis.html#cb3-24" aria-hidden="true" tabindex="-1"></a>  choices_list <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name<span class="sc">==</span>listname) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(name)</span>
+<span id="cb3-25"><a href="pre-analysis.html#cb3-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-26"><a href="pre-analysis.html#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(answer <span class="sc">%in%</span> choices_list)</span>
+<span id="cb3-27"><a href="pre-analysis.html#cb3-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-28"><a href="pre-analysis.html#cb3-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-29"><a href="pre-analysis.html#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="pre-analysis.html#cb3-30" aria-hidden="true" tabindex="-1"></a>check_constraints <span class="ot">&lt;-</span> <span class="cf">function</span>(questions,choices) {</span>
+<span id="cb3-31"><a href="pre-analysis.html#cb3-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-32"><a href="pre-analysis.html#cb3-32" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(questions, <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;type&quot;</span>), <span class="sc">~</span><span class="fu">str_trim</span>(.))</span>
+<span id="cb3-33"><a href="pre-analysis.html#cb3-33" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(choices, <span class="fu">c</span>(<span class="st">&quot;list_name&quot;</span>, <span class="st">&quot;name&quot;</span>), <span class="sc">~</span><span class="fu">str_trim</span>(.))</span>
+<span id="cb3-34"><a href="pre-analysis.html#cb3-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-35"><a href="pre-analysis.html#cb3-35" aria-hidden="true" tabindex="-1"></a>  all_contraints <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&quot;selected&quot;</span>,relevant)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(relevant)</span>
+<span id="cb3-36"><a href="pre-analysis.html#cb3-36" aria-hidden="true" tabindex="-1"></a>  all_contraints <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39;&quot;&#39;</span>,<span class="st">&quot;&#39;&quot;</span>,all_contraints)</span>
+<span id="cb3-37"><a href="pre-analysis.html#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="pre-analysis.html#cb3-38" aria-hidden="true" tabindex="-1"></a>  rs_list <span class="ot">&lt;-</span> <span class="fu">map</span>(all_contraints,<span class="sc">~</span><span class="fu">map_lgl</span>(<span class="fu">unlist</span>(<span class="fu">ex_default</span>(.x, <span class="at">pattern =</span> <span class="st">&quot;selected</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)&quot;</span>)),check_answer_in_list))</span>
+<span id="cb3-39"><a href="pre-analysis.html#cb3-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-40"><a href="pre-analysis.html#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map2</span>(rs_list,<span class="fu">seq_along</span>(rs_list), <span class="sc">~</span> <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span>.x))<span class="sc">!=</span><span class="dv">0</span>) {</span>
+<span id="cb3-41"><a href="pre-analysis.html#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">unlist</span>(<span class="fu">ex_default</span>(all_contraints[.y], <span class="at">pattern =</span> <span class="st">&quot;selected</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)&quot;</span>))[<span class="fu">which</span>(<span class="sc">!</span>.x)])</span>
+<span id="cb3-42"><a href="pre-analysis.html#cb3-42" aria-hidden="true" tabindex="-1"></a>  } ) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb3-43"><a href="pre-analysis.html#cb3-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-44"><a href="pre-analysis.html#cb3-44" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Call this function by passing the questionnaire and choices and the output will be the list of wrong constraints of type (selected(question_name,question_answer)) if any. An error means that the answer does not exist in the choices sheet</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="pre-analysis.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_constraints</span>(questions,choices) </span></code></pre></div>
+<pre><code>## [1] &quot;selected(${b10_hohh_vulnerability}, &#39;older_person_60plus&#39;)&quot;</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="meta-information.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-collection-and-processing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

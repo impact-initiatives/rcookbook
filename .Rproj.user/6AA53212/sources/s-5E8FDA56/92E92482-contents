@@ -1,0 +1,34 @@
+# Meta information
+There should be here the libraries, dataset, odk and sampling frame and any other thing.
+Note that some variables were NA'ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
+
+```{r, warning=FALSE, message=FALSE }
+## Importing dataset and questionnaire 
+library(magrittr)
+library(dplyr)
+library(readxl)
+library(hypegrammaR)
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
+
+main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+```
+
+## Creating the questionnaire object
+
+```{r, tidy=FALSE, warning=FALSE, results='hide', message=FALSE}
+
+
+questionnaire <- load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
+
+
