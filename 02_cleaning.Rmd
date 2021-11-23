@@ -7,6 +7,8 @@ library(readxl)
 library(sjmisc)
 library(purrr)
 library(tidyr)
+library(sf)
+library(nngeo)
 
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
 
@@ -754,6 +756,43 @@ print(objSDC, "risk")
 #Generate an internal report
 #report(objSDC, filename = "disclosure_risk_report",internal = T, verbose = TRUE) 
 
+```
+
+## Spatial verification checks
+One of the important checks is to ensure that all surveys were collected in the correct locations (areas, settlements, sample points). The usual procedure to perform such checks is to compare GNSS-coordinates obtained by the data collection device with enumerator input that indicates data collection location
+
+### First, let's generate random spatial coordinates (as real coordinates were excluded as part of personal data) and select columns that we need for cleaning.
+```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
+
+main_dataset$X_r6_gpslocation_latitude <- runif(nrow(main_dataset), min = 47, max = 48)
+main_dataset$X_r6_gpslocation_longitude <- runif(nrow(main_dataset), min = 37, max = 40)
+
+spatial_component <- main_dataset %>%
+  select(r3_current_settlement,adm4NameLat,X_r6_gpslocation_latitude,X_r6_gpslocation_longitude,X_uuid)%>%
+  setnames(c("code_settlement_dataset","name_settlement_dataset","latitude","longitude","X_uuid"))
+```
+
+### Now with [sf library](https://cran.r-project.org/web/packages/sf/index.html) we should open geojson file with settlements boundaries and convert our dataset into sf data type.
+```{r}
+ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
+
+spatial_component <- st_as_sf(x = spatial_component, 
+                    coords = c("longitude", "latitude"),
+                    crs = "+proj=longlat +datum=WGS84")
+```
+
+### With st_join() function from [nngeo library](https://cran.r-project.org/web/packages/nngeo/index.html) we are doing spatial join of interviews locations and settlement boundaries. Parameter "maxdist" specifies that join should be performed for all the points that are within 1000 meters from the closest polygon. After that, we compare the code of the closest settlement and the settlement code chosen by the enumerator. In case there is a difference in the codes we put "CHECK" status for such interviews and clarify interview location with the Field team.
+*Keep in mind that for this example we used random coordinates so most likely all the interviews will have "CHECK" status*
+```{r}
+spatial_component <- st_join(spatial_component, ADM4, join = st_nn, k = 1, maxdist = 1000)
+
+spatial_component$spatial_check <- ifelse(spatial_component$code_settlement_dataset == spatial_component$adm4NmL
+                                          & !is.na(spatial_component$adm4NmL),
+                                          "OK",
+                                          "CHECK")
+
+print(paste("Number interviews to check",unlist(table(spatial_component$spatial_check))))
 ```
 
 
