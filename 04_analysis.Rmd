@@ -470,9 +470,13 @@ The indicator of interest is **e1_shelter_type** and the options are:
 
 ```{r}
 # Top X/ranking for select_one type questions 
-select_one_topX <- function(question_name = "e1_shelter_type" , X=3){ # by default return top 3
+select_one_topX <- function(data, question_name, X=3){ # by default return top 3
+  # test message
+  if(length(colnames(data)[grepl(question_name, colnames(data), fixed=T)])==0){
+    stop(print(paste("question name:", question_name,"doesn't exist in the main dataset. Please double check and make required changes!")))
+  }
   
-  df <- main_dataset %>%
+  df <- data %>%
     select(!!sym(question_name))%>%          
     filter(!is.na(!!sym(question_name))) %>% # remove NA values from percentage calculations 
     mutate_at(question_name, as.factor) %>%  # added to have all groups
@@ -483,13 +487,12 @@ select_one_topX <- function(question_name = "e1_shelter_type" , X=3){ # by defau
     mutate_at(question_name, as.character) %>% 
     head(X)   # keep top X percentages only 
   
-  if(nrow(df)==0) print("None of the choices was selected!")
+  if(nrow(df)==0) warning("None of the choices was selected!")
  
   return(df)
 }
 
-
-shelter_type_top4 <- select_one_topX(question_name = "e1_shelter_type", X=4)
+shelter_type_top4 <- select_one_topX(data = main_dataset, question_name = "e1_shelter_type", X=4)
 ```
 
 Second: select_multiple question
@@ -509,13 +512,17 @@ The indicator of interest is **e3_shelter_enclosure_issues** and the options are
 
 ```{r}
 # Top X/ranking for select_multiple type questions
-select_multiple_topX <- function(question_name, X=3){
-
-  df <- main_dataset %>%
-    select(colnames(main_dataset)[grepl(paste0(question_name, "."), colnames(main_dataset), fixed=T)])
+select_multiple_topX <- function(data, question_name, X=3){
+  # test message
+  if(length(colnames(data)[grepl(question_name, colnames(data), fixed=T)])==0){
+    stop(print(paste("question name:", question_name,"doesn't exist in the main dataset. Please double check and make required changes!")))
+  }
+  
+  df <- data %>%
+    select(colnames(data)[grepl(paste0(question_name, "."), colnames(data), fixed=T)])
   
   # if question was not answered
-  if(all(is.na(df))) print("None of the choices was selected!")
+  if(all(is.na(df))) warning("None of the choices was selected!")
 
   # Keeping only the options names in the colnames
   colnames(df) <- gsub(paste0(question_name,"\\."),"",colnames(df))
@@ -533,7 +540,7 @@ select_multiple_topX <- function(question_name, X=3){
   return(df)
 }
 
-shelter_enclosure_issues_top7 <- select_multiple_topX(question_name = "e3_shelter_enclosure_issues", X=7)
+shelter_enclosure_issues_top7 <- select_multiple_topX(data = main_dataset, question_name = "e3_shelter_enclosure_issues", X=7)
 ```
 
 
