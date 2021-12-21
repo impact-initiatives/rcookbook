@@ -10,6 +10,120 @@ How to create a merge file
 ### spider graphs
 ### prison graphs
 
+### Bar graphs
+
+Loading libraries and the main dataset
+```{r warning=F}
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(openxlsx)
+library(data.table)
+library(reshape)
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+```
+
+1. For select one questions:
+
+Preparing values for visualization (replacing xml values to lables) 
+```{r warning=F}
+# Loading questionnaire
+questions <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "survey", na.strings = "")
+choices <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "choices", na.strings = "")
+
+# Based on value we get option type
+option_table <- questions %>%
+  filter(name == "b9_hohh_marital_status") %>%
+  select(type) %>%
+  separate(type, c("type", "option"), sep = " ") %>%
+  select(option)
+
+# New table with xml and labels
+labels <- choices %>%
+  filter(list_name == option_table$option) %>%
+  select(name, "label::English") %>%
+  dplyr::rename(b9_hohh_marital_status = name, b9_hohh_marital_status_label = "label::English")
+
+# Add a column with English labels to the main dataset
+main_dataset <- merge(labels, main_dataset, by = 'b9_hohh_marital_status')
+```
+
+
+Building a bar graph
+```{r warning=F}
+ggplot((main_dataset %>%
+          filter(b9_hohh_marital_status_label != "NA") %>%
+          group_by(b9_hohh_marital_status_label) %>%
+          summarize(abc = round(sum(stratum.weight), 2))), aes(y = reorder(b9_hohh_marital_status_label, abc), x = abc/sum(abc))) +
+  geom_bar(stat = "identity", fill = "#EE5859") +
+  geom_text(aes(label = paste(round((abc/sum(abc)*100),0),"%")), color = "#58585A", size = 4, hjust = -0.1) +
+  scale_x_continuous(labels = scales::percent) +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+```
+
+
+Removing temporary data
+```{r warning=F}
+rm(labels, option_table)
+```
+
+
+2. For select multiple questions:
+
+Preparing values for visualization (replacing xml values to lables; calculating results) 
+```{r warning=F}
+# Getting needed columns from the main dataset (indicator and weight)
+visual_dataset <- main_dataset[,grepl("b10_hohh_vulnerability.|stratum.weight", names(main_dataset))]
+
+# Reshaping the dataset
+visual_dataset <- melt(visual_dataset, id.vars = "stratum.weight")
+
+# Grouping by choices and getting sum of weights
+visual_dataset <- visual_dataset %>%
+  mutate(weight = stratum.weight * value) %>%
+  group_by(variable) %>% 
+  summarise(weight_sum = sum(as.numeric(weight))) %>%
+  mutate(percentage = round(weight_sum / sum(main_dataset$stratum.weight)*100)) %>%
+  dplyr::rename(b10_hohh_vulnerability = variable)
+
+# Based on value we get option type and replacing xmls to the labels and 
+option_table <- questions %>%
+  filter(name == "b10_hohh_vulnerability") %>%
+  select(type) %>%
+  separate(type, c("type", "option"), sep = " ") %>%
+  select(option)
+
+# New table with xml and labels
+labels <- choices %>%
+  filter(list_name == option_table$option) %>%
+  select(name, "label::English") %>%
+  dplyr::rename(b10_hohh_vulnerability = name, b10_hohh_vulnerability_label = "label::English") %>%
+  mutate(b10_hohh_vulnerability = paste0("b10_hohh_vulnerability.", b10_hohh_vulnerability))
+
+# Add a column with English labels to the visualization dataset
+visual_dataset <- merge(labels, visual_dataset, by = 'b10_hohh_vulnerability')
+```
+
+
+Building a bar graph
+```{r warning=F}
+ggplot(visual_dataset, aes(y = reorder(b10_hohh_vulnerability_label, percentage), x = percentage)) +
+  geom_bar(stat = "identity", fill = "#EE5859") +
+  geom_text(aes(label = paste(percentage, "%")), color = "#58585A", size = 4, hjust = -0.1) +
+  scale_x_continuous(labels = scales::percent) +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+```
+
+
+Removing temporary data
+```{r warning=F}
+rm(labels, option_table)
+```
+
+
 ### Euler diagram
 *An Euler diagram  is a diagrammatic means of representing sets and their relationships. They are particularly useful for explaining complex hierarchies and overlapping definitions. They are similar to another set diagramming technique, Venn diagrams. Unlike Venn diagrams, which show all possible relations between different sets, the Euler diagram shows only relevant relationships. [Source](https://en.wikipedia.org/wiki/Euler_diagram)*
 
