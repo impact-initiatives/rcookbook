@@ -456,14 +456,30 @@ The arguments are: dataset, disaggregation variable, question to analyze, and we
 
 ```{r}
 
-ratios_select_multiple <- function(data, x_var, y_prefix, weights_var) {
-  data %>% 
-    group_by({{x_var}}) %>% filter(!is.na(y_prefix)) %>% 
-    summarize(across(starts_with(paste0(y_prefix,".")), 
-                     list(pct = ~weighted.mean(., {{weights_var}},na.rm = T)))) 
-}
+ratios_select_multiple <-
+  function(df, x_var, y_prefix, weights_var) {
+    df %>%
+      group_by({
+        {
+          x_var
+        }
+      }) %>% filter(!is.na(y_prefix)) %>%
+      summarize(across(starts_with(paste0(y_prefix, ".")),
+                       list(pct = ~ weighted.mean(., {
+                         {
+                           weights_var
+                         }
+                       }, na.rm = T))))
+  }
 
-res <- ratios_select_multiple(main_dataset,b9_hohh_marital_status, "e11_items_do_not_have_per_hh", stratum.weight)
+res <-
+  ratios_select_multiple(
+    main_dataset,
+    b9_hohh_marital_status,
+    "e11_items_do_not_have_per_hh",
+    stratum.weight
+  )
+
 head(res)
 ```
 
@@ -473,7 +489,11 @@ head(res)
 **weights column**: stratum.weight\
 
 ```{r}
-res <- do.call("full_join",map(c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),~ ratios_select_multiple(main_dataset,b9_hohh_marital_status, .x, stratum.weight)) )
+res <-
+  do.call("full_join", map(
+    c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
+    ~ ratios_select_multiple(main_dataset, b9_hohh_marital_status, .x, stratum.weight)
+  ))
 
 head(res)
 
@@ -487,10 +507,14 @@ head(res)
 ```{r}
 
 
-main_dataset$all = "all"
-main_dataset$no_weights = 1
+main_dataset$all <- "all"
+main_dataset$no_weights <- 1
 
-res <- do.call("full_join",map(c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),~ ratios_select_multiple(main_dataset,all, .x, no_weights)) )
+res <-
+  do.call("full_join", map(
+    c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
+    ~ ratios_select_multiple(main_dataset, all, .x, no_weights)
+  ))
 
 head(res)
 
