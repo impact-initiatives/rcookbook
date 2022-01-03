@@ -452,7 +452,99 @@ srvyr (CRAN package)
 
 ## Repeating the above
 
-## Top 3
+## Analysis - top X / ranking (select one and select multiple)
+
+First: select_one question
+
+The indicator of interest is **e1_shelter_type** and the options are:
+
+- solid_finished_house
+- solid_finished_apartment
+- unfinished_nonenclosed_building
+- collective_shelter
+- tent
+- makeshift_shelter
+- none_sleeping_in_open
+- other_specify
+- dont_know_refuse_to_answer
+
+```{r}
+# Top X/ranking for select_one type questions 
+select_one_topX <- function(df, question_name, X = 3) { # by default return top 3
+  # test message
+  if(length(colnames(df)[grepl(question_name, colnames(df), fixed = T)]) == 0) {
+    stop(print(paste("question name:", question_name, "doesn't exist in the main dataset. Please double check and make required changes!")))
+  }
+  
+  df <- df %>%
+    select(!!sym(question_name))%>%          
+    filter(!is.na(!!sym(question_name))) %>% # remove NA values from percentage calculations 
+    mutate_at(question_name, as.factor) %>%  # added to have all groups
+    group_by(!!sym(question_name), .drop=F) %>% 
+    summarise(n = n()) %>%
+    mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
+    arrange(desc(percentages)) %>% 
+    mutate_at(question_name, as.character) %>% 
+    head(X)   # keep top X percentages only 
+  
+  if(nrow(df) == 0) warning("None of the choices was selected!")
+ 
+  return(df)
+}
+
+# return top 4 shelter types
+shelter_type_top4 <- select_one_topX(df = main_dataset, question_name = "e1_shelter_type", X = 4)
+```
+
+Second: select_multiple question
+
+The indicator of interest is **e3_shelter_enclosure_issues** and the options are:
+
+- no_issues
+- lack_of_insulation_from_cold
+- leaks_during_light_rain_snow
+- leaks_during_heavy_rain_snow
+- limited_ventilation_less_than_05m2_ventilation_in_each_room_including_kitchen
+- presence_of_dirt_or_debris_removable
+- presence_of_dirt_or_debris_nonremovable
+- none_of_the_above
+- other_specify
+- dont_know
+
+```{r}
+# Top X/ranking for select_multiple type questions
+select_multiple_topX <- function(df, question_name, X = 3) {
+  # test message
+  if(length(colnames(df)[grepl(question_name, colnames(df), fixed = T)]) == 0){
+    stop(print(paste("question name:", question_name, "doesn't exist in the main dataset. Please double check and make required changes!")))
+  }
+  
+  df <- df %>%
+    select(colnames(df)[grepl(paste0(question_name, "."), colnames(df), fixed = T)])
+  
+  # if question was not answered
+  if(all(is.na(df))) warning("None of the choices was selected!")
+
+  # Keeping only the options names in the colnames
+  colnames(df) <- gsub(paste0(question_name, "\\."), "", colnames(df))
+  
+  # calculate top X percentages
+  df <- df %>%
+    mutate_all(as.numeric) %>% 
+    pivot_longer(cols = everything(), names_to = question_name, values_to = "choices") %>%
+    group_by(!!sym(question_name), .drop=F) %>% 
+    summarise(n = sum(choices, na.rm = T),
+              percentages = round(sum(choices, na.rm = T) / n() * 100, digits = 2)) %>% # remove NA values from percentages calculations
+    arrange(desc(percentages)) %>% 
+    head(X)   # keep top X percentages only 
+  
+  return(df)
+}
+
+# return top 7 shelter enclosure issues
+shelter_enclosure_issues_top7 <- select_multiple_topX(df = main_dataset, question_name = "e3_shelter_enclosure_issues", X = 7)
+```
+
 
 ## Borda count
 
