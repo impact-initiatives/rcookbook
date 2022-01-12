@@ -24,6 +24,9 @@ library(reshape)
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
 ```
 
+
+Choosing the needed indicator for building bar graph. The indicators in the questionnaire could be in 2 types: Only one answer can be selected (select_one question) and multiple answers can be selected (select_multiple question). Will review it separately.
+
 1. For select one questions:
 
 Preparing values for visualization (replacing xml values to lables) 
@@ -33,15 +36,11 @@ questions <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", 
 choices <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "choices", na.strings = "")
 
 # Based on value we get option type
-option_table <- questions %>%
-  filter(name == "b9_hohh_marital_status") %>%
-  select(type) %>%
-  separate(type, c("type", "option"), sep = " ") %>%
-  select(option)
+q.list_name <- str_split(questions[questions$name == "b9_hohh_marital_status" & !is.na(questions$name), "type"], " ")[[1]][2]
 
 # New table with xml and labels
 labels <- choices %>%
-  filter(list_name == option_table$option) %>%
+  filter(list_name == q.list_name) %>%
   select(name, "label::English") %>%
   dplyr::rename(b9_hohh_marital_status = name, b9_hohh_marital_status_label = "label::English")
 
@@ -53,11 +52,11 @@ main_dataset <- merge(labels, main_dataset, by = 'b9_hohh_marital_status')
 Building a bar graph
 ```{r warning=F}
 ggplot((main_dataset %>%
-          filter(b9_hohh_marital_status_label != "NA") %>%
+          filter(!is.na(b9_hohh_marital_status_label)) %>%
           group_by(b9_hohh_marital_status_label) %>%
-          summarize(abc = round(sum(stratum.weight), 2))), aes(y = reorder(b9_hohh_marital_status_label, abc), x = abc/sum(abc))) +
+          summarize(weight_sum = round(sum(stratum.weight), 2))), aes(y = reorder(b9_hohh_marital_status_label, weight_sum), x = weight_sum/sum(weight_sum))) +
   geom_bar(stat = "identity", fill = "#EE5859") +
-  geom_text(aes(label = paste(round((abc/sum(abc)*100),0),"%")), color = "#58585A", size = 4, hjust = -0.1) +
+  geom_text(aes(label = paste(round((weight_sum/sum(weight_sum)*100),0),"%")), color = "#58585A", size = 4, hjust = -0.1) +
   scale_x_continuous(labels = scales::percent) +
   theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
   panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
@@ -66,7 +65,7 @@ ggplot((main_dataset %>%
 
 Removing temporary data
 ```{r warning=F}
-rm(labels, option_table)
+rm(labels, q.list_name)
 ```
 
 
@@ -89,15 +88,11 @@ visual_dataset <- visual_dataset %>%
   dplyr::rename(b10_hohh_vulnerability = variable)
 
 # Based on value we get option type and replacing xmls to the labels and 
-option_table <- questions %>%
-  filter(name == "b10_hohh_vulnerability") %>%
-  select(type) %>%
-  separate(type, c("type", "option"), sep = " ") %>%
-  select(option)
+q.list_name <- str_split(questions[questions$name == "b10_hohh_vulnerability" & !is.na(questions$name), "type"], " ")[[1]][2]
 
 # New table with xml and labels
 labels <- choices %>%
-  filter(list_name == option_table$option) %>%
+  filter(list_name == q.list_name) %>%
   select(name, "label::English") %>%
   dplyr::rename(b10_hohh_vulnerability = name, b10_hohh_vulnerability_label = "label::English") %>%
   mutate(b10_hohh_vulnerability = paste0("b10_hohh_vulnerability.", b10_hohh_vulnerability))
@@ -120,7 +115,7 @@ ggplot(visual_dataset, aes(y = reorder(b10_hohh_vulnerability_label, percentage)
 
 Removing temporary data
 ```{r warning=F}
-rm(labels, option_table)
+rm(labels, q.list_name)
 ```
 
 
