@@ -472,11 +472,14 @@ It is used with nominal to nominal (nominal to ordinal) scales.
 For running chi-squared test, each cell of the crosstab should contain at least 5 observations.
 
 Note, that chi-squared test indicates significance of differences in values on a *table level*. Thus, it is impossible to track significance in differences for particular options.
+
 (For example, it is possible to say that satisfaction with public transport and living in urban / rural areas are connected. However, we can conclude from the test itself, that "satisfied" and "dissatisfied" options differ, while "indifferent" does not. By the way, it is possible to come up with this conclusion while interpreting a corresponding crosstab. Also, chi-squared test can tell nothing about the strength and the direction of a liaison between variables).
+
 
 #### Chi-squared test for independence
 
 The test for weighted data is being run with the survey library
+
 
 ```{r, message= F, warning=F, error=F, echo=T}
 library(survey)
@@ -487,7 +490,7 @@ library(weights)
 The use of the survey package functions requires specifying survey design object (which reslects sampling approach).
 
 ```{r}
-svy_design <- svydesign(data = main_dataset, 
+svy_design <- svydesign(data=main_dataset, 
                         id = ~1, 
                         strata = main_dataset$strata, 
                         probs = NULL,
@@ -500,6 +503,12 @@ Specifying function for getting chi-squared outputs.
 Hereby test Chi^2 test of independence is used. So, the test is performed to find out if strata variable and target variable are independent,
 **H0** - the distribution of target variable values is equal across all stratas
 **H1**  - strata and target var are not independent, so distribution varies across stratas.
+
+Apart from getting test statistic and p value, we would like to detect manually what are the biggest and the smallest values across groups/stratas (in case if the difference is significant and it makes sense to do it).
+
+Hereby test Chi^2 test of independence is used. So, the test is performed to find out if strata variable and target variable are independent,
+H0 - the distribution of target var. values is equal across all stratas
+H1  - strata and target var are not independent, so distribution varies across stratas.
 
 Within the Survey package, the suggested function uses Scott & Rao adjustment for complex survey design
 
@@ -519,6 +528,7 @@ Running the chi-squared test:
 svychisq(~ f11_dinking_water_source + strata, design = svy_design, statistic = "Chisq")
 
 ```
+
 The current output presents the result of Pearson's chi-squared test (Rao & Scott adjustment accounts for weighted data) [https://www.researchgate.net/publication/38360147_On_Simple_Adjustments_to_Chi-Square_Tests_with_Sample_Survey_Data].
 
 The output consist of three parameters:
@@ -605,28 +615,27 @@ Defining a function which would remove zero-sum variables for us
 if the absence of empty cells for each strata is needed, per_cell = T
 ```{r}
 non_zero_for_test <- function(var, strata, dataset, per_cell = F){
-sum <- as.data.frame(sapply(dataset[, names(dataset) %in% var], sum))
-sum <- cbind(rownames(sum), sum)
-filtered <- sum[sum[,2] > 0,1]
-tab <- as.data.frame(sapply(dataset[,names(dataset) %in% filtered], table, dataset[, strata]))
-
-ntab <- names(tab)
-#if the absence of empty cells for each strata is needed, per_cell = T
-tab <- tab[, which(colnames(tab) %in% ntab)]
-zeros <- apply(apply(tab, 2, function(x) x==0), 2, any)
-zeros <- zeros[zeros == F]
-zeros <- as.data.frame(zeros)
-zeros <- cbind(rownames(zeros), zeros)
-zeros_lab <- as.vector(unlist(strsplit(zeros[,1], split = ".Freq")))
-result <- c()
-if(per_cell == T){
-  result <- zeros_lab
-} else {
-  result <- ntab
-}
-message(paste0(abs(length(var) - length(result)), " variables were removed because of containing zeros in stratas"))
-
-return(result)
+  sum <- as.data.frame(sapply(dataset[, names(dataset) %in% var], sum))
+  sum <- cbind(rownames(sum), sum)
+  filtered <- sum[sum[,2] > 0,1]
+  tab <- as.data.frame(sapply(dataset[,names(dataset) %in% filtered], table, dataset[, strata]))
+  ntab <- names(tab)
+  #if the absence of empty cells for each strata is needed, per_cell = T
+  tab <- tab[, which(colnames(tab) %in% ntab)]
+  zeros <- apply(apply(tab, 2, function(x) x==0), 2, any)
+  zeros <- zeros[zeros == F]
+  zeros <- as.data.frame(zeros)
+  zeros <- cbind(rownames(zeros), zeros)
+  zeros_lab <- as.vector(unlist(strsplit(zeros[,1], split = ".Freq")))
+  result <- c()
+  if(per_cell == T){
+    result <- zeros_lab
+  } else {
+    result <- ntab
+  }
+  message(paste0(abs(length(var) - length(result)), " variables were removed because of containing zeros in stratas"))
+  
+  return(result)
 }
 ```
 
@@ -648,9 +657,9 @@ f12_sig_df
 
 ```{r}
 chi2_ind_wtd <- function(x, y, weight, dataset){
-i <- 1
-table_new <- data.frame()
-for (i in 1:length(x)) {
+  i <- 1
+  table_new <- data.frame()
+  for (i in 1:length(x)) {
   ni <- x[i]
   ti <- dataset %>% 
     filter(!is.na(!!sym(y))) %>%
