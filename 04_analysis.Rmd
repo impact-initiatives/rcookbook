@@ -564,15 +564,19 @@ It is used with nominal to nominal (nominal to ordinal) scales.
 For running chi-squared test, each cell of the crosstab should contain at least 5 observations.
 
 Note, that chi-squared test indicates significance of differences in values on a *table level*. Thus, it is impossible to track significance in differences for particular options.
-(For example, it is possible to say that satisfaction with public transport and living in urban / rural areas are connected. However, we can conclude from the test itself, that "satisfied" and "dissatisfied" options differ, while "indifferent" does not. By the way, it is possible to come up with this conclusion while interpreting a corresponding crosstab. Nor chi-squared test can tell us about the strength and the direction of a liaison between variables).
+
+(For example, it is possible to say that satisfaction with public transport and living in urban / rural areas are connected. However, we can conclude from the test itself, that "satisfied" and "dissatisfied" options differ, while "indifferent" does not. By the way, it is possible to come up with this conclusion while interpreting a corresponding crosstab. Also, chi-squared test can tell nothing about the strength and the direction of a liaison between variables).
+
 
 #### Chi-squared test for independence
 
 The test for weighted data is being run with the survey library
 
-```{r}
+
+```{r, message= F, warning=F, error=F, echo=T}
 library(survey)
 library(dplyr)
+library(weights)
 ```
 
 The use of the survey package functions requires specifying survey design object (which reslects sampling approach).
@@ -587,6 +591,11 @@ svy_design <- svydesign(data=main_dataset,
 ```
 
 Specifying function for getting chi-squared outputs.
+
+Hereby test Chi^2 test of independence is used. So, the test is performed to find out if strata variable and target variable are independent,
+**H0** - the distribution of target variable values is equal across all stratas
+**H1**  - strata and target var are not independent, so distribution varies across stratas.
+
 Apart from getting test statistic and p value, we would like to detect manually what are the biggest and the smallest values across groups/stratas (in case if the difference is significant and it makes sense to do it).
 
 Hereby test Chi^2 test of independence is used. So, the test is performed to find out if strata variable and target variable are independent,
@@ -597,16 +606,35 @@ Within the Survey package, the suggested function uses Scott & Rao adjustment fo
 
 #####Simple single call of the test.
 
-(Survey version)
+Let's say that the research aim is to understand whether the main water source is dependent on the area where HH lives (strata variable).
+
+Thus, in our case:
+H0 - the distribution of water source is equal across stratas and these variables are independent
+H1 - the distribution of water source differs by strata and these variables are not independent.
+
+Running the chi-squared test:
+
+(Survey version - requires a survey design object)
 
 ```{r}
 svychisq(~ f11_dinking_water_source + strata, design = svy_design, statistic = "Chisq")
 
 ```
-(Weights package)
+
+The current output presents the result of Pearson's chi-squared test (Rao & Scott adjustment accounts for weighted data) [https://www.researchgate.net/publication/38360147_On_Simple_Adjustments_to_Chi-Square_Tests_with_Sample_Survey_Data].
+
+The output consist of three parameters:
+1. X-squared - observed value of chi-squared parameter,
+2. df - "degrees of freedom" or number of independent categories in data -1
+Having only these two elements it is possible to see, if with the current number of df, the value of chi-squared parameter is greater than the critical value for the chosen level of probability, using (tables of chi-squared critical values) [https://www.itl.nist.gov/div898/handbook/eda/section3/eda3674.htm]
+Fortunately, R provides us with the third parameter, which allows us to skip this step.
+3. p-value - stands for the probability of getting value of the chi-squared parameter greater or equal to the given one assuming that H0 is true. If p-value < 0.05 (for 95% confidence level, or 0.01 for 99%), the H0 can be rejected.
+
+In the current example, as p-value is very low, H0 can be rejected, and hence, strata variable and drinking water source are not independent. 
+
+(Weights package - can work with the dataframe directly, without the survey design object)
 
 ```{r}
-library(weights)
 wtd.chi.sq(var1 = main_dataset$f11_dinking_water_source, var2 = main_dataset$strata, weight = main_dataset$stratum.weight)
 ```
 
@@ -616,6 +644,9 @@ Specifying the function for crosstabs with chi-squared tests for independence.
 #####Functions to have test results along with crosstabs
 
 1. The function with survey design object. 
+
+Apart from getting test statistic and p value, we would like to detect manually what are the biggest and the smallest values across groups/stratas (in case if the difference is significant and it makes sense to do it).
+
 The function also helps to find out smallest and the largest values per row 
 
 ```{r}
@@ -623,33 +654,33 @@ chi2_ind_extr <- function(x, y, design){
   my_var <- y
 
 # running Pearson's chi-squared test
-s_chi <- svychisq(as.formula(paste0("~", x,"+", y)), design, statistic = "Chisq")
-
-# extracting basic parameters
-wmy_t <- as.data.frame(s_chi$observed)
-wmy_t$p <- s_chi$p.value
-wmy_t$chi_adj <- s_chi$statistic
-wmy_t$df <- s_chi$parameter
-#indicating significance
-wmy_t$independence <- ifelse(wmy_t$p < 0.05, "h1", "h0")
-colnames(wmy_t)[1:2] <- c("var_x", "var_y")
-wmy_t_w <- spread(wmy_t, var_y, Freq)
-wmy_t_w[,1] <- paste0(x, " ", wmy_t_w[,1])
-colnames(wmy_t_w)[1] <- "variable"
-# getting percent from weighted frequencies
-cols_no_prop <- c("variable", "p", "independence", "max", "min", "chi_adj", "df")
-wmy_t_w[, !colnames(wmy_t_w) %in% cols_no_prop] <- lapply(wmy_t_w[, !colnames(wmy_t_w) %in% cols_no_prop], function(x){x/sum(x, na.rm = T)})
-# indicating extremum values
-cols_to_compare <- colnames(wmy_t_w)[!colnames(wmy_t_w) %in% c("p", "chi_adj", "df", "independence", "min", "max", "variable")]
-wmy_t_w$max <- ifelse(wmy_t_w$independence == "h1", cols_to_compare[apply(wmy_t_w, 1, which.max)], 0)
-
-wmy_t_w$min <- ifelse(wmy_t_w$independence == "h1", cols_to_compare[apply(wmy_t_w, 1, which.min)], 0)
-
-#adding Overall value to the table
-ovl_tab <- as.data.frame(prop.table(svytable(as.formula(paste0("~",x)), design)))
-colnames(ovl_tab) <- c("options", "overall")
-wmy_t_w <- wmy_t_w %>% bind_cols(ovl_tab)
-return(wmy_t_w)
+  s_chi <- svychisq(as.formula(paste0("~", x,"+", y)), design, statistic = "Chisq")
+  
+  # extracting basic parameters
+  wmy_t <- as.data.frame(s_chi$observed)
+  wmy_t$p <- s_chi$p.value
+  wmy_t$chi_adj <- s_chi$statistic
+  wmy_t$df <- s_chi$parameter
+  #indicating significance
+  wmy_t$independence <- ifelse(wmy_t$p < 0.05, "h1", "h0")
+  colnames(wmy_t)[1:2] <- c("var_x", "var_y")
+  wmy_t_w <- spread(wmy_t, var_y, Freq)
+  wmy_t_w[,1] <- paste0(x, " ", wmy_t_w[,1])
+  colnames(wmy_t_w)[1] <- "variable"
+  # getting percent from weighted frequencies
+  cols_no_prop <- c("variable", "p", "independence", "max", "min", "chi_adj", "df")
+  wmy_t_w[, !colnames(wmy_t_w) %in% cols_no_prop] <- lapply(wmy_t_w[, !colnames(wmy_t_w) %in% cols_no_prop], function(x){x/sum(x, na.rm = T)})
+  # indicating extremum values
+  cols_to_compare <- colnames(wmy_t_w)[!colnames(wmy_t_w) %in% c("p", "chi_adj", "df", "independence", "min", "max", "variable")]
+  wmy_t_w$max <- ifelse(wmy_t_w$independence == "h1", cols_to_compare[apply(wmy_t_w, 1, which.max)], 0)
+  
+  wmy_t_w$min <- ifelse(wmy_t_w$independence == "h1", cols_to_compare[apply(wmy_t_w, 1, which.min)], 0)
+  
+  #adding Overall value to the table
+  ovl_tab <- as.data.frame(prop.table(svytable(as.formula(paste0("~",x)), design)))
+  colnames(ovl_tab) <- c("options", "overall")
+  wmy_t_w <- wmy_t_w %>% bind_cols(ovl_tab)
+  return(wmy_t_w)
 }
 ```
 
@@ -658,6 +689,7 @@ The use with a single-choice question
 ```{r}
 chi2_ind_extr("f11_dinking_water_source", "strata", svy_design)
 ```
+In the given output, **p** indicates chi-squared test p-value, **chi_adj** - value of chi-squared parameter, **df** - degrees of freedom, **independence** - indicates which hypothesis is accepted, h0 or h1. In the current function, H1 is accepted if p < 0.05. In case H0 is rejected and H1 accepted, in **min** and **max** columns minimum and maximum y variable categories are given.
 
 The use with a multiple-choice question.
 
@@ -672,52 +704,56 @@ f12 <- names[grepl("f12_drinking_water_treat.", names)]
 
 Defining a function which would remove zero-sum variables for us
 
+if the absence of empty cells for each strata is needed, per_cell = T
 ```{r}
-non_zero_for_test <- function(var, strata, data, per_cell = F){
-sum <- as.data.frame(sapply(data[, names(data) %in% var], sum))
-sum <- cbind(rownames(sum), sum)
-filtered <- sum[sum[,2] > 0,1]
-tab <- as.data.frame(sapply(main_dataset[,names(data) %in% filtered], table, main_dataset[, strata]))
-
-ntab <- names(tab)
-#if the absence of empty cells for each strata is needed, per_cell = T
-tab <- tab[, which(colnames(tab) %in% ntab)]
-zeros <- apply(apply(tab, 2, function(x) x==0), 2, any)
-zeros <- zeros[zeros == F]
-zeros <- as.data.frame(zeros)
-zeros <- cbind(rownames(zeros), zeros)
-zeros_lab <- as.vector(unlist(strsplit(zeros[,1], split = ".Freq")))
-result <- c()
-if(per_cell == T){
-  result <- zeros_lab
-} else {
-  result <- ntab
-}
-message(paste0(abs(length(var) - length(result)), " variables were removed because of containing zeros in stratas"))
-
-return(result)
+non_zero_for_test <- function(var, strata, dataset, per_cell = F){
+  sum <- as.data.frame(sapply(dataset[, names(dataset) %in% var], sum))
+  sum <- cbind(rownames(sum), sum)
+  filtered <- sum[sum[,2] > 0,1]
+  tab <- as.data.frame(sapply(dataset[,names(dataset) %in% filtered], table, dataset[, strata]))
+  ntab <- names(tab)
+  #if the absence of empty cells for each strata is needed, per_cell = T
+  tab <- tab[, which(colnames(tab) %in% ntab)]
+  zeros <- apply(apply(tab, 2, function(x) x==0), 2, any)
+  zeros <- zeros[zeros == F]
+  zeros <- as.data.frame(zeros)
+  zeros <- cbind(rownames(zeros), zeros)
+  zeros_lab <- as.vector(unlist(strsplit(zeros[,1], split = ".Freq")))
+  result <- c()
+  if(per_cell == T){
+    result <- zeros_lab
+  } else {
+    result <- ntab
+  }
+  message(paste0(abs(length(var) - length(result)), " variables were removed because of containing zeros in stratas"))
+  
+  return(result)
 }
 ```
 
 Using the test with multiple choice question.
 
 ```{r}
-nz_f12 <- non_zero_for_test(f12, "strata", main_dataset)
+nz_f12 <- non_zero_for_test(f12, "strata", main_dataset, per_cell = F)
 
 f12_sig <- lapply(nz_f12, chi2_ind_extr, y = "strata", design = svy_design)
 
 f12_sig_df <- Reduce(rbind, f12_sig)
+
+#removing 0 ("not selected") options
+f12_sig_df <- f12_sig_df %>% filter(options == 1)
+f12_sig_df
 ```
 
 2. The function without the survey design object
 
 ```{r}
-chi2_ind_wtd <- function(x, y, weight, data){
-i <- 1
-table_new <- data.frame()
-for (i in 1:length(x)) {
+chi2_ind_wtd <- function(x, y, weight, dataset){
+  i <- 1
+  table_new <- data.frame()
+  for (i in 1:length(x)) {
   ni <- x[i]
-  ti <- data %>% 
+  ti <- dataset %>% 
     filter(!is.na(!!sym(y))) %>%
     group_by(!!sym(y), !!sym(ni)) %>% 
     filter(!is.na(!!sym(ni))) %>%
@@ -725,7 +761,7 @@ for (i in 1:length(x)) {
     mutate(prop = wtn/sum(wtn), varnam = ni)
   names(ti) <- c("var_ind", "var_dep_val", "wtn", "n",  "prop", "dep_var_nam")
   ti <- ti %>% ungroup() %>% mutate(base = sum(c_across(n)))
-  chi_test  <- wtd.chi.sq(var1 = data[, paste0(y)], var2 = data[, paste0(ni)], weight = data[, paste0(weight)])
+  chi_test  <- wtd.chi.sq(var1 = dataset[, paste0(y)], var2 = dataset[, paste0(ni)], weight = dataset[, paste0(weight)])
   ti$chisq <- chi_test[1]
   ti$df <- chi_test[2]
   ti$p <- chi_test[3]
@@ -760,6 +796,7 @@ f12_names <- names[grepl("f12_drinking_water_treat.", names)]
 f12_sig2 <- lapply(f12_names, chi2_ind_wtd, y = "strata", weight = "stratum.weight", main_dataset)
 
 f12_tab_df <- Reduce(rbind, f12_sig2)
+f12_tab_df
 ```
 
 ### Chi-squared Goodness of Fit test
@@ -777,8 +814,10 @@ main_dataset <- main_dataset %>% mutate(soap = case_when(
 ))
 soap_prob <- as.data.frame(prop.table(table(main_dataset$soap)))
 soap_prob <- soap_prob[, 2]
+# please, note that this is a function call with unweighted data!
 chisq.test(soap_prob, p = c(0, 0.1, 0.9))
 ```
+As p value is lower than the chosen confidence level, hypothesis of equality of the current distribution to hypothetical 90% / 10% of soap-owners can be rejected.
 
 Defining a function for checking the distribution within a particular group, against the "hypothetical" overall sample.
 
@@ -872,6 +911,7 @@ table(main_dataset[, nz_f12[4]], main_dataset[, "strata"])
 f12_sig2 <- lapply(nz_f12, chi2_GoF, stratum_hyp = "a1_informed_consent", stratum_2 = "strata", value_stratum_hyp = "yes", value_stratum_2 = "5km_rural", data = main_dataset, weights = "stratum.weight")
 
 f12_sig2_df <- Reduce(rbind, f12_sig2)
+f12_sig2_df
 ```
 
 
