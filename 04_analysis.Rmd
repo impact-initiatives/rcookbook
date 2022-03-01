@@ -659,6 +659,8 @@ library(weights)
 The use of the survey package functions requires specifying survey design object (which reslects sampling approach).
 
 ```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
+
 svy_design <- svydesign(data=main_dataset, 
                         id = ~1, 
                         strata = main_dataset$strata, 

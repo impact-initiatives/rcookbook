@@ -268,7 +268,7 @@ The next step will be left join of samples collected dataset to the sampling fra
 sampling_frame <- sampling_frame %>%
   select(Survey, strata_id, adm4Pcode, adm4NameLat) %>%
   left_join(samples_collected, by = c("adm4Pcode" = "r3_current_settlement"))%>%
-  replace_na(list(n = 0))%>%
+  tidyr::replace_na(list(n = 0))%>%
   mutate(sample_difference = n - Survey)%>%
   arrange(sample_difference)
 

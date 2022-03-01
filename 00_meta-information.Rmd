@@ -99,7 +99,7 @@ dataurl<- paste0("https://kc.humanitarianresponse.info/api/v1/data/",form_id,".c
 
 ## Fetching the data from the server
 
-```{r}
+```{r, eval = F}
 #### Download data as csv
 df <-  download_data(dataurl,kobo_user,kobo_pw)
 
