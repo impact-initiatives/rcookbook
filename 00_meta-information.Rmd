@@ -31,4 +31,111 @@ questionnaire <- load_questionnaire(data = main_dataset,
 
 ```
 
+# Downloading data from kobo server 
+
+```{r include=FALSE}
+library(httr)
+library(readr) 
+library(tidyverse) 
+library(jsonlite)
+```
+
+## Defining the needed functions
+```{r}
+kobohr_getforms_csv <-function(url,u,pw){
+  rawdata<-GET(url,authenticate(u,pw),progress())
+  d_content_csv <-read_csv(content(rawdata,"raw",encoding = "UTF-8"))
+}
+
+download_data <-function(url,u,pw){
+  
+  rawdata<- GET(url,authenticate(u,pw),progress())
+  d_content <- read_csv(content(rawdata,"raw",encoding = "UTF-8"),na = c("n/a","")) %>% setNames(gsub("/",".",names(.))) 
+  
+  d_content
+
+}
+
+create_export <-function(type,lang,fields_from_all_versions,hierarchy_in_labels,group_sep,asset_uid,kobo_user,Kobo_pw){
+  api_url_export<-paste0(kobo_server_url,"exports/")
+  api_url_asset<-paste0(kobo_server_url,"assets/",asset_uid,"/")
+  api_url_export_asset<-paste0(kobo_server_url,"exports/",asset_uid,"/")
+  #
+  d<-list(source=api_url_asset,
+          type=type,
+          lang=lang,
+          fields_from_all_versions=fields_from_all_versions,
+          hierarchy_in_labels=hierarchy_in_labels,
+          group_sep=group_sep)
+  #fetch data
+  result<-httr::POST(url=api_url_export,
+                      body=d,
+                      authenticate(kobo_user,Kobo_pw),
+                      progress()
+  )
+  
+  print(paste0("status code:",result$status_code))
+  d_content <- rawToChar(result$content)
+  print(d_content)
+  d_content <- fromJSON(d_content)
+  return(d_content)
+}
+```
+
+## Creating data url and credentials variables
+
+```{r}
+kobo_server_url<-"https://kobo.humanitarianresponse.info/"
+url <-"https://kc.humanitarianresponse.info/api/v1/data.csv"
+kobo_user = "rcop_test"
+kobo_pw = "e4#xV8zKAU)A)h58"
+list_forms <- as.data.frame(kobohr_getforms_csv (url,kobo_user, kobo_pw))
+
+####  Create a variable with the form id and create to dataurl link
+form_id = "965004"
+asset_uid = "a9XVuozs7VQ2bvbvMwKSdS"
+dataurl<- paste0("https://kc.humanitarianresponse.info/api/v1/data/",form_id,".csv")
+```
+
+## Fetching the data from the server
+
+```{r}
+#### Download data as csv
+df <-  download_data(dataurl,kobo_user,kobo_pw)
+
+#### Create an export and download it
+type <- "xls"
+lang <- "xml"
+fields_from_all_versions <- "TRUE"
+hierarchy_in_labels <- "FALSE"
+group_sep = "/"
+
+d_exports<-create_export(type=type,
+                                lang=lang,
+                                fields_from_all_versions=fields_from_all_versions,
+                                hierarchy_in_labels=hierarchy_in_labels,
+                                group_sep=group_sep,
+                                asset_uid=asset_uid,
+                                kobo_user,
+                                kobo_pw)
+
+result<-httr::GET (url=paste0(as.character(d_exports$url),"?format=json"),
+                    authenticate(kobo_user,kobo_pw),
+                    progress()
+)
+
+
+result_file<-httr::GET (url=jsonlite::fromJSON(rawToChar(result$content))$result,
+                   authenticate(kobo_user,kobo_pw),
+                   progress()
+)
+
+httr::GET (result_file$url,
+           authenticate(kobo_user,kobo_pw),
+           progress(),
+           write_disk(tf <- tempfile(fileext = ".xlsx"))
+)
+
+df2 <- read_excel(tf)
+```
 

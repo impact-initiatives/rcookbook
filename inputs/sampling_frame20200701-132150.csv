@@ -1,0 +1,214 @@
+"","id_sampl","Survey","strata_id","adm4Pcode","adm4NameLat","adm2NameLat","adm1NameLat","Population_type","Population_UPD","TA4_SF","strata","Access_UPD_JUL2020","psu_id","pop_numbers","SumDist","proba","survey_buffer"
+"1","id_1",56,"20km_urban","UKR1410200000","Avdiivka","Avdiivska","Donetska","urban",32436,"YES","20km_urban","Limited access","id_1",32436,210399,0.154164230818588,56
+"2","id_10",9,"20km_urban","UKR1420955200","Zaitseve","Bakhmutskyi","Donetska","urban",3969,"YES","20km_urban","Limited access","id_10",3969,210399,0.0188641580996107,9
+"3","id_100",5,"5km_rural","UKR1423384001","Kostiantynivka","Marinskyi","Donetska","rural",1300,"YES","5km_rural","","id_100",1300,89408,0.0145400858983536,5
+"4","id_101",3,"5km_rural","UKR1422783201","Mykhailivka","Pokrovskyi","Donetska","rural",1269,"YES","5km_rural","","id_101",1269,89408,0.0141933607730852,3
+"5","id_102",7,"5km_rural","UKR1421581401","Dmytrivka","Volnovaskyi","Donetska","rural",1196,"YES","5km_rural","","id_102",1196,89408,0.0133768790264853,7
+"6","id_103",6,"5km_rural","UKR4423180701","Bakhmutivka","Novoaidarskyi","Luhanska","rural",1182,"YES","5km_rural","","id_103",1182,89408,0.0132202934860415,6
+"7","id_104",4,"5km_rural","UKR4424881001","Velyka Chernihivka","Stanychno-Luhanskyi","Luhanska","rural",1181,"YES","5km_rural","","id_104",1181,89408,0.0132091088045812,4
+"8","id_105",8,"5km_rural","UKR1420980501","Berestove","Bakhmutskyi","Donetska","rural",1122,"YES","5km_rural","","id_105",1122,89408,0.0125492125984252,8
+"9","id_106",1,"5km_rural","UKR1420982001","Volodymyrivka","Bakhmutskyi","Donetska","rural",1121,"YES","5km_rural","","id_106",1121,89408,0.0125380279169649,1
+"10","id_107",3,"5km_rural","UKR1420987501","Pokrovske","Bakhmutskyi","Donetska","rural",1092,"YES","5km_rural","","id_107",1092,89408,0.012213672154617,3
+"11","id_109",8,"5km_rural","UKR1423383501","Katerynivka","Marinskyi","Donetska","rural",1066,"YES","5km_rural","","id_109",1066,89408,0.01192287043665,8
+"12","id_11",2,"20km_urban","UKR1425555200","Verkhnotoretske","Yasynuvatskyi","Donetska","urban",2884,"YES","20km_urban","Limited access","id_11",2884,210399,0.013707289483315,2
+"13","id_110",4,"5km_urban","UKR1411246800","Petrivka","Toretska","Donetska","urban",1040,"YES","5km_urban","","id_110",1040,230712,0.00450778459724678,4
+"14","id_111",3,"5km_rural","UKR1423385401","Novoselydivka","Marinskyi","Donetska","rural",999,"YES","5km_rural","","id_111",999,89408,0.0111734967788117,3
+"15","id_112",2,"5km_rural","UKR1422482301","Zoria","Kostiantynivskyi","Donetska","rural",976,"YES","5km_rural","","id_112",976,89408,0.0109162491052255,2
+"16","id_113",6,"5km_rural","UKR1421589203","Kamianka","Volnovaskyi","Donetska","rural",955,"YES","5km_rural","","id_113",955,89408,0.0106813707945598,6
+"17","id_114",6,"5km_rural","UKR4423185601","Novookhtyrka","Novoaidarskyi","Luhanska","rural",935,"YES","5km_rural","","id_114",935,89408,0.0104576771653543,6
+"18","id_115",3,"5km_rural","UKR4424886001","Sotenne","Stanychno-Luhanskyi","Luhanska","rural",930,"YES","5km_rural","","id_115",930,89408,0.010401753758053,3
+"19","id_116",2,"5km_rural","UKR1421589201","Novoselivka","Volnovaskyi","Donetska","rural",923,"YES","5km_rural","","id_116",923,89408,0.0103234609878311,2
+"20","id_117",7,"5km_rural","UKR1423381101","Halytsynivka","Marinskyi","Donetska","rural",895,"YES","5km_rural","","id_117",895,89408,0.0100102899069434,7
+"21","id_118",1,"5km_urban","UKR4423856200","Vrubivka","Popasnianskyi","Luhanska","urban",894,"YES","5km_urban","","id_118",894,230712,0.0038749609903256,1
+"22","id_119",3,"5km_rural","UKR1421581201","Valerianivka","Volnovaskyi","Donetska","rural",891,"YES","5km_rural","","id_119",891,89408,0.00996555118110236,3
+"23","id_12",35,"20km_rural","UKR1421588801","Hranitne","Volnovaskyi","Donetska","rural",2856,"YES","20km_rural","Limited access","id_12",2856,34781,0.0821137977631465,35
+"24","id_120",5,"5km_rural","UKR1421587202","Blyzhnie","Volnovaskyi","Donetska","rural",891,"YES","5km_rural","","id_120",891,89408,0.00996555118110236,5
+"25","id_121",3,"5km_rural","UKR1420983001","Zaitseve","Bakhmutskyi","Donetska","rural",890,"YES","5km_rural","","id_121",890,89408,0.00995436649964209,3
+"26","id_122",4,"5km_rural","UKR1425583201","Novoselivka Persha","Yasynuvatskyi","Donetska","rural",879,"YES","5km_rural","","id_122",879,89408,0.0098313350035791,4
+"27","id_123",7,"5km_rural","UKR1425584301","Orlivka","Yasynuvatskyi","Donetska","rural",874,"YES","5km_rural","","id_123",874,89408,0.00977541159627774,7
+"28","id_124",5,"5km_rural","UKR4424885001","Peredilske","Stanychno-Luhanskyi","Luhanska","rural",866,"YES","5km_rural","","id_124",866,89408,0.00968593414459556,5
+"29","id_125",2,"5km_rural","UKR1421583702","Kalynivka","Volnovaskyi","Donetska","rural",863,"YES","5km_rural","","id_125",863,89408,0.00965238010021475,2
+"30","id_126",1,"5km_urban","UKR4412945300","Voronove","Sievierodonetska","Luhanska","urban",836,"YES","5km_urban","","id_126",836,230712,0.00362356531086376,1
+"31","id_127",2,"5km_rural","UKR1421783302","Makedonivka","Nikolskyi","Donetska","rural",817,"YES","5km_rural","","id_127",817,89408,0.00913788475304223,2
+"32","id_128",2,"5km_rural","UKR1422480501","Oleksandro-Kalynove","Kostiantynivskyi","Donetska","rural",817,"YES","5km_rural","","id_128",817,89408,0.00913788475304223,2
+"33","id_129",4,"5km_rural","UKR1422480503","Yablunivka","Kostiantynivskyi","Donetska","rural",811,"YES","5km_rural","","id_129",811,89408,0.0090707766642806,4
+"34","id_13",7,"20km_urban","UKR1420955400","Luhanske","Bakhmutskyi","Donetska","urban",2177,"YES","20km_urban","Limited access","id_13",2177,210399,0.0103470073526965,7
+"35","id_130",5,"5km_rural","UKR4424884501","Nyzhnia Vilkhova","Stanychno-Luhanskyi","Luhanska","rural",802,"YES","5km_rural","","id_130",802,89408,0.00897011453113815,5
+"36","id_131",5,"5km_rural","UKR1425585403","Netailove","Yasynuvatskyi","Donetska","rural",800,"YES","5km_rural","","id_131",800,89408,0.00894774516821761,5
+"37","id_132",4,"5km_rural","UKR4424885501","Teple","Stanychno-Luhanskyi","Luhanska","rural",798,"YES","5km_rural","","id_132",798,89408,0.00892537580529706,4
+"38","id_134",2,"5km_urban","UKR1411245600","Kurdiumivka","Toretska","Donetska","urban",762,"YES","5km_urban","","id_134",762,230712,0.00330281909913659,2
+"39","id_135",1,"5km_urban","UKR4423855900","Vovchoiarivka","Popasnianskyi","Luhanska","urban",755,"YES","5km_urban","","id_135",755,230712,0.0032724782412705,1
+"40","id_136",6,"5km_rural","UKR1420984501","Klynove","Bakhmutskyi","Donetska","rural",740,"YES","5km_rural","","id_136",740,89408,0.00827666428060129,6
+"41","id_137",4,"5km_rural","UKR1423383001","Zoriane","Marinskyi","Donetska","rural",730,"YES","5km_rural","","id_137",730,89408,0.00816481746599857,4
+"42","id_139",4,"5km_rural","UKR1421783301","Kasianivka","Nikolskyi","Donetska","rural",708,"YES","5km_rural","","id_139",708,89408,0.00791875447387258,4
+"43","id_14",18,"20km_rural","UKR1411245305","Druzhba","Toretska","Donetska","rural",1676,"YES","20km_rural","Limited access","id_14",1676,34781,0.0481872286593255,18
+"44","id_140",6,"5km_rural","UKR1421584801","Novoandriivka","Volnovaskyi","Donetska","rural",700,"YES","5km_rural","","id_140",700,89408,0.00782927702219041,6
+"45","id_141",3,"5km_rural","UKR4423184501","Muratove","Novoaidarskyi","Luhanska","rural",687,"YES","5km_rural","","id_141",687,89408,0.00768387616320687,3
+"46","id_142",5,"5km_rural","UKR1422483001","Katerynivka","Kostiantynivskyi","Donetska","rural",670,"YES","5km_rural","","id_142",670,89408,0.00749373657838225,5
+"47","id_143",4,"5km_rural","UKR4424882001","Harasymivka","Stanychno-Luhanskyi","Luhanska","rural",650,"YES","5km_rural","","id_143",650,89408,0.00727004294917681,4
+"48","id_144",4,"5km_rural","UKR1421587204","Trudivske","Volnovaskyi","Donetska","rural",637,"YES","5km_rural","","id_144",637,89408,0.00712464209019327,4
+"49","id_145",2,"5km_rural","UKR4423857201","Lysychanskyi","Popasnianskyi","Luhanska","rural",630,"YES","5km_rural","","id_145",630,89408,0.00704634931997137,2
+"50","id_146",1,"5km_rural","UKR1422485504","Kalynove","Kostiantynivskyi","Donetska","rural",627,"YES","5km_rural","","id_146",627,89408,0.00701279527559055,1
+"51","id_147",6,"5km_rural","UKR1422483003","Pleshchiivka","Kostiantynivskyi","Donetska","rural",591,"YES","5km_rural","","id_147",591,89408,0.00661014674302076,6
+"52","id_148",2,"5km_rural","UKR1411246505","Sukha Balka","Toretska","Donetska","rural",585,"YES","5km_rural","","id_148",585,89408,0.00654303865425913,2
+"53","id_149",1,"5km_urban","UKR1413846200","Hostre","Selydivska","Donetska","urban",576,"YES","5km_urban","","id_149",576,230712,0.00249661916155206,1
+"54","id_15",17,"20km_rural","UKR1421588201","Chermalyk","Volnovaskyi","Donetska","rural",1115,"YES","20km_rural","Limited access","id_15",1115,34781,0.032057732670136,17
+"55","id_150",2,"5km_rural","UKR1425584303","Lastochkyne","Yasynuvatskyi","Donetska","rural",562,"YES","5km_rural","","id_150",562,89408,0.00628579098067287,2
+"56","id_151",2,"5km_rural","UKR1421584701","Novooleksiivka","Volnovaskyi","Donetska","rural",551,"YES","5km_rural","","id_151",551,89408,0.00616275948460988,2
+"57","id_152",3,"5km_rural","UKR1421555101","Bakhchovyk","Volnovaskyi","Donetska","rural",544,"YES","5km_rural","","id_152",544,89408,0.00608446671438797,3
+"58","id_153",1,"5km_rural","UKR4424884504","Plotyna","Stanychno-Luhanskyi","Luhanska","rural",526,"YES","5km_rural","","id_153",526,89408,0.00588314244810308,1
+"59","id_154",6,"5km_rural","UKR1425587307","Novokalynove","Yasynuvatskyi","Donetska","rural",521,"YES","5km_rural","","id_154",521,89408,0.00582721904080172,6
+"60","id_155",2,"5km_rural","UKR4423856202","Novoivanivka","Popasnianskyi","Luhanska","rural",509,"YES","5km_rural","","id_155",509,89408,0.00569300286327845,2
+"61","id_156",1,"5km_rural","UKR1422485501","Stara Mykolaivka","Kostiantynivskyi","Donetska","rural",496,"YES","5km_rural","","id_156",496,89408,0.00554760200429492,1
+"62","id_157",1,"5km_rural","UKR4423857502","Loskutivka","Popasnianskyi","Luhanska","rural",494,"YES","5km_rural","","id_157",494,89408,0.00552523264137437,1
+"63","id_158",2,"5km_rural","UKR4423857503","Pidlisne","Popasnianskyi","Luhanska","rural",491,"YES","5km_rural","","id_158",491,89408,0.00549167859699356,2
+"64","id_159",3,"5km_rural","UKR1423387404","Solodke","Marinskyi","Donetska","rural",490,"YES","5km_rural","","id_159",490,89408,0.00548049391553329,3
+"65","id_16",8,"20km_rural","UKR4423885201","Troitske","Popasnianskyi","Luhanska","rural",650,"YES","20km_rural","Limited access","id_16",650,34781,0.0186883643368506,8
+"66","id_160",2,"5km_rural","UKR1423383502","Antonivka","Marinskyi","Donetska","rural",487,"YES","5km_rural","","id_160",487,89408,0.00544693987115247,2
+"67","id_162",3,"5km_rural","UKR4424882501","Komyshne","Stanychno-Luhanskyi","Luhanska","rural",470,"YES","5km_rural","","id_162",470,89408,0.00525680028632784,3
+"68","id_165",2,"5km_rural","UKR1420985001","Kodema","Bakhmutskyi","Donetska","rural",427,"YES","5km_rural","","id_165",427,89408,0.00477585898353615,2
+"69","id_166",2,"5km_rural","UKR1421586401","Prokhorivka","Volnovaskyi","Donetska","rural",425,"YES","5km_rural","","id_166",425,89408,0.0047534896206156,2
+"70","id_167",2,"5km_rural","UKR1421782202","Kyrylivka","Nikolskyi","Donetska","rural",411,"YES","5km_rural","","id_167",411,89408,0.0045969040801718,2
+"71","id_168",2,"5km_rural","UKR1420985505","Klishchiivka","Bakhmutskyi","Donetska","rural",409,"YES","5km_rural","","id_168",409,89408,0.00457453471725125,2
+"72","id_169",2,"5km_rural","UKR1420983003","Vesela Dolyna","Bakhmutskyi","Donetska","rural",403,"YES","5km_rural","","id_169",403,89408,0.00450742662848962,2
+"73","id_17",3,"20km_rural","UKR4423881502","Orikhove","Popasnianskyi","Luhanska","rural",436,"YES","20km_rural","Limited access","id_17",436,34781,0.0125355797705644,3
+"74","id_171",1,"5km_rural","UKR1422783206","Memryk","Pokrovskyi","Donetska","rural",398,"YES","5km_rural","","id_171",398,89408,0.00445150322118826,1
+"75","id_173",4,"5km_urban","UKR1413845600","Komyshivka","Selydivska","Donetska","urban",388,"YES","5km_urban","","id_173",388,230712,0.00168175040743438,4
+"76","id_174",1,"5km_rural","UKR1421589205","Novoselivka Druha","Volnovaskyi","Donetska","rural",381,"YES","5km_rural","","id_174",381,89408,0.00426136363636364,1
+"77","id_175",1,"5km_rural","UKR4423180705","Tsarivka","Novoaidarskyi","Luhanska","rural",378,"YES","5km_rural","","id_175",378,89408,0.00422780959198282,1
+"78","id_177",2,"5km_rural","UKR1411245307","Ozarianivka","Toretska","Donetska","rural",372,"YES","5km_rural","","id_177",372,89408,0.00416070150322119,2
+"79","id_178",2,"5km_rural","UKR1423381503","Dalnie","Marinskyi","Donetska","rural",367,"YES","5km_rural","","id_178",367,89408,0.00410477809591983,2
+"80","id_179",1,"5km_rural","UKR4423857501","Bila Hora","Popasnianskyi","Luhanska","rural",365,"YES","5km_rural","","id_179",365,89408,0.00408240873299928,1
+"81","id_18",7,"20km_rural","UKR1421585801","Pavlopil","Volnovaskyi","Donetska","rural",328,"YES","20km_rural","Limited access","id_18",328,34781,0.00943043615767229,7
+"82","id_180",1,"5km_rural","UKR4424884502","Verkhnia Vilkhova","Stanychno-Luhanskyi","Luhanska","rural",362,"YES","5km_rural","","id_180",362,89408,0.00404885468861847,1
+"83","id_181",1,"5km_rural","UKR1425582101","Krasnohorivka","Yasynuvatskyi","Donetska","rural",350,"YES","5km_rural","","id_181",350,89408,0.0039146385110952,1
+"84","id_184",2,"5km_rural","UKR1422783405","Zavitne","Pokrovskyi","Donetska","rural",308,"YES","5km_rural","","id_184",308,89408,0.00344488188976378,2
+"85","id_185",2,"5km_rural","UKR1425586501","Oleksandropil","Yasynuvatskyi","Donetska","rural",305,"YES","5km_rural","","id_185",305,89408,0.00341132784538296,2
+"86","id_187",3,"5km_rural","UKR1423387403","Vodiane","Marinskyi","Donetska","rural",293,"YES","5km_rural","","id_187",293,89408,0.0032771116678597,3
+"87","id_188",1,"5km_rural","UKR1423310601","Ostrivske","Marinskyi","Donetska","rural",293,"YES","5km_rural","","id_188",293,89408,0.0032771116678597,1
+"88","id_189",1,"5km_rural","UKR1421783305","Aslanove","Nikolskyi","Donetska","rural",291,"YES","5km_rural","","id_189",291,89408,0.00325474230493916,1
+"89","id_19",2,"20km_rural","UKR1425555203","Troitske","Yasynuvatskyi","Donetska","rural",155,"YES","20km_rural","Limited access","id_19",155,34781,0.00445645611109514,2
+"90","id_190",1,"5km_urban","UKR4423857500","Myrna Dolyna","Popasnianskyi","Luhanska","urban",291,"YES","5km_urban","","id_190",291,230712,0.00126131280557578,1
+"91","id_194",1,"5km_rural","UKR1421557202","Pilne","Volnovaskyi","Donetska","rural",284,"YES","5km_rural","","id_194",284,89408,0.00317644953471725,1
+"92","id_196",2,"5km_rural","UKR1421589206","Stepanivka","Volnovaskyi","Donetska","rural",277,"YES","5km_rural","","id_196",277,89408,0.00309815676449535,2
+"93","id_197",3,"5km_rural","UKR1422783415","Ptyche","Pokrovskyi","Donetska","rural",274,"YES","5km_rural","","id_197",274,89408,0.00306460272011453,3
+"94","id_198",2,"5km_rural","UKR1422783411","Novozhelanne","Pokrovskyi","Donetska","rural",274,"YES","5km_rural","","id_198",274,89408,0.00306460272011453,2
+"95","id_199",3,"5km_rural","UKR1421783303","Kliuchove","Nikolskyi","Donetska","rural",274,"YES","5km_rural","","id_199",274,89408,0.00306460272011453,3
+"96","id_2",44,"20km_urban","UKR4423810100","Popasna","Popasnianskyi","Luhanska","urban",19984,"YES","20km_urban","Limited access","id_2",19984,210399,0.0949814400258556,44
+"97","id_20",2,"20km_rural","UKR1425582103","Kamianka","Yasynuvatskyi","Donetska","rural",110,"YES","20km_rural","Limited access","id_20",110,34781,0.0031626462723901,2
+"98","id_200",2,"5km_rural","UKR4412945201","Bobrove","Sievierodonetska","Luhanska","rural",255,"YES","5km_rural","","id_200",255,89408,0.00285209377236936,2
+"99","id_201",2,"5km_rural","UKR1421781604","Pryovrazhne","Nikolskyi","Donetska","rural",253,"YES","5km_rural","","id_201",253,89408,0.00282972440944882,2
+"100","id_206",2,"5km_rural","UKR1423381104","Lisivka","Marinskyi","Donetska","rural",235,"YES","5km_rural","","id_206",235,89408,0.00262840014316392,2
+"101","id_208",1,"5km_rural","UKR4423184502","Kapitanove","Novoaidarskyi","Luhanska","rural",225,"YES","5km_rural","","id_208",225,89408,0.0025165533285612,1
+"102","id_21",1,"20km_rural","UKR1421584002","Bohdanivka","Volnovaskyi","Donetska","rural",15,"YES","20km_rural","Limited access","id_21",15,34781,0.000431269946235013,1
+"103","id_210",1,"5km_rural","UKR4424885504","Nyzhnii Minchenok","Stanychno-Luhanskyi","Luhanska","rural",223,"YES","5km_rural","","id_210",223,89408,0.00249418396564066,1
+"104","id_211",5,"5km_rural","UKR1422783407","Kalynove","Pokrovskyi","Donetska","rural",219,"YES","5km_rural","","id_211",219,89408,0.00244944523979957,5
+"105","id_212",2,"5km_rural","UKR1421586404","Novoapostolivka","Volnovaskyi","Donetska","rural",218,"YES","5km_rural","","id_212",218,89408,0.0024382605583393,2
+"106","id_214",2,"5km_rural","UKR4424855401","Voitove","Stanychno-Luhanskyi","Luhanska","rural",208,"YES","5km_rural","","id_214",208,89408,0.00232641374373658,2
+"107","id_216",1,"5km_rural","UKR1421782203","Kelerivka","Nikolskyi","Donetska","rural",205,"YES","5km_rural","","id_216",205,89408,0.00229285969935576,1
+"108","id_217",1,"5km_rural","UKR1423388503","Hannivka","Marinskyi","Donetska","rural",205,"YES","5km_rural","","id_217",205,89408,0.00229285969935576,1
+"109","id_219",1,"5km_rural","UKR4424885502","Verkhnii Minchenok","Stanychno-Luhanskyi","Luhanska","rural",204,"YES","5km_rural","","id_219",204,89408,0.00228167501789549,1
+"110","id_22",116,"5km_urban","UKR1410300000","Bakhmut","Bakhmutska","Donetska","urban",73212,"YES","5km_urban","Accessible","id_22",73212,230712,0.317330698013107,116
+"111","id_221",2,"5km_rural","UKR1423385404","Izmailivka","Marinskyi","Donetska","rural",199,"YES","5km_rural","","id_221",199,89408,0.00222575161059413,2
+"112","id_222",1,"5km_rural","UKR1422782302","Berestky","Pokrovskyi","Donetska","rural",198,"YES","5km_rural","","id_222",198,89408,0.00221456692913386,1
+"113","id_223",1,"5km_rural","UKR1422482505","Oleksandro-Shultyne","Kostiantynivskyi","Donetska","rural",195,"YES","5km_rural","","id_223",195,89408,0.00218101288475304,1
+"114","id_224",1,"5km_rural","UKR1425587305","Novobakhmutivka","Yasynuvatskyi","Donetska","rural",191,"YES","5km_rural","","id_224",191,89408,0.00213627415891195,1
+"115","id_225",2,"5km_rural","UKR1423383003","Zhelanne Druhe","Marinskyi","Donetska","rural",190,"YES","5km_rural","","id_225",190,89408,0.00212508947745168,2
+"116","id_226",1,"5km_rural","UKR4412990003","Pavlohrad","Sievierodonetska","Luhanska","rural",181,"YES","5km_rural","","id_226",181,89408,0.00202442734430923,1
+"117","id_228",1,"5km_rural","UKR1421510102","Novopavlivka","Volnovaskyi","Donetska","rural",176,"YES","5km_rural","","id_228",176,89408,0.00196850393700787,1
+"118","id_229",1,"5km_rural","UKR1425584305","Semenivka","Yasynuvatskyi","Donetska","rural",172,"YES","5km_rural","","id_229",172,89408,0.00192376521116679,1
+"119","id_23",59,"20km_urban","UKR1411200000","Toretsk","Toretska","Donetska","urban",32027,"YES","20km_urban","Accessible","id_23",32027,210399,0.152220305229588,59
+"120","id_230",1,"5km_rural","UKR4423856905","Nyrkove","Popasnianskyi","Luhanska","rural",168,"YES","5km_rural","","id_230",168,89408,0.0018790264853257,1
+"121","id_236",1,"5km_rural","UKR4423180704","Mykhailivka","Novoaidarskyi","Luhanska","rural",150,"YES","5km_rural","","id_236",150,89408,0.0016777022190408,1
+"122","id_238",1,"5km_rural","UKR4424887004","Stepove","Stanychno-Luhanskyi","Luhanska","rural",132,"YES","5km_rural","","id_238",132,89408,0.00147637795275591,1
+"123","id_24",33,"5km_urban","UKR1421510100","Volnovakha","Volnovaskyi","Donetska","urban",21678,"YES","5km_urban","Accessible","id_24",21678,230712,0.0939613024029959,33
+"124","id_240",1,"5km_rural","UKR1420985005","Odradivka","Bakhmutskyi","Donetska","rural",131,"YES","5km_rural","","id_240",131,89408,0.00146519327129563,1
+"125","id_243",1,"5km_rural","UKR4424884505","Pshenychne","Stanychno-Luhanskyi","Luhanska","rural",122,"YES","5km_rural","","id_243",122,89408,0.00136453113815319,1
+"126","id_246",1,"5km_rural","UKR1423382503","Romanivka","Marinskyi","Donetska","rural",109,"YES","5km_rural","","id_246",109,89408,0.00121913027916965,1
+"127","id_247",1,"5km_rural","UKR4423180703","Demenkove","Novoaidarskyi","Luhanska","rural",105,"YES","5km_rural","","id_247",105,89408,0.00117439155332856,1
+"128","id_25",36,"5km_urban","UKR1423310600","Kurakhove","Marinskyi","Donetska","urban",18782,"YES","5km_urban","Accessible","id_25",18782,230712,0.0814088560629703,36
+"129","id_254",1,"5km_rural","UKR1422485703","Stupochky","Kostiantynivskyi","Donetska","rural",89,"YES","5km_rural","","id_254",89,89408,0.000995436649964209,1
+"130","id_257",1,"5km_rural","UKR1421781602","Vodiane","Nikolskyi","Donetska","rural",84,"YES","5km_rural","","id_257",84,89408,0.000939513242662849,1
+"131","id_26",18,"5km_urban","UKR1420911000","Chasiv Yar","Bakhmutskyi","Donetska","urban",12756,"YES","5km_urban","Accessible","id_26",12756,230712,0.0552897118485384,18
+"132","id_260",1,"5km_rural","UKR1421783309","Khersones","Nikolskyi","Donetska","rural",81,"YES","5km_rural","","id_260",81,89408,0.000905959198282033,1
+"133","id_261",1,"5km_rural","UKR1421589204","Malovodne","Volnovaskyi","Donetska","rural",80,"YES","5km_rural","","id_261",80,89408,0.000894774516821761,1
+"134","id_265",1,"5km_rural","UKR4423857504","Rai-Oleksandrivka","Popasnianskyi","Luhanska","rural",76,"YES","5km_rural","","id_265",76,89408,0.000850035790980673,1
+"135","id_266",1,"5km_rural","UKR4423856902","Viktorivka","Popasnianskyi","Luhanska","rural",75,"YES","5km_rural","","id_266",75,89408,0.000838851109520401,1
+"136","id_27",23,"20km_urban","UKR4424855100","Stanytsia Luhanska","Stanychno-Luhanskyi","Luhanska","urban",12713,"YES","20km_urban","Accessible","id_27",12713,210399,0.0604232909852233,23
+"137","id_271",1,"5km_rural","UKR1422485502","Hnativka","Kostiantynivskyi","Donetska","rural",67,"YES","5km_rural","","id_271",67,89408,0.000749373657838225,1
+"138","id_28",29,"20km_urban","UKR4423110100","Shchastia","Novoaidarskyi","Luhanska","urban",11743,"YES","20km_urban","Accessible","id_28",11743,210399,0.0558130029135119,29
+"139","id_280",1,"5km_rural","UKR4423181204","Putylyne","Novoaidarskyi","Luhanska","rural",57,"YES","5km_rural","","id_280",57,89408,0.000637526843235505,1
+"140","id_287",1,"5km_rural","UKR1422482504","Nelipivka","Kostiantynivskyi","Donetska","rural",41,"YES","5km_rural","","id_287",41,89408,0.000458571939871152,1
+"141","id_29",21,"20km_urban","UKR1420910600","Svitlodarsk","Bakhmutskyi","Donetska","urban",11421,"YES","20km_urban","Accessible","id_29",11421,210399,0.0542825773886758,21
+"142","id_292",1,"5km_rural","UKR1425583203","Mezhove","Yasynuvatskyi","Donetska","rural",24,"YES","5km_rural","","id_292",24,89408,0.000268432355046528,1
+"143","id_294",1,"5km_rural","UKR4412945203","Oskolonivka","Sievierodonetska","Luhanska","rural",23,"YES","5km_rural","","id_294",23,89408,0.000257247673586256,1
+"144","id_299",1,"5km_rural","UKR1420955402","Krynychne","Bakhmutskyi","Donetska","rural",12,"YES","5km_rural","","id_299",12,89408,0.000134216177523264,1
+"145","id_3",24,"20km_urban","UKR1423310400","Krasnohorivka","Marinskyi","Donetska","urban",15055,"YES","20km_urban","Limited access","id_3",15055,210399,0.0715545225975409,24
+"146","id_30",23,"5km_urban","UKR1413870900","Ukrainsk","Selydivska","Donetska","urban",11035,"YES","5km_urban","Accessible","id_30",11035,230712,0.0478301952217483,23
+"147","id_300",1,"5km_rural","UKR1421586403","Tarasivka","Volnovaskyi","Donetska","rural",11,"YES","5km_rural","","id_300",11,89408,0.000123031496062992,1
+"148","id_31",27,"5km_urban","UKR1413870300","Hirnyk","Selydivska","Donetska","urban",10725,"YES","5km_urban","Accessible","id_31",10725,230712,0.0464865286591075,27
+"149","id_32",16,"5km_urban","UKR1412365300","Sartana","Mariupolska","Donetska","urban",10240,"YES","5km_urban","Accessible","id_32",10240,230712,0.0443843406498145,16
+"150","id_33",18,"5km_urban","UKR4423810500","Hirske","Popasnianskyi","Luhanska","urban",9436,"YES","5km_urban","Accessible","id_33",9436,230712,0.0408994764034814,18
+"151","id_34",13,"5km_urban","UKR1420955500","Myronivskyi","Bakhmutskyi","Donetska","urban",7472,"YES","5km_urban","Accessible","id_34",7472,230712,0.0323866985679115,13
+"152","id_35",9,"5km_urban","UKR1421555600","Volodymyrivka","Volnovaskyi","Donetska","urban",6263,"YES","5km_urban","Accessible","id_35",6263,230712,0.0271463989736121,9
+"153","id_36",12,"5km_urban","UKR4412945200","Borivske","Sievierodonetska","Luhanska","urban",5726,"YES","5km_urban","Accessible","id_36",5726,230712,0.0248188217344568,12
+"154","id_37",11,"5km_urban","UKR1421555900","Donske","Volnovaskyi","Donetska","urban",4713,"YES","5km_urban","Accessible","id_37",4713,230712,0.0204280661604078,11
+"155","id_38",14,"20km_urban","UKR4424855400","Petropavlivka","Stanychno-Luhanskyi","Luhanska","urban",4688,"YES","20km_urban","Accessible","id_38",4688,210399,0.022281474721838,14
+"156","id_39",7,"5km_urban","UKR4423858200","Toshkivka","Popasnianskyi","Luhanska","urban",3952,"YES","5km_urban","Accessible","id_39",3952,230712,0.0171295814695378,7
+"157","id_4",24,"20km_urban","UKR4423810800","Zolote","Popasnianskyi","Luhanska","urban",13374,"YES","20km_urban","Limited access","id_4",13374,210399,0.0635649408980081,24
+"158","id_40",8,"5km_urban","UKR1412365800","Talakivka","Mariupolska","Donetska","urban",3926,"YES","5km_urban","Accessible","id_40",3926,230712,0.0170168868546066,8
+"159","id_41",47,"20km_rural","UKR4424880501","Valuiske","Stanychno-Luhanskyi","Luhanska","rural",3922,"YES","20km_rural","Accessible","id_41",3922,34781,0.112762715275582,47
+"160","id_42",8,"5km_urban","UKR1425555900","Ocheretyne","Yasynuvatskyi","Donetska","urban",3449,"YES","5km_urban","Accessible","id_42",3449,230712,0.0149493741114463,8
+"161","id_43",42,"20km_rural","UKR1420986201","Novoluhanske","Bakhmutskyi","Donetska","rural",3448,"YES","20km_rural","Accessible","id_43",3448,34781,0.0991345849745551,42
+"162","id_44",6,"5km_urban","UKR1411247200","Shcherbynivka","Toretska","Donetska","urban",3373,"YES","5km_urban","Accessible","id_44",3373,230712,0.014619959083186,6
+"163","id_45",7,"5km_urban","UKR1421557200","Olhynka","Volnovaskyi","Donetska","urban",3027,"YES","5km_urban","Accessible","id_45",3027,230712,0.0131202538229481,7
+"164","id_46",14,"5km_rural","UKR1421587201","Rybynske","Volnovaskyi","Donetska","rural",2900,"YES","5km_rural","Accessible","id_46",2900,89408,0.0324355762347888,14
+"165","id_47",23,"20km_rural","UKR4424880503","Vilkhove","Stanychno-Luhanskyi","Luhanska","rural",2816,"YES","20km_rural","Accessible","id_47",2816,34781,0.0809637445731865,23
+"166","id_48",12,"5km_urban","UKR1413845900","Kurakhivka","Selydivska","Donetska","urban",2726,"YES","5km_urban","Accessible","id_48",2726,230712,0.0118155969347065,12
+"167","id_49",2,"5km_urban","UKR1421555100","Andriivka","Volnovaskyi","Donetska","urban",2582,"YES","5km_urban","Accessible","id_49",2582,230712,0.0111914421443185,2
+"168","id_5",17,"20km_urban","UKR1411246500","Novhorodske","Toretska","Donetska","urban",10064,"YES","20km_urban","Limited access","id_5",10064,210399,0.0478329269625806,17
+"169","id_50",9,"20km_urban","UKR4423857700","Nyzhnie","Popasnianskyi","Luhanska","urban",2258,"YES","20km_urban","Accessible","id_50",2258,210399,0.0107319901710559,9
+"170","id_51",5,"5km_rural","UKR1421781601","Zoria","Nikolskyi","Donetska","rural",2254,"YES","5km_rural","Accessible","id_51",2254,89408,0.0252102720114531,5
+"171","id_52",6,"20km_urban","UKR4423857900","Novotoshkivske","Popasnianskyi","Luhanska","urban",2201,"YES","20km_urban","Accessible","id_52",2201,210399,0.0104610763359141,6
+"172","id_53",10,"5km_rural","UKR1423385001","Maksymilianivka","Marinskyi","Donetska","rural",2128,"YES","5km_rural","Accessible","id_53",2128,89408,0.0238010021474588,10
+"173","id_54",14,"5km_rural","UKR4423186701","Raihorodka","Novoaidarskyi","Luhanska","rural",2074,"YES","5km_rural","Accessible","id_54",2074,89408,0.0231970293486042,14
+"174","id_55",12,"5km_rural","UKR1420986501","Opytne","Bakhmutskyi","Donetska","rural",2020,"YES","5km_rural","Accessible","id_55",2020,89408,0.0225930565497495,12
+"175","id_56",3,"20km_urban","UKR4423856900","Komyshuvakha","Popasnianskyi","Luhanska","urban",2016,"YES","20km_urban","Accessible","id_56",2016,210399,0.00958179459027847,3
+"176","id_57",18,"20km_rural","UKR4424883501","Nyzhnoteple","Stanychno-Luhanskyi","Luhanska","rural",1896,"YES","20km_rural","Accessible","id_57",1896,34781,0.0545125212041057,18
+"177","id_58",20,"20km_rural","UKR4424880504","Makarove","Stanychno-Luhanskyi","Luhanska","rural",1816,"YES","20km_rural","Accessible","id_58",1816,34781,0.0522124148241856,20
+"178","id_59",19,"20km_rural","UKR4423187701","Trokhizbenka","Novoaidarskyi","Luhanska","rural",1543,"YES","20km_rural","Accessible","id_59",1543,34781,0.0443633018027084,19
+"179","id_6",16,"20km_urban","UKR1423310100","Marinka","Marinskyi","Donetska","urban",9376,"YES","20km_urban","Limited access","id_6",9376,210399,0.0445629494436761,16
+"180","id_60",13,"20km_rural","UKR1423385201","Novomykhailivka","Marinskyi","Donetska","rural",1388,"YES","20km_rural","Accessible","id_60",1388,34781,0.0399068456916132,13
+"181","id_61",19,"20km_rural","UKR1423387401","Stepne","Marinskyi","Donetska","rural",1217,"YES","20km_rural","Accessible","id_61",1217,34781,0.0349903683045341,19
+"182","id_62",8,"20km_rural","UKR1425585401","Pervomaiske","Yasynuvatskyi","Donetska","rural",1200,"YES","20km_rural","Accessible","id_62",1200,34781,0.0345015956988011,8
+"183","id_63",16,"20km_rural","UKR1421584001","Mykolaivka","Volnovaskyi","Donetska","rural",1200,"YES","20km_rural","Accessible","id_63",1200,34781,0.0345015956988011,16
+"184","id_64",11,"20km_rural","UKR1423385002","Heorhiivka","Marinskyi","Donetska","rural",1167,"YES","20km_rural","Accessible","id_64",1167,34781,0.033552801817084,11
+"185","id_65",9,"20km_rural","UKR1421587701","Starohnativka","Volnovaskyi","Donetska","rural",1142,"YES","20km_rural","Accessible","id_65",1142,34781,0.032834018573359,9
+"186","id_66",3,"20km_urban","UKR1411246200","Nelipivka","Toretska","Donetska","urban",1013,"YES","20km_urban","Accessible","id_66",1013,210399,0.0048146616666429,3
+"187","id_67",10,"20km_rural","UKR1425583101","Novobakhmutivka","Yasynuvatskyi","Donetska","rural",896,"YES","20km_rural","Accessible","id_67",896,34781,0.0257611914551048,10
+"188","id_68",9,"20km_rural","UKR1412365801","Hnutove","Mariupolska","Donetska","rural",700,"YES","20km_rural","Accessible","id_68",700,34781,0.0201259308243006,9
+"189","id_69",6,"20km_rural","UKR1425586503","Novoselivka","Yasynuvatskyi","Donetska","rural",600,"YES","20km_rural","Accessible","id_69",600,34781,0.0172507978494005,6
+"190","id_7",15,"20km_urban","UKR1411245300","Pivnichne","Toretska","Donetska","urban",9360,"YES","20km_urban","Limited access","id_7",9360,210399,0.0444869034548643,15
+"191","id_70",8,"20km_rural","UKR4424883502","Artema","Stanychno-Luhanskyi","Luhanska","rural",595,"YES","20km_rural","Accessible","id_70",595,34781,0.0171070412006555,8
+"192","id_71",5,"20km_rural","UKR1421584004","Novohnativka","Volnovaskyi","Donetska","rural",460,"YES","20km_rural","Accessible","id_71",460,34781,0.0132256116845404,5
+"193","id_72",5,"20km_rural","UKR1421583703","Sopyne","Volnovaskyi","Donetska","rural",318,"YES","20km_rural","Accessible","id_72",318,34781,0.00914292286018228,5
+"194","id_73",2,"20km_rural","UKR1421588202","Orlovske","Volnovaskyi","Donetska","rural",180,"YES","20km_rural","Accessible","id_73",180,34781,0.00517523935482016,2
+"195","id_74",6,"20km_rural","UKR4424885003","Staryi Aidar","Stanychno-Luhanskyi","Luhanska","rural",167,"YES","20km_rural","Accessible","id_74",167,34781,0.00480147206808315,6
+"196","id_75",2,"20km_rural","UKR4423187702","Kriakivka","Novoaidarskyi","Luhanska","rural",147,"YES","20km_rural","Accessible","id_75",147,34781,0.00422644547310313,2
+"197","id_77",2,"20km_rural","UKR1425585602","Vodiane","Yasynuvatskyi","Donetska","rural",102,"YES","20km_rural","Accessible","id_77",102,34781,0.00293263563439809,2
+"198","id_78",3,"20km_rural","UKR1425582104","Novoselivka Druha","Yasynuvatskyi","Donetska","rural",90,"YES","20km_rural","Accessible","id_78",90,34781,0.00258761967741008,3
+"199","id_79",1,"20km_rural","UKR4423885202","Novozvanivka","Popasnianskyi","Luhanska","rural",80,"YES","20km_rural","Accessible","id_79",80,34781,0.00230010637992007,1
+"200","id_8",15,"20km_urban","UKR1421556800","Novotroitske","Volnovaskyi","Donetska","urban",6535,"YES","20km_urban","Limited access","id_8",6535,210399,0.0310600335552926,15
+"201","id_81",1,"20km_rural","UKR1425585402","Nevelske","Yasynuvatskyi","Donetska","rural",42,"YES","20km_rural","Accessible","id_81",42,34781,0.00120755584945804,1
+"202","id_85",1,"20km_rural","UKR1421585803","Chernenko","Volnovaskyi","Donetska","rural",18,"YES","20km_rural","Accessible","id_85",18,34781,0.000517523935482016,1
+"203","id_88",4,"5km_urban","UKR1413846500","Tsukuryne","Selydivska","Donetska","urban",1784,"YES","5km_urban","","id_88",1784,230712,0.00773258434758487,4
+"204","id_89",10,"5km_rural","UKR1421782201","Kalchyk","Nikolskyi","Donetska","rural",1718,"YES","5km_rural","","id_89",1718,89408,0.0192152827487473,10
+"205","id_9",8,"20km_urban","UKR1411270300","Zalizne","Toretska","Donetska","urban",5105,"YES","20km_urban","Limited access","id_9",5105,210399,0.0242634233052438,8
+"206","id_90",8,"5km_rural","UKR1423382501","Yelyzavetivka","Marinskyi","Donetska","rural",1681,"YES","5km_rural","","id_90",1681,89408,0.0188014495347173,8
+"207","id_91",3,"5km_urban","UKR1421556600","Myrne","Volnovaskyi","Donetska","urban",1679,"YES","5km_urban","","id_91",1679,230712,0.00727747147959361,3
+"208","id_92",7,"5km_rural","UKR1421587601","Svobodne","Volnovaskyi","Donetska","rural",1650,"YES","5km_rural","","id_92",1650,89408,0.0184547244094488,7
+"209","id_94",9,"5km_rural","UKR4423181201","Hrechyshkyne","Novoaidarskyi","Luhanska","rural",1549,"YES","5km_rural","","id_94",1549,89408,0.0173250715819613,9
+"210","id_95",4,"5km_rural","UKR1422482501","Ivanopillia","Kostiantynivskyi","Donetska","rural",1466,"YES","5km_rural","","id_95",1466,89408,0.0163967430207588,4
+"211","id_96",4,"5km_rural","UKR1420985501","Ivanivske","Bakhmutskyi","Donetska","rural",1438,"YES","5km_rural","","id_96",1438,89408,0.0160835719398712,4
+"212","id_97",9,"5km_rural","UKR1421583601","Buhas","Volnovaskyi","Donetska","rural",1429,"YES","5km_rural","","id_97",1429,89408,0.0159829098067287,9
+"213","id_98",7,"5km_rural","UKR4423182301","Dmytrivka","Novoaidarskyi","Luhanska","rural",1372,"YES","5km_rural","","id_98",1372,89408,0.0153453829634932,7
