@@ -56,11 +56,194 @@ dummy_dataset  %>%
 
 ## Download data
 
-### download from API 
+### Downloading Audit files using audit_URL
+Required Libraries: httr
 
-koboapi
-koboloadeR 
-kobohr_apitoolbox
+****
+
+"download_audit_files" will download audit files using the endpoint that is included in your data set, it's available in column called "audit_URL". The function will create a folder named by the uuid of each form/interview, and write the audit.csv inside it. The advantage of using the API over downloading manually from server is that you can download the audit files of each form that has recently been submitted to the server separately, rather than downloading cumulatively the whole audit files each time. One the top of that, you can benefit from the advantage of automation.
+
+```{r}
+download_audit_files <- function(df, uuid_column = "_uuid", audit_dir, usr, pass){
+  if (!"httr" %in% installed.packages()) 
+    stop("The package is httr is required!")
+  
+  if (is.na(audit_dir) || audit_dir == "") 
+    stop("The path for storing audit files can't be empty!")
+  
+  if (is.na(usr) || usr == "") 
+    stop("Username can't be empty!")
+  
+  if (is.na(pass) || pass == "") 
+    stop("Password can't be empty!")
+  
+  # checking if the output directory is already available
+  if (!dir.exists(audit_dir)) {
+    dir.create(audit_dir)
+    if (dir.exists(audit_dir)) {
+      cat("Attention: The audit file directory was created in", audit_dir,"\n")
+    }
+  }
+  
+  # checking if creating output directory was successful
+  if (!dir.exists(audit_dir))
+    stop("download_audit_fils was not able to create the output directory!")
+  # checking if uuid column exists in data set
+  if (!uuid_column %in% names(df))
+    stop("The column ", uuid_column, " is not available in data set.")
+  # checking if column audit_URL exists in data set
+  if (!uuid_column %in% names(df))
+    stop("The column ", uuid_column, " is not available in data set.")
+  if (!"audit_URL" %in% names(df))
+    stop("Error: the column audit_URL is not available in data set.")
+  
+  # getting the list of uuids that are already downloaded
+  available_audits <- dir(audit_dir)
+  
+  # excluding uuids that their audit files are already downloaded
+  df <- df[!df[[uuid_column]] %in% available_audits,]
+  
+  audits_endpoint_link <- df[["audit_URL"]]
+  names(audits_endpoint_link) <- df[[uuid_column]]
+  audits_endpoint_link <- na.omit(audits_endpoint_link)
+  
+  if (length(audits_endpoint_link) > 0) {
+    # iterating over each audit endpoint from data
+    for (i in 1:length(audits_endpoint_link)) {
+      uuid = names(audits_endpoint_link[i])
+      endpoint_link_i <- audits_endpoint_link[i]
+      cat("Downloading audit file for", uuid, "\n")
+      
+      # requesting data
+      audit_file <- content(GET(endpoint_link_i,
+                                authenticate(usr, pass),
+                                timeout(1000),
+                                progress()), "text", encoding = "UTF-8")
+      
+      if (!is.na(audit_file)) {
+        if (length(audit_file) > 2) {
+          dir.create(paste0(audit_dir, "/", uuid), showWarnings = F)
+          write.csv(audit_file, paste0(audit_dir, "/", uuid, "/audit.csv"), row.names = F)
+        }else if(!audit_file == "Attachment not found"){
+          if (grepl("[eventnodestartend]", audit_file)) {
+            dir.create(paste0(audit_dir, "/", uuid), showWarnings = F)
+            write.table(audit_file, paste0(audit_dir, "/", uuid, "/audit.csv"), row.names = F, col.names = FALSE, quote = F)
+          } else{
+            cat("Error: Downloading audit was unsucessful!\n")
+          }
+        }
+      } else{
+        cat("Error: Downloading audit was unsucessful!\n")
+      }
+    }
+  } else{
+    cat("Attention: All audit files for given data set is downloaded!")
+  }
+}
+
+```
+
+### Download audit files using form name
+Required Libraries: httr, jsonlite, dplyr, stringr
+
+****
+
+"download_audit_files_2" is a different version of "download_audit_files" module that will help you to download audit files using the form id directly from KOBO API. The rest of it's specifications best matches the download_audit_files.
+
+```{r}
+download_audit_files_2 <- function(form_id, output_dir, user, pass) {
+  if (!"stringr" %in% installed.packages()) 
+    stop("Could not find the package stringr!")
+  
+  if (!"dplyr" %in% installed.packages()) 
+    stop("Could not find the package dplyr!")
+  
+  if (!"httr" %in% installed.packages()) 
+    stop("Could not find the package httr!")
+  
+  if (!"jsonlite" %in% installed.packages()) 
+    stop("Could not find the package jsonlite!")
+  
+  if (is.na(output_dir) || output_dir == "") 
+    stop("The path for storing audit files can't be empty!")
+  
+  if (is.na(user) || user == "") 
+    stop("Username can't be empty!")
+  
+  if (is.na(pass) || pass == "") 
+    stop("Password can't be empty!")
+  
+  require(httr)
+  require(dplyr)
+  require(jsonlite)
+  require(stringr)
+  
+  # checking if the output directory is already available
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir)
+    if (dir.exists(output_dir)) {
+      cat("Attention: The audit file directory was created in", output_dir,"\n")
+    }
+  }
+  
+  # checking if creating output directory was successful
+  if (!dir.exists(output_dir))
+    stop("download_audit_fils was not able to create the output directory!")
+  
+  # listing audit files that are already available
+  available_audits <- dir(output_dir)
+  
+  # getting form url
+  form_url <- GET("https://kc.humanitarianresponse.info/api/v1/data", authenticate(user, pass), timeout(1000)) %>% 
+    content(., "text", encoding = "UTF-8") %>%
+    fromJSON(., flatten = T) %>% 
+    filter(id_string == form_id) %>% 
+    select(url) %>% 
+    unlist()
+  
+  if (length(form_url) > 0) {
+    
+    # getting attachment links of uuids that their audit is already downloaded
+    form_data <- GET(form_url, authenticate(user, pass), timeout(1000)) %>% 
+      content(., "text", encoding = "UTF-8") %>%
+      fromJSON(., flatten = T) %>% 
+      as.data.frame() %>% 
+      filter(!`_uuid` %in% available_audits)
+    
+    attachment_url <- form_data[["_attachments"]]
+    audit_file_links <- unlist(attachment_url)[names(unlist(attachment_url)) == "download_large_url"] %>% unname()
+    
+    # uuids <- form_data[["_uuid"]][lapply(attachment_url, length) %>% unlist() != 0]
+    # uuids <- str_extract(audit_file_links, "(?<=%2F)[a-z-0-9]*(?=%2Faudit.csv$)")
+    # names(audit_file_links) <- uuids
+    
+    download_audit <- function(audit_link, user, pass, output_dir, uuid) {
+      uuid <- str_extract(audit_link, "(?<=%2F)[a-z-0-9]*(?=%2Faudit.csv$)")
+      audit_file <- GET(audit_link, authenticate(user, pass), timeout(1000), progress()) %>% 
+        content(., "text", encoding = "UTF-8")
+      
+      cat("Downloading audit file for", uuid, "\n")
+      dir.create(paste0(output_dir, "/", uuid))
+      output_file_name <- paste0(output_dir, "/", uuid,"/audit.csv")
+      # write.csv(audit_file, output_file_name)
+      
+      if (!is.na(audit_file)) {
+        if (length(audit_file) > 2) {
+          write.csv(audit_file, output_file_name, row.names = F)
+        }else if(!audit_file == "Attachment not found"){
+          if (grepl("[eventnodestartend]", audit_file)) {
+            write.table(audit_file, output_file_name, row.names = F, col.names = FALSE, quote = F)
+          }
+        }
+      }
+    }
+    
+    downloaded_uuids <- sapply(audit_file_links, download_audit, user = user, pass = pass, output_dir = output_dir)
+  } else{
+    cat("Attention: All audit files for given form is downloaded!")
+  }
+}
+```
 
 ## Data collection follow-up
 
