@@ -17,7 +17,7 @@ library(readxl)
 library(spatstat)
 
 #load dataset
-main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "",stringsAsFactors = F)
 
 #load kobotool
 questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
@@ -441,6 +441,83 @@ Now we can transpond resulting vector and add description to the calculation
 medians <- as.data.frame(t(medians),stringsAsFactors = FALSE)
 names(medians)[1] <- "Median_wght"
 head(medians)
+```
+
+## Ratios
+
+This function computes the % of answers for select multiple questions.\
+The output can be used as a data merge file for indesign.\
+The arguments are: dataset, disaggregation variable, question to analyze, and weight column.\
+
+### Example1: \
+**Question**: e11_items_do_not_have_per_hh\
+**Disaggregation variable**: b9_hohh_marital_status\
+**weights column**: stratum.weight\
+
+```{r}
+
+ratios_select_multiple <-
+  function(df, x_var, y_prefix, weights_var) {
+    df %>%
+      group_by({
+        {
+          x_var
+        }
+      }) %>% filter(!is.na(y_prefix)) %>%
+      summarize(across(starts_with(paste0(y_prefix, ".")),
+                       list(pct = ~ weighted.mean(., {
+                         {
+                           weights_var
+                         }
+                       }, na.rm = T))))
+  }
+
+res <-
+  ratios_select_multiple(
+    main_dataset,
+    b9_hohh_marital_status,
+    "e11_items_do_not_have_per_hh",
+    stratum.weight
+  )
+
+head(res)
+```
+
+### Example2 - Analyzing multiple questions and combine the output:\
+**Question**: e11_items_do_not_have_per_hh and b11_hohh_chronic_illness\
+**Disaggregation variable**: b9_hohh_marital_status\
+**weights column**: stratum.weight\
+
+```{r}
+res <-
+  do.call("full_join", map(
+    c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
+    ~ ratios_select_multiple(main_dataset, b9_hohh_marital_status, .x, stratum.weight)
+  ))
+
+head(res)
+
+```
+
+### Example3 - No dissagregation is needed and/or the data is not weighted:\
+**Question**: e11_items_do_not_have_per_hh and b11_hohh_chronic_illness\
+**Disaggregation variable**: NA\
+**weights column**: NA\
+
+```{r}
+
+
+main_dataset$all <- "all"
+main_dataset$no_weights <- 1
+
+res <-
+  do.call("full_join", map(
+    c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
+    ~ ratios_select_multiple(main_dataset, all, .x, no_weights)
+  ))
+
+head(res)
+
 ```
 
 
