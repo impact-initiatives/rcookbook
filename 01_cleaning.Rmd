@@ -1,261 +1,197 @@
-# Data Collection and Processing
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-library(magrittr)
-library(dplyr)
-library(kableExtra)
-library(readxl)
+# Cleaning
 
-main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+## Custom packages with cleaning functions
+kobold/ butteR/ auditCheckR
 
-questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
-choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+## Example one
+
+## Example two
+
+## Downloading Audit files using audit_URL
+Required Libraries: httr
+
+****
+
+"download_audit_files" will download audit files using the endpoint that is included in your data set, it's available in column called "audit_URL". The function will create a folder named by the uuid of each form/interview, and write the audit.csv inside it. The advantage of using the API over downloading manually from server is that you can download the audit files of each form that has recently been submitted to the server separately, rather than downloading cumulatively the whole audit files each time. One the top of that, you can benefit from the advantage of automation.
+
+```{r}
+download_audit_files <- function(df, uuid_column = "_uuid", audit_dir, usr, pass){
+  if (!"httr" %in% installed.packages()) 
+    stop("The package is httr is required!")
+  
+  if (is.na(audit_dir) || audit_dir == "") 
+    stop("The path for storing audit files can't be empty!")
+  
+  if (is.na(usr) || usr == "") 
+    stop("Username can't be empty!")
+  
+  if (is.na(pass) || pass == "") 
+    stop("Password can't be empty!")
+  
+  # checking if the output directory is already available
+  if (!dir.exists(audit_dir)) {
+    dir.create(audit_dir)
+    if (dir.exists(audit_dir)) {
+      cat("Attention: The audit file directory was created in", audit_dir,"\n")
+    }
+  }
+  
+  # checking if creating output directory was successful
+  if (!dir.exists(audit_dir))
+    stop("download_audit_fils was not able to create the output directory!")
+  # checking if uuid column exists in data set
+  if (!uuid_column %in% names(df))
+    stop("The column ", uuid_column, " is not available in data set.")
+  # checking if column audit_URL exists in data set
+  if (!uuid_column %in% names(df))
+    stop("The column ", uuid_column, " is not available in data set.")
+  if (!"audit_URL" %in% names(df))
+    stop("Error: the column audit_URL is not available in data set.")
+  
+  # getting the list of uuids that are already downloaded
+  available_audits <- dir(audit_dir)
+  
+  # excluding uuids that their audit files are already downloaded
+  df <- df[!df[[uuid_column]] %in% available_audits,]
+  
+  audits_endpoint_link <- df[["audit_URL"]]
+  names(audits_endpoint_link) <- df[[uuid_column]]
+  audits_endpoint_link <- na.omit(audits_endpoint_link)
+  
+  if (length(audits_endpoint_link) > 0) {
+    # iterating over each audit endpoint from data
+    for (i in 1:length(audits_endpoint_link)) {
+      uuid = names(audits_endpoint_link[i])
+      endpoint_link_i <- audits_endpoint_link[i]
+      cat("Downloading audit file for", uuid, "\n")
+      
+      # requesting data
+      audit_file <- content(GET(endpoint_link_i,
+                                authenticate(usr, pass),
+                                timeout(1000),
+                                progress()), "text", encoding = "UTF-8")
+      
+      if (!is.na(audit_file)) {
+        if (length(audit_file) > 2) {
+          dir.create(paste0(audit_dir, "/", uuid), showWarnings = F)
+          write.csv(audit_file, paste0(audit_dir, "/", uuid, "/audit.csv"), row.names = F)
+        }else if(!audit_file == "Attachment not found"){
+          if (grepl("[eventnodestartend]", audit_file)) {
+            dir.create(paste0(audit_dir, "/", uuid), showWarnings = F)
+            write.table(audit_file, paste0(audit_dir, "/", uuid, "/audit.csv"), row.names = F, col.names = FALSE, quote = F)
+          } else{
+            cat("Error: Downloading audit was unsucessful!\n")
+          }
+        }
+      } else{
+        cat("Error: Downloading audit was unsucessful!\n")
+      }
+    }
+  } else{
+    cat("Attention: All audit files for given data set is downloaded!")
+  }
+}
+
 ```
 
-```{r, tidy=FALSE, eval = F}
-#** un-comment those if you need them to be installed
-# devtools::install_github("https://github.com/impact-initiatives/xlsformfill/")
-# devtools::install_github("https://github.com/impact-initiatives/cleaninginspectoR/")
-```
+## Download audit files using form name
+Required Libraries: httr, jsonlite, dplyr, stringr
 
-*
-Notes on **cleaninginspectoR**:
-- The function will return a dataframe with indexes not the uuid.
-- cleanninginspectoR uses function from the **magrittr** and **dplyr** packages. Don't forget to load them before using it.
-*
+****
 
-## Testing the tool
+"download_audit_files_2" is a different version of "download_audit_files" module that will help you to download audit files using the form id directly from KOBO API. The rest of it's specifications best matches the download_audit_files.
 
-### Creating dummy data
-
-**xlsformfill** has a function **xlsform_fill** that will create dataset based on your KOBO questionnaire. It takes 3 arguments: your questions, your choices and how many rows you want.
-
-*Notes:
-- All questions will be filled. 
-- Skip logic are not implemented.
-- Constraints are not implemented.
-- Integers and text will be generated randomly
-*
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-dummy_dataset <- xlsformfill::xlsform_fill(questions = questions, choices = choices, n = 300)
-```
-```{r, tidy=FALSE, eval = F}
-dummy_dataset %>% head(10)
-```
-```{r, echo =F, message= F, warning=F,}
-dummy_dataset  %>% 
-  head(10) %>%
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-## Download data
-
-### download from API 
-
-koboapi
-koboloadeR 
-kobohr_apitoolbox
-
-## Data collection follow-up
-
-### checking surveys against sampling frame
-
-## Data falsification
-
-### Check for time (in the dataset)
-lubridate
-Custom script
-
-### Check for time (audit files)	
-Custom script (using ???)
-
-### Silouhette analysis	
-Custom script (using ???)
-
-### Check for duplicates	
-#### cleaninginspectoR - find_duplicates
-
-**find_duplicates** will take the dataset and a column name to look for duplicates as arguments.
-
-```{r, tidy=FALSE, message= F, warning=F, error=F}
-cleaninginspectoR::find_duplicates(main_dataset, duplicate.column.name = "X_uuid")
-
-dummy_dataset[301, ] <- dummy_dataset[300, ]
-cleaninginspectoR::find_duplicates(dummy_dataset, duplicate.column.name = "uuid")
-```
-```{r, tidy=FALSE, message= F, warning=F, error=F}
-cleaninginspectoR::find_duplicates(dummy_dataset, duplicate.column.name = "start")
-```
-
-#### base - duplicated
-
-If you are looking in duplicates value in several columns (first and second name, names and ID number,etc.), you can use the **duplicated**. 
-
-```{r, tidy=T}
-dummy_test <- data.frame(col_a = c("a", "a", "c"), 
-                         col_b = c("b", "b", "f"))
-dummy_test
-```
-Rows 1 and 2 are duplications. 
-```{r, tidy=FALSE, message= F, warning=F, error=F}
-duplicated(dummy_test)
-```
-
-**find_duplicates()** and **duplicated()** functions will return position or value **only of one** duplicated record. But after identification of the duplicate, it will be good to check how many of such duplicated records in the dataset and check if they have any other duplicated columns. Based on your investigation, you will need to delete one or several records. e.g. Enumerator submitted the first survey by mistake and after some time submitted a corrected survey with the same id (in case we allow for the enumerator to select the id of the enterprise or sample). In such a way, find_duplicates() will identify the second survey but we will need to delete the first one.
-
-##	Data checks	
-### Check for outliers	
-There are 2 commons ways to detect outliers :
-
-- Using the range of 3 standards deviations from the mean. 
-- Using the range of 1.5 inter quartile from the 1st and 3rd quartile. 
-
-Outliers can exist but it is important to check them.
-
-#### cleaninginspectoR - find_outliers
-The function find_outliers will use the rule of the 3 standards deviations from the mean for normal values and log values. 
-
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-cleaning_log <- cleaninginspectoR::find_outliers(main_dataset)
-```
-```{r, tidy=FALSE, eval = F}
-cleaning_log %>% head(20)
-```
-```{r, echo =F, message= F, warning=F,}
-cleaning_log  %>% 
-  head(20) %>%
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-###	Check others
-#### cleaninginspectoR - find_other_responses
-
-**find_other_responses** will look for all columns with "other", "Other", "autre", "Autre",  and return their values.
-
-*Notes:
-- If your *other* questions do not have those 4 strings in their names, the function will not pick it.
-*
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-cleaning_log <- cleaninginspectoR::find_other_responses(main_dataset)
-```
-```{r, tidy=FALSE, eval = F}
-cleaning_log %>% head(10)
-```
-```{r, echo =F, message= F, warning=F,}
-cleaning_log  %>% 
-  head(10) %>%
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-#### base + dplyr
-
-This example will take all the text type from the questionnaire, filter for the ones that are in the dataset and return all the values. 
-```{r, tidy=FALSE, echo=T}
-oth <- questions$name[questions$type == "text"]
-oth <- oth[oth %in% names(main_dataset)]
-oth_log <- oth %>% 
-  lapply(function(x) {
-    main_dataset %>% 
-      select("X_uuid", !!sym(x)) %>% 
-      filter(!is.na(!!sym(x))) %>%
+```{r}
+download_audit_files_2 <- function(form_id, output_dir, user, pass) {
+  if (!"stringr" %in% installed.packages()) 
+    stop("Could not find the package stringr!")
+  
+  if (!"dplyr" %in% installed.packages()) 
+    stop("Could not find the package dplyr!")
+  
+  if (!"httr" %in% installed.packages()) 
+    stop("Could not find the package httr!")
+  
+  if (!"jsonlite" %in% installed.packages()) 
+    stop("Could not find the package jsonlite!")
+  
+  if (is.na(output_dir) || output_dir == "") 
+    stop("The path for storing audit files can't be empty!")
+  
+  if (is.na(user) || user == "") 
+    stop("Username can't be empty!")
+  
+  if (is.na(pass) || pass == "") 
+    stop("Password can't be empty!")
+  
+  require(httr)
+  require(dplyr)
+  require(jsonlite)
+  require(stringr)
+  
+  # checking if the output directory is already available
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir)
+    if (dir.exists(output_dir)) {
+      cat("Attention: The audit file directory was created in", output_dir,"\n")
+    }
+  }
+  
+  # checking if creating output directory was successful
+  if (!dir.exists(output_dir))
+    stop("download_audit_fils was not able to create the output directory!")
+  
+  # listing audit files that are already available
+  available_audits <- dir(output_dir)
+  
+  # getting form url
+  form_url <- GET("https://kc.humanitarianresponse.info/api/v1/data", authenticate(user, pass), timeout(1000)) %>% 
+    content(., "text", encoding = "UTF-8") %>%
+    fromJSON(., flatten = T) %>% 
+    filter(id_string == form_id) %>% 
+    select(url) %>% 
+    unlist()
+  
+  if (length(form_url) > 0) {
+    
+    # getting attachment links of uuids that their audit is already downloaded
+    form_data <- GET(form_url, authenticate(user, pass), timeout(1000)) %>% 
+      content(., "text", encoding = "UTF-8") %>%
+      fromJSON(., flatten = T) %>% 
       as.data.frame() %>% 
-      mutate(col_names = x) %>%
-      rename(other_text = !!sym(x)) %>%
-      arrange(other_text)}) %>% 
-  do.call(rbind,.)
+      filter(!`_uuid` %in% available_audits)
+    
+    attachment_url <- form_data[["_attachments"]]
+    audit_file_links <- unlist(attachment_url)[names(unlist(attachment_url)) == "download_large_url"] %>% unname()
+    
+    # uuids <- form_data[["_uuid"]][lapply(attachment_url, length) %>% unlist() != 0]
+    # uuids <- str_extract(audit_file_links, "(?<=%2F)[a-z-0-9]*(?=%2Faudit.csv$)")
+    # names(audit_file_links) <- uuids
+    
+    download_audit <- function(audit_link, user, pass, output_dir, uuid) {
+      uuid <- str_extract(audit_link, "(?<=%2F)[a-z-0-9]*(?=%2Faudit.csv$)")
+      audit_file <- GET(audit_link, authenticate(user, pass), timeout(1000), progress()) %>% 
+        content(., "text", encoding = "UTF-8")
+      
+      cat("Downloading audit file for", uuid, "\n")
+      dir.create(paste0(output_dir, "/", uuid))
+      output_file_name <- paste0(output_dir, "/", uuid,"/audit.csv")
+      # write.csv(audit_file, output_file_name)
+      
+      if (!is.na(audit_file)) {
+        if (length(audit_file) > 2) {
+          write.csv(audit_file, output_file_name, row.names = F)
+        }else if(!audit_file == "Attachment not found"){
+          if (grepl("[eventnodestartend]", audit_file)) {
+            write.table(audit_file, output_file_name, row.names = F, col.names = FALSE, quote = F)
+          }
+        }
+      }
+    }
+    
+    downloaded_uuids <- sapply(audit_file_links, download_audit, user = user, pass = pass, output_dir = output_dir)
+  } else{
+    cat("Attention: All audit files for given form is downloaded!")
+  }
+}
 ```
-```{r, tidy=FALSE, eval = F}
-oth_log %>% head(20)
-```
-```{r, echo =F, message= F, warning=F,}
-oth_log  %>% 
-  head(20) %>%
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-*Please note that it takes the values as they are. You may want to trim and remove caps or any other regex work if you want better summary *
-
-This other example looks at the frequency of a given *other* option, it could be used to see if some should be recoded as options directly.
-
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-oth_prop <- oth %>% 
-  lapply(function(x) {
-    main_dataset %>% 
-      select(!!sym(x)) %>% 
-      table() %>% 
-      as.data.frame() %>% 
-      # rename(other_text = `.`) %>%
-      arrange(`.`) %>% 
-      mutate(col_names = x, 
-             prop = Freq/nrow(main_dataset))
-  }) %>%
-  do.call(rbind,.)
-```
-```{r, tidy=FALSE, eval = F}
-oth_prop %>% head(20)
-```
-```{r, echo =F, message= F, warning=F,}
-oth_prop  %>% 
-  head(20) %>%
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-
-###	Check for logical check	
-hum hum hum ?? 
-Custom script (using dplyr?)
-		
-- Any value that is arbitrary set (from an informed source e.g. an informal setttlement cannot be lower than 15 households). This type of outliers could also be considered as logical checks.
-
-## cleaninginspectoR - inspect_all
-
-cleanninginspectoR has a function inspect *inspect_all* that will look for outliers, others responses that may need recoding, duplicated uuid and possible sensitive columns. It takes as arguments the dataset and the uuid column name. 
-```{r, tidy=FALSE, message= F, warning=F, error=F}
-cleaning_log <- cleaninginspectoR::inspect_all(main_dataset, "X_uuid")
-```
-```{r, tidy=FALSE, eval = F}
-cleaning_log %>% head(20)
-```
-```{r, echo =F, message= F, warning=F,}
-cleaning_log  %>% 
-  head(20) %>%
-  kable() %>% 
-  kable_styling(font_size=8) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-## Data cleaning		
-### Clean data base on cleaning log	
-clog
-butteR
-
-### Check cleaning log, raw dataset and clean dataset	
-dplyr
-waldo 
-arsenal
-
-## Data cleaning - miscellaneous		
-###	Check for data sanity	check if the data follow ODK format (select_one, select_multiple, xxx, choices)
-To be created
-
-###	Turns label to xml	
-Custom script (using ???)
-
-###	Statistical Disclosure Control Methods	
-sdcMicro
-
-
-
-
-
-
-

@@ -1,0 +1,106 @@
+# Outputs
+
+## From long to large table
+How to move from a tidy format to a large format
+
+## Merge file
+How to create a merge file
+
+## Graphs
+### spider graphs
+### prison graphs
+
+### Euler diagram
+*An Euler diagram  is a diagrammatic means of representing sets and their relationships. They are particularly useful for explaining complex hierarchies and overlapping definitions. They are similar to another set diagramming technique, Venn diagrams. Unlike Venn diagrams, which show all possible relations between different sets, the Euler diagram shows only relevant relationships. [Source](https://en.wikipedia.org/wiki/Euler_diagram)*
+
+First let's load [Eulerr library](https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html) and our dataset
+```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+```
+
+Euler diagrams are particularly useful to visualize overlaps between HH characteristics that help better understand the demographic profile of the area. For example, let's visualize overlaps between such HH characteristics as age, displacement status, income level, disability, and employment status.
+```{r tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(eulerr)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(tibble)
+library(UpSetR)
+
+vulnerability_data <- main_dataset %>%
+    select(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,
+           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)%>%
+  #select all necessary columns
+    mutate(displaced = ifelse(d1_hh_displacement_status == "no", 0, 1),
+           low_income = ifelse(as.numeric(b15_hohh_income) >= 2189, 0, 1))%>% #2189 UAH(83$) is minimal monthly income in 2020
+  #calculate binary indicators in case they are not available in the dataset directly from select multiple questions
+    select(-d1_hh_displacement_status, -b15_hohh_income)%>%
+    setNames(c("disability", "60+", "unemployed", "uuid", "strata", "weight", "displaced", "low_income"))
+  #remove unnecessary columns and rename other column
+
+vulnerability_data <- #create column that will combine all binary columns into one (same approach as in ### Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)
+    map2_df(vulnerability_data, names(vulnerability_data), ~  replace(.x, .x==1, .y) %>% 
+    replace(. == 0, NA)) %>%
+    unite(combined, disability, `60+`, displaced, low_income, unemployed, remove = FALSE, na.rm = TRUE, sep = '&')%>%
+    filter(!combined == "")
+
+#calculate weighted summary statistics for each combination
+vulnerability_summary <- vulnerability_data %>%
+  select(strata, weight, combined)%>% 
+  group_by(combined) %>% 
+  summarise(weight_sum = sum(as.numeric(weight)))%>%
+  mutate(per = weight_sum / sum(weight_sum) * 100)%>%
+  filter(per > 1)%>%
+  select(-weight_sum)
+
+#convert data frame into named numeric vector that is used by plot function
+vulnerability_input <-  vulnerability_summary %>%
+                        deframe()
+```
+
+In this block we will build euler diagram using REACH color palette and some basic styling.
+```{r}
+plot(euler(vulnerability_input),
+     edges = FALSE,
+     quantities = list(type = "percent", fontsize = 8),
+     labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed"),
+     legend = list(labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed")),
+     fills = c("#7CB6C4","#B6C8B1","#F6E3E3","#D1CAB8","#D1D3D4")
+     )
+```
+
+As an alternative, we also can build a Venn diagram that shows each relation (even not possible in reality). As you can see Venn diagram in this case is less readable and usable.
+```{r}
+plot(venn(vulnerability_input),
+     edges = FALSE,
+     quantities = list(type = "percent", fontsize = 8), 
+     labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed"),
+     legend = list(labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed")),
+     fills = c("#7CB6C4","#B6C8B1","#F6E3E3","#D1CAB8","#D1D3D4"))
+```
+Another popular type of diagram that shows relation is [UpSetR diagram](https://github.com/hms-dbmi/UpSetR). Even with default styling, it's quite good in the visualization of intersections between different HH characteristics.
+```{r}
+upset(fromExpression(vulnerability_input), order.by = "freq")
+```
+
+
+
+
+### Venn diagram
+### UpSet plots
+### boxplots
+
+
+## Labels
+### change from xml to label
+### change from label to xml
+
+## Dashboarding - Sharing information
+Html files
+Tableau
+Power BI
+Shiny
+
+## Outputs with hypothesis testing results
