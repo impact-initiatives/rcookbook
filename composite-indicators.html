@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Composite indicators | R cookbook for analysis with REACH</title>
-  <meta name="description" content="5 Composite indicators | R cookbook for analysis with REACH" />
+  <title>6 Composite indicators | R cookbook for analysis with REACH</title>
+  <meta name="description" content="6 Composite indicators | R cookbook for analysis with REACH" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Composite indicators | R cookbook for analysis with REACH" />
+  <meta property="og:title" content="6 Composite indicators | R cookbook for analysis with REACH" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Composite indicators | R cookbook for analysis with REACH" />
+  <meta name="twitter:title" content="6 Composite indicators | R cookbook for analysis with REACH" />
   
   
   
@@ -139,113 +139,145 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>3</b> Pre analysis</a>
+<li class="chapter" data-level="3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html"><i class="fa fa-check"></i><b>3</b> Downloading data from kobo server</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>3.1</b> Checking the XLS kobo tools for constraints errors</a></li>
+<li class="chapter" data-level="3.1" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions"><i class="fa fa-check"></i><b>3.1</b> Defining the needed functions</a></li>
+<li class="chapter" data-level="3.2" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables"><i class="fa fa-check"></i><b>3.2</b> Creating data url and credentials variables</a></li>
+<li class="chapter" data-level="3.3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server"><i class="fa fa-check"></i><b>3.3</b> Fetching the data from the server</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>4</b> Data Collection and Processing</a>
+<li class="chapter" data-level="4" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>4</b> Pre analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>4.1</b> Testing the tool</a>
+<li class="chapter" data-level="4.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>4.1</b> Checking the XLS kobo tools for constraints errors</a></li>
+<li class="chapter" data-level="4.2" data-path="pre-analysis.html"><a href="pre-analysis.html#sampling"><i class="fa fa-check"></i><b>4.2</b> Sampling</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>4.1.1</b> Creating dummy data</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>4.2</b> Download data</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-from-api"><i class="fa fa-check"></i><b>4.2.1</b> download from API</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>4.3</b> Data collection follow-up</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-sampling-frame"><i class="fa fa-check"></i><b>4.3.1</b> checking surveys against sampling frame</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>4.4</b> Data falsification</a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>4.4.1</b> Check for time (in the dataset)</a></li>
-<li class="chapter" data-level="4.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>4.4.2</b> Check for time (audit files)</a></li>
-<li class="chapter" data-level="4.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>4.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
-<li class="chapter" data-level="4.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>4.4.4</b> Silouhette analysis</a></li>
-<li class="chapter" data-level="4.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>4.4.5</b> Check for duplicates</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>4.5</b> Data checks</a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>4.5.1</b> Check for outliers</a></li>
-<li class="chapter" data-level="4.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>4.5.2</b> Check others</a></li>
-<li class="chapter" data-level="4.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>4.5.3</b> Check for logical check</a></li>
-</ul></li>
-<li class="chapter" data-level="4.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>4.6</b> cleaninginspectoR - inspect_all</a></li>
-<li class="chapter" data-level="4.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>4.7</b> Data cleaning</a>
-<ul>
-<li class="chapter" data-level="4.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>4.7.1</b> Re-generate text column for select multiple questions</a></li>
-<li class="chapter" data-level="4.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>4.7.2</b> Clean data base on cleaning log</a></li>
-<li class="chapter" data-level="4.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>4.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>4.8</b> Data cleaning - miscellaneous</a>
-<ul>
-<li class="chapter" data-level="4.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>4.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
-<li class="chapter" data-level="4.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>4.8.2</b> Turns label to xml</a></li>
-<li class="chapter" data-level="4.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>4.8.3</b> Statistical Disclosure Control Methods</a></li>
+<li class="chapter" data-level="4.2.1" data-path="pre-analysis.html"><a href="pre-analysis.html#simple-random-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Simple Random sampling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pre-analysis.html"><a href="pre-analysis.html#stratified-random-sampling"><i class="fa fa-check"></i><b>4.2.2</b> Stratified Random sampling</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pre-analysis.html"><a href="pre-analysis.html#cluster-sampling"><i class="fa fa-check"></i><b>4.2.3</b> Cluster sampling</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pre-analysis.html"><a href="pre-analysis.html#stages-random-sampling"><i class="fa fa-check"></i><b>4.2.4</b> 2 stages random sampling</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pre-analysis.html"><a href="pre-analysis.html#sample-distribution-usin-population-raster"><i class="fa fa-check"></i><b>4.2.5</b> Sample distribution usin population raster</a></li>
+<li class="chapter" data-level="4.2.6" data-path="pre-analysis.html"><a href="pre-analysis.html#generation-of-random-sample-points"><i class="fa fa-check"></i><b>4.2.6</b> Generation of random sample points</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>5</b> Composite indicators</a>
+<li class="chapter" data-level="5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>5</b> Data Collection and Processing</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>5.1</b> Composite with 1 categorical variable - select one</a></li>
-<li class="chapter" data-level="5.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>5.2</b> Composite with 2 categorical variables</a></li>
-<li class="chapter" data-level="5.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>5.3</b> Composite with 1 categorical variable - select multiple</a></li>
-<li class="chapter" data-level="5.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>5.4</b> Composite with 1 numerical variable</a></li>
-<li class="chapter" data-level="5.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>5.5</b> Composite with 2 numerical variables</a></li>
-<li class="chapter" data-level="5.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>5.6</b> Composite with 2 or more numerical variables</a></li>
-<li class="chapter" data-level="5.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>5.7</b> New indicators from a loop to main dataset</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>6</b> Analysis</a>
+<li class="chapter" data-level="5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>5.1</b> Testing the tool</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>6.1</b> hypegrammaR</a></li>
-<li class="chapter" data-level="6.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>6.2</b> srvyr package</a>
+<li class="chapter" data-level="5.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>5.1.1</b> Creating dummy data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>5.2</b> Download data</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>6.2.1</b> Categorical variables</a></li>
-<li class="chapter" data-level="6.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>6.2.2</b> Numeric variables</a></li>
+<li class="chapter" data-level="5.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url"><i class="fa fa-check"></i><b>5.2.1</b> Downloading Audit files using audit_URL</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-audit-files-using-form-name"><i class="fa fa-check"></i><b>5.2.2</b> Download audit files using form name</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>6.3</b> butteR survey_collapse</a>
+<li class="chapter" data-level="5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>5.3</b> Data collection follow-up</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>6.3.1</b> select_one</a></li>
-<li class="chapter" data-level="6.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>6.3.2</b> select_mutiple</a></li>
+<li class="chapter" data-level="5.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame"><i class="fa fa-check"></i><b>5.3.1</b> checking surveys against the sampling frame</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>6.4</b> Analysis with numerical variables</a>
+<li class="chapter" data-level="5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>5.4</b> Data falsification</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>6.4.1</b> Averages</a></li>
-<li class="chapter" data-level="6.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>6.4.2</b> Median</a></li>
+<li class="chapter" data-level="5.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>5.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>5.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>5.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>5.4.4</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>5.4.5</b> Check for duplicates</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>6.5</b> Weights</a></li>
-<li class="chapter" data-level="6.6" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>6.6</b> Repeating the above</a></li>
-<li class="chapter" data-level="6.7" data-path="analysis.html"><a href="analysis.html#top-3"><i class="fa fa-check"></i><b>6.7</b> Top 3</a></li>
-<li class="chapter" data-level="6.8" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>6.8</b> Borda count</a></li>
-<li class="chapter" data-level="6.9" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>6.9</b> Hypothesis testing</a>
+<li class="chapter" data-level="5.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>5.5</b> Data checks</a>
 <ul>
-<li class="chapter" data-level="6.9.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>6.9.1</b> T-test</a></li>
-<li class="chapter" data-level="6.9.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>6.9.2</b> ANOVA</a></li>
-<li class="chapter" data-level="6.9.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>6.9.3</b> chi-squares</a></li>
+<li class="chapter" data-level="5.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>5.5.1</b> Check for outliers</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>5.5.2</b> Check others</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>5.5.3</b> Check for logical check</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>7</b> Outputs</a>
+<li class="chapter" data-level="5.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>5.6</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="5.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>5.7</b> Data cleaning</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>7.1</b> From long to large table</a></li>
-<li class="chapter" data-level="7.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>7.2</b> Merge file</a></li>
-<li class="chapter" data-level="7.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>7.3</b> Graphs</a>
+<li class="chapter" data-level="5.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>5.7.1</b> Re-generate text column for select multiple questions</a></li>
+<li class="chapter" data-level="5.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>5.7.2</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="5.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>5.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>5.8</b> Data cleaning - miscellaneous</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>7.3.1</b> spider graphs</a></li>
-<li class="chapter" data-level="7.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>7.3.2</b> prison graphs</a></li>
-<li class="chapter" data-level="7.3.3" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>7.3.3</b> Euler diagram</a></li>
-<li class="chapter" data-level="7.3.4" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>7.3.4</b> Venn diagram</a></li>
-<li class="chapter" data-level="7.3.5" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>7.3.5</b> UpSet plots</a></li>
-<li class="chapter" data-level="7.3.6" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>7.3.6</b> boxplots</a></li>
+<li class="chapter" data-level="5.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>5.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li class="chapter" data-level="5.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>5.8.2</b> Turns label to xml</a></li>
+<li class="chapter" data-level="5.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>5.8.3</b> Statistical Disclosure Control Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>7.4</b> Labels</a>
+<li class="chapter" data-level="5.9" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks"><i class="fa fa-check"></i><b>5.9</b> Spatial verification checks</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>7.4.1</b> change from xml to label</a></li>
-<li class="chapter" data-level="7.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>7.4.2</b> change from label to xml</a></li>
+<li class="chapter" data-level="5.9.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks-on-settlement-level"><i class="fa fa-check"></i><b>5.9.1</b> Spatial verification checks on settlement level</a></li>
+<li class="chapter" data-level="5.9.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks-on-sample-point-level"><i class="fa fa-check"></i><b>5.9.2</b> Spatial verification checks on sample point level</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>7.5</b> Dashboarding - Sharing information</a></li>
-<li class="chapter" data-level="7.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>7.6</b> Outputs with hypothesis testing results</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>8</b> Miscellaneous</a></li>
+<li class="chapter" data-level="6" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>6</b> Composite indicators</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>6.1</b> Composite with 1 categorical variable - select one</a></li>
+<li class="chapter" data-level="6.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Composite with 2 categorical variables</a></li>
+<li class="chapter" data-level="6.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>6.3</b> Composite with 1 categorical variable - select multiple</a></li>
+<li class="chapter" data-level="6.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>6.4</b> Composite with 1 numerical variable</a></li>
+<li class="chapter" data-level="6.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>6.5</b> Composite with 2 numerical variables</a></li>
+<li class="chapter" data-level="6.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>6.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="6.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>6.7</b> New indicators from a loop to main dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>7</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>7.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="7.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>7.2</b> srvyr package</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>7.2.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="7.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>7.2.2</b> Numeric variables</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>7.3</b> butteR survey_collapse</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>7.3.1</b> select_one</a></li>
+<li class="chapter" data-level="7.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>7.3.2</b> select_mutiple</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>7.4</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>7.4.1</b> Averages</a></li>
+<li class="chapter" data-level="7.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>7.4.2</b> Median</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="analysis.html"><a href="analysis.html#ratios"><i class="fa fa-check"></i><b>7.5</b> Ratios</a>
+<ul>
+<li><a href="analysis.html#example1"><span class="toc-section-number">7.5.1</span> Example1:<br />
+</a></li>
+<li><a href="analysis.html#example2---analyzing-multiple-questions-and-combine-the-output"><span class="toc-section-number">7.5.2</span> Example2 - Analyzing multiple questions and combine the output:<br />
+</a></li>
+<li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.5.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
+</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>7.6</b> Weights</a></li>
+<li class="chapter" data-level="7.7" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>7.7</b> Repeating the above</a></li>
+<li class="chapter" data-level="7.8" data-path="analysis.html"><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple"><i class="fa fa-check"></i><b>7.8</b> Analysis - top X / ranking (select one and select multiple)</a></li>
+<li class="chapter" data-level="7.9" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>7.9</b> Borda count</a></li>
+<li class="chapter" data-level="7.10" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>7.10</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>7.10.1</b> T-test</a></li>
+<li class="chapter" data-level="7.10.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>7.10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="7.10.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>7.10.3</b> chi-squares</a></li>
+<li class="chapter" data-level="7.10.4" data-path="analysis.html"><a href="analysis.html#chi-squared-goodness-of-fit-test"><i class="fa fa-check"></i><b>7.10.4</b> Chi-squared Goodness of Fit test</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>8</b> Outputs</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>8.1</b> From long to large table</a></li>
+<li class="chapter" data-level="8.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>8.2</b> Merge file</a></li>
+<li class="chapter" data-level="8.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>8.3</b> Graphs</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>8.3.1</b> spider graphs</a></li>
+<li class="chapter" data-level="8.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>8.3.2</b> prison graphs</a></li>
+<li class="chapter" data-level="8.3.3" data-path="outputs.html"><a href="outputs.html#bar-graphs"><i class="fa fa-check"></i><b>8.3.3</b> Bar graphs</a></li>
+<li class="chapter" data-level="8.3.4" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>8.3.4</b> Euler diagram</a></li>
+<li class="chapter" data-level="8.3.5" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>8.3.5</b> Venn diagram</a></li>
+<li class="chapter" data-level="8.3.6" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>8.3.6</b> UpSet plots</a></li>
+<li class="chapter" data-level="8.3.7" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>8.3.7</b> boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>8.4</b> Labels</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>8.4.1</b> change from xml to label</a></li>
+<li class="chapter" data-level="8.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>8.4.2</b> change from label to xml</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>8.5</b> Dashboarding - Sharing information</a></li>
+<li class="chapter" data-level="8.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>8.6</b> Outputs with hypothesis testing results</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous</a></li>
 </ul>
 
       </nav>
@@ -263,12 +295,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="composite-indicators" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Composite indicators</h1>
+<div id="composite-indicators" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Composite indicators</h1>
 <p>composeR
 dplyr::case_when</p>
-<div id="composite-with-1-categorical-variable---select-one" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Composite with 1 categorical variable - select one</h2>
+<div id="composite-with-1-categorical-variable---select-one" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Composite with 1 categorical variable - select one</h2>
 <p>This example will look at creating an improved source of water variable. The indicator of interest is <strong>f11_dinking_water_source</strong> and the options for un-improved source of water are:</p>
 <ul>
 <li>trucked_in_water_truck_with_a_tank_etc</li>
@@ -276,12 +308,12 @@ dplyr::case_when</p>
 <li>bottled_water_water_purchased_in_bottles</li>
 <li>other_specify</li>
 </ul>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="composite-indicators.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a vector of un-improved source of water</span></span>
-<span id="cb61-2"><a href="composite-indicators.html#cb61-2" aria-hidden="true" tabindex="-1"></a>unimproved_source <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;trucked_in_water_truck_with_a_tank_etc&quot;</span>, <span class="st">&quot;drinking_water_from_water_kiosk_booth_with_water_for_bottling&quot;</span>, <span class="st">&quot;bottled_water_water_purchased_in_bottles&quot;</span>, <span class="st">&quot;other_specify&quot;</span>)</span>
-<span id="cb61-3"><a href="composite-indicators.html#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-4"><a href="composite-indicators.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
-<span id="cb61-5"><a href="composite-indicators.html#cb61-5" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source, <span class="st">&quot;not_improved&quot;</span>, <span class="st">&quot;improved&quot;</span>)</span>
-<span id="cb61-6"><a href="composite-indicators.html#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source, main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="composite-indicators.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating a vector of un-improved source of water</span></span>
+<span id="cb97-2"><a href="composite-indicators.html#cb97-2" aria-hidden="true" tabindex="-1"></a>unimproved_source <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;trucked_in_water_truck_with_a_tank_etc&quot;</span>, <span class="st">&quot;drinking_water_from_water_kiosk_booth_with_water_for_bottling&quot;</span>, <span class="st">&quot;bottled_water_water_purchased_in_bottles&quot;</span>, <span class="st">&quot;other_specify&quot;</span>)</span>
+<span id="cb97-3"><a href="composite-indicators.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="composite-indicators.html#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
+<span id="cb97-5"><a href="composite-indicators.html#cb97-5" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source, <span class="st">&quot;not_improved&quot;</span>, <span class="st">&quot;improved&quot;</span>)</span>
+<span id="cb97-6"><a href="composite-indicators.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source, main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##                                                                
 ##                                                                 improved
 ##   bottled_water_water_purchased_in_bottles                             0
@@ -302,22 +334,22 @@ dplyr::case_when</p>
 ##   tap_drinking_water_centralized_water_supply                              0
 ##   technical_piped_water                                                    0
 ##   trucked_in_water_truck_with_a_tank_etc                                  90</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="composite-indicators.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R </span></span>
-<span id="cb63-2"><a href="composite-indicators.html#cb63-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb63-3"><a href="composite-indicators.html#cb63-3" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2[main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source] <span class="ot">&lt;-</span> <span class="st">&quot;not_improved&quot;</span></span>
-<span id="cb63-4"><a href="composite-indicators.html#cb63-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2[<span class="sc">!</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source)] <span class="ot">&lt;-</span> <span class="st">&quot;improved&quot;</span></span>
-<span id="cb63-5"><a href="composite-indicators.html#cb63-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-6"><a href="composite-indicators.html#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
-<span id="cb63-7"><a href="composite-indicators.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="composite-indicators.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R </span></span>
+<span id="cb99-2"><a href="composite-indicators.html#cb99-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb99-3"><a href="composite-indicators.html#cb99-3" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2[main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source] <span class="ot">&lt;-</span> <span class="st">&quot;not_improved&quot;</span></span>
+<span id="cb99-4"><a href="composite-indicators.html#cb99-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2[<span class="sc">!</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source)] <span class="ot">&lt;-</span> <span class="st">&quot;improved&quot;</span></span>
+<span id="cb99-5"><a href="composite-indicators.html#cb99-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-6"><a href="composite-indicators.html#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
+<span id="cb99-7"><a href="composite-indicators.html#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##               
 ##                improved not_improved
 ##   improved         1082            0
 ##   not_improved        0          535</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="composite-indicators.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using case_when</span></span>
-<span id="cb65-2"><a href="composite-indicators.html#cb65-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb65-3"><a href="composite-indicators.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wash_improved_source_dplyr =</span> <span class="fu">case_when</span>(f11_dinking_water_source <span class="sc">%in%</span> unimproved_source <span class="sc">~</span> <span class="st">&quot;not_improved&quot;</span>,</span>
-<span id="cb65-4"><a href="composite-indicators.html#cb65-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;improved&quot;</span>))</span>
-<span id="cb65-5"><a href="composite-indicators.html#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source, main_dataset<span class="sc">$</span>wash_improved_source_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="composite-indicators.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using case_when</span></span>
+<span id="cb101-2"><a href="composite-indicators.html#cb101-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb101-3"><a href="composite-indicators.html#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wash_improved_source_dplyr =</span> <span class="fu">case_when</span>(f11_dinking_water_source <span class="sc">%in%</span> unimproved_source <span class="sc">~</span> <span class="st">&quot;not_improved&quot;</span>,</span>
+<span id="cb101-4"><a href="composite-indicators.html#cb101-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;improved&quot;</span>))</span>
+<span id="cb101-5"><a href="composite-indicators.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source, main_dataset<span class="sc">$</span>wash_improved_source_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##                                                                
 ##                                                                 improved
 ##   bottled_water_water_purchased_in_bottles                             0
@@ -338,72 +370,72 @@ dplyr::case_when</p>
 ##   tap_drinking_water_centralized_water_supply                              0
 ##   technical_piped_water                                                    0
 ##   trucked_in_water_truck_with_a_tank_etc                                  90</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="composite-indicators.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
-<span id="cb67-2"><a href="composite-indicators.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_improved_source_dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="composite-indicators.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
+<span id="cb103-2"><a href="composite-indicators.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_improved_source_dplyr)</span></code></pre></div>
 <pre><code>##               
 ##                improved not_improved
 ##   improved         1082            0
 ##   not_improved        0          535</code></pre>
 <p>In the previous example, there was no missing value. For this example, the indicator to be built will turn a yes/no question into a dummy variable (1 and 0). The variable of interest is <em>b16_hohh_pension_eligible</em></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="composite-indicators.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="composite-indicators.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##   no  yes &lt;NA&gt; 
 ##    6  870  741</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="composite-indicators.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
-<span id="cb71-2"><a href="composite-indicators.html#cb71-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb71-3"><a href="composite-indicators.html#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-4"><a href="composite-indicators.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="composite-indicators.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
+<span id="cb107-2"><a href="composite-indicators.html#cb107-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb107-3"><a href="composite-indicators.html#cb107-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-4"><a href="composite-indicators.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##       
 ##          0   1 &lt;NA&gt;
 ##   no     6   0    0
 ##   yes    0 870    0
 ##   &lt;NA&gt;   0   0  741</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="composite-indicators.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using case_when</span></span>
-<span id="cb73-2"><a href="composite-indicators.html#cb73-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb73-3"><a href="composite-indicators.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hohh_pension_eligible_dummy_dplyr =</span> <span class="fu">case_when</span>(b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb73-4"><a href="composite-indicators.html#cb73-4" aria-hidden="true" tabindex="-1"></a>                                                b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;no&quot;</span> <span class="sc">~</span> <span class="dv">0</span>))</span>
-<span id="cb73-5"><a href="composite-indicators.html#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-6"><a href="composite-indicators.html#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="composite-indicators.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using case_when</span></span>
+<span id="cb109-2"><a href="composite-indicators.html#cb109-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb109-3"><a href="composite-indicators.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hohh_pension_eligible_dummy_dplyr =</span> <span class="fu">case_when</span>(b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb109-4"><a href="composite-indicators.html#cb109-4" aria-hidden="true" tabindex="-1"></a>                                                b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;no&quot;</span> <span class="sc">~</span> <span class="dv">0</span>))</span>
+<span id="cb109-5"><a href="composite-indicators.html#cb109-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-6"><a href="composite-indicators.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##       
 ##          0   1 &lt;NA&gt;
 ##   no     6   0    0
 ##   yes    0 870    0
 ##   &lt;NA&gt;   0   0  741</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="composite-indicators.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
-<span id="cb75-2"><a href="composite-indicators.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="composite-indicators.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
+<span id="cb111-2"><a href="composite-indicators.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##       
 ##          0   1 &lt;NA&gt;
 ##   0      6   0    0
 ##   1      0 870    0
 ##   &lt;NA&gt;   0   0  741</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="composite-indicators.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Watch out for NA. This was is not correct. </span></span>
-<span id="cb77-2"><a href="composite-indicators.html#cb77-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb77-3"><a href="composite-indicators.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hohh_pension_eligible_dummy_dplyr2 =</span> <span class="fu">case_when</span>(b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb77-4"><a href="composite-indicators.html#cb77-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))</span>
-<span id="cb77-5"><a href="composite-indicators.html#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="composite-indicators.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Watch out for NA. This was is not correct. </span></span>
+<span id="cb113-2"><a href="composite-indicators.html#cb113-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb113-3"><a href="composite-indicators.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hohh_pension_eligible_dummy_dplyr2 =</span> <span class="fu">case_when</span>(b16_hohh_pension_eligible <span class="sc">==</span> <span class="st">&quot;yes&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb113-4"><a href="composite-indicators.html#cb113-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))</span>
+<span id="cb113-5"><a href="composite-indicators.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>b16_hohh_pension_eligible, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##       
 ##          0   1
 ##   no     6   0
 ##   yes    0 870
 ##   &lt;NA&gt; 741   0</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="composite-indicators.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Not same same</span></span>
-<span id="cb79-2"><a href="composite-indicators.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="composite-indicators.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Not same same</span></span>
+<span id="cb115-2"><a href="composite-indicators.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_baser, main_dataset<span class="sc">$</span>hohh_pension_eligible_dummy_dplyr2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##       
 ##          0   1
 ##   0      6   0
 ##   1      0 870
 ##   &lt;NA&gt; 741   0</code></pre>
 </div>
-<div id="composite-with-2-categorical-variables" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Composite with 2 categorical variables</h2>
+<div id="composite-with-2-categorical-variables" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Composite with 2 categorical variables</h2>
 <p>This example will look at creating an indicator whether or not the sources for drinking and for cooking, cleaning and non-drinking purposes are both improved. The indicators of interest are <strong>f11_dinking_water_source</strong> (and more specifically <strong>wash_drinkingwater_improved_source_baser</strong> from previous paragraph) and <strong>f14_technical_water_source</strong> (<em>F14_What is your HH’s main source of water for cooking, cleaning, and non-drinking purposes</em>).</p>
 <p>First, a new variable has to be created, <strong>wash_otherwater_improved_source_baser</strong>.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="composite-indicators.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
-<span id="cb81-2"><a href="composite-indicators.html#cb81-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>f14_technical_water_source <span class="sc">%in%</span> unimproved_source, <span class="st">&quot;not_improved&quot;</span>, <span class="st">&quot;improved&quot;</span>)</span>
-<span id="cb81-3"><a href="composite-indicators.html#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-4"><a href="composite-indicators.html#cb81-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">&amp;</span> main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span>, <span class="st">&quot;both_improved&quot;</span>, <span class="st">&quot;not_both_improved&quot;</span>)</span>
-<span id="cb81-5"><a href="composite-indicators.html#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-6"><a href="composite-indicators.html#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="composite-indicators.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
+<span id="cb117-2"><a href="composite-indicators.html#cb117-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>f14_technical_water_source <span class="sc">%in%</span> unimproved_source, <span class="st">&quot;not_improved&quot;</span>, <span class="st">&quot;improved&quot;</span>)</span>
+<span id="cb117-3"><a href="composite-indicators.html#cb117-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-4"><a href="composite-indicators.html#cb117-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">&amp;</span> main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span>, <span class="st">&quot;both_improved&quot;</span>, <span class="st">&quot;not_both_improved&quot;</span>)</span>
+<span id="cb117-5"><a href="composite-indicators.html#cb117-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-6"><a href="composite-indicators.html#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>## , ,  = both_improved
 ## 
 ##               
@@ -418,10 +450,10 @@ dplyr::case_when</p>
 ##   improved            0            8
 ##   not_improved      480           55</code></pre>
 <p>Now, the variable will be coded to have 3 categories instead: both improved, at least drinking water and not improved.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="composite-indicators.html#cb83-1" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">&amp;</span> main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span>, <span class="st">&quot;both_improved&quot;</span>, </span>
-<span id="cb83-2"><a href="composite-indicators.html#cb83-2" aria-hidden="true" tabindex="-1"></a>                                                             <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span>, <span class="st">&quot;at_least_drinking&quot;</span>, <span class="st">&quot;not_both_improved&quot;</span>))</span>
-<span id="cb83-3"><a href="composite-indicators.html#cb83-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-4"><a href="composite-indicators.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="composite-indicators.html#cb119-1" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">&amp;</span> main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span>, <span class="st">&quot;both_improved&quot;</span>, </span>
+<span id="cb119-2"><a href="composite-indicators.html#cb119-2" aria-hidden="true" tabindex="-1"></a>                                                             <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span>, <span class="st">&quot;at_least_drinking&quot;</span>, <span class="st">&quot;not_both_improved&quot;</span>))</span>
+<span id="cb119-3"><a href="composite-indicators.html#cb119-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="composite-indicators.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_otherwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>## , ,  = at_least_drinking
 ## 
 ##               
@@ -442,88 +474,88 @@ dplyr::case_when</p>
 ##                improved not_improved
 ##   improved            0            0
 ##   not_improved      480           55</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="composite-indicators.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using dplyr</span></span>
-<span id="cb85-2"><a href="composite-indicators.html#cb85-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb85-3"><a href="composite-indicators.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wash_bothwater_improved_source_dplyr =</span> <span class="fu">case_when</span>(wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">&amp;</span> wash_otherwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">~</span> <span class="st">&quot;both_improved&quot;</span>,</span>
-<span id="cb85-4"><a href="composite-indicators.html#cb85-4" aria-hidden="true" tabindex="-1"></a>                                                          wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">~</span> <span class="st">&quot;at_least_drinking&quot;</span>, </span>
-<span id="cb85-5"><a href="composite-indicators.html#cb85-5" aria-hidden="true" tabindex="-1"></a>                                                          <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;not_both_improved&quot;</span></span>
-<span id="cb85-6"><a href="composite-indicators.html#cb85-6" aria-hidden="true" tabindex="-1"></a>                                                          ))</span>
-<span id="cb85-7"><a href="composite-indicators.html#cb85-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-8"><a href="composite-indicators.html#cb85-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_bothwater_improved_source_dplyr,  main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="composite-indicators.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using dplyr</span></span>
+<span id="cb121-2"><a href="composite-indicators.html#cb121-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb121-3"><a href="composite-indicators.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wash_bothwater_improved_source_dplyr =</span> <span class="fu">case_when</span>(wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">&amp;</span> wash_otherwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">~</span> <span class="st">&quot;both_improved&quot;</span>,</span>
+<span id="cb121-4"><a href="composite-indicators.html#cb121-4" aria-hidden="true" tabindex="-1"></a>                                                          wash_drinkingwater_improved_source_baser <span class="sc">==</span> <span class="st">&quot;improved&quot;</span> <span class="sc">~</span> <span class="st">&quot;at_least_drinking&quot;</span>, </span>
+<span id="cb121-5"><a href="composite-indicators.html#cb121-5" aria-hidden="true" tabindex="-1"></a>                                                          <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;not_both_improved&quot;</span></span>
+<span id="cb121-6"><a href="composite-indicators.html#cb121-6" aria-hidden="true" tabindex="-1"></a>                                                          ))</span>
+<span id="cb121-7"><a href="composite-indicators.html#cb121-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-8"><a href="composite-indicators.html#cb121-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_bothwater_improved_source_dplyr,  main_dataset<span class="sc">$</span>wash_bothwater_improved_source_baser2, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##                    
 ##                     at_least_drinking both_improved not_both_improved
 ##   at_least_drinking                 8             0                 0
 ##   both_improved                     0          1074                 0
 ##   not_both_improved                 0             0               535</code></pre>
 </div>
-<div id="composite-with-1-categorical-variable---select-multiple" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Composite with 1 categorical variable - select multiple</h2>
+<div id="composite-with-1-categorical-variable---select-multiple" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Composite with 1 categorical variable - select multiple</h2>
 <p>In this example we are creating an indicator to score whether or not drinking water is being processed or purified before usage. The indicator is calculated based on one categorical question <strong>f12_drinking_water_treat</strong></p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="composite-indicators.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using dplyr</span></span>
-<span id="cb87-2"><a href="composite-indicators.html#cb87-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb87-3"><a href="composite-indicators.html#cb87-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
-<span id="cb87-4"><a href="composite-indicators.html#cb87-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">wash_indicator1 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb87-5"><a href="composite-indicators.html#cb87-5" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.do_not_process_purify <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">3</span> ,</span>
-<span id="cb87-6"><a href="composite-indicators.html#cb87-6" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.cleaning_with_chemicals_chlorination <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-7"><a href="composite-indicators.html#cb87-7" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.water_precipitation <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-8"><a href="composite-indicators.html#cb87-8" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.filtering_the_water_pitcher_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-9"><a href="composite-indicators.html#cb87-9" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-10"><a href="composite-indicators.html#cb87-10" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.boiling <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-11"><a href="composite-indicators.html#cb87-11" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.percolation <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span></span>
-<span id="cb87-12"><a href="composite-indicators.html#cb87-12" aria-hidden="true" tabindex="-1"></a>   ) )</span>
-<span id="cb87-13"><a href="composite-indicators.html#cb87-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-14"><a href="composite-indicators.html#cb87-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-15"><a href="composite-indicators.html#cb87-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
-<span id="cb87-16"><a href="composite-indicators.html#cb87-16" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_indicator2 <span class="ot">=</span> <span class="fu">ifelse</span>(</span>
-<span id="cb87-17"><a href="composite-indicators.html#cb87-17" aria-hidden="true" tabindex="-1"></a>  main_dataset<span class="sc">$</span>f12_drinking_water_treat.do_not_process_purify <span class="sc">==</span> <span class="dv">1</span>,<span class="dv">3</span>,</span>
-<span id="cb87-18"><a href="composite-indicators.html#cb87-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(</span>
-<span id="cb87-19"><a href="composite-indicators.html#cb87-19" aria-hidden="true" tabindex="-1"></a>    main_dataset<span class="sc">$</span>f12_drinking_water_treat.cleaning_with_chemicals_chlorination <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-20"><a href="composite-indicators.html#cb87-20" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.water_precipitation <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-21"><a href="composite-indicators.html#cb87-21" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.filtering_the_water_pitcher_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-22"><a href="composite-indicators.html#cb87-22" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-23"><a href="composite-indicators.html#cb87-23" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.boiling <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb87-24"><a href="composite-indicators.html#cb87-24" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.percolation <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb87-25"><a href="composite-indicators.html#cb87-25" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="cn">NA</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="composite-indicators.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using dplyr</span></span>
+<span id="cb123-2"><a href="composite-indicators.html#cb123-2" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb123-3"><a href="composite-indicators.html#cb123-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb123-4"><a href="composite-indicators.html#cb123-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">wash_indicator1 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb123-5"><a href="composite-indicators.html#cb123-5" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.do_not_process_purify <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">3</span> ,</span>
+<span id="cb123-6"><a href="composite-indicators.html#cb123-6" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.cleaning_with_chemicals_chlorination <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-7"><a href="composite-indicators.html#cb123-7" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.water_precipitation <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-8"><a href="composite-indicators.html#cb123-8" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.filtering_the_water_pitcher_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-9"><a href="composite-indicators.html#cb123-9" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-10"><a href="composite-indicators.html#cb123-10" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.boiling <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-11"><a href="composite-indicators.html#cb123-11" aria-hidden="true" tabindex="-1"></a>       f12_drinking_water_treat.percolation <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb123-12"><a href="composite-indicators.html#cb123-12" aria-hidden="true" tabindex="-1"></a>   ) )</span>
+<span id="cb123-13"><a href="composite-indicators.html#cb123-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-14"><a href="composite-indicators.html#cb123-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-15"><a href="composite-indicators.html#cb123-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R</span></span>
+<span id="cb123-16"><a href="composite-indicators.html#cb123-16" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_indicator2 <span class="ot">=</span> <span class="fu">ifelse</span>(</span>
+<span id="cb123-17"><a href="composite-indicators.html#cb123-17" aria-hidden="true" tabindex="-1"></a>  main_dataset<span class="sc">$</span>f12_drinking_water_treat.do_not_process_purify <span class="sc">==</span> <span class="dv">1</span>,<span class="dv">3</span>,</span>
+<span id="cb123-18"><a href="composite-indicators.html#cb123-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(</span>
+<span id="cb123-19"><a href="composite-indicators.html#cb123-19" aria-hidden="true" tabindex="-1"></a>    main_dataset<span class="sc">$</span>f12_drinking_water_treat.cleaning_with_chemicals_chlorination <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-20"><a href="composite-indicators.html#cb123-20" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.water_precipitation <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-21"><a href="composite-indicators.html#cb123-21" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.filtering_the_water_pitcher_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-22"><a href="composite-indicators.html#cb123-22" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-23"><a href="composite-indicators.html#cb123-23" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.boiling <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb123-24"><a href="composite-indicators.html#cb123-24" aria-hidden="true" tabindex="-1"></a>       main_dataset<span class="sc">$</span>f12_drinking_water_treat.percolation <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb123-25"><a href="composite-indicators.html#cb123-25" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,<span class="cn">NA</span>))</span></code></pre></div>
 </div>
-<div id="composite-with-1-numerical-variable" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Composite with 1 numerical variable</h2>
+<div id="composite-with-1-numerical-variable" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Composite with 1 numerical variable</h2>
 <p>This example will look at creating one a categorical variable based on a number, <strong>f6_how_many_wood_hh_consumed_last_winter </strong>, ‘less than 5’, between 5 (included) and 10 and ‘10 and above’.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="composite-indicators.html#cb88-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb88-2"><a href="composite-indicators.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wood_consumed_categories =</span> <span class="fu">case_when</span>(f6_how_many_wood_hh_consumed_last_winter <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">&quot;less_than_5&quot;</span>,</span>
-<span id="cb88-3"><a href="composite-indicators.html#cb88-3" aria-hidden="true" tabindex="-1"></a>                                              f6_how_many_wood_hh_consumed_last_winter <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;between5_and10&quot;</span>,</span>
-<span id="cb88-4"><a href="composite-indicators.html#cb88-4" aria-hidden="true" tabindex="-1"></a>                                              f6_how_many_wood_hh_consumed_last_winter <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;ten_above&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="composite-indicators.html#cb124-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="composite-indicators.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wood_consumed_categories =</span> <span class="fu">case_when</span>(f6_how_many_wood_hh_consumed_last_winter <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">&quot;less_than_5&quot;</span>,</span>
+<span id="cb124-3"><a href="composite-indicators.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                                              f6_how_many_wood_hh_consumed_last_winter <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;between5_and10&quot;</span>,</span>
+<span id="cb124-4"><a href="composite-indicators.html#cb124-4" aria-hidden="true" tabindex="-1"></a>                                              f6_how_many_wood_hh_consumed_last_winter <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;ten_above&quot;</span>))</span></code></pre></div>
 </div>
-<div id="composite-with-2-numerical-variables" class="section level2" number="5.5">
-<h2><span class="header-section-number">5.5</span> Composite with 2 numerical variables</h2>
+<div id="composite-with-2-numerical-variables" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Composite with 2 numerical variables</h2>
 <p>This example will look at creating one of the indicators necessary to compute the FCS. In some cases, we need to check if the sum of number of days for 2 types of food are above 7 or not. If the sum is above 7, then it has to return 7 otherwise, the sum of both variables.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="composite-indicators.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine cereals/roots and meat/eggs and make maximum 7 days</span></span>
-<span id="cb89-2"><a href="composite-indicators.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Using base R</span></span>
-<span id="cb89-3"><a href="composite-indicators.html#cb89-3" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>fcs_cereal_roots  <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((main_dataset<span class="sc">$</span>g1_cereals_consumption <span class="sc">+</span> main_dataset<span class="sc">$</span>g2_roots_consumption) <span class="sc">&gt;</span> <span class="dv">7</span>,</span>
-<span id="cb89-4"><a href="composite-indicators.html#cb89-4" aria-hidden="true" tabindex="-1"></a>                                <span class="dv">7</span>,</span>
-<span id="cb89-5"><a href="composite-indicators.html#cb89-5" aria-hidden="true" tabindex="-1"></a>                                main_dataset<span class="sc">$</span>g1_cereals_consumption <span class="sc">+</span> main_dataset<span class="sc">$</span>g2_roots_consumption)</span>
-<span id="cb89-6"><a href="composite-indicators.html#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-7"><a href="composite-indicators.html#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Using dplyr</span></span>
-<span id="cb89-8"><a href="composite-indicators.html#cb89-8" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb89-9"><a href="composite-indicators.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fcs_meat_eggs =</span> <span class="fu">ifelse</span>((g5_meat_consumption <span class="sc">+</span> g6_eggs_consumption) <span class="sc">&gt;</span> <span class="dv">7</span>, <span class="dv">7</span>,</span>
-<span id="cb89-10"><a href="composite-indicators.html#cb89-10" aria-hidden="true" tabindex="-1"></a>                                 g5_meat_consumption <span class="sc">+</span> g6_eggs_consumption))</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="composite-indicators.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine cereals/roots and meat/eggs and make maximum 7 days</span></span>
+<span id="cb125-2"><a href="composite-indicators.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Using base R</span></span>
+<span id="cb125-3"><a href="composite-indicators.html#cb125-3" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>fcs_cereal_roots  <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((main_dataset<span class="sc">$</span>g1_cereals_consumption <span class="sc">+</span> main_dataset<span class="sc">$</span>g2_roots_consumption) <span class="sc">&gt;</span> <span class="dv">7</span>,</span>
+<span id="cb125-4"><a href="composite-indicators.html#cb125-4" aria-hidden="true" tabindex="-1"></a>                                <span class="dv">7</span>,</span>
+<span id="cb125-5"><a href="composite-indicators.html#cb125-5" aria-hidden="true" tabindex="-1"></a>                                main_dataset<span class="sc">$</span>g1_cereals_consumption <span class="sc">+</span> main_dataset<span class="sc">$</span>g2_roots_consumption)</span>
+<span id="cb125-6"><a href="composite-indicators.html#cb125-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-7"><a href="composite-indicators.html#cb125-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Using dplyr</span></span>
+<span id="cb125-8"><a href="composite-indicators.html#cb125-8" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb125-9"><a href="composite-indicators.html#cb125-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fcs_meat_eggs =</span> <span class="fu">ifelse</span>((g5_meat_consumption <span class="sc">+</span> g6_eggs_consumption) <span class="sc">&gt;</span> <span class="dv">7</span>, <span class="dv">7</span>,</span>
+<span id="cb125-10"><a href="composite-indicators.html#cb125-10" aria-hidden="true" tabindex="-1"></a>                                 g5_meat_consumption <span class="sc">+</span> g6_eggs_consumption))</span></code></pre></div>
 </div>
-<div id="composite-with-2-or-more-numerical-variables" class="section level2" number="5.6">
-<h2><span class="header-section-number">5.6</span> Composite with 2 or more numerical variables</h2>
+<div id="composite-with-2-or-more-numerical-variables" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Composite with 2 or more numerical variables</h2>
 <p>This example will look at creating the food consumption score.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="composite-indicators.html#cb90-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb90-2"><a href="composite-indicators.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FCS_score_dplyr =</span> fcs_cereal_roots <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> g3_vegetables_consumption <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> g4_fruits_consumption <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> fcs_meat_eggs <span class="sc">*</span> <span class="dv">4</span> <span class="sc">+</span> g7_pulses_consumption <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> g8_dairy_consumption <span class="sc">*</span> <span class="dv">4</span> <span class="sc">+</span> g9_oil_consumption <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">+</span> g10_sugar_consumption <span class="sc">*</span> <span class="fl">0.5</span>)</span>
-<span id="cb90-3"><a href="composite-indicators.html#cb90-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-4"><a href="composite-indicators.html#cb90-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>FCS_score_baser  <span class="ot">&lt;-</span> (main_dataset<span class="sc">$</span>fcs_cereal_roots <span class="sc">*</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb90-5"><a href="composite-indicators.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g3_vegetables_consumption <span class="sc">*</span> <span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb90-6"><a href="composite-indicators.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g4_fruits_consumption <span class="sc">*</span> <span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb90-7"><a href="composite-indicators.html#cb90-7" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>fcs_meat_eggs <span class="sc">*</span> <span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb90-8"><a href="composite-indicators.html#cb90-8" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g7_pulses_consumption <span class="sc">*</span> <span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb90-9"><a href="composite-indicators.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g8_dairy_consumption <span class="sc">*</span> <span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb90-10"><a href="composite-indicators.html#cb90-10" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g9_oil_consumption <span class="sc">*</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb90-11"><a href="composite-indicators.html#cb90-11" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g10_sugar_consumption <span class="sc">*</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="composite-indicators.html#cb126-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="composite-indicators.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FCS_score_dplyr =</span> fcs_cereal_roots <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> g3_vegetables_consumption <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> g4_fruits_consumption <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> fcs_meat_eggs <span class="sc">*</span> <span class="dv">4</span> <span class="sc">+</span> g7_pulses_consumption <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> g8_dairy_consumption <span class="sc">*</span> <span class="dv">4</span> <span class="sc">+</span> g9_oil_consumption <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">+</span> g10_sugar_consumption <span class="sc">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb126-3"><a href="composite-indicators.html#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-4"><a href="composite-indicators.html#cb126-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>FCS_score_baser  <span class="ot">&lt;-</span> (main_dataset<span class="sc">$</span>fcs_cereal_roots <span class="sc">*</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb126-5"><a href="composite-indicators.html#cb126-5" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g3_vegetables_consumption <span class="sc">*</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb126-6"><a href="composite-indicators.html#cb126-6" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g4_fruits_consumption <span class="sc">*</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb126-7"><a href="composite-indicators.html#cb126-7" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>fcs_meat_eggs <span class="sc">*</span> <span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb126-8"><a href="composite-indicators.html#cb126-8" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g7_pulses_consumption <span class="sc">*</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb126-9"><a href="composite-indicators.html#cb126-9" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g8_dairy_consumption <span class="sc">*</span> <span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb126-10"><a href="composite-indicators.html#cb126-10" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g9_oil_consumption <span class="sc">*</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb126-11"><a href="composite-indicators.html#cb126-11" aria-hidden="true" tabindex="-1"></a>  (main_dataset<span class="sc">$</span>g10_sugar_consumption <span class="sc">*</span> <span class="fl">0.5</span>)</span></code></pre></div>
 </div>
-<div id="new-indicators-from-a-loop-to-main-dataset" class="section level2" number="5.7">
-<h2><span class="header-section-number">5.7</span> New indicators from a loop to main dataset</h2>
+<div id="new-indicators-from-a-loop-to-main-dataset" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> New indicators from a loop to main dataset</h2>
 <p>e.g. aggregating the number of children going to school from a loop</p>
 
 </div>

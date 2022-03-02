@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Downloading data from kobo server | R cookbook for analysis with REACH</title>
+  <meta name="description" content="3 Downloading data from kobo server | R cookbook for analysis with REACH" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Downloading data from kobo server | R cookbook for analysis with REACH" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Downloading data from kobo server | R cookbook for analysis with REACH" />
+  
+  
+  
+
+<meta name="author" content="R CoP" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="meta-information.html"/>
+<link rel="next" href="pre-analysis.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello</a></li>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html"><i class="fa fa-check"></i><b>3</b> Downloading data from kobo server</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions"><i class="fa fa-check"></i><b>3.1</b> Defining the needed functions</a></li>
+<li class="chapter" data-level="3.2" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables"><i class="fa fa-check"></i><b>3.2</b> Creating data url and credentials variables</a></li>
+<li class="chapter" data-level="3.3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server"><i class="fa fa-check"></i><b>3.3</b> Fetching the data from the server</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>4</b> Pre analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>4.1</b> Checking the XLS kobo tools for constraints errors</a></li>
+<li class="chapter" data-level="4.2" data-path="pre-analysis.html"><a href="pre-analysis.html#sampling"><i class="fa fa-check"></i><b>4.2</b> Sampling</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pre-analysis.html"><a href="pre-analysis.html#simple-random-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Simple Random sampling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pre-analysis.html"><a href="pre-analysis.html#stratified-random-sampling"><i class="fa fa-check"></i><b>4.2.2</b> Stratified Random sampling</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pre-analysis.html"><a href="pre-analysis.html#cluster-sampling"><i class="fa fa-check"></i><b>4.2.3</b> Cluster sampling</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pre-analysis.html"><a href="pre-analysis.html#stages-random-sampling"><i class="fa fa-check"></i><b>4.2.4</b> 2 stages random sampling</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pre-analysis.html"><a href="pre-analysis.html#sample-distribution-usin-population-raster"><i class="fa fa-check"></i><b>4.2.5</b> Sample distribution usin population raster</a></li>
+<li class="chapter" data-level="4.2.6" data-path="pre-analysis.html"><a href="pre-analysis.html#generation-of-random-sample-points"><i class="fa fa-check"></i><b>4.2.6</b> Generation of random sample points</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>5</b> Data Collection and Processing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>5.1</b> Testing the tool</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>5.1.1</b> Creating dummy data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>5.2</b> Download data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url"><i class="fa fa-check"></i><b>5.2.1</b> Downloading Audit files using audit_URL</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-audit-files-using-form-name"><i class="fa fa-check"></i><b>5.2.2</b> Download audit files using form name</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>5.3</b> Data collection follow-up</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame"><i class="fa fa-check"></i><b>5.3.1</b> checking surveys against the sampling frame</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>5.4</b> Data falsification</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>5.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>5.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>5.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>5.4.4</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>5.4.5</b> Check for duplicates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>5.5</b> Data checks</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>5.5.1</b> Check for outliers</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>5.5.2</b> Check others</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>5.5.3</b> Check for logical check</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>5.6</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="5.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>5.7</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>5.7.1</b> Re-generate text column for select multiple questions</a></li>
+<li class="chapter" data-level="5.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>5.7.2</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="5.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>5.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>5.8</b> Data cleaning - miscellaneous</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>5.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li class="chapter" data-level="5.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>5.8.2</b> Turns label to xml</a></li>
+<li class="chapter" data-level="5.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>5.8.3</b> Statistical Disclosure Control Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks"><i class="fa fa-check"></i><b>5.9</b> Spatial verification checks</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks-on-settlement-level"><i class="fa fa-check"></i><b>5.9.1</b> Spatial verification checks on settlement level</a></li>
+<li class="chapter" data-level="5.9.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks-on-sample-point-level"><i class="fa fa-check"></i><b>5.9.2</b> Spatial verification checks on sample point level</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>6</b> Composite indicators</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>6.1</b> Composite with 1 categorical variable - select one</a></li>
+<li class="chapter" data-level="6.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Composite with 2 categorical variables</a></li>
+<li class="chapter" data-level="6.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>6.3</b> Composite with 1 categorical variable - select multiple</a></li>
+<li class="chapter" data-level="6.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>6.4</b> Composite with 1 numerical variable</a></li>
+<li class="chapter" data-level="6.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>6.5</b> Composite with 2 numerical variables</a></li>
+<li class="chapter" data-level="6.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>6.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="6.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>6.7</b> New indicators from a loop to main dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>7</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>7.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="7.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>7.2</b> srvyr package</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>7.2.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="7.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>7.2.2</b> Numeric variables</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>7.3</b> butteR survey_collapse</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>7.3.1</b> select_one</a></li>
+<li class="chapter" data-level="7.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>7.3.2</b> select_mutiple</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>7.4</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>7.4.1</b> Averages</a></li>
+<li class="chapter" data-level="7.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>7.4.2</b> Median</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="analysis.html"><a href="analysis.html#ratios"><i class="fa fa-check"></i><b>7.5</b> Ratios</a>
+<ul>
+<li><a href="analysis.html#example1"><span class="toc-section-number">7.5.1</span> Example1:<br />
+</a></li>
+<li><a href="analysis.html#example2---analyzing-multiple-questions-and-combine-the-output"><span class="toc-section-number">7.5.2</span> Example2 - Analyzing multiple questions and combine the output:<br />
+</a></li>
+<li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.5.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
+</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>7.6</b> Weights</a></li>
+<li class="chapter" data-level="7.7" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>7.7</b> Repeating the above</a></li>
+<li class="chapter" data-level="7.8" data-path="analysis.html"><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple"><i class="fa fa-check"></i><b>7.8</b> Analysis - top X / ranking (select one and select multiple)</a></li>
+<li class="chapter" data-level="7.9" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>7.9</b> Borda count</a></li>
+<li class="chapter" data-level="7.10" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>7.10</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>7.10.1</b> T-test</a></li>
+<li class="chapter" data-level="7.10.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>7.10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="7.10.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>7.10.3</b> chi-squares</a></li>
+<li class="chapter" data-level="7.10.4" data-path="analysis.html"><a href="analysis.html#chi-squared-goodness-of-fit-test"><i class="fa fa-check"></i><b>7.10.4</b> Chi-squared Goodness of Fit test</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>8</b> Outputs</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>8.1</b> From long to large table</a></li>
+<li class="chapter" data-level="8.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>8.2</b> Merge file</a></li>
+<li class="chapter" data-level="8.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>8.3</b> Graphs</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>8.3.1</b> spider graphs</a></li>
+<li class="chapter" data-level="8.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>8.3.2</b> prison graphs</a></li>
+<li class="chapter" data-level="8.3.3" data-path="outputs.html"><a href="outputs.html#bar-graphs"><i class="fa fa-check"></i><b>8.3.3</b> Bar graphs</a></li>
+<li class="chapter" data-level="8.3.4" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>8.3.4</b> Euler diagram</a></li>
+<li class="chapter" data-level="8.3.5" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>8.3.5</b> Venn diagram</a></li>
+<li class="chapter" data-level="8.3.6" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>8.3.6</b> UpSet plots</a></li>
+<li class="chapter" data-level="8.3.7" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>8.3.7</b> boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>8.4</b> Labels</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>8.4.1</b> change from xml to label</a></li>
+<li class="chapter" data-level="8.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>8.4.2</b> change from label to xml</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>8.5</b> Dashboarding - Sharing information</a></li>
+<li class="chapter" data-level="8.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>8.6</b> Outputs with hypothesis testing results</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for analysis with REACH</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="downloading-data-from-kobo-server" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Downloading data from kobo server</h1>
+<div id="defining-the-needed-functions" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Defining the needed functions</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="downloading-data-from-kobo-server.html#cb3-1" aria-hidden="true" tabindex="-1"></a>kobohr_getforms_csv <span class="ot">&lt;-</span><span class="cf">function</span>(url,u,pw){</span>
+<span id="cb3-2"><a href="downloading-data-from-kobo-server.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  rawdata<span class="ot">&lt;-</span><span class="fu">GET</span>(url,<span class="fu">authenticate</span>(u,pw),<span class="fu">progress</span>())</span>
+<span id="cb3-3"><a href="downloading-data-from-kobo-server.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  d_content_csv <span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="fu">content</span>(rawdata,<span class="st">&quot;raw&quot;</span>,<span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>))</span>
+<span id="cb3-4"><a href="downloading-data-from-kobo-server.html#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="downloading-data-from-kobo-server.html#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="downloading-data-from-kobo-server.html#cb3-6" aria-hidden="true" tabindex="-1"></a>download_data <span class="ot">&lt;-</span><span class="cf">function</span>(url,u,pw){</span>
+<span id="cb3-7"><a href="downloading-data-from-kobo-server.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-8"><a href="downloading-data-from-kobo-server.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  rawdata<span class="ot">&lt;-</span> <span class="fu">GET</span>(url,<span class="fu">authenticate</span>(u,pw),<span class="fu">progress</span>())</span>
+<span id="cb3-9"><a href="downloading-data-from-kobo-server.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  d_content <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">content</span>(rawdata,<span class="st">&quot;raw&quot;</span>,<span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>),<span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;n/a&quot;</span>,<span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">setNames</span>(<span class="fu">gsub</span>(<span class="st">&quot;/&quot;</span>,<span class="st">&quot;.&quot;</span>,<span class="fu">names</span>(.))) </span>
+<span id="cb3-10"><a href="downloading-data-from-kobo-server.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-11"><a href="downloading-data-from-kobo-server.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  d_content</span>
+<span id="cb3-12"><a href="downloading-data-from-kobo-server.html#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="downloading-data-from-kobo-server.html#cb3-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="downloading-data-from-kobo-server.html#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="downloading-data-from-kobo-server.html#cb3-15" aria-hidden="true" tabindex="-1"></a>create_export <span class="ot">&lt;-</span><span class="cf">function</span>(type,lang,fields_from_all_versions,hierarchy_in_labels,group_sep,asset_uid,kobo_user,Kobo_pw){</span>
+<span id="cb3-16"><a href="downloading-data-from-kobo-server.html#cb3-16" aria-hidden="true" tabindex="-1"></a>  api_url_export<span class="ot">&lt;-</span><span class="fu">paste0</span>(kobo_server_url,<span class="st">&quot;exports/&quot;</span>)</span>
+<span id="cb3-17"><a href="downloading-data-from-kobo-server.html#cb3-17" aria-hidden="true" tabindex="-1"></a>  api_url_asset<span class="ot">&lt;-</span><span class="fu">paste0</span>(kobo_server_url,<span class="st">&quot;assets/&quot;</span>,asset_uid,<span class="st">&quot;/&quot;</span>)</span>
+<span id="cb3-18"><a href="downloading-data-from-kobo-server.html#cb3-18" aria-hidden="true" tabindex="-1"></a>  api_url_export_asset<span class="ot">&lt;-</span><span class="fu">paste0</span>(kobo_server_url,<span class="st">&quot;exports/&quot;</span>,asset_uid,<span class="st">&quot;/&quot;</span>)</span>
+<span id="cb3-19"><a href="downloading-data-from-kobo-server.html#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb3-20"><a href="downloading-data-from-kobo-server.html#cb3-20" aria-hidden="true" tabindex="-1"></a>  d<span class="ot">&lt;-</span><span class="fu">list</span>(<span class="at">source=</span>api_url_asset,</span>
+<span id="cb3-21"><a href="downloading-data-from-kobo-server.html#cb3-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">type=</span>type,</span>
+<span id="cb3-22"><a href="downloading-data-from-kobo-server.html#cb3-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">lang=</span>lang,</span>
+<span id="cb3-23"><a href="downloading-data-from-kobo-server.html#cb3-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">fields_from_all_versions=</span>fields_from_all_versions,</span>
+<span id="cb3-24"><a href="downloading-data-from-kobo-server.html#cb3-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">hierarchy_in_labels=</span>hierarchy_in_labels,</span>
+<span id="cb3-25"><a href="downloading-data-from-kobo-server.html#cb3-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">group_sep=</span>group_sep)</span>
+<span id="cb3-26"><a href="downloading-data-from-kobo-server.html#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">#fetch data</span></span>
+<span id="cb3-27"><a href="downloading-data-from-kobo-server.html#cb3-27" aria-hidden="true" tabindex="-1"></a>  result<span class="ot">&lt;-</span>httr<span class="sc">::</span><span class="fu">POST</span>(<span class="at">url=</span>api_url_export,</span>
+<span id="cb3-28"><a href="downloading-data-from-kobo-server.html#cb3-28" aria-hidden="true" tabindex="-1"></a>                      <span class="at">body=</span>d,</span>
+<span id="cb3-29"><a href="downloading-data-from-kobo-server.html#cb3-29" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">authenticate</span>(kobo_user,Kobo_pw),</span>
+<span id="cb3-30"><a href="downloading-data-from-kobo-server.html#cb3-30" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">progress</span>()</span>
+<span id="cb3-31"><a href="downloading-data-from-kobo-server.html#cb3-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-32"><a href="downloading-data-from-kobo-server.html#cb3-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-33"><a href="downloading-data-from-kobo-server.html#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;status code:&quot;</span>,result<span class="sc">$</span>status_code))</span>
+<span id="cb3-34"><a href="downloading-data-from-kobo-server.html#cb3-34" aria-hidden="true" tabindex="-1"></a>  d_content <span class="ot">&lt;-</span> <span class="fu">rawToChar</span>(result<span class="sc">$</span>content)</span>
+<span id="cb3-35"><a href="downloading-data-from-kobo-server.html#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(d_content)</span>
+<span id="cb3-36"><a href="downloading-data-from-kobo-server.html#cb3-36" aria-hidden="true" tabindex="-1"></a>  d_content <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(d_content)</span>
+<span id="cb3-37"><a href="downloading-data-from-kobo-server.html#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d_content)</span>
+<span id="cb3-38"><a href="downloading-data-from-kobo-server.html#cb3-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="creating-data-url-and-credentials-variables" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Creating data url and credentials variables</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="downloading-data-from-kobo-server.html#cb4-1" aria-hidden="true" tabindex="-1"></a>kobo_server_url<span class="ot">&lt;-</span><span class="st">&quot;https://kobo.humanitarianresponse.info/&quot;</span></span>
+<span id="cb4-2"><a href="downloading-data-from-kobo-server.html#cb4-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">&quot;https://kc.humanitarianresponse.info/api/v1/data.csv&quot;</span></span>
+<span id="cb4-3"><a href="downloading-data-from-kobo-server.html#cb4-3" aria-hidden="true" tabindex="-1"></a>kobo_user <span class="ot">=</span> <span class="st">&quot;rcop_test&quot;</span></span>
+<span id="cb4-4"><a href="downloading-data-from-kobo-server.html#cb4-4" aria-hidden="true" tabindex="-1"></a>kobo_pw <span class="ot">=</span> <span class="st">&quot;e4#xV8zKAU)A)h58&quot;</span></span>
+<span id="cb4-5"><a href="downloading-data-from-kobo-server.html#cb4-5" aria-hidden="true" tabindex="-1"></a>list_forms <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">kobohr_getforms_csv</span> (url,kobo_user, kobo_pw))</span></code></pre></div>
+<pre><code>## 
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+<pre><code>## Rows: 1 Columns: 5</code></pre>
+<pre><code>## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## chr (4): description, id_string, title, url
+## dbl (1): id</code></pre>
+<pre><code>## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="downloading-data-from-kobo-server.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">####  Create a variable with the form id and create to dataurl link</span></span>
+<span id="cb9-2"><a href="downloading-data-from-kobo-server.html#cb9-2" aria-hidden="true" tabindex="-1"></a>form_id <span class="ot">=</span> <span class="st">&quot;965004&quot;</span></span>
+<span id="cb9-3"><a href="downloading-data-from-kobo-server.html#cb9-3" aria-hidden="true" tabindex="-1"></a>asset_uid <span class="ot">=</span> <span class="st">&quot;a9XVuozs7VQ2bvbvMwKSdS&quot;</span></span>
+<span id="cb9-4"><a href="downloading-data-from-kobo-server.html#cb9-4" aria-hidden="true" tabindex="-1"></a>dataurl<span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://kc.humanitarianresponse.info/api/v1/data/&quot;</span>,form_id,<span class="st">&quot;.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="fetching-the-data-from-the-server" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Fetching the data from the server</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="downloading-data-from-kobo-server.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Download data as csv</span></span>
+<span id="cb10-2"><a href="downloading-data-from-kobo-server.html#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span>  <span class="fu">download_data</span>(dataurl,kobo_user,kobo_pw)</span>
+<span id="cb10-3"><a href="downloading-data-from-kobo-server.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="downloading-data-from-kobo-server.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">#### Create an export and download it</span></span>
+<span id="cb10-5"><a href="downloading-data-from-kobo-server.html#cb10-5" aria-hidden="true" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="st">&quot;xls&quot;</span></span>
+<span id="cb10-6"><a href="downloading-data-from-kobo-server.html#cb10-6" aria-hidden="true" tabindex="-1"></a>lang <span class="ot">&lt;-</span> <span class="st">&quot;xml&quot;</span></span>
+<span id="cb10-7"><a href="downloading-data-from-kobo-server.html#cb10-7" aria-hidden="true" tabindex="-1"></a>fields_from_all_versions <span class="ot">&lt;-</span> <span class="st">&quot;TRUE&quot;</span></span>
+<span id="cb10-8"><a href="downloading-data-from-kobo-server.html#cb10-8" aria-hidden="true" tabindex="-1"></a>hierarchy_in_labels <span class="ot">&lt;-</span> <span class="st">&quot;FALSE&quot;</span></span>
+<span id="cb10-9"><a href="downloading-data-from-kobo-server.html#cb10-9" aria-hidden="true" tabindex="-1"></a>group_sep <span class="ot">=</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb10-10"><a href="downloading-data-from-kobo-server.html#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="downloading-data-from-kobo-server.html#cb10-11" aria-hidden="true" tabindex="-1"></a>d_exports<span class="ot">&lt;-</span><span class="fu">create_export</span>(<span class="at">type=</span>type,</span>
+<span id="cb10-12"><a href="downloading-data-from-kobo-server.html#cb10-12" aria-hidden="true" tabindex="-1"></a>                                <span class="at">lang=</span>lang,</span>
+<span id="cb10-13"><a href="downloading-data-from-kobo-server.html#cb10-13" aria-hidden="true" tabindex="-1"></a>                                <span class="at">fields_from_all_versions=</span>fields_from_all_versions,</span>
+<span id="cb10-14"><a href="downloading-data-from-kobo-server.html#cb10-14" aria-hidden="true" tabindex="-1"></a>                                <span class="at">hierarchy_in_labels=</span>hierarchy_in_labels,</span>
+<span id="cb10-15"><a href="downloading-data-from-kobo-server.html#cb10-15" aria-hidden="true" tabindex="-1"></a>                                <span class="at">group_sep=</span>group_sep,</span>
+<span id="cb10-16"><a href="downloading-data-from-kobo-server.html#cb10-16" aria-hidden="true" tabindex="-1"></a>                                <span class="at">asset_uid=</span>asset_uid,</span>
+<span id="cb10-17"><a href="downloading-data-from-kobo-server.html#cb10-17" aria-hidden="true" tabindex="-1"></a>                                kobo_user,</span>
+<span id="cb10-18"><a href="downloading-data-from-kobo-server.html#cb10-18" aria-hidden="true" tabindex="-1"></a>                                kobo_pw)</span>
+<span id="cb10-19"><a href="downloading-data-from-kobo-server.html#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="downloading-data-from-kobo-server.html#cb10-20" aria-hidden="true" tabindex="-1"></a>result<span class="ot">&lt;-</span>httr<span class="sc">::</span><span class="fu">GET</span> (<span class="at">url=</span><span class="fu">paste0</span>(<span class="fu">as.character</span>(d_exports<span class="sc">$</span>url),<span class="st">&quot;?format=json&quot;</span>),</span>
+<span id="cb10-21"><a href="downloading-data-from-kobo-server.html#cb10-21" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">authenticate</span>(kobo_user,kobo_pw),</span>
+<span id="cb10-22"><a href="downloading-data-from-kobo-server.html#cb10-22" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">progress</span>()</span>
+<span id="cb10-23"><a href="downloading-data-from-kobo-server.html#cb10-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-24"><a href="downloading-data-from-kobo-server.html#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="downloading-data-from-kobo-server.html#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="downloading-data-from-kobo-server.html#cb10-26" aria-hidden="true" tabindex="-1"></a>result_file<span class="ot">&lt;-</span>httr<span class="sc">::</span><span class="fu">GET</span> (<span class="at">url=</span>jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(result<span class="sc">$</span>content))<span class="sc">$</span>result,</span>
+<span id="cb10-27"><a href="downloading-data-from-kobo-server.html#cb10-27" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">authenticate</span>(kobo_user,kobo_pw),</span>
+<span id="cb10-28"><a href="downloading-data-from-kobo-server.html#cb10-28" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">progress</span>()</span>
+<span id="cb10-29"><a href="downloading-data-from-kobo-server.html#cb10-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-30"><a href="downloading-data-from-kobo-server.html#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="downloading-data-from-kobo-server.html#cb10-31" aria-hidden="true" tabindex="-1"></a>httr<span class="sc">::</span><span class="fu">GET</span> (result_file<span class="sc">$</span>url,</span>
+<span id="cb10-32"><a href="downloading-data-from-kobo-server.html#cb10-32" aria-hidden="true" tabindex="-1"></a>           <span class="fu">authenticate</span>(kobo_user,kobo_pw),</span>
+<span id="cb10-33"><a href="downloading-data-from-kobo-server.html#cb10-33" aria-hidden="true" tabindex="-1"></a>           <span class="fu">progress</span>(),</span>
+<span id="cb10-34"><a href="downloading-data-from-kobo-server.html#cb10-34" aria-hidden="true" tabindex="-1"></a>           <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>))</span>
+<span id="cb10-35"><a href="downloading-data-from-kobo-server.html#cb10-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-36"><a href="downloading-data-from-kobo-server.html#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="downloading-data-from-kobo-server.html#cb10-37" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="meta-information.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pre-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
