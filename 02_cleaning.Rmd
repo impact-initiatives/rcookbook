@@ -717,6 +717,54 @@ oth_prop  %>%
 ```
 
 
+### Issue log Function
+
+this function will help the generation of standard cleaning log file that holds issues that need clarification. first we need to subset or filter data based on the check list, then that is the log_sheet function will help us to transform that subsetted data into standard cleaning log format. 
+
+```{r}
+log_sheet <- function(data, question.name, issue, action){
+  cleaning_logbook <- data.frame("uuid" = as.character(),
+                                 "question.name" = as.character(),
+                                 "issue" = as.character(),
+                                 "feedback" = as.character(),
+                                 "action" = as.character(),
+                                 "old.value" = as.character(),
+                                 "new.value" = as.character(),
+                                 stringsAsFactors = F)
+  if(nrow(data) > 0){
+    for(a in 1:nrow(data)) {
+      cleaning_logbook <- cleaning_logbook %>% 
+        add_row(
+          tibble_row(
+            uuid = as.character(data[a, "X_uuid"]),
+            question.name = as.character(question.name),
+            issue = as.character(issue),
+            feedback = as.character(""),
+            action = as.character(action),
+            old.value = as.character(data[a, question.name]),
+            new.value = as.character("")
+            
+          )
+        )
+    }
+  }
+  return(cleaning_logbook)
+}
+
+```
+
+Now, lets use the function to log an issue where consent to calls follow-up is no
+
+```{r}
+issue_file <- main_dataset %>% 
+  filter(a3_consent_to_follow_up_calls == "no") %>% 
+  log_sheet(question.name = "a3_consent_to_follow_up_calls", 
+            issue = "flagging consent followup calls with no response as an example",
+            action = "flag")
+```
+
+
+
 ###	Check for logical check	
 hum hum hum ?? 
 Custom script (using dplyr?)
