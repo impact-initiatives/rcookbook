@@ -753,7 +753,7 @@ log_sheet <- function(data, question.name, issue, action){
 
 ```
 
-Now, lets use the function to log an issue where consent to calls follow-up is no
+Now, lets use the function to log an issue where consent to calls follow-up is no and log them into standard cleaning log format
 
 ```{r}
 issue_file <- main_dataset %>% 
