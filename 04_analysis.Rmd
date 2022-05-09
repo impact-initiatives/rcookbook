@@ -15,6 +15,7 @@ library(surveyweights)
 library(srvyr)
 library(readxl)
 library(spatstat)
+library(ggpubr)
 
 #load dataset
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "",stringsAsFactors = F)
@@ -627,7 +628,96 @@ shelter_enclosure_issues_top7 <- select_multiple_topX(df = main_dataset, questio
 
 ## Hypothesis testing
 ### T-test
+
+#### What is a T-test
+
+A t-test is a type of inferential statistic used to determine if there is a significant difference between the means of two groups. A t-test is used as a hypothesis testing tool, which allows testing of an assumption applicable to a population. 
+
+
+#### How it works
+
+Mathematically, the t-test takes a sample from each of the two sets and establishes the problem statement by assuming a null hypothesis that the two means are equal. Based on the applicable formulas, certain values are calculated and compared against the standard values, and the assumed null hypothesis is accepted or rejected accordingly.
+
+If the null hypothesis qualifies to be rejected, it indicates that data readings are strong and are probably not due to chance.
+
+
+#### T-Test Assumptions
+
+- The first assumption made regarding t-tests concerns the scale of measurement. The assumption for a t-test is that the scale of measurement applied to the data collected follows a continuous or ordinal scale, such as the scores for an IQ test.
+
+- The second assumption made is that of a simple random sample, that the data is collected from a representative, randomly selected portion of the total population.
+
+- The third assumption is the data, when plotted, results in a normal distribution, bell-shaped distribution curve.
+
+- The final assumption is the homogeneity of variance. Homogeneous, or equal, variance exists when the standard deviations of samples are approximately equal.
+
+
+#### Example
+
+We are going to look at the income of the household for female/male headed household. The main_dataset doesn't contain the head of household gender information, so we are creating and randomly populating the gender variable.
+
+```{r, warning=F}
+set.seed(10)
+main_dataset$hoh_gender = sample(c('Male', 'Female'), nrow(main_dataset), replace=TRUE)
+main_dataset$b15_hohh_income = as.numeric(main_dataset$b15_hohh_income)
+
+```
+
+```{r}
+t_test_results <- t.test(b15_hohh_income ~ hoh_gender, data = main_dataset)
+t_test_results
+```
+In the result above :
+
+t is the t-test statistic value (t = -0.19105),
+df is the degrees of freedom (df= 1525.6),
+p-value is the significance level of the t-test (p-value = 0.8485).
+conf.int is the confidence interval of the means difference at 95% (conf.int = [-270.3420, 328.6883]);
+sample estimates is the mean value of the sample (mean = 3459.044, 3429.871).
+
+**Interpretation:**
+
+The p-value of the test is 0.8485, which is higher than the significance level alpha = 0.05. We can't reject the null hypothesis and we can't conclude that men headed household average income is significantly different from women headed household average income. Which makes sense in this case given that the gender variable was randomly generated. 
+
+
 ### ANOVA
+
+#### What is ANOVA 
+
+Similar to T-test, ANOVA is a statistical test for estimating how a quantitative dependent variable changes according to the levels of one or more categorical independent variables. ANOVA tests whether there is a difference in means of the groups at each level of the independent variable.
+
+The null hypothesis (H0) of the ANOVA is no difference in means, and the alternate hypothesis (Ha) is that the means are different from one another.
+
+The T-test is used to compare the means between two groups, whereas ANOVA is used to compare the means among three or more groups.
+
+
+#### Types of ANOVA
+
+There are two main types of ANOVA: one-way (or unidirectional) and two-way.
+A two-way ANOVA is an extension of the one-way ANOVA. With a one-way, you have one independent variable affecting a dependent variable. With a two-way ANOVA, there are two independents. For example, a two-way ANOVA allows a company to compare worker productivity based on two independent variables, such as salary and skill set. It is utilized to observe the interaction between the two factors and tests the effect of two factors at the same time.
+
+#### Example
+
+We are using the same example as the previous test.
+
+```{r}
+
+res.aov <- aov(b15_hohh_income ~ hoh_gender, data = main_dataset)
+
+summary(res.aov)
+```
+
+As the p-value is more than the significance level 0.05, we can't conclude that there are significant differences between the hoh_gender groups.
+
+#### Bonus : Visualization of the data to confirm the findinds 
+
+```{r, warning=F}
+ggline(main_dataset, x = "hoh_gender", y = "b15_hohh_income", 
+       add = c("mean_se", "jitter"), 
+       order = c("Female", "Male"),
+       ylab = "HH income", xlab = "hoh gender")
+```
+
 
 ### chi-squares
 
