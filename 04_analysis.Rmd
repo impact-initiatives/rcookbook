@@ -524,9 +524,158 @@ head(res)
 
 
 ## Weights
-surveyweights
-survey (CRAN package)
-srvyr (CRAN package)
+
+Weights can be used for different reasons. In most of cases, we will use weights to correct for difference between strata size. Once the population has a certain (big) size, for the same design, the size of the sample won't change much. In the case of the dataset, there are 4 stratas:\
+- within 20km of the border in rural areas : 89,408 households\
+- within 20km of the border in urban areas : 203,712 households\
+- within 20km of the border in rural areas : 39,003 households\
+- within 20km of the border in rural areas : 211,857 households
+
+Using any sampling calculator, for a 95% confindence level, 5% margin of error and 5% buffer, we will have around 400 samples per strata even though the urban areas are much bigger.\
+*Note: The error of 5% for 90,000 is 4,500 households while for 200,000 households is 10,000 households*
+
+If we look at each strata and the highest level of education completed by the household head (**b20_hohh_level_education**), we can see that the percentage of household were the head of household completed higher education varies between between 7 to 13 % in each strata.
+
+```{r, echo = F}
+main_dataset %>% 
+  group_by(strata, b20_hohh_level_education) %>% 
+  tally() %>% 
+  mutate(tot_n = sum(n),
+         prop = round(n/tot_n*100)) %>% 
+  filter(b20_hohh_level_education == "complete_higher")
+```
+
+However, if we want to know overall the percentage of who finished higher education we cannot just take the overall percentages, i.e. $\frac{40 + 51 +38 + 28}{407 + 404 + 402 + 404}$ = $\frac{157}{1617}$ = 10%.\
+We cannot do this because the first strata represent 90,000 households, the second 200,000 households, the third 40,000 households and the last one 210,000 households. We will use weights to compensate this difference.
+
+We will use this formula:\
+weight of strata = $\frac{\frac{strata\\ population}{total\\ population}}{\frac{strata\\ sample}{total\\ sample}}$
+
+### tidyverse
+
+The following example will show how to calculate the weights with **tidyverse**.
+
+To calculate weights, we will need all the following information: - *population of the strata*,\
+- *total population*,\
+- *sample* and\
+- *total sample*.\
+The population information should come from the sampling frame that was used to draw the sampling.
+
+```{r, echo = T}
+my_sampling_frame <- readxl::read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
+                                        sheet = "for_r") %>% 
+  rename(population_strata = population)
+my_sampling_frame
+```
+
+Then, we need to get the actual sample from the dataset.
+
+```{r}
+sample_per_strata_table <- main_dataset %>% 
+  group_by(strata) %>% 
+  tally() %>% 
+  rename(strata_sample = n) %>% 
+  ungroup()
+
+sample_per_strata_table
+```
+
+Then, we can join the tables together and calculate the weights per strata.
+
+```{r, message = F}
+weight_table <- sample_per_strata_table %>% 
+  left_join(my_sampling_frame) %>% 
+  mutate(weights = (population_strata/sum(population_strata))/(strata_sample/sum(strata_sample)))
+
+weight_table
+```
+
+Then we can finally add them to the dataset.
+
+```{r}
+main_dataset <- main_dataset %>% 
+  left_join(select(weight_table, strata, weights), by = "strata")
+head(main_dataset$weights)
+```
+
+We can check that each strata has only 1 weight.
+
+```{r}
+main_dataset %>% 
+  group_by(strata, weights) %>%
+  tally()
+```
+
+We can check that the sum of weights is equal to the number of interviews.
+
+```{r}
+
+sum(main_dataset$weights) == nrow(main_dataset)
+```
+
+### surveyweights
+
+**surveyweights** was created to calculate weights. The function **weighting_fun_from_samplingframe** creates a function that calculates weights from the dataset and the sampling frame.
+
+*Note: surveyweights can be found on [github](https://github.com/impact-initiatives/surveyweights).*
+
+First you need to create the weighting function. **weighting_fun_from_samplingframe** will take 5 arguments:\
+- sampling.frame: a data frame with your population figures and stratas.\
+- data.stratum.column : column name of the strata in the dataset.\
+- sampling.frame.population.column : column name of population figures in the sampling frame.\
+- sampling.frame.stratum.column : column name of the strata in the sampling frame.\
+- data : dataset
+
+```{r}
+library(surveyweights)
+
+my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
+                                                                      data.stratum.column = "strata",
+                                                                      sampling.frame.population.column = "population_strata", 
+                                                                      sampling.frame.stratum.column = "strata", 
+                                                                      data = main_dataset)
+```
+
+See that the **my_weigthing_function** is not a vector of weights. It is a function that takes the dataset as argument and returns a vector of weights.
+
+```{r}
+is.function(my_weigthing_function)
+```
+
+```{r}
+my_weigthing_function
+my_weigthing_function(main_dataset) %>% head()
+```
+
+*Note: A warning shows that if the column weights exists in the dataset, **my_weigthing_function** will not calculate weights. We need to remove the weights column from the previous example.*
+
+```{r}
+main_dataset$weights <- NULL
+my_weigthing_function(main_dataset) %>% head()
+```
+
+To add the weights, we need to add a new column.
+
+```{r}
+main_dataset$my_weights <- my_weigthing_function(main_dataset)
+
+head(main_dataset$my_weights)
+```
+
+As for the previous example, we can check that only 1 weight is used per strata.
+
+```{r}
+main_dataset %>% 
+  group_by(strata, my_weights) %>% 
+  tally()
+```
+
+We can check that the sum of weights is equal to the number of interviews.
+
+```{r}
+sum(main_dataset$my_weights) == nrow(main_dataset)
+```
+
 
 ## Repeating the above
 
