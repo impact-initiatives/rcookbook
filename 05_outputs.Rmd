@@ -286,7 +286,7 @@ xml2label_choices_multiple <- function(tool_survey, tool_choices, data, col) {
     
     # replace the xml with label using left_join
     d.new.join <- data.frame(col=as.character(d.join[[col_internal[j]]])) %>%
-      left_join(t.choices, by=c("col"="name")) % >% select(label)
+      left_join(t.choices, by=c("col"="name")) %>% select(label)
     d.join[col_internal[j]] <- d.new.join$label
   }
   
