@@ -300,7 +300,7 @@ xml2label_choices_multiple <- function(tool_survey, tool_choices, data, col) {
 ```
 
 Example
-```{r}
+```{r, eval = F}
 filename_tool <- "enter your tool link here"
 filename_cleaned_data <- "enter your data hear"
 
