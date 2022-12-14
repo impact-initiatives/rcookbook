@@ -1004,7 +1004,7 @@ chi2_ind_extr <- function(x, y, design){
 
 The use with a single-choice question
 
-```{r}
+```{r, warning=F}
 chi2_ind_extr("f11_dinking_water_source", "strata", svy_design)
 ```
 In the given output, **p** indicates chi-squared test p-value, **chi_adj** - value of chi-squared parameter, **df** - degrees of freedom, **independence** - indicates which hypothesis is accepted, h0 or h1. In the current function, H1 is accepted if p < 0.05. In case H0 is rejected and H1 accepted, in **min** and **max** columns minimum and maximum y variable categories are given.
@@ -1051,7 +1051,7 @@ non_zero_for_test <- function(var, strata, dataset, per_cell = F){
 
 Using the test with multiple choice question.
 
-```{r}
+```{r, warning=F}
 nz_f12 <- non_zero_for_test(f12, "strata", main_dataset, per_cell = F)
 
 f12_sig <- lapply(nz_f12, chi2_ind_extr, y = "strata", design = svy_design)
@@ -1106,7 +1106,7 @@ chi2_ind_wtd(x = "f11_dinking_water_source", y = "strata",
 ```
 The use with multiple choice questions
 
-```{r}
+```{r, message = F}
 names <- names(main_dataset)
 
 f12_names <- names[grepl("f12_drinking_water_treat.", names)]
@@ -1215,7 +1215,7 @@ chi2_GoF(name = "f11_dinking_water_source", stratum_hyp = "a1_informed_consent",
 ```
 Using the function with the multiple responce set
 
-```{r}
+```{r, warning=F}
 names <- names(main_dataset)
 
 f12_names <- names[grepl("f12_drinking_water_treat.", names)]

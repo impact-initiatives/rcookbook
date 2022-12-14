@@ -999,7 +999,7 @@ so we'll need to clasify the variables into three categories;
 
 we'll use the main_dataset for demonstrating the process
 
-```{r}
+```{r, echo = F}
 # load the SdcMicro package 
 library(sdcMicro)
 

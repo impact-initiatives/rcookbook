@@ -13,7 +13,7 @@ How to create a merge file
 ### Bar graphs
 
 Loading libraries and the main dataset
-```{r warning=F}
+```{r  warning = FALSE, results = 'hide', message = FALSE}
 library(tidyverse)
 library(ggplot2)
 library(plotly)
