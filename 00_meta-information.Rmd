@@ -84,7 +84,7 @@ create_export <-function(type,lang,fields_from_all_versions,hierarchy_in_labels,
 
 ## Creating data url and credentials variables
 
-```{r}
+```{r, ehco = F, message = F, warning= F}
 kobo_server_url<-"https://kobo.humanitarianresponse.info/"
 url <-"https://kc.humanitarianresponse.info/api/v1/data.csv"
 kobo_user = "rcop_test"
