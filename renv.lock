@@ -400,26 +400,6 @@
         "sass"
       ]
     },
-    "butteR": {
-      "Package": "butteR",
-      "Version": "0.1.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "butteR",
-      "RemoteUsername": "zackarno",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "54cc596b411ddd7528b4e2d74078278dc276c575",
-      "Hash": "90aad8121801dbff9b00dd4a85ce2d02",
-      "Requirements": [
-        "dplyr",
-        "forcats",
-        "leaflet",
-        "sf",
-        "srvyr",
-        "tidyr"
-      ]
-    },
     "cachem": {
       "Package": "cachem",
       "Version": "1.0.5",
@@ -515,11 +495,14 @@
     "cleaninginspectoR": {
       "Package": "cleaninginspectoR",
       "Version": "0.0.0.9000",
-      "Source": "Git",
-      "RemoteType": "xgit",
-      "RemoteUrl": "https://github.com/impact-initiatives/cleaninginspectoR",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "impact-initiatives",
+      "RemoteRepo": "cleaninginspectoR",
+      "RemoteRef": "master",
       "RemoteSha": "996689c4aa0614fae60a4456230b40b919ea1f52",
-      "Hash": "f423e9be42a2ea777b7e310952cfa638",
+      "Hash": "51e3a76c0b3ed09736a13499873d0e0f",
       "Requirements": [
         "assertthat",
         "data.table",
@@ -1447,36 +1430,6 @@
       "Hash": "d908914ae53b04d4c0c0fd72ecc35370",
       "Requirements": []
     },
-    "leaflet": {
-      "Package": "leaflet",
-      "Version": "2.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "97fadb60ef6eb8524b9f6e2c4a69ee93",
-      "Requirements": [
-        "RColorBrewer",
-        "base64enc",
-        "crosstalk",
-        "htmltools",
-        "htmlwidgets",
-        "leaflet.providers",
-        "magrittr",
-        "markdown",
-        "png",
-        "raster",
-        "scales",
-        "sp",
-        "viridis"
-      ]
-    },
-    "leaflet.providers": {
-      "Package": "leaflet.providers",
-      "Version": "1.9.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "d3082a7beac4a1aeb96100ff06265d7e",
-      "Requirements": []
-    },
     "lifecycle": {
       "Package": "lifecycle",
       "Version": "1.0.1",
@@ -1557,17 +1510,6 @@
         "foreign",
         "lattice",
         "sp"
-      ]
-    },
-    "markdown": {
-      "Package": "markdown",
-      "Version": "1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "61e4a10781dd00d7d81dd06ca9b94e95",
-      "Requirements": [
-        "mime",
-        "xfun"
       ]
     },
     "matrixStats": {
@@ -2040,18 +1982,6 @@
       "Repository": "CRAN",
       "Hash": "5e3c5dc0b071b21fa128676560dbe94d",
       "Requirements": []
-    },
-    "raster": {
-      "Package": "raster",
-      "Version": "3.5-21",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "2a312d1edc9253ed38245f586744216e",
-      "Requirements": [
-        "Rcpp",
-        "sp",
-        "terra"
-      ]
     },
     "readr": {
       "Package": "readr",
@@ -2671,27 +2601,18 @@
       "Hash": "25cfab6cf405c15bccf7e69ec39df090",
       "Requirements": []
     },
-    "terra": {
-      "Package": "terra",
-      "Version": "1.5-34",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "c3401c4598d3c2d6158e10c966d70cbd",
-      "Requirements": [
-        "Rcpp"
-      ]
-    },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.1.6",
+      "Version": "3.0.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7910146255835c66e9eb272fb215248d",
+      "Hash": "3624827fc69a7ef793a67b36edb4db90",
       "Requirements": [
         "R6",
         "brio",
         "callr",
         "cli",
+        "crayon",
         "desc",
         "digest",
         "ellipsis",
