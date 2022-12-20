@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.1.0",
+    "Version": "4.2.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -398,6 +398,26 @@
         "jsonlite",
         "rlang",
         "sass"
+      ]
+    },
+    "butteR": {
+      "Package": "butteR",
+      "Version": "0.1.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "zackarno",
+      "RemoteRepo": "butteR",
+      "RemoteRef": "master",
+      "RemoteSha": "54cc596b411ddd7528b4e2d74078278dc276c575",
+      "Hash": "17d355d2688eb7fedee7a2d4b0e9b0e4",
+      "Requirements": [
+        "dplyr",
+        "forcats",
+        "leaflet",
+        "sf",
+        "srvyr",
+        "tidyr"
       ]
     },
     "cachem": {
@@ -1431,6 +1451,36 @@
       "Hash": "d908914ae53b04d4c0c0fd72ecc35370",
       "Requirements": []
     },
+    "leaflet": {
+      "Package": "leaflet",
+      "Version": "2.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "97fadb60ef6eb8524b9f6e2c4a69ee93",
+      "Requirements": [
+        "RColorBrewer",
+        "base64enc",
+        "crosstalk",
+        "htmltools",
+        "htmlwidgets",
+        "leaflet.providers",
+        "magrittr",
+        "markdown",
+        "png",
+        "raster",
+        "scales",
+        "sp",
+        "viridis"
+      ]
+    },
+    "leaflet.providers": {
+      "Package": "leaflet.providers",
+      "Version": "1.9.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d3082a7beac4a1aeb96100ff06265d7e",
+      "Requirements": []
+    },
     "lifecycle": {
       "Package": "lifecycle",
       "Version": "1.0.3",
@@ -1511,6 +1561,18 @@
         "foreign",
         "lattice",
         "sp"
+      ]
+    },
+    "markdown": {
+      "Package": "markdown",
+      "Version": "1.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f99f5d2d7b2c2c031343bfa7b9f97980",
+      "Requirements": [
+        "commonmark",
+        "mime",
+        "xfun"
       ]
     },
     "matrixStats": {
@@ -1983,6 +2045,18 @@
       "Hash": "5e3c5dc0b071b21fa128676560dbe94d",
       "Requirements": []
     },
+    "raster": {
+      "Package": "raster",
+      "Version": "3.6-11",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "48f95b0f7e708aa96c8913cadf12eb79",
+      "Requirements": [
+        "Rcpp",
+        "sp",
+        "terra"
+      ]
+    },
     "readr": {
       "Package": "readr",
       "Version": "2.1.3",
@@ -2106,11 +2180,12 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.11",
+      "Version": "2.19",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "320017b52d05a943981272b295750388",
+      "Hash": "4e29299e1f4c7eabb0b8365b338adf3c",
       "Requirements": [
+        "bslib",
         "evaluate",
         "htmltools",
         "jquerylib",
@@ -2606,10 +2681,10 @@
     },
     "svglite": {
       "Package": "svglite",
-      "Version": "2.0.0",
+      "Version": "2.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8fb6188960bf0f90996ce52f9c2106ac",
+      "Hash": "68dfdf211af6aa4e5f050f064f64d401",
       "Requirements": [
         "cpp11",
         "systemfonts"
@@ -2640,6 +2715,16 @@
       "Repository": "CRAN",
       "Hash": "25cfab6cf405c15bccf7e69ec39df090",
       "Requirements": []
+    },
+    "terra": {
+      "Package": "terra",
+      "Version": "1.6-47",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "67b7ba63622fbab6820434ac7ac296d6",
+      "Requirements": [
+        "Rcpp"
+      ]
     },
     "testthat": {
       "Package": "testthat",

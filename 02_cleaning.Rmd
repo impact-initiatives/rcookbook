@@ -695,14 +695,13 @@ This other example looks at the frequency of a given *other* option, it could be
 oth_prop <- oth %>% 
   lapply(function(x) {
     main_dataset %>% 
-      select(!!sym(x)) %>% 
-      table() %>% 
-      as.data.frame() %>% 
-      # rename(other_text = `.`) %>%
-      arrange(`.`) %>% 
+      group_by(!!sym(x)) %>% 
+      tally(sort = T) %>% 
+      rename(other_text = !!sym(x)) %>% 
+      filter(!is.na(other_text)) %>%
       mutate(col_names = x, 
-             prop = Freq/nrow(main_dataset))
-  }) %>%
+             prop = n/nrow(main_dataset))
+    }) %>% 
   do.call(rbind,.)
 ```
 ```{r, tidy=FALSE, eval = F}

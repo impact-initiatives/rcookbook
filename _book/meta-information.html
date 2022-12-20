@@ -32,7 +32,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="downloading-data-from-kobo-server.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,8 +50,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -300,8 +301,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="meta-information" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Meta information</h1>
+<div id="meta-information" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Meta information<a href="meta-information.html#meta-information" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>There should be here the libraries, dataset, odk and sampling frame and any other thing.
 Note that some variables were NA’ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="meta-information.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Importing dataset and questionnaire </span></span>
@@ -317,8 +318,8 @@ Note that some variables were NA’ed (age, etc.) In addition, it seems the weig
 <span id="cb1-11"><a href="meta-information.html#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="meta-information.html#cb1-12" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
 <span id="cb1-13"><a href="meta-information.html#cb1-13" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;choices&quot;</span>)</span></code></pre></div>
-<div id="creating-the-questionnaire-object" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Creating the questionnaire object</h2>
+<div id="creating-the-questionnaire-object" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Creating the questionnaire object<a href="meta-information.html#creating-the-questionnaire-object" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="meta-information.html#cb2-1" aria-hidden="true" tabindex="-1"></a>questionnaire <span class="ot">&lt;-</span> <span class="fu">load_questionnaire</span>(<span class="at">data =</span> main_dataset,</span>
 <span id="cb2-2"><a href="meta-information.html#cb2-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">questions =</span> questions,</span>
 <span id="cb2-3"><a href="meta-information.html#cb2-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">choices =</span> choices,</span>
