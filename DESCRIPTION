@@ -4,15 +4,49 @@ Version: 1.0.0.0
 Authors@R: 
     person("Yann", "Say", , "yann.say@impact-initiatives.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7390-4209"))
-Description: This is book aims to be a small collection of code used across different mission. It will show you examples of different problems you can face and you could solve them. Those codes are not exhaustive but just examples.
+Description: This is book aims to be a small collection of code used
+    across different mission. It will show you examples of different
+    problems you can face and you could solve them. Those codes are not
+    exhaustive but just examples.
 License: MIT + file LICENSE
+Imports:
+    data.table,
+    dplyr,
+    eulerr,
+    expss,
+    ggplot2,
+    ggpubr,
+    jsonlite,
+    kableExtra,
+    lubridate,
+    nngeo,
+    openxlsx,
+    plotly,
+    purrr,
+    qdapRegex,
+    readr,
+    readxl
+    httr,
+    reshape,
+    sdcMicro,
+    sf,
+    sjmisc,
+    spatstat,
+    srvyr,
+    stringr,
+    survey,
+    tibble,
+    tidyr,
+    tidyverse,
+    UpSetR,
+    weights
+Remotes:
+    impact-initiatives/cleaninginspectoR,
+    impact-initiatives/hypegrammaR,
+    impact-initiatives/kobostandards,
+    impact-initiatives/surveyweights,
+    impact-initiatives/xlsformfill,
+    zackarno/butteR
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Remotes:
-    impact-initiatives/cleaninginspectoR,
-    impact-initiatives/hypegrammaR,           
-    impact-initiatives/kobostandards,    
-    impact-initiatives/surveyweights,          
-    impact-initiatives/xlsformfill,     
-    zackarno/butteR
