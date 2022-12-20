@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Outputs | R cookbook for analysis with REACH</title>
-  <meta name="description" content="8 Outputs | R cookbook for analysis with REACH" />
+  <title>8 Outputs | R cookbook for analysis with IMPACT</title>
+  <meta name="description" content="8 Outputs | R cookbook for analysis with IMPACT" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Outputs | R cookbook for analysis with REACH" />
+  <meta property="og:title" content="8 Outputs | R cookbook for analysis with IMPACT" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Outputs | R cookbook for analysis with REACH" />
+  <meta name="twitter:title" content="8 Outputs | R cookbook for analysis with IMPACT" />
   
   
   
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="analysis.html"/>
 <link rel="next" href="miscellaneous.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,8 +50,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -292,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for analysis with REACH</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for analysis with IMPACT</a>
           </h1>
         </div>
 
@@ -300,337 +301,337 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="outputs" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Outputs</h1>
-<div id="from-long-to-large-table" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> From long to large table</h2>
+<div id="outputs" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Outputs<a href="outputs.html#outputs" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="from-long-to-large-table" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> From long to large table<a href="outputs.html#from-long-to-large-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>How to move from a tidy format to a large format</p>
 </div>
-<div id="merge-file" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Merge file</h2>
+<div id="merge-file" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Merge file<a href="outputs.html#merge-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>How to create a merge file</p>
 </div>
-<div id="graphs" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Graphs</h2>
-<div id="spider-graphs" class="section level3" number="8.3.1">
-<h3><span class="header-section-number">8.3.1</span> spider graphs</h3>
+<div id="graphs" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Graphs<a href="outputs.html#graphs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="spider-graphs" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> spider graphs<a href="outputs.html#spider-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="prison-graphs" class="section level3" number="8.3.2">
-<h3><span class="header-section-number">8.3.2</span> prison graphs</h3>
+<div id="prison-graphs" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> prison graphs<a href="outputs.html#prison-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="bar-graphs" class="section level3" number="8.3.3">
-<h3><span class="header-section-number">8.3.3</span> Bar graphs</h3>
+<div id="bar-graphs" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Bar graphs<a href="outputs.html#bar-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Loading libraries and the main dataset</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="outputs.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb247-2"><a href="outputs.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb247-3"><a href="outputs.html#cb247-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb247-4"><a href="outputs.html#cb247-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb247-5"><a href="outputs.html#cb247-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb247-6"><a href="outputs.html#cb247-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape)</span>
-<span id="cb247-7"><a href="outputs.html#cb247-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb247-8"><a href="outputs.html#cb247-8" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="outputs.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb245-2"><a href="outputs.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb245-3"><a href="outputs.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb245-4"><a href="outputs.html#cb245-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb245-5"><a href="outputs.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb245-6"><a href="outputs.html#cb245-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape)</span>
+<span id="cb245-7"><a href="outputs.html#cb245-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-8"><a href="outputs.html#cb245-8" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p>Choosing the needed indicator for building bar graph. The indicators in the questionnaire could be in 2 types: Only one answer can be selected (select_one question) and multiple answers can be selected (select_multiple question). Will review it separately.</p>
 <ol style="list-style-type: decimal">
 <li>For select one questions:</li>
 </ol>
 <p>Preparing values for visualization (replacing xml values to lables)</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="outputs.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading questionnaire</span></span>
-<span id="cb248-2"><a href="outputs.html#cb248-2" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb248-3"><a href="outputs.html#cb248-3" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb248-4"><a href="outputs.html#cb248-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb248-5"><a href="outputs.html#cb248-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type</span></span>
-<span id="cb248-6"><a href="outputs.html#cb248-6" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b9_hohh_marital_status&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb248-7"><a href="outputs.html#cb248-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb248-8"><a href="outputs.html#cb248-8" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
-<span id="cb248-9"><a href="outputs.html#cb248-9" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
-<span id="cb248-10"><a href="outputs.html#cb248-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
-<span id="cb248-11"><a href="outputs.html#cb248-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb248-12"><a href="outputs.html#cb248-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b9_hohh_marital_status =</span> name, <span class="at">b9_hohh_marital_status_label =</span> <span class="st">&quot;label::English&quot;</span>)</span>
-<span id="cb248-13"><a href="outputs.html#cb248-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb248-14"><a href="outputs.html#cb248-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the main dataset</span></span>
-<span id="cb248-15"><a href="outputs.html#cb248-15" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, main_dataset, <span class="at">by =</span> <span class="st">&#39;b9_hohh_marital_status&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="outputs.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading questionnaire</span></span>
+<span id="cb246-2"><a href="outputs.html#cb246-2" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb246-3"><a href="outputs.html#cb246-3" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb246-4"><a href="outputs.html#cb246-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb246-5"><a href="outputs.html#cb246-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type</span></span>
+<span id="cb246-6"><a href="outputs.html#cb246-6" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b9_hohh_marital_status&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb246-7"><a href="outputs.html#cb246-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb246-8"><a href="outputs.html#cb246-8" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
+<span id="cb246-9"><a href="outputs.html#cb246-9" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
+<span id="cb246-10"><a href="outputs.html#cb246-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
+<span id="cb246-11"><a href="outputs.html#cb246-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb246-12"><a href="outputs.html#cb246-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b9_hohh_marital_status =</span> name, <span class="at">b9_hohh_marital_status_label =</span> <span class="st">&quot;label::English&quot;</span>)</span>
+<span id="cb246-13"><a href="outputs.html#cb246-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb246-14"><a href="outputs.html#cb246-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the main dataset</span></span>
+<span id="cb246-15"><a href="outputs.html#cb246-15" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, main_dataset, <span class="at">by =</span> <span class="st">&#39;b9_hohh_marital_status&#39;</span>)</span></code></pre></div>
 <p>Building a bar graph</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="outputs.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>((main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb249-2"><a href="outputs.html#cb249-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(b9_hohh_marital_status_label)) <span class="sc">%&gt;%</span></span>
-<span id="cb249-3"><a href="outputs.html#cb249-3" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">group_by</span>(b9_hohh_marital_status_label) <span class="sc">%&gt;%</span></span>
-<span id="cb249-4"><a href="outputs.html#cb249-4" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">weight_sum =</span> <span class="fu">round</span>(<span class="fu">sum</span>(stratum.weight), <span class="dv">2</span>))), <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b9_hohh_marital_status_label, weight_sum), <span class="at">x =</span> weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum))) <span class="sc">+</span></span>
-<span id="cb249-5"><a href="outputs.html#cb249-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
-<span id="cb249-6"><a href="outputs.html#cb249-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>((weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum)<span class="sc">*</span><span class="dv">100</span>),<span class="dv">0</span>),<span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb249-7"><a href="outputs.html#cb249-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb249-8"><a href="outputs.html#cb249-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb249-9"><a href="outputs.html#cb249-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="outputs.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>((main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb247-2"><a href="outputs.html#cb247-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(b9_hohh_marital_status_label)) <span class="sc">%&gt;%</span></span>
+<span id="cb247-3"><a href="outputs.html#cb247-3" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">group_by</span>(b9_hohh_marital_status_label) <span class="sc">%&gt;%</span></span>
+<span id="cb247-4"><a href="outputs.html#cb247-4" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">weight_sum =</span> <span class="fu">round</span>(<span class="fu">sum</span>(stratum.weight), <span class="dv">2</span>))), <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b9_hohh_marital_status_label, weight_sum), <span class="at">x =</span> weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum))) <span class="sc">+</span></span>
+<span id="cb247-5"><a href="outputs.html#cb247-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
+<span id="cb247-6"><a href="outputs.html#cb247-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>((weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum)<span class="sc">*</span><span class="dv">100</span>),<span class="dv">0</span>),<span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb247-7"><a href="outputs.html#cb247-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb247-8"><a href="outputs.html#cb247-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb247-9"><a href="outputs.html#cb247-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
 <p>Removing temporary data</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="outputs.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="outputs.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>For select multiple questions:</li>
 </ol>
 <p>Preparing values for visualization (replacing xml values to lables; calculating results)</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="outputs.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting needed columns from the main dataset (indicator and weight)</span></span>
-<span id="cb251-2"><a href="outputs.html#cb251-2" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> main_dataset[,<span class="fu">grepl</span>(<span class="st">&quot;b10_hohh_vulnerability.|stratum.weight&quot;</span>, <span class="fu">names</span>(main_dataset))]</span>
-<span id="cb251-3"><a href="outputs.html#cb251-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb251-4"><a href="outputs.html#cb251-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the dataset</span></span>
-<span id="cb251-5"><a href="outputs.html#cb251-5" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">melt</span>(visual_dataset, <span class="at">id.vars =</span> <span class="st">&quot;stratum.weight&quot;</span>)</span>
-<span id="cb251-6"><a href="outputs.html#cb251-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb251-7"><a href="outputs.html#cb251-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouping by choices and getting sum of weights</span></span>
-<span id="cb251-8"><a href="outputs.html#cb251-8" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> visual_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb251-9"><a href="outputs.html#cb251-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> stratum.weight <span class="sc">*</span> value) <span class="sc">%&gt;%</span></span>
-<span id="cb251-10"><a href="outputs.html#cb251-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span> </span>
-<span id="cb251-11"><a href="outputs.html#cb251-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight))) <span class="sc">%&gt;%</span></span>
-<span id="cb251-12"><a href="outputs.html#cb251-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> <span class="fu">round</span>(weight_sum <span class="sc">/</span> <span class="fu">sum</span>(main_dataset<span class="sc">$</span>stratum.weight)<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb251-13"><a href="outputs.html#cb251-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> variable)</span>
-<span id="cb251-14"><a href="outputs.html#cb251-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb251-15"><a href="outputs.html#cb251-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type and replacing xmls to the labels and </span></span>
-<span id="cb251-16"><a href="outputs.html#cb251-16" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b10_hohh_vulnerability&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb251-17"><a href="outputs.html#cb251-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb251-18"><a href="outputs.html#cb251-18" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
-<span id="cb251-19"><a href="outputs.html#cb251-19" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
-<span id="cb251-20"><a href="outputs.html#cb251-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
-<span id="cb251-21"><a href="outputs.html#cb251-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb251-22"><a href="outputs.html#cb251-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> name, <span class="at">b10_hohh_vulnerability_label =</span> <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb251-23"><a href="outputs.html#cb251-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">b10_hohh_vulnerability =</span> <span class="fu">paste0</span>(<span class="st">&quot;b10_hohh_vulnerability.&quot;</span>, b10_hohh_vulnerability))</span>
-<span id="cb251-24"><a href="outputs.html#cb251-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb251-25"><a href="outputs.html#cb251-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the visualization dataset</span></span>
-<span id="cb251-26"><a href="outputs.html#cb251-26" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, visual_dataset, <span class="at">by =</span> <span class="st">&#39;b10_hohh_vulnerability&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="outputs.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting needed columns from the main dataset (indicator and weight)</span></span>
+<span id="cb249-2"><a href="outputs.html#cb249-2" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> main_dataset[,<span class="fu">grepl</span>(<span class="st">&quot;b10_hohh_vulnerability.|stratum.weight&quot;</span>, <span class="fu">names</span>(main_dataset))]</span>
+<span id="cb249-3"><a href="outputs.html#cb249-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-4"><a href="outputs.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the dataset</span></span>
+<span id="cb249-5"><a href="outputs.html#cb249-5" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">melt</span>(visual_dataset, <span class="at">id.vars =</span> <span class="st">&quot;stratum.weight&quot;</span>)</span>
+<span id="cb249-6"><a href="outputs.html#cb249-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-7"><a href="outputs.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouping by choices and getting sum of weights</span></span>
+<span id="cb249-8"><a href="outputs.html#cb249-8" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> visual_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb249-9"><a href="outputs.html#cb249-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> stratum.weight <span class="sc">*</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb249-10"><a href="outputs.html#cb249-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-11"><a href="outputs.html#cb249-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight))) <span class="sc">%&gt;%</span></span>
+<span id="cb249-12"><a href="outputs.html#cb249-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> <span class="fu">round</span>(weight_sum <span class="sc">/</span> <span class="fu">sum</span>(main_dataset<span class="sc">$</span>stratum.weight)<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb249-13"><a href="outputs.html#cb249-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> variable)</span>
+<span id="cb249-14"><a href="outputs.html#cb249-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-15"><a href="outputs.html#cb249-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type and replacing xmls to the labels and </span></span>
+<span id="cb249-16"><a href="outputs.html#cb249-16" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b10_hohh_vulnerability&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb249-17"><a href="outputs.html#cb249-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-18"><a href="outputs.html#cb249-18" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
+<span id="cb249-19"><a href="outputs.html#cb249-19" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
+<span id="cb249-20"><a href="outputs.html#cb249-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
+<span id="cb249-21"><a href="outputs.html#cb249-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb249-22"><a href="outputs.html#cb249-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> name, <span class="at">b10_hohh_vulnerability_label =</span> <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb249-23"><a href="outputs.html#cb249-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">b10_hohh_vulnerability =</span> <span class="fu">paste0</span>(<span class="st">&quot;b10_hohh_vulnerability.&quot;</span>, b10_hohh_vulnerability))</span>
+<span id="cb249-24"><a href="outputs.html#cb249-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-25"><a href="outputs.html#cb249-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the visualization dataset</span></span>
+<span id="cb249-26"><a href="outputs.html#cb249-26" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, visual_dataset, <span class="at">by =</span> <span class="st">&#39;b10_hohh_vulnerability&#39;</span>)</span></code></pre></div>
 <p>Building a bar graph</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="outputs.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(visual_dataset, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b10_hohh_vulnerability_label, percentage), <span class="at">x =</span> percentage)) <span class="sc">+</span></span>
-<span id="cb252-2"><a href="outputs.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
-<span id="cb252-3"><a href="outputs.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(percentage, <span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb252-4"><a href="outputs.html#cb252-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb252-5"><a href="outputs.html#cb252-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb252-6"><a href="outputs.html#cb252-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="outputs.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(visual_dataset, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b10_hohh_vulnerability_label, percentage), <span class="at">x =</span> percentage)) <span class="sc">+</span></span>
+<span id="cb250-2"><a href="outputs.html#cb250-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
+<span id="cb250-3"><a href="outputs.html#cb250-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(percentage, <span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb250-4"><a href="outputs.html#cb250-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb250-5"><a href="outputs.html#cb250-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb250-6"><a href="outputs.html#cb250-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
 <p>Removing temporary data</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="outputs.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="outputs.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
 </div>
-<div id="euler-diagram" class="section level3" number="8.3.4">
-<h3><span class="header-section-number">8.3.4</span> Euler diagram</h3>
+<div id="euler-diagram" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> Euler diagram<a href="outputs.html#euler-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>An Euler diagram is a diagrammatic means of representing sets and their relationships. They are particularly useful for explaining complex hierarchies and overlapping definitions. They are similar to another set diagramming technique, Venn diagrams. Unlike Venn diagrams, which show all possible relations between different sets, the Euler diagram shows only relevant relationships. <a href="https://en.wikipedia.org/wiki/Euler_diagram">Source</a></em></p>
 <p>First let’s load <a href="https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html">Eulerr library</a> and our dataset</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="outputs.html#cb254-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="outputs.html#cb252-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p>Euler diagrams are particularly useful to visualize overlaps between HH characteristics that help better understand the demographic profile of the area. For example, let’s visualize overlaps between such HH characteristics as age, displacement status, income level, disability, and employment status.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="outputs.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eulerr)</span>
-<span id="cb255-2"><a href="outputs.html#cb255-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb255-3"><a href="outputs.html#cb255-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb255-4"><a href="outputs.html#cb255-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb255-5"><a href="outputs.html#cb255-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb255-6"><a href="outputs.html#cb255-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb255-7"><a href="outputs.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb255-8"><a href="outputs.html#cb255-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(UpSetR)</span>
-<span id="cb255-9"><a href="outputs.html#cb255-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-10"><a href="outputs.html#cb255-10" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb255-11"><a href="outputs.html#cb255-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,</span>
-<span id="cb255-12"><a href="outputs.html#cb255-12" aria-hidden="true" tabindex="-1"></a>           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)<span class="sc">%&gt;%</span></span>
-<span id="cb255-13"><a href="outputs.html#cb255-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select all necessary columns</span></span>
-<span id="cb255-14"><a href="outputs.html#cb255-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">displaced =</span> <span class="fu">ifelse</span>(d1_hh_displacement_status <span class="sc">==</span> <span class="st">&quot;no&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb255-15"><a href="outputs.html#cb255-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">low_income =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(b15_hohh_income) <span class="sc">&gt;=</span> <span class="dv">2189</span>, <span class="dv">0</span>, <span class="dv">1</span>))<span class="sc">%&gt;%</span> <span class="co">#2189 UAH(83$) is minimal monthly income in 2020</span></span>
-<span id="cb255-16"><a href="outputs.html#cb255-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate binary indicators in case they are not available in the dataset directly from select multiple questions</span></span>
-<span id="cb255-17"><a href="outputs.html#cb255-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>d1_hh_displacement_status, <span class="sc">-</span>b15_hohh_income)<span class="sc">%&gt;%</span></span>
-<span id="cb255-18"><a href="outputs.html#cb255-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;disability&quot;</span>, <span class="st">&quot;60+&quot;</span>, <span class="st">&quot;unemployed&quot;</span>, <span class="st">&quot;uuid&quot;</span>, <span class="st">&quot;strata&quot;</span>, <span class="st">&quot;weight&quot;</span>, <span class="st">&quot;displaced&quot;</span>, <span class="st">&quot;low_income&quot;</span>))</span>
-<span id="cb255-19"><a href="outputs.html#cb255-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#remove unnecessary columns and rename other column</span></span>
-<span id="cb255-20"><a href="outputs.html#cb255-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-21"><a href="outputs.html#cb255-21" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> <span class="co">#create column that will combine all binary columns into one (same approach as in </span><span class="al">###</span><span class="co"> Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)</span></span>
-<span id="cb255-22"><a href="outputs.html#cb255-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map2_df</span>(vulnerability_data, <span class="fu">names</span>(vulnerability_data), <span class="sc">~</span>  <span class="fu">replace</span>(.x, .x<span class="sc">==</span><span class="dv">1</span>, .y) <span class="sc">%&gt;%</span> </span>
-<span id="cb255-23"><a href="outputs.html#cb255-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb255-24"><a href="outputs.html#cb255-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(combined, disability, <span class="st">`</span><span class="at">60+</span><span class="st">`</span>, displaced, low_income, unemployed, <span class="at">remove =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;&amp;&#39;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb255-25"><a href="outputs.html#cb255-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>combined <span class="sc">==</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb255-26"><a href="outputs.html#cb255-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-27"><a href="outputs.html#cb255-27" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate weighted summary statistics for each combination</span></span>
-<span id="cb255-28"><a href="outputs.html#cb255-28" aria-hidden="true" tabindex="-1"></a>vulnerability_summary <span class="ot">&lt;-</span> vulnerability_data <span class="sc">%&gt;%</span></span>
-<span id="cb255-29"><a href="outputs.html#cb255-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(strata, weight, combined)<span class="sc">%&gt;%</span> </span>
-<span id="cb255-30"><a href="outputs.html#cb255-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(combined) <span class="sc">%&gt;%</span> </span>
-<span id="cb255-31"><a href="outputs.html#cb255-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight)))<span class="sc">%&gt;%</span></span>
-<span id="cb255-32"><a href="outputs.html#cb255-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">per =</span> weight_sum <span class="sc">/</span> <span class="fu">sum</span>(weight_sum) <span class="sc">*</span> <span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb255-33"><a href="outputs.html#cb255-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(per <span class="sc">&gt;</span> <span class="dv">1</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb255-34"><a href="outputs.html#cb255-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>weight_sum)</span>
-<span id="cb255-35"><a href="outputs.html#cb255-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb255-36"><a href="outputs.html#cb255-36" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data frame into named numeric vector that is used by plot function</span></span>
-<span id="cb255-37"><a href="outputs.html#cb255-37" aria-hidden="true" tabindex="-1"></a>vulnerability_input <span class="ot">&lt;-</span>  vulnerability_summary <span class="sc">%&gt;%</span></span>
-<span id="cb255-38"><a href="outputs.html#cb255-38" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">deframe</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="outputs.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eulerr)</span>
+<span id="cb253-2"><a href="outputs.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb253-3"><a href="outputs.html#cb253-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb253-4"><a href="outputs.html#cb253-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb253-5"><a href="outputs.html#cb253-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb253-6"><a href="outputs.html#cb253-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb253-7"><a href="outputs.html#cb253-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb253-8"><a href="outputs.html#cb253-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(UpSetR)</span>
+<span id="cb253-9"><a href="outputs.html#cb253-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-10"><a href="outputs.html#cb253-10" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb253-11"><a href="outputs.html#cb253-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,</span>
+<span id="cb253-12"><a href="outputs.html#cb253-12" aria-hidden="true" tabindex="-1"></a>           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)<span class="sc">%&gt;%</span></span>
+<span id="cb253-13"><a href="outputs.html#cb253-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select all necessary columns</span></span>
+<span id="cb253-14"><a href="outputs.html#cb253-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">displaced =</span> <span class="fu">ifelse</span>(d1_hh_displacement_status <span class="sc">==</span> <span class="st">&quot;no&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb253-15"><a href="outputs.html#cb253-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">low_income =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(b15_hohh_income) <span class="sc">&gt;=</span> <span class="dv">2189</span>, <span class="dv">0</span>, <span class="dv">1</span>))<span class="sc">%&gt;%</span> <span class="co">#2189 UAH(83$) is minimal monthly income in 2020</span></span>
+<span id="cb253-16"><a href="outputs.html#cb253-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate binary indicators in case they are not available in the dataset directly from select multiple questions</span></span>
+<span id="cb253-17"><a href="outputs.html#cb253-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>d1_hh_displacement_status, <span class="sc">-</span>b15_hohh_income)<span class="sc">%&gt;%</span></span>
+<span id="cb253-18"><a href="outputs.html#cb253-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;disability&quot;</span>, <span class="st">&quot;60+&quot;</span>, <span class="st">&quot;unemployed&quot;</span>, <span class="st">&quot;uuid&quot;</span>, <span class="st">&quot;strata&quot;</span>, <span class="st">&quot;weight&quot;</span>, <span class="st">&quot;displaced&quot;</span>, <span class="st">&quot;low_income&quot;</span>))</span>
+<span id="cb253-19"><a href="outputs.html#cb253-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#remove unnecessary columns and rename other column</span></span>
+<span id="cb253-20"><a href="outputs.html#cb253-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-21"><a href="outputs.html#cb253-21" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> <span class="co">#create column that will combine all binary columns into one (same approach as in </span><span class="al">###</span><span class="co"> Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)</span></span>
+<span id="cb253-22"><a href="outputs.html#cb253-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map2_df</span>(vulnerability_data, <span class="fu">names</span>(vulnerability_data), <span class="sc">~</span>  <span class="fu">replace</span>(.x, .x<span class="sc">==</span><span class="dv">1</span>, .y) <span class="sc">%&gt;%</span> </span>
+<span id="cb253-23"><a href="outputs.html#cb253-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb253-24"><a href="outputs.html#cb253-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(combined, disability, <span class="st">`</span><span class="at">60+</span><span class="st">`</span>, displaced, low_income, unemployed, <span class="at">remove =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;&amp;&#39;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb253-25"><a href="outputs.html#cb253-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>combined <span class="sc">==</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb253-26"><a href="outputs.html#cb253-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-27"><a href="outputs.html#cb253-27" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate weighted summary statistics for each combination</span></span>
+<span id="cb253-28"><a href="outputs.html#cb253-28" aria-hidden="true" tabindex="-1"></a>vulnerability_summary <span class="ot">&lt;-</span> vulnerability_data <span class="sc">%&gt;%</span></span>
+<span id="cb253-29"><a href="outputs.html#cb253-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(strata, weight, combined)<span class="sc">%&gt;%</span> </span>
+<span id="cb253-30"><a href="outputs.html#cb253-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(combined) <span class="sc">%&gt;%</span> </span>
+<span id="cb253-31"><a href="outputs.html#cb253-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight)))<span class="sc">%&gt;%</span></span>
+<span id="cb253-32"><a href="outputs.html#cb253-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">per =</span> weight_sum <span class="sc">/</span> <span class="fu">sum</span>(weight_sum) <span class="sc">*</span> <span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb253-33"><a href="outputs.html#cb253-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(per <span class="sc">&gt;</span> <span class="dv">1</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb253-34"><a href="outputs.html#cb253-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>weight_sum)</span>
+<span id="cb253-35"><a href="outputs.html#cb253-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-36"><a href="outputs.html#cb253-36" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data frame into named numeric vector that is used by plot function</span></span>
+<span id="cb253-37"><a href="outputs.html#cb253-37" aria-hidden="true" tabindex="-1"></a>vulnerability_input <span class="ot">&lt;-</span>  vulnerability_summary <span class="sc">%&gt;%</span></span>
+<span id="cb253-38"><a href="outputs.html#cb253-38" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">deframe</span>()</span></code></pre></div>
 <p>In this block we will build euler diagram using REACH color palette and some basic styling.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="outputs.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">euler</span>(vulnerability_input),</span>
-<span id="cb256-2"><a href="outputs.html#cb256-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb256-3"><a href="outputs.html#cb256-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>),</span>
-<span id="cb256-4"><a href="outputs.html#cb256-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
-<span id="cb256-5"><a href="outputs.html#cb256-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
-<span id="cb256-6"><a href="outputs.html#cb256-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>)</span>
-<span id="cb256-7"><a href="outputs.html#cb256-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="outputs.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">euler</span>(vulnerability_input),</span>
+<span id="cb254-2"><a href="outputs.html#cb254-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb254-3"><a href="outputs.html#cb254-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>),</span>
+<span id="cb254-4"><a href="outputs.html#cb254-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
+<span id="cb254-5"><a href="outputs.html#cb254-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
+<span id="cb254-6"><a href="outputs.html#cb254-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>)</span>
+<span id="cb254-7"><a href="outputs.html#cb254-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
 <p>As an alternative, we also can build a Venn diagram that shows each relation (even not possible in reality). As you can see Venn diagram in this case is less readable and usable.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="outputs.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">venn</span>(vulnerability_input),</span>
-<span id="cb257-2"><a href="outputs.html#cb257-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb257-3"><a href="outputs.html#cb257-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>), </span>
-<span id="cb257-4"><a href="outputs.html#cb257-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
-<span id="cb257-5"><a href="outputs.html#cb257-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
-<span id="cb257-6"><a href="outputs.html#cb257-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="outputs.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">venn</span>(vulnerability_input),</span>
+<span id="cb255-2"><a href="outputs.html#cb255-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb255-3"><a href="outputs.html#cb255-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>), </span>
+<span id="cb255-4"><a href="outputs.html#cb255-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
+<span id="cb255-5"><a href="outputs.html#cb255-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
+<span id="cb255-6"><a href="outputs.html#cb255-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-162-1.png" width="672" />
 Another popular type of diagram that shows relation is <a href="https://github.com/hms-dbmi/UpSetR">UpSetR diagram</a>. Even with default styling, it’s quite good in the visualization of intersections between different HH characteristics.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="outputs.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">fromExpression</span>(vulnerability_input), <span class="at">order.by =</span> <span class="st">&quot;freq&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="outputs.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">fromExpression</span>(vulnerability_input), <span class="at">order.by =</span> <span class="st">&quot;freq&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
 </div>
-<div id="venn-diagram" class="section level3" number="8.3.5">
-<h3><span class="header-section-number">8.3.5</span> Venn diagram</h3>
+<div id="venn-diagram" class="section level3 hasAnchor" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> Venn diagram<a href="outputs.html#venn-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="upset-plots" class="section level3" number="8.3.6">
-<h3><span class="header-section-number">8.3.6</span> UpSet plots</h3>
+<div id="upset-plots" class="section level3 hasAnchor" number="8.3.6">
+<h3><span class="header-section-number">8.3.6</span> UpSet plots<a href="outputs.html#upset-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="boxplots" class="section level3" number="8.3.7">
-<h3><span class="header-section-number">8.3.7</span> boxplots</h3>
+<div id="boxplots" class="section level3 hasAnchor" number="8.3.7">
+<h3><span class="header-section-number">8.3.7</span> boxplots<a href="outputs.html#boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 </div>
-<div id="labels" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Labels</h2>
-<div id="xml-to-label" class="section level3" number="8.4.1">
-<h3><span class="header-section-number">8.4.1</span> Xml to Label</h3>
+<div id="labels" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Labels<a href="outputs.html#labels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="xml-to-label" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Xml to Label<a href="outputs.html#xml-to-label" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code transform column headers, select_one and select_multiple values from XML to Label.</p>
 <p>Loading Libraries</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="outputs.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="outputs.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Dataset column headers function</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="outputs.html#cb260-1" aria-hidden="true" tabindex="-1"></a>xml2label_question <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, col){</span>
-<span id="cb260-2"><a href="outputs.html#cb260-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column check if it is a select multiple</span></span>
-<span id="cb260-3"><a href="outputs.html#cb260-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">str_detect</span>(col, <span class="st">&quot;/&quot;</span>)) {</span>
-<span id="cb260-4"><a href="outputs.html#cb260-4" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
-<span id="cb260-5"><a href="outputs.html#cb260-5" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tail</span>(<span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]], <span class="sc">-</span><span class="dv">1</span>), <span class="at">collapse=</span><span class="st">&quot;/&quot;</span>)</span>
-<span id="cb260-6"><a href="outputs.html#cb260-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb260-7"><a href="outputs.html#cb260-7" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> col</span>
-<span id="cb260-8"><a href="outputs.html#cb260-8" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb260-9"><a href="outputs.html#cb260-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb260-10"><a href="outputs.html#cb260-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb260-11"><a href="outputs.html#cb260-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># returning the label and make sure to include the label of multiple choices after /</span></span>
-<span id="cb260-12"><a href="outputs.html#cb260-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q.name <span class="sc">%in%</span> tool_survey<span class="sc">$</span>name){</span>
-<span id="cb260-13"><a href="outputs.html#cb260-13" aria-hidden="true" tabindex="-1"></a>    q <span class="ot">&lt;-</span> tool_survey[tool_survey<span class="sc">$</span>name<span class="sc">==</span>q.name,]</span>
-<span id="cb260-14"><a href="outputs.html#cb260-14" aria-hidden="true" tabindex="-1"></a>    q.label <span class="ot">&lt;-</span> q<span class="sc">$</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span></span>
-<span id="cb260-15"><a href="outputs.html#cb260-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.na</span>(q.label) <span class="sc">|</span> q<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;note&quot;</span>)) q.label <span class="ot">&lt;-</span> q.name</span>
-<span id="cb260-16"><a href="outputs.html#cb260-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(c.name)){</span>
-<span id="cb260-17"><a href="outputs.html#cb260-17" aria-hidden="true" tabindex="-1"></a>      q.list_name<span class="ot">=</span><span class="fu">ifelse</span>(q<span class="sc">$</span>list_name<span class="sc">==</span><span class="st">&quot;NA&quot;</span>, <span class="cn">NA</span>, q<span class="sc">$</span>list_name)</span>
-<span id="cb260-18"><a href="outputs.html#cb260-18" aria-hidden="true" tabindex="-1"></a>      c.label <span class="ot">&lt;-</span> tool_choices[tool_choices<span class="sc">$</span>list_name<span class="sc">==</span>q.list_name <span class="sc">&amp;</span> tool_choices<span class="sc">$</span>name<span class="sc">==</span>c.name, <span class="st">&quot;label::english&quot;</span>]</span>
-<span id="cb260-19"><a href="outputs.html#cb260-19" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> c.label <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb260-20"><a href="outputs.html#cb260-20" aria-hidden="true" tabindex="-1"></a>    label <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(c.label), q.label, <span class="fu">paste0</span>(q.label, <span class="st">&quot;/&quot;</span>, c.label))</span>
-<span id="cb260-21"><a href="outputs.html#cb260-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> label <span class="ot">&lt;-</span> q.name</span>
-<span id="cb260-22"><a href="outputs.html#cb260-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(label)</span>
-<span id="cb260-23"><a href="outputs.html#cb260-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="outputs.html#cb258-1" aria-hidden="true" tabindex="-1"></a>xml2label_question <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, col){</span>
+<span id="cb258-2"><a href="outputs.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column check if it is a select multiple</span></span>
+<span id="cb258-3"><a href="outputs.html#cb258-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">str_detect</span>(col, <span class="st">&quot;/&quot;</span>)) {</span>
+<span id="cb258-4"><a href="outputs.html#cb258-4" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
+<span id="cb258-5"><a href="outputs.html#cb258-5" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tail</span>(<span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]], <span class="sc">-</span><span class="dv">1</span>), <span class="at">collapse=</span><span class="st">&quot;/&quot;</span>)</span>
+<span id="cb258-6"><a href="outputs.html#cb258-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb258-7"><a href="outputs.html#cb258-7" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> col</span>
+<span id="cb258-8"><a href="outputs.html#cb258-8" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb258-9"><a href="outputs.html#cb258-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb258-10"><a href="outputs.html#cb258-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb258-11"><a href="outputs.html#cb258-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># returning the label and make sure to include the label of multiple choices after /</span></span>
+<span id="cb258-12"><a href="outputs.html#cb258-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q.name <span class="sc">%in%</span> tool_survey<span class="sc">$</span>name){</span>
+<span id="cb258-13"><a href="outputs.html#cb258-13" aria-hidden="true" tabindex="-1"></a>    q <span class="ot">&lt;-</span> tool_survey[tool_survey<span class="sc">$</span>name<span class="sc">==</span>q.name,]</span>
+<span id="cb258-14"><a href="outputs.html#cb258-14" aria-hidden="true" tabindex="-1"></a>    q.label <span class="ot">&lt;-</span> q<span class="sc">$</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span></span>
+<span id="cb258-15"><a href="outputs.html#cb258-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.na</span>(q.label) <span class="sc">|</span> q<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;note&quot;</span>)) q.label <span class="ot">&lt;-</span> q.name</span>
+<span id="cb258-16"><a href="outputs.html#cb258-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(c.name)){</span>
+<span id="cb258-17"><a href="outputs.html#cb258-17" aria-hidden="true" tabindex="-1"></a>      q.list_name<span class="ot">=</span><span class="fu">ifelse</span>(q<span class="sc">$</span>list_name<span class="sc">==</span><span class="st">&quot;NA&quot;</span>, <span class="cn">NA</span>, q<span class="sc">$</span>list_name)</span>
+<span id="cb258-18"><a href="outputs.html#cb258-18" aria-hidden="true" tabindex="-1"></a>      c.label <span class="ot">&lt;-</span> tool_choices[tool_choices<span class="sc">$</span>list_name<span class="sc">==</span>q.list_name <span class="sc">&amp;</span> tool_choices<span class="sc">$</span>name<span class="sc">==</span>c.name, <span class="st">&quot;label::english&quot;</span>]</span>
+<span id="cb258-19"><a href="outputs.html#cb258-19" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> c.label <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb258-20"><a href="outputs.html#cb258-20" aria-hidden="true" tabindex="-1"></a>    label <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(c.label), q.label, <span class="fu">paste0</span>(q.label, <span class="st">&quot;/&quot;</span>, c.label))</span>
+<span id="cb258-21"><a href="outputs.html#cb258-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> label <span class="ot">&lt;-</span> q.name</span>
+<span id="cb258-22"><a href="outputs.html#cb258-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(label)</span>
+<span id="cb258-23"><a href="outputs.html#cb258-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Select_one values function</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="outputs.html#cb261-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_one <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
-<span id="cb261-2"><a href="outputs.html#cb261-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select the type column from each select_one question</span></span>
-<span id="cb261-3"><a href="outputs.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  q.type <span class="ot">&lt;-</span> tool_survey<span class="sc">$</span>type[tool_survey<span class="sc">$</span>name<span class="sc">==</span>col]</span>
-<span id="cb261-4"><a href="outputs.html#cb261-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb261-5"><a href="outputs.html#cb261-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># take the id of the choices to get the list name</span></span>
-<span id="cb261-6"><a href="outputs.html#cb261-6" aria-hidden="true" tabindex="-1"></a>  q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(q.type, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb261-7"><a href="outputs.html#cb261-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb261-8"><a href="outputs.html#cb261-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># export the choices relevant to each select_one question</span></span>
-<span id="cb261-9"><a href="outputs.html#cb261-9" aria-hidden="true" tabindex="-1"></a>  choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb261-10"><a href="outputs.html#cb261-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label=</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
-<span id="cb261-11"><a href="outputs.html#cb261-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb261-12"><a href="outputs.html#cb261-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replace the xml with label using left_join</span></span>
-<span id="cb261-13"><a href="outputs.html#cb261-13" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(data[[col]])) <span class="sc">%&gt;%</span> </span>
-<span id="cb261-14"><a href="outputs.html#cb261-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
-<span id="cb261-15"><a href="outputs.html#cb261-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb261-16"><a href="outputs.html#cb261-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors </span></span>
-<span id="cb261-17"><a href="outputs.html#cb261-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>label)</span>
-<span id="cb261-18"><a href="outputs.html#cb261-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="outputs.html#cb259-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_one <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
+<span id="cb259-2"><a href="outputs.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select the type column from each select_one question</span></span>
+<span id="cb259-3"><a href="outputs.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  q.type <span class="ot">&lt;-</span> tool_survey<span class="sc">$</span>type[tool_survey<span class="sc">$</span>name<span class="sc">==</span>col]</span>
+<span id="cb259-4"><a href="outputs.html#cb259-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb259-5"><a href="outputs.html#cb259-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># take the id of the choices to get the list name</span></span>
+<span id="cb259-6"><a href="outputs.html#cb259-6" aria-hidden="true" tabindex="-1"></a>  q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(q.type, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb259-7"><a href="outputs.html#cb259-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb259-8"><a href="outputs.html#cb259-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># export the choices relevant to each select_one question</span></span>
+<span id="cb259-9"><a href="outputs.html#cb259-9" aria-hidden="true" tabindex="-1"></a>  choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-10"><a href="outputs.html#cb259-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label=</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
+<span id="cb259-11"><a href="outputs.html#cb259-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb259-12"><a href="outputs.html#cb259-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replace the xml with label using left_join</span></span>
+<span id="cb259-13"><a href="outputs.html#cb259-13" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(data[[col]])) <span class="sc">%&gt;%</span> </span>
+<span id="cb259-14"><a href="outputs.html#cb259-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
+<span id="cb259-15"><a href="outputs.html#cb259-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb259-16"><a href="outputs.html#cb259-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors </span></span>
+<span id="cb259-17"><a href="outputs.html#cb259-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>label)</span>
+<span id="cb259-18"><a href="outputs.html#cb259-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Select_multiple values function</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="outputs.html#cb262-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_multiple <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
-<span id="cb262-2"><a href="outputs.html#cb262-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select all the columns with all the options for each select_multiple</span></span>
-<span id="cb262-3"><a href="outputs.html#cb262-3" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb262-4"><a href="outputs.html#cb262-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">contains</span>(<span class="fu">paste0</span>(col,<span class="st">&quot;/&quot;</span>)))</span>
-<span id="cb262-5"><a href="outputs.html#cb262-5" aria-hidden="true" tabindex="-1"></a>  col_internal <span class="ot">&lt;-</span> <span class="fu">colnames</span>(d.join)</span>
-<span id="cb262-6"><a href="outputs.html#cb262-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb262-7"><a href="outputs.html#cb262-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column with options</span></span>
-<span id="cb262-8"><a href="outputs.html#cb262-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_internal)){</span>
-<span id="cb262-9"><a href="outputs.html#cb262-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># change all 1&#39;s to the xml answer</span></span>
-<span id="cb262-10"><a href="outputs.html#cb262-10" aria-hidden="true" tabindex="-1"></a>    xml_answer <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col_internal[j], <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb262-11"><a href="outputs.html#cb262-11" aria-hidden="true" tabindex="-1"></a>    d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
-<span id="cb262-12"><a href="outputs.html#cb262-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, xml_answer, <span class="cn">NA</span>))</span>
-<span id="cb262-13"><a href="outputs.html#cb262-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb262-14"><a href="outputs.html#cb262-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the list of the xml and label options for each select multiple questions</span></span>
-<span id="cb262-15"><a href="outputs.html#cb262-15" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> <span class="fu">filter</span>(tool_survey, <span class="fu">str_starts</span>(name, <span class="fu">str_split</span>(col_internal[j],<span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])) <span class="sc">%&gt;%</span> </span>
-<span id="cb262-16"><a href="outputs.html#cb262-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(list_name)</span>
-<span id="cb262-17"><a href="outputs.html#cb262-17" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> choice_id<span class="sc">$</span>list_name</span>
-<span id="cb262-18"><a href="outputs.html#cb262-18" aria-hidden="true" tabindex="-1"></a>    t.choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> </span>
-<span id="cb262-19"><a href="outputs.html#cb262-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(list_name <span class="sc">==</span> choice_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb262-20"><a href="outputs.html#cb262-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label =</span> <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
-<span id="cb262-21"><a href="outputs.html#cb262-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb262-22"><a href="outputs.html#cb262-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replace the xml with label using left_join</span></span>
-<span id="cb262-23"><a href="outputs.html#cb262-23" aria-hidden="true" tabindex="-1"></a>    d.new.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(d.join[[col_internal[j]]])) <span class="sc">%&gt;%</span></span>
-<span id="cb262-24"><a href="outputs.html#cb262-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">left_join</span>(t.choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
-<span id="cb262-25"><a href="outputs.html#cb262-25" aria-hidden="true" tabindex="-1"></a>    d.join[col_internal[j]] <span class="ot">&lt;-</span> d.new.join<span class="sc">$</span>label</span>
-<span id="cb262-26"><a href="outputs.html#cb262-26" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb262-27"><a href="outputs.html#cb262-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb262-28"><a href="outputs.html#cb262-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># concatenate all the answers, removing NAs in one cell and separated by a &#39;;&#39; </span></span>
-<span id="cb262-29"><a href="outputs.html#cb262-29" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
-<span id="cb262-30"><a href="outputs.html#cb262-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">&quot;Merged&quot;</span>, <span class="fu">everything</span>(), <span class="at">sep=</span> <span class="st">&quot;;&quot;</span>, <span class="at">na.rm =</span> T)</span>
-<span id="cb262-31"><a href="outputs.html#cb262-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb262-32"><a href="outputs.html#cb262-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors</span></span>
-<span id="cb262-33"><a href="outputs.html#cb262-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>Merged)</span>
-<span id="cb262-34"><a href="outputs.html#cb262-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="outputs.html#cb260-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_multiple <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
+<span id="cb260-2"><a href="outputs.html#cb260-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select all the columns with all the options for each select_multiple</span></span>
+<span id="cb260-3"><a href="outputs.html#cb260-3" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb260-4"><a href="outputs.html#cb260-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">contains</span>(<span class="fu">paste0</span>(col,<span class="st">&quot;/&quot;</span>)))</span>
+<span id="cb260-5"><a href="outputs.html#cb260-5" aria-hidden="true" tabindex="-1"></a>  col_internal <span class="ot">&lt;-</span> <span class="fu">colnames</span>(d.join)</span>
+<span id="cb260-6"><a href="outputs.html#cb260-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb260-7"><a href="outputs.html#cb260-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column with options</span></span>
+<span id="cb260-8"><a href="outputs.html#cb260-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_internal)){</span>
+<span id="cb260-9"><a href="outputs.html#cb260-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># change all 1&#39;s to the xml answer</span></span>
+<span id="cb260-10"><a href="outputs.html#cb260-10" aria-hidden="true" tabindex="-1"></a>    xml_answer <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col_internal[j], <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb260-11"><a href="outputs.html#cb260-11" aria-hidden="true" tabindex="-1"></a>    d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
+<span id="cb260-12"><a href="outputs.html#cb260-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, xml_answer, <span class="cn">NA</span>))</span>
+<span id="cb260-13"><a href="outputs.html#cb260-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb260-14"><a href="outputs.html#cb260-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the list of the xml and label options for each select multiple questions</span></span>
+<span id="cb260-15"><a href="outputs.html#cb260-15" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> <span class="fu">filter</span>(tool_survey, <span class="fu">str_starts</span>(name, <span class="fu">str_split</span>(col_internal[j],<span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb260-16"><a href="outputs.html#cb260-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(list_name)</span>
+<span id="cb260-17"><a href="outputs.html#cb260-17" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> choice_id<span class="sc">$</span>list_name</span>
+<span id="cb260-18"><a href="outputs.html#cb260-18" aria-hidden="true" tabindex="-1"></a>    t.choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> </span>
+<span id="cb260-19"><a href="outputs.html#cb260-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(list_name <span class="sc">==</span> choice_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb260-20"><a href="outputs.html#cb260-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label =</span> <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
+<span id="cb260-21"><a href="outputs.html#cb260-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb260-22"><a href="outputs.html#cb260-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replace the xml with label using left_join</span></span>
+<span id="cb260-23"><a href="outputs.html#cb260-23" aria-hidden="true" tabindex="-1"></a>    d.new.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(d.join[[col_internal[j]]])) <span class="sc">%&gt;%</span></span>
+<span id="cb260-24"><a href="outputs.html#cb260-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">left_join</span>(t.choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
+<span id="cb260-25"><a href="outputs.html#cb260-25" aria-hidden="true" tabindex="-1"></a>    d.join[col_internal[j]] <span class="ot">&lt;-</span> d.new.join<span class="sc">$</span>label</span>
+<span id="cb260-26"><a href="outputs.html#cb260-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb260-27"><a href="outputs.html#cb260-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb260-28"><a href="outputs.html#cb260-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># concatenate all the answers, removing NAs in one cell and separated by a &#39;;&#39; </span></span>
+<span id="cb260-29"><a href="outputs.html#cb260-29" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
+<span id="cb260-30"><a href="outputs.html#cb260-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">&quot;Merged&quot;</span>, <span class="fu">everything</span>(), <span class="at">sep=</span> <span class="st">&quot;;&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb260-31"><a href="outputs.html#cb260-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb260-32"><a href="outputs.html#cb260-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors</span></span>
+<span id="cb260-33"><a href="outputs.html#cb260-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>Merged)</span>
+<span id="cb260-34"><a href="outputs.html#cb260-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Example</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="outputs.html#cb263-1" aria-hidden="true" tabindex="-1"></a>filename_tool <span class="ot">&lt;-</span> <span class="st">&quot;enter your tool link here&quot;</span></span>
-<span id="cb263-2"><a href="outputs.html#cb263-2" aria-hidden="true" tabindex="-1"></a>filename_cleaned_data <span class="ot">&lt;-</span> <span class="st">&quot;enter your data hear&quot;</span></span>
-<span id="cb263-3"><a href="outputs.html#cb263-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-4"><a href="outputs.html#cb263-4" aria-hidden="true" tabindex="-1"></a><span class="co"># loading tool</span></span>
-<span id="cb263-5"><a href="outputs.html#cb263-5" aria-hidden="true" tabindex="-1"></a>tool_survey <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb263-6"><a href="outputs.html#cb263-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(name)) <span class="sc">%&gt;%</span> </span>
-<span id="cb263-7"><a href="outputs.html#cb263-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding two columns showing the question type and the id of the list_name choices separately</span></span>
-<span id="cb263-8"><a href="outputs.html#cb263-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q.type =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])),</span>
-<span id="cb263-9"><a href="outputs.html#cb263-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">list_name =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])))</span>
-<span id="cb263-10"><a href="outputs.html#cb263-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-11"><a href="outputs.html#cb263-11" aria-hidden="true" tabindex="-1"></a>tool_choices <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb263-12"><a href="outputs.html#cb263-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(list_name))</span>
-<span id="cb263-13"><a href="outputs.html#cb263-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-14"><a href="outputs.html#cb263-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-15"><a href="outputs.html#cb263-15" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
-<span id="cb263-16"><a href="outputs.html#cb263-16" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_cleaned_data, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>)</span>
-<span id="cb263-17"><a href="outputs.html#cb263-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-18"><a href="outputs.html#cb263-18" aria-hidden="true" tabindex="-1"></a><span class="co"># creating another data frame with changes</span></span>
-<span id="cb263-19"><a href="outputs.html#cb263-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-20"><a href="outputs.html#cb263-20" aria-hidden="true" tabindex="-1"></a>data_labeled <span class="ot">&lt;-</span> main_dataset</span>
-<span id="cb263-21"><a href="outputs.html#cb263-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-22"><a href="outputs.html#cb263-22" aria-hidden="true" tabindex="-1"></a><span class="co"># select_one values - XML to Label</span></span>
-<span id="cb263-23"><a href="outputs.html#cb263-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-24"><a href="outputs.html#cb263-24" aria-hidden="true" tabindex="-1"></a>tool_select_one <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
-<span id="cb263-25"><a href="outputs.html#cb263-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_one &quot;</span>))</span>
-<span id="cb263-26"><a href="outputs.html#cb263-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-27"><a href="outputs.html#cb263-27" aria-hidden="true" tabindex="-1"></a>col_select_one <span class="ot">&lt;-</span> tool_select_one<span class="sc">$</span>name</span>
-<span id="cb263-28"><a href="outputs.html#cb263-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-29"><a href="outputs.html#cb263-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_one)){</span>
-<span id="cb263-30"><a href="outputs.html#cb263-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_one[i]]])){</span>
-<span id="cb263-31"><a href="outputs.html#cb263-31" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_one[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_one</span>(tool_survey,tool_choices,main_dataset,col_select_one[i])</span>
-<span id="cb263-32"><a href="outputs.html#cb263-32" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb263-33"><a href="outputs.html#cb263-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb263-34"><a href="outputs.html#cb263-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-35"><a href="outputs.html#cb263-35" aria-hidden="true" tabindex="-1"></a><span class="co"># select_multiple values - XML to Label</span></span>
-<span id="cb263-36"><a href="outputs.html#cb263-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-37"><a href="outputs.html#cb263-37" aria-hidden="true" tabindex="-1"></a>tool_select_multi <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
-<span id="cb263-38"><a href="outputs.html#cb263-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_multiple &quot;</span>))</span>
-<span id="cb263-39"><a href="outputs.html#cb263-39" aria-hidden="true" tabindex="-1"></a>col_select_multi <span class="ot">&lt;-</span> tool_select_multi<span class="sc">$</span>name</span>
-<span id="cb263-40"><a href="outputs.html#cb263-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-41"><a href="outputs.html#cb263-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_multi)){</span>
-<span id="cb263-42"><a href="outputs.html#cb263-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_multi[i]]])){</span>
-<span id="cb263-43"><a href="outputs.html#cb263-43" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_multi[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_multiple</span>(tool_survey,tool_choices,main_dataset,col_select_multi[i])</span>
-<span id="cb263-44"><a href="outputs.html#cb263-44" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb263-45"><a href="outputs.html#cb263-45" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb263-46"><a href="outputs.html#cb263-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-47"><a href="outputs.html#cb263-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Column headers - XML to Label</span></span>
-<span id="cb263-48"><a href="outputs.html#cb263-48" aria-hidden="true" tabindex="-1"></a>col_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(main_dataset)</span>
-<span id="cb263-49"><a href="outputs.html#cb263-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-50"><a href="outputs.html#cb263-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_names)) {</span>
-<span id="cb263-51"><a href="outputs.html#cb263-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(data_labeled)[i] <span class="ot">&lt;-</span> <span class="fu">xml2label_question</span>(tool_survey, tool_choices, col_names[i])</span>
-<span id="cb263-52"><a href="outputs.html#cb263-52" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb263-53"><a href="outputs.html#cb263-53" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="outputs.html#cb261-1" aria-hidden="true" tabindex="-1"></a>filename_tool <span class="ot">&lt;-</span> <span class="st">&quot;enter your tool link here&quot;</span></span>
+<span id="cb261-2"><a href="outputs.html#cb261-2" aria-hidden="true" tabindex="-1"></a>filename_cleaned_data <span class="ot">&lt;-</span> <span class="st">&quot;enter your data hear&quot;</span></span>
+<span id="cb261-3"><a href="outputs.html#cb261-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-4"><a href="outputs.html#cb261-4" aria-hidden="true" tabindex="-1"></a><span class="co"># loading tool</span></span>
+<span id="cb261-5"><a href="outputs.html#cb261-5" aria-hidden="true" tabindex="-1"></a>tool_survey <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-6"><a href="outputs.html#cb261-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-7"><a href="outputs.html#cb261-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding two columns showing the question type and the id of the list_name choices separately</span></span>
+<span id="cb261-8"><a href="outputs.html#cb261-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q.type =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])),</span>
+<span id="cb261-9"><a href="outputs.html#cb261-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">list_name =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])))</span>
+<span id="cb261-10"><a href="outputs.html#cb261-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-11"><a href="outputs.html#cb261-11" aria-hidden="true" tabindex="-1"></a>tool_choices <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb261-12"><a href="outputs.html#cb261-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(list_name))</span>
+<span id="cb261-13"><a href="outputs.html#cb261-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-14"><a href="outputs.html#cb261-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-15"><a href="outputs.html#cb261-15" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
+<span id="cb261-16"><a href="outputs.html#cb261-16" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_cleaned_data, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>)</span>
+<span id="cb261-17"><a href="outputs.html#cb261-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-18"><a href="outputs.html#cb261-18" aria-hidden="true" tabindex="-1"></a><span class="co"># creating another data frame with changes</span></span>
+<span id="cb261-19"><a href="outputs.html#cb261-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-20"><a href="outputs.html#cb261-20" aria-hidden="true" tabindex="-1"></a>data_labeled <span class="ot">&lt;-</span> main_dataset</span>
+<span id="cb261-21"><a href="outputs.html#cb261-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-22"><a href="outputs.html#cb261-22" aria-hidden="true" tabindex="-1"></a><span class="co"># select_one values - XML to Label</span></span>
+<span id="cb261-23"><a href="outputs.html#cb261-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-24"><a href="outputs.html#cb261-24" aria-hidden="true" tabindex="-1"></a>tool_select_one <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb261-25"><a href="outputs.html#cb261-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_one &quot;</span>))</span>
+<span id="cb261-26"><a href="outputs.html#cb261-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-27"><a href="outputs.html#cb261-27" aria-hidden="true" tabindex="-1"></a>col_select_one <span class="ot">&lt;-</span> tool_select_one<span class="sc">$</span>name</span>
+<span id="cb261-28"><a href="outputs.html#cb261-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-29"><a href="outputs.html#cb261-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_one)){</span>
+<span id="cb261-30"><a href="outputs.html#cb261-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_one[i]]])){</span>
+<span id="cb261-31"><a href="outputs.html#cb261-31" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_one[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_one</span>(tool_survey,tool_choices,main_dataset,col_select_one[i])</span>
+<span id="cb261-32"><a href="outputs.html#cb261-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb261-33"><a href="outputs.html#cb261-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb261-34"><a href="outputs.html#cb261-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-35"><a href="outputs.html#cb261-35" aria-hidden="true" tabindex="-1"></a><span class="co"># select_multiple values - XML to Label</span></span>
+<span id="cb261-36"><a href="outputs.html#cb261-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-37"><a href="outputs.html#cb261-37" aria-hidden="true" tabindex="-1"></a>tool_select_multi <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb261-38"><a href="outputs.html#cb261-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_multiple &quot;</span>))</span>
+<span id="cb261-39"><a href="outputs.html#cb261-39" aria-hidden="true" tabindex="-1"></a>col_select_multi <span class="ot">&lt;-</span> tool_select_multi<span class="sc">$</span>name</span>
+<span id="cb261-40"><a href="outputs.html#cb261-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-41"><a href="outputs.html#cb261-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_multi)){</span>
+<span id="cb261-42"><a href="outputs.html#cb261-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_multi[i]]])){</span>
+<span id="cb261-43"><a href="outputs.html#cb261-43" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_multi[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_multiple</span>(tool_survey,tool_choices,main_dataset,col_select_multi[i])</span>
+<span id="cb261-44"><a href="outputs.html#cb261-44" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb261-45"><a href="outputs.html#cb261-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb261-46"><a href="outputs.html#cb261-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-47"><a href="outputs.html#cb261-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Column headers - XML to Label</span></span>
+<span id="cb261-48"><a href="outputs.html#cb261-48" aria-hidden="true" tabindex="-1"></a>col_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(main_dataset)</span>
+<span id="cb261-49"><a href="outputs.html#cb261-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-50"><a href="outputs.html#cb261-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_names)) {</span>
+<span id="cb261-51"><a href="outputs.html#cb261-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(data_labeled)[i] <span class="ot">&lt;-</span> <span class="fu">xml2label_question</span>(tool_survey, tool_choices, col_names[i])</span>
+<span id="cb261-52"><a href="outputs.html#cb261-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb261-53"><a href="outputs.html#cb261-53" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div id="change-from-label-to-xml" class="section level3" number="8.4.2">
-<h3><span class="header-section-number">8.4.2</span> change from label to xml</h3>
+<div id="change-from-label-to-xml" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> change from label to xml<a href="outputs.html#change-from-label-to-xml" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 </div>
-<div id="dashboarding---sharing-information" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Dashboarding - Sharing information</h2>
+<div id="dashboarding---sharing-information" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Dashboarding - Sharing information<a href="outputs.html#dashboarding---sharing-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Html files
 Tableau
 Power BI
 Shiny</p>
 </div>
-<div id="outputs-with-hypothesis-testing-results" class="section level2" number="8.6">
-<h2><span class="header-section-number">8.6</span> Outputs with hypothesis testing results</h2>
+<div id="outputs-with-hypothesis-testing-results" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Outputs with hypothesis testing results<a href="outputs.html#outputs-with-hypothesis-testing-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
