@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Pre analysis | R cookbook for analysis with REACH</title>
-  <meta name="description" content="4 Pre analysis | R cookbook for analysis with REACH" />
+  <title>4 Pre analysis | R cookbook for analysis with IMPACT</title>
+  <meta name="description" content="4 Pre analysis | R cookbook for analysis with IMPACT" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Pre analysis | R cookbook for analysis with REACH" />
+  <meta property="og:title" content="4 Pre analysis | R cookbook for analysis with IMPACT" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Pre analysis | R cookbook for analysis with REACH" />
+  <meta name="twitter:title" content="4 Pre analysis | R cookbook for analysis with IMPACT" />
   
   
   
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="downloading-data-from-kobo-server.html"/>
 <link rel="next" href="data-collection-and-processing.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,8 +50,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -94,7 +95,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +108,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -134,150 +135,155 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<li><a href="index.html#hello" id="toc-hello"><span class="toc-section-number">1</span> Hello</a></li>
+<li><a href="meta-information.html#meta-information" id="toc-meta-information"><span class="toc-section-number">2</span> Meta information</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
+<li><a href="meta-information.html#creating-the-questionnaire-object" id="toc-creating-the-questionnaire-object"><span class="toc-section-number">2.1</span> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html"><i class="fa fa-check"></i><b>3</b> Downloading data from kobo server</a>
+<li><a href="downloading-data-from-kobo-server.html#downloading-data-from-kobo-server" id="toc-downloading-data-from-kobo-server"><span class="toc-section-number">3</span> Downloading data from kobo server</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions"><i class="fa fa-check"></i><b>3.1</b> Defining the needed functions</a></li>
-<li class="chapter" data-level="3.2" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables"><i class="fa fa-check"></i><b>3.2</b> Creating data url and credentials variables</a></li>
-<li class="chapter" data-level="3.3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server"><i class="fa fa-check"></i><b>3.3</b> Fetching the data from the server</a></li>
+<li><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions" id="toc-defining-the-needed-functions"><span class="toc-section-number">3.1</span> Defining the needed functions</a></li>
+<li><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables" id="toc-creating-data-url-and-credentials-variables"><span class="toc-section-number">3.2</span> Creating data url and credentials variables</a></li>
+<li><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server" id="toc-fetching-the-data-from-the-server"><span class="toc-section-number">3.3</span> Fetching the data from the server</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>4</b> Pre analysis</a>
+<li><a href="pre-analysis.html#pre-analysis" id="toc-pre-analysis"><span class="toc-section-number">4</span> Pre analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>4.1</b> Checking the XLS kobo tools for constraints errors</a></li>
-<li class="chapter" data-level="4.2" data-path="pre-analysis.html"><a href="pre-analysis.html#sampling"><i class="fa fa-check"></i><b>4.2</b> Sampling</a>
+<li><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors" id="toc-checking-the-xls-kobo-tools-for-constraints-errors"><span class="toc-section-number">4.1</span> Checking the XLS kobo tools for constraints errors</a></li>
+<li><a href="pre-analysis.html#sampling" id="toc-sampling"><span class="toc-section-number">4.2</span> Sampling</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="pre-analysis.html"><a href="pre-analysis.html#simple-random-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Simple Random sampling</a></li>
-<li class="chapter" data-level="4.2.2" data-path="pre-analysis.html"><a href="pre-analysis.html#stratified-random-sampling"><i class="fa fa-check"></i><b>4.2.2</b> Stratified Random sampling</a></li>
-<li class="chapter" data-level="4.2.3" data-path="pre-analysis.html"><a href="pre-analysis.html#cluster-sampling"><i class="fa fa-check"></i><b>4.2.3</b> Cluster sampling</a></li>
-<li class="chapter" data-level="4.2.4" data-path="pre-analysis.html"><a href="pre-analysis.html#stages-random-sampling"><i class="fa fa-check"></i><b>4.2.4</b> 2 stages random sampling</a></li>
-<li class="chapter" data-level="4.2.5" data-path="pre-analysis.html"><a href="pre-analysis.html#sample-distribution-usin-population-raster"><i class="fa fa-check"></i><b>4.2.5</b> Sample distribution usin population raster</a></li>
-<li class="chapter" data-level="4.2.6" data-path="pre-analysis.html"><a href="pre-analysis.html#generation-of-random-sample-points"><i class="fa fa-check"></i><b>4.2.6</b> Generation of random sample points</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>5</b> Data Collection and Processing</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>5.1</b> Testing the tool</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>5.1.1</b> Creating dummy data</a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>5.2</b> Download data</a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url"><i class="fa fa-check"></i><b>5.2.1</b> Downloading Audit files using audit_URL</a></li>
-<li class="chapter" data-level="5.2.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-audit-files-using-form-name"><i class="fa fa-check"></i><b>5.2.2</b> Download audit files using form name</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>5.3</b> Data collection follow-up</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame"><i class="fa fa-check"></i><b>5.3.1</b> checking surveys against the sampling frame</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>5.4</b> Data falsification</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>5.4.1</b> Check for time (in the dataset)</a></li>
-<li class="chapter" data-level="5.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>5.4.2</b> Check for time (audit files)</a></li>
-<li class="chapter" data-level="5.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>5.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
-<li class="chapter" data-level="5.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>5.4.4</b> Silouhette analysis</a></li>
-<li class="chapter" data-level="5.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>5.4.5</b> Check for duplicates</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>5.5</b> Data checks</a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>5.5.1</b> Check for outliers</a></li>
-<li class="chapter" data-level="5.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>5.5.2</b> Check others</a></li>
-<li class="chapter" data-level="5.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>5.5.3</b> Check for logical check</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>5.6</b> cleaninginspectoR - inspect_all</a></li>
-<li class="chapter" data-level="5.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>5.7</b> Data cleaning</a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>5.7.1</b> Re-generate text column for select multiple questions</a></li>
-<li class="chapter" data-level="5.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>5.7.2</b> Clean data base on cleaning log</a></li>
-<li class="chapter" data-level="5.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>5.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
-</ul></li>
-<li class="chapter" data-level="5.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>5.8</b> Data cleaning - miscellaneous</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>5.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
-<li class="chapter" data-level="5.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>5.8.2</b> Turns label to xml</a></li>
-<li class="chapter" data-level="5.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>5.8.3</b> Statistical Disclosure Control Methods</a></li>
-</ul></li>
-<li class="chapter" data-level="5.9" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks"><i class="fa fa-check"></i><b>5.9</b> Spatial verification checks</a>
-<ul>
-<li class="chapter" data-level="5.9.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks-on-settlement-level"><i class="fa fa-check"></i><b>5.9.1</b> Spatial verification checks on settlement level</a></li>
-<li class="chapter" data-level="5.9.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#spatial-verification-checks-on-sample-point-level"><i class="fa fa-check"></i><b>5.9.2</b> Spatial verification checks on sample point level</a></li>
+<li><a href="pre-analysis.html#simple-random-sampling" id="toc-simple-random-sampling"><span class="toc-section-number">4.2.1</span> Simple Random sampling</a></li>
+<li><a href="pre-analysis.html#stratified-random-sampling" id="toc-stratified-random-sampling"><span class="toc-section-number">4.2.2</span> Stratified Random sampling</a></li>
+<li><a href="pre-analysis.html#cluster-sampling" id="toc-cluster-sampling"><span class="toc-section-number">4.2.3</span> Cluster sampling</a></li>
+<li><a href="pre-analysis.html#stages-random-sampling" id="toc-stages-random-sampling"><span class="toc-section-number">4.2.4</span> 2 stages random sampling</a></li>
+<li><a href="pre-analysis.html#sample-distribution-usin-population-raster" id="toc-sample-distribution-usin-population-raster"><span class="toc-section-number">4.2.5</span> Sample distribution usin population raster</a></li>
+<li><a href="pre-analysis.html#generation-of-random-sample-points" id="toc-generation-of-random-sample-points"><span class="toc-section-number">4.2.6</span> Generation of random sample points</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>6</b> Composite indicators</a>
+<li><a href="data-collection-and-processing.html#data-collection-and-processing" id="toc-data-collection-and-processing"><span class="toc-section-number">5</span> Data Collection and Processing</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>6.1</b> Composite with 1 categorical variable - select one</a></li>
-<li class="chapter" data-level="6.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Composite with 2 categorical variables</a></li>
-<li class="chapter" data-level="6.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>6.3</b> Composite with 1 categorical variable - select multiple</a></li>
-<li class="chapter" data-level="6.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>6.4</b> Composite with 1 numerical variable</a></li>
-<li class="chapter" data-level="6.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>6.5</b> Composite with 2 numerical variables</a></li>
-<li class="chapter" data-level="6.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>6.6</b> Composite with 2 or more numerical variables</a></li>
-<li class="chapter" data-level="6.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>6.7</b> New indicators from a loop to main dataset</a></li>
+<li><a href="data-collection-and-processing.html#testing-the-tool" id="toc-testing-the-tool"><span class="toc-section-number">5.1</span> Testing the tool</a>
+<ul>
+<li><a href="data-collection-and-processing.html#creating-dummy-data" id="toc-creating-dummy-data"><span class="toc-section-number">5.1.1</span> Creating dummy data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>7</b> Analysis</a>
+<li><a href="data-collection-and-processing.html#download-data" id="toc-download-data"><span class="toc-section-number">5.2</span> Download data</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="analysis.html"><a href="analysis.html#hypegrammar"><i class="fa fa-check"></i><b>7.1</b> hypegrammaR</a></li>
-<li class="chapter" data-level="7.2" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>7.2</b> srvyr package</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>7.2.1</b> Categorical variables</a></li>
-<li class="chapter" data-level="7.2.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>7.2.2</b> Numeric variables</a></li>
+<li><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url" id="toc-downloading-audit-files-using-audit_url"><span class="toc-section-number">5.2.1</span> Downloading Audit files using audit_URL</a></li>
+<li><a href="data-collection-and-processing.html#download-audit-files-using-form-name" id="toc-download-audit-files-using-form-name"><span class="toc-section-number">5.2.2</span> Download audit files using form name</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="analysis.html"><a href="analysis.html#butter-survey_collapse"><i class="fa fa-check"></i><b>7.3</b> butteR survey_collapse</a>
+<li><a href="data-collection-and-processing.html#data-collection-follow-up" id="toc-data-collection-follow-up"><span class="toc-section-number">5.3</span> Data collection follow-up</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>7.3.1</b> select_one</a></li>
-<li class="chapter" data-level="7.3.2" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>7.3.2</b> select_mutiple</a></li>
+<li><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame" id="toc-checking-surveys-against-the-sampling-frame"><span class="toc-section-number">5.3.1</span> checking surveys against the sampling frame</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>7.4</b> Analysis with numerical variables</a>
+<li><a href="data-collection-and-processing.html#data-falsification" id="toc-data-falsification"><span class="toc-section-number">5.4</span> Data falsification</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>7.4.1</b> Averages</a></li>
-<li class="chapter" data-level="7.4.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>7.4.2</b> Median</a></li>
+<li><a href="data-collection-and-processing.html#check-for-time-in-the-dataset" id="toc-check-for-time-in-the-dataset"><span class="toc-section-number">5.4.1</span> Check for time (in the dataset)</a></li>
+<li><a href="data-collection-and-processing.html#check-for-time-audit-files" id="toc-check-for-time-audit-files"><span class="toc-section-number">5.4.2</span> Check for time (audit files)</a></li>
+<li><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview" id="toc-check-for-time---calculating-the-elapsed-time-between-each-interview"><span class="toc-section-number">5.4.3</span> Check for time - calculating the elapsed time between each interview</a></li>
+<li><a href="data-collection-and-processing.html#silouhette-analysis" id="toc-silouhette-analysis"><span class="toc-section-number">5.4.4</span> Silouhette analysis</a></li>
+<li><a href="data-collection-and-processing.html#check-for-duplicates" id="toc-check-for-duplicates"><span class="toc-section-number">5.4.5</span> Check for duplicates</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="analysis.html"><a href="analysis.html#ratios"><i class="fa fa-check"></i><b>7.5</b> Ratios</a>
+<li><a href="data-collection-and-processing.html#data-checks" id="toc-data-checks"><span class="toc-section-number">5.5</span> Data checks</a>
 <ul>
-<li><a href="analysis.html#example1"><span class="toc-section-number">7.5.1</span> Example1:<br />
+<li><a href="data-collection-and-processing.html#check-for-outliers" id="toc-check-for-outliers"><span class="toc-section-number">5.5.1</span> Check for outliers</a></li>
+<li><a href="data-collection-and-processing.html#check-others" id="toc-check-others"><span class="toc-section-number">5.5.2</span> Check others</a></li>
+<li><a href="data-collection-and-processing.html#issue-log-function" id="toc-issue-log-function"><span class="toc-section-number">5.5.3</span> Issue log Function</a></li>
+<li><a href="data-collection-and-processing.html#check-for-logical-check" id="toc-check-for-logical-check"><span class="toc-section-number">5.5.4</span> Check for logical check</a></li>
+</ul></li>
+<li><a href="data-collection-and-processing.html#cleaninginspector---inspect_all" id="toc-cleaninginspector---inspect_all"><span class="toc-section-number">5.6</span> cleaninginspectoR - inspect_all</a></li>
+<li><a href="data-collection-and-processing.html#data-cleaning" id="toc-data-cleaning"><span class="toc-section-number">5.7</span> Data cleaning</a>
+<ul>
+<li><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions" id="toc-re-generate-text-column-for-select-multiple-questions"><span class="toc-section-number">5.7.1</span> Re-generate text column for select multiple questions</a></li>
+<li><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log" id="toc-clean-data-base-on-cleaning-log"><span class="toc-section-number">5.7.2</span> Clean data base on cleaning log</a></li>
+<li><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset" id="toc-check-cleaning-log-raw-dataset-and-clean-dataset"><span class="toc-section-number">5.7.3</span> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li><a href="data-collection-and-processing.html#data-cleaning---miscellaneous" id="toc-data-cleaning---miscellaneous"><span class="toc-section-number">5.8</span> Data cleaning - miscellaneous</a>
+<ul>
+<li><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices" id="toc-check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><span class="toc-section-number">5.8.1</span> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li><a href="data-collection-and-processing.html#turns-label-to-xml" id="toc-turns-label-to-xml"><span class="toc-section-number">5.8.2</span> Turns label to xml</a></li>
+<li><a href="data-collection-and-processing.html#statistical-disclosure-control-methods" id="toc-statistical-disclosure-control-methods"><span class="toc-section-number">5.8.3</span> Statistical Disclosure Control Methods</a></li>
+</ul></li>
+<li><a href="data-collection-and-processing.html#spatial-verification-checks" id="toc-spatial-verification-checks"><span class="toc-section-number">5.9</span> Spatial verification checks</a>
+<ul>
+<li><a href="data-collection-and-processing.html#spatial-verification-checks-on-settlement-level" id="toc-spatial-verification-checks-on-settlement-level"><span class="toc-section-number">5.9.1</span> Spatial verification checks on settlement level</a></li>
+<li><a href="data-collection-and-processing.html#spatial-verification-checks-on-sample-point-level" id="toc-spatial-verification-checks-on-sample-point-level"><span class="toc-section-number">5.9.2</span> Spatial verification checks on sample point level</a></li>
+</ul></li>
+</ul></li>
+<li><a href="composite-indicators.html#composite-indicators" id="toc-composite-indicators"><span class="toc-section-number">6</span> Composite indicators</a>
+<ul>
+<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one" id="toc-composite-with-1-categorical-variable---select-one"><span class="toc-section-number">6.1</span> Composite with 1 categorical variable - select one</a></li>
+<li><a href="composite-indicators.html#composite-with-2-categorical-variables" id="toc-composite-with-2-categorical-variables"><span class="toc-section-number">6.2</span> Composite with 2 categorical variables</a></li>
+<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple" id="toc-composite-with-1-categorical-variable---select-multiple"><span class="toc-section-number">6.3</span> Composite with 1 categorical variable - select multiple</a></li>
+<li><a href="composite-indicators.html#composite-with-1-numerical-variable" id="toc-composite-with-1-numerical-variable"><span class="toc-section-number">6.4</span> Composite with 1 numerical variable</a></li>
+<li><a href="composite-indicators.html#composite-with-2-numerical-variables" id="toc-composite-with-2-numerical-variables"><span class="toc-section-number">6.5</span> Composite with 2 numerical variables</a></li>
+<li><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables" id="toc-composite-with-2-or-more-numerical-variables"><span class="toc-section-number">6.6</span> Composite with 2 or more numerical variables</a></li>
+<li><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset" id="toc-new-indicators-from-a-loop-to-main-dataset"><span class="toc-section-number">6.7</span> New indicators from a loop to main dataset</a></li>
+</ul></li>
+<li><a href="analysis.html#analysis" id="toc-analysis"><span class="toc-section-number">7</span> Analysis</a>
+<ul>
+<li><a href="analysis.html#hypegrammar" id="toc-hypegrammar"><span class="toc-section-number">7.1</span> hypegrammaR</a></li>
+<li><a href="analysis.html#srvyr-package" id="toc-srvyr-package"><span class="toc-section-number">7.2</span> srvyr package</a>
+<ul>
+<li><a href="analysis.html#categorical-variables" id="toc-categorical-variables"><span class="toc-section-number">7.2.1</span> Categorical variables</a></li>
+<li><a href="analysis.html#numeric-variables" id="toc-numeric-variables"><span class="toc-section-number">7.2.2</span> Numeric variables</a></li>
+</ul></li>
+<li><a href="analysis.html#butter-survey_collapse" id="toc-butter-survey_collapse"><span class="toc-section-number">7.3</span> butteR survey_collapse</a>
+<ul>
+<li><a href="analysis.html#select_one" id="toc-select_one"><span class="toc-section-number">7.3.1</span> select_one</a></li>
+<li><a href="analysis.html#select_mutiple" id="toc-select_mutiple"><span class="toc-section-number">7.3.2</span> select_mutiple</a></li>
+</ul></li>
+<li><a href="analysis.html#analysis-with-numerical-variables" id="toc-analysis-with-numerical-variables"><span class="toc-section-number">7.4</span> Analysis with numerical variables</a>
+<ul>
+<li><a href="analysis.html#averages" id="toc-averages"><span class="toc-section-number">7.4.1</span> Averages</a></li>
+<li><a href="analysis.html#median" id="toc-median"><span class="toc-section-number">7.4.2</span> Median</a></li>
+</ul></li>
+<li><a href="analysis.html#ratios" id="toc-ratios"><span class="toc-section-number">7.5</span> Ratios</a>
+<ul>
+<li><a href="analysis.html#example1" id="toc-example1"><span class="toc-section-number">7.5.1</span> Example1:<br />
 </a></li>
-<li><a href="analysis.html#example2---analyzing-multiple-questions-and-combine-the-output"><span class="toc-section-number">7.5.2</span> Example2 - Analyzing multiple questions and combine the output:<br />
+<li><a href="analysis.html#example2---analyzing-multiple-questions-and-combine-the-output" id="toc-example2---analyzing-multiple-questions-and-combine-the-output"><span class="toc-section-number">7.5.2</span> Example2 - Analyzing multiple questions and combine the output:<br />
 </a></li>
-<li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.5.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
+<li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted" id="toc-example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.5.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
 </a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>7.6</b> Weights</a></li>
-<li class="chapter" data-level="7.7" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>7.7</b> Repeating the above</a></li>
-<li class="chapter" data-level="7.8" data-path="analysis.html"><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple"><i class="fa fa-check"></i><b>7.8</b> Analysis - top X / ranking (select one and select multiple)</a></li>
-<li class="chapter" data-level="7.9" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>7.9</b> Borda count</a></li>
-<li class="chapter" data-level="7.10" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>7.10</b> Hypothesis testing</a>
+<li><a href="analysis.html#weights" id="toc-weights"><span class="toc-section-number">7.6</span> Weights</a>
 <ul>
-<li class="chapter" data-level="7.10.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>7.10.1</b> T-test</a></li>
-<li class="chapter" data-level="7.10.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>7.10.2</b> ANOVA</a></li>
-<li class="chapter" data-level="7.10.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>7.10.3</b> chi-squares</a></li>
-<li class="chapter" data-level="7.10.4" data-path="analysis.html"><a href="analysis.html#chi-squared-goodness-of-fit-test"><i class="fa fa-check"></i><b>7.10.4</b> Chi-squared Goodness of Fit test</a></li>
+<li><a href="analysis.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">7.6.1</span> tidyverse</a></li>
+<li><a href="analysis.html#surveyweights" id="toc-surveyweights"><span class="toc-section-number">7.6.2</span> surveyweights</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>8</b> Outputs</a>
+<li><a href="analysis.html#repeating-the-above" id="toc-repeating-the-above"><span class="toc-section-number">7.7</span> Repeating the above</a></li>
+<li><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple" id="toc-analysis---top-x-ranking-select-one-and-select-multiple"><span class="toc-section-number">7.8</span> Analysis - top X / ranking (select one and select multiple)</a></li>
+<li><a href="analysis.html#borda-count" id="toc-borda-count"><span class="toc-section-number">7.9</span> Borda count</a></li>
+<li><a href="analysis.html#hypothesis-testing" id="toc-hypothesis-testing"><span class="toc-section-number">7.10</span> Hypothesis testing</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>8.1</b> From long to large table</a></li>
-<li class="chapter" data-level="8.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>8.2</b> Merge file</a></li>
-<li class="chapter" data-level="8.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>8.3</b> Graphs</a>
+<li><a href="analysis.html#t-test" id="toc-t-test"><span class="toc-section-number">7.10.1</span> T-test</a></li>
+<li><a href="analysis.html#anova" id="toc-anova"><span class="toc-section-number">7.10.2</span> ANOVA</a></li>
+<li><a href="analysis.html#chi-squares" id="toc-chi-squares"><span class="toc-section-number">7.10.3</span> chi-squares</a></li>
+<li><a href="analysis.html#chi-squared-goodness-of-fit-test" id="toc-chi-squared-goodness-of-fit-test"><span class="toc-section-number">7.10.4</span> Chi-squared Goodness of Fit test</a></li>
+</ul></li>
+</ul></li>
+<li><a href="outputs.html#outputs" id="toc-outputs"><span class="toc-section-number">8</span> Outputs</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>8.3.1</b> spider graphs</a></li>
-<li class="chapter" data-level="8.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>8.3.2</b> prison graphs</a></li>
-<li class="chapter" data-level="8.3.3" data-path="outputs.html"><a href="outputs.html#bar-graphs"><i class="fa fa-check"></i><b>8.3.3</b> Bar graphs</a></li>
-<li class="chapter" data-level="8.3.4" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>8.3.4</b> Euler diagram</a></li>
-<li class="chapter" data-level="8.3.5" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>8.3.5</b> Venn diagram</a></li>
-<li class="chapter" data-level="8.3.6" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>8.3.6</b> UpSet plots</a></li>
-<li class="chapter" data-level="8.3.7" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>8.3.7</b> boxplots</a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>8.4</b> Labels</a>
+<li><a href="outputs.html#from-long-to-large-table" id="toc-from-long-to-large-table"><span class="toc-section-number">8.1</span> From long to large table</a></li>
+<li><a href="outputs.html#merge-file" id="toc-merge-file"><span class="toc-section-number">8.2</span> Merge file</a></li>
+<li><a href="outputs.html#graphs" id="toc-graphs"><span class="toc-section-number">8.3</span> Graphs</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="outputs.html"><a href="outputs.html#change-from-xml-to-label"><i class="fa fa-check"></i><b>8.4.1</b> change from xml to label</a></li>
-<li class="chapter" data-level="8.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>8.4.2</b> change from label to xml</a></li>
+<li><a href="outputs.html#spider-graphs" id="toc-spider-graphs"><span class="toc-section-number">8.3.1</span> spider graphs</a></li>
+<li><a href="outputs.html#prison-graphs" id="toc-prison-graphs"><span class="toc-section-number">8.3.2</span> prison graphs</a></li>
+<li><a href="outputs.html#bar-graphs" id="toc-bar-graphs"><span class="toc-section-number">8.3.3</span> Bar graphs</a></li>
+<li><a href="outputs.html#euler-diagram" id="toc-euler-diagram"><span class="toc-section-number">8.3.4</span> Euler diagram</a></li>
+<li><a href="outputs.html#venn-diagram" id="toc-venn-diagram"><span class="toc-section-number">8.3.5</span> Venn diagram</a></li>
+<li><a href="outputs.html#upset-plots" id="toc-upset-plots"><span class="toc-section-number">8.3.6</span> UpSet plots</a></li>
+<li><a href="outputs.html#boxplots" id="toc-boxplots"><span class="toc-section-number">8.3.7</span> boxplots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>8.5</b> Dashboarding - Sharing information</a></li>
-<li class="chapter" data-level="8.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>8.6</b> Outputs with hypothesis testing results</a></li>
+<li><a href="outputs.html#labels" id="toc-labels"><span class="toc-section-number">8.4</span> Labels</a>
+<ul>
+<li><a href="outputs.html#xml-to-label" id="toc-xml-to-label"><span class="toc-section-number">8.4.1</span> Xml to Label</a></li>
+<li><a href="outputs.html#change-from-label-to-xml" id="toc-change-from-label-to-xml"><span class="toc-section-number">8.4.2</span> change from label to xml</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous</a></li>
+<li><a href="outputs.html#dashboarding---sharing-information" id="toc-dashboarding---sharing-information"><span class="toc-section-number">8.5</span> Dashboarding - Sharing information</a></li>
+<li><a href="outputs.html#outputs-with-hypothesis-testing-results" id="toc-outputs-with-hypothesis-testing-results"><span class="toc-section-number">8.6</span> Outputs with hypothesis testing results</a></li>
+</ul></li>
+<li><a href="miscellaneous.html#miscellaneous" id="toc-miscellaneous"><span class="toc-section-number">9</span> Miscellaneous</a></li>
 </ul>
 
       </nav>
@@ -287,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for analysis with REACH</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for analysis with IMPACT</a>
           </h1>
         </div>
 
@@ -295,93 +301,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pre-analysis" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Pre analysis</h1>
+<div id="pre-analysis" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Pre analysis<a href="pre-analysis.html#pre-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This section will show you different steps or tools that can be used before the
 analysis takes place such as checking your KOBO tool or following up your data
 collection.</p>
-<div id="checking-the-xls-kobo-tools-for-constraints-errors" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Checking the XLS kobo tools for constraints errors</h2>
+<div id="checking-the-xls-kobo-tools-for-constraints-errors" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Checking the XLS kobo tools for constraints errors<a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This function checks the relevant column in the questionnaire and flag issues with constraints of type (selected(question_name,question_answer)).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="pre-analysis.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb11-2"><a href="pre-analysis.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb11-3"><a href="pre-analysis.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb11-4"><a href="pre-analysis.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qdapRegex)</span>
-<span id="cb11-5"><a href="pre-analysis.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb11-6"><a href="pre-analysis.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb11-7"><a href="pre-analysis.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb11-8"><a href="pre-analysis.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb11-9"><a href="pre-analysis.html#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="pre-analysis.html#cb11-10" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
-<span id="cb11-11"><a href="pre-analysis.html#cb11-11" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;choices&quot;</span>)</span>
-<span id="cb11-12"><a href="pre-analysis.html#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="pre-analysis.html#cb11-13" aria-hidden="true" tabindex="-1"></a>check_answer_in_list <span class="ot">&lt;-</span> <span class="cf">function</span>(constraint) {</span>
-<span id="cb11-14"><a href="pre-analysis.html#cb11-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-15"><a href="pre-analysis.html#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">str_detect</span>(constraint,<span class="st">&quot;,&quot;</span>)){</span>
-<span id="cb11-16"><a href="pre-analysis.html#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb11-17"><a href="pre-analysis.html#cb11-17" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-18"><a href="pre-analysis.html#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="pre-analysis.html#cb11-19" aria-hidden="true" tabindex="-1"></a>  question_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">{([^()]+)</span><span class="sc">\\</span><span class="st">}&quot;</span></span>
-<span id="cb11-20"><a href="pre-analysis.html#cb11-20" aria-hidden="true" tabindex="-1"></a>  answer_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">&#39;([^()]+)</span><span class="sc">\\</span><span class="st">&#39;&quot;</span></span>
-<span id="cb11-21"><a href="pre-analysis.html#cb11-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-22"><a href="pre-analysis.html#cb11-22" aria-hidden="true" tabindex="-1"></a>  question <span class="ot">&lt;-</span> <span class="fu">gsub</span>(question_regex, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1&quot;</span>, <span class="fu">str_extract_all</span>(constraint, question_regex)[[<span class="dv">1</span>]])</span>
-<span id="cb11-23"><a href="pre-analysis.html#cb11-23" aria-hidden="true" tabindex="-1"></a>  answer <span class="ot">&lt;-</span> <span class="fu">gsub</span>(answer_regex, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1&quot;</span>, <span class="fu">str_extract_all</span>(constraint, answer_regex)[[<span class="dv">1</span>]])</span>
-<span id="cb11-24"><a href="pre-analysis.html#cb11-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-25"><a href="pre-analysis.html#cb11-25" aria-hidden="true" tabindex="-1"></a>  question_type <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span> </span>
-<span id="cb11-26"><a href="pre-analysis.html#cb11-26" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(name<span class="sc">==</span>question) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-27"><a href="pre-analysis.html#cb11-27" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^(begin|end)</span><span class="sc">\\</span><span class="st">s+group$&quot;</span>,type)) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-28"><a href="pre-analysis.html#cb11-28" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">pull</span>(type)</span>
-<span id="cb11-29"><a href="pre-analysis.html#cb11-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-30"><a href="pre-analysis.html#cb11-30" aria-hidden="true" tabindex="-1"></a>  listname <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;^.*</span><span class="sc">\\</span><span class="st">s&quot;</span>,<span class="st">&quot;&quot;</span>,question_type)</span>
-<span id="cb11-31"><a href="pre-analysis.html#cb11-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-32"><a href="pre-analysis.html#cb11-32" aria-hidden="true" tabindex="-1"></a>  choices_list <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name<span class="sc">==</span>listname) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(name)</span>
-<span id="cb11-33"><a href="pre-analysis.html#cb11-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-34"><a href="pre-analysis.html#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(answer <span class="sc">%in%</span> choices_list)</span>
-<span id="cb11-35"><a href="pre-analysis.html#cb11-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-36"><a href="pre-analysis.html#cb11-36" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-37"><a href="pre-analysis.html#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-38"><a href="pre-analysis.html#cb11-38" aria-hidden="true" tabindex="-1"></a>check_constraints <span class="ot">&lt;-</span> <span class="cf">function</span>(questions,choices) {</span>
-<span id="cb11-39"><a href="pre-analysis.html#cb11-39" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-40"><a href="pre-analysis.html#cb11-40" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(questions, <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;type&quot;</span>), <span class="sc">~</span><span class="fu">str_trim</span>(.))</span>
-<span id="cb11-41"><a href="pre-analysis.html#cb11-41" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(choices, <span class="fu">c</span>(<span class="st">&quot;list_name&quot;</span>, <span class="st">&quot;name&quot;</span>), <span class="sc">~</span><span class="fu">str_trim</span>(.))</span>
-<span id="cb11-42"><a href="pre-analysis.html#cb11-42" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-43"><a href="pre-analysis.html#cb11-43" aria-hidden="true" tabindex="-1"></a>  all_contraints <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&quot;selected&quot;</span>,relevant)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(relevant)</span>
-<span id="cb11-44"><a href="pre-analysis.html#cb11-44" aria-hidden="true" tabindex="-1"></a>  all_contraints <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39;&quot;&#39;</span>,<span class="st">&quot;&#39;&quot;</span>,all_contraints)</span>
-<span id="cb11-45"><a href="pre-analysis.html#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-46"><a href="pre-analysis.html#cb11-46" aria-hidden="true" tabindex="-1"></a>  rs_list <span class="ot">&lt;-</span> <span class="fu">map</span>(all_contraints,<span class="sc">~</span><span class="fu">map_lgl</span>(<span class="fu">unlist</span>(<span class="fu">ex_default</span>(.x, <span class="at">pattern =</span> <span class="st">&quot;selected</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)&quot;</span>)),check_answer_in_list))</span>
-<span id="cb11-47"><a href="pre-analysis.html#cb11-47" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-48"><a href="pre-analysis.html#cb11-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map2</span>(rs_list,<span class="fu">seq_along</span>(rs_list), <span class="sc">~</span> <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span>.x))<span class="sc">!=</span><span class="dv">0</span>) {</span>
-<span id="cb11-49"><a href="pre-analysis.html#cb11-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">unlist</span>(<span class="fu">ex_default</span>(all_contraints[.y], <span class="at">pattern =</span> <span class="st">&quot;selected</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)&quot;</span>))[<span class="fu">which</span>(<span class="sc">!</span>.x)])</span>
-<span id="cb11-50"><a href="pre-analysis.html#cb11-50" aria-hidden="true" tabindex="-1"></a>  } ) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb11-51"><a href="pre-analysis.html#cb11-51" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-52"><a href="pre-analysis.html#cb11-52" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="pre-analysis.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb8-2"><a href="pre-analysis.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb8-3"><a href="pre-analysis.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb8-4"><a href="pre-analysis.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qdapRegex)</span>
+<span id="cb8-5"><a href="pre-analysis.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb8-6"><a href="pre-analysis.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb8-7"><a href="pre-analysis.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb8-8"><a href="pre-analysis.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb8-9"><a href="pre-analysis.html#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="pre-analysis.html#cb8-10" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
+<span id="cb8-11"><a href="pre-analysis.html#cb8-11" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;choices&quot;</span>)</span>
+<span id="cb8-12"><a href="pre-analysis.html#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="pre-analysis.html#cb8-13" aria-hidden="true" tabindex="-1"></a>check_answer_in_list <span class="ot">&lt;-</span> <span class="cf">function</span>(constraint) {</span>
+<span id="cb8-14"><a href="pre-analysis.html#cb8-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-15"><a href="pre-analysis.html#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">str_detect</span>(constraint,<span class="st">&quot;,&quot;</span>)){</span>
+<span id="cb8-16"><a href="pre-analysis.html#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb8-17"><a href="pre-analysis.html#cb8-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-18"><a href="pre-analysis.html#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="pre-analysis.html#cb8-19" aria-hidden="true" tabindex="-1"></a>  question_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">{([^()]+)</span><span class="sc">\\</span><span class="st">}&quot;</span></span>
+<span id="cb8-20"><a href="pre-analysis.html#cb8-20" aria-hidden="true" tabindex="-1"></a>  answer_regex <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">&#39;([^()]+)</span><span class="sc">\\</span><span class="st">&#39;&quot;</span></span>
+<span id="cb8-21"><a href="pre-analysis.html#cb8-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-22"><a href="pre-analysis.html#cb8-22" aria-hidden="true" tabindex="-1"></a>  question <span class="ot">&lt;-</span> <span class="fu">gsub</span>(question_regex, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1&quot;</span>, <span class="fu">str_extract_all</span>(constraint, question_regex)[[<span class="dv">1</span>]])</span>
+<span id="cb8-23"><a href="pre-analysis.html#cb8-23" aria-hidden="true" tabindex="-1"></a>  answer <span class="ot">&lt;-</span> <span class="fu">gsub</span>(answer_regex, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">1&quot;</span>, <span class="fu">str_extract_all</span>(constraint, answer_regex)[[<span class="dv">1</span>]])</span>
+<span id="cb8-24"><a href="pre-analysis.html#cb8-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-25"><a href="pre-analysis.html#cb8-25" aria-hidden="true" tabindex="-1"></a>  question_type <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span> </span>
+<span id="cb8-26"><a href="pre-analysis.html#cb8-26" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(name<span class="sc">==</span>question) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-27"><a href="pre-analysis.html#cb8-27" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^(begin|end)</span><span class="sc">\\</span><span class="st">s+group$&quot;</span>,type)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-28"><a href="pre-analysis.html#cb8-28" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">pull</span>(type)</span>
+<span id="cb8-29"><a href="pre-analysis.html#cb8-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-30"><a href="pre-analysis.html#cb8-30" aria-hidden="true" tabindex="-1"></a>  listname <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;^.*</span><span class="sc">\\</span><span class="st">s&quot;</span>,<span class="st">&quot;&quot;</span>,question_type)</span>
+<span id="cb8-31"><a href="pre-analysis.html#cb8-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-32"><a href="pre-analysis.html#cb8-32" aria-hidden="true" tabindex="-1"></a>  choices_list <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name<span class="sc">==</span>listname) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(name)</span>
+<span id="cb8-33"><a href="pre-analysis.html#cb8-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-34"><a href="pre-analysis.html#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(answer <span class="sc">%in%</span> choices_list)</span>
+<span id="cb8-35"><a href="pre-analysis.html#cb8-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-36"><a href="pre-analysis.html#cb8-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-37"><a href="pre-analysis.html#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="pre-analysis.html#cb8-38" aria-hidden="true" tabindex="-1"></a>check_constraints <span class="ot">&lt;-</span> <span class="cf">function</span>(questions,choices) {</span>
+<span id="cb8-39"><a href="pre-analysis.html#cb8-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-40"><a href="pre-analysis.html#cb8-40" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(questions, <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;type&quot;</span>), <span class="sc">~</span><span class="fu">str_trim</span>(.))</span>
+<span id="cb8-41"><a href="pre-analysis.html#cb8-41" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(choices, <span class="fu">c</span>(<span class="st">&quot;list_name&quot;</span>, <span class="st">&quot;name&quot;</span>), <span class="sc">~</span><span class="fu">str_trim</span>(.))</span>
+<span id="cb8-42"><a href="pre-analysis.html#cb8-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-43"><a href="pre-analysis.html#cb8-43" aria-hidden="true" tabindex="-1"></a>  all_contraints <span class="ot">&lt;-</span> questions <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&quot;selected&quot;</span>,relevant)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(relevant)</span>
+<span id="cb8-44"><a href="pre-analysis.html#cb8-44" aria-hidden="true" tabindex="-1"></a>  all_contraints <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39;&quot;&#39;</span>,<span class="st">&quot;&#39;&quot;</span>,all_contraints)</span>
+<span id="cb8-45"><a href="pre-analysis.html#cb8-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="pre-analysis.html#cb8-46" aria-hidden="true" tabindex="-1"></a>  rs_list <span class="ot">&lt;-</span> <span class="fu">map</span>(all_contraints,<span class="sc">~</span><span class="fu">map_lgl</span>(<span class="fu">unlist</span>(<span class="fu">ex_default</span>(.x, <span class="at">pattern =</span> <span class="st">&quot;selected</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)&quot;</span>)),check_answer_in_list))</span>
+<span id="cb8-47"><a href="pre-analysis.html#cb8-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-48"><a href="pre-analysis.html#cb8-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map2</span>(rs_list,<span class="fu">seq_along</span>(rs_list), <span class="sc">~</span> <span class="cf">if</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span>.x))<span class="sc">!=</span><span class="dv">0</span>) {</span>
+<span id="cb8-49"><a href="pre-analysis.html#cb8-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">unlist</span>(<span class="fu">ex_default</span>(all_contraints[.y], <span class="at">pattern =</span> <span class="st">&quot;selected</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)&quot;</span>))[<span class="fu">which</span>(<span class="sc">!</span>.x)])</span>
+<span id="cb8-50"><a href="pre-analysis.html#cb8-50" aria-hidden="true" tabindex="-1"></a>  } ) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb8-51"><a href="pre-analysis.html#cb8-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-52"><a href="pre-analysis.html#cb8-52" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Call this function by passing the questionnaire and choices and the output will be the list of wrong constraints of type (selected(question_name,question_answer)) if any. An error means that the answer does not exist in the choices sheet</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="pre-analysis.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_constraints</span>(questions,choices) </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="pre-analysis.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_constraints</span>(questions,choices) </span></code></pre></div>
 <pre><code>## [1] &quot;selected(${b10_hohh_vulnerability}, &#39;older_person_60plus&#39;)&quot;</code></pre>
 </div>
-<div id="sampling" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Sampling</h2>
-<div id="simple-random-sampling" class="section level3" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Simple Random sampling</h3>
+<div id="sampling" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Sampling<a href="pre-analysis.html#sampling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="simple-random-sampling" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Simple Random sampling<a href="pre-analysis.html#simple-random-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="stratified-random-sampling" class="section level3" number="4.2.2">
-<h3><span class="header-section-number">4.2.2</span> Stratified Random sampling</h3>
+<div id="stratified-random-sampling" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Stratified Random sampling<a href="pre-analysis.html#stratified-random-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="cluster-sampling" class="section level3" number="4.2.3">
-<h3><span class="header-section-number">4.2.3</span> Cluster sampling</h3>
+<div id="cluster-sampling" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Cluster sampling<a href="pre-analysis.html#cluster-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="stages-random-sampling" class="section level3" number="4.2.4">
-<h3><span class="header-section-number">4.2.4</span> 2 stages random sampling</h3>
+<div id="stages-random-sampling" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> 2 stages random sampling<a href="pre-analysis.html#stages-random-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="sample-distribution-usin-population-raster" class="section level3" number="4.2.5">
-<h3><span class="header-section-number">4.2.5</span> Sample distribution usin population raster</h3>
+<div id="sample-distribution-usin-population-raster" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Sample distribution usin population raster<a href="pre-analysis.html#sample-distribution-usin-population-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="generation-of-random-sample-points" class="section level3" number="4.2.6">
-<h3><span class="header-section-number">4.2.6</span> Generation of random sample points</h3>
+<div id="generation-of-random-sample-points" class="section level3 hasAnchor" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Generation of random sample points<a href="pre-analysis.html#generation-of-random-sample-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It is quite common practice to select survey locations before data collection, using randomly distributed points. In this case, the enumerator finds the location of a certain sample point using mobile device navigation tools and conducts an interview near that location. That practice ensures that all survey locations were selected in a random manner.
 <br>
 First, let’s join our sampling frame (in this case it was generated with <a href="https://impact-initiatives.shinyapps.io/r_sampling_tool_v2/">Probability sampling tool</a>) to the settlement polygons and generate a random set of points within each polygon. We will use settlement polygons but it’s possible to use rectangle or hexagon fishnet with interview numbers distributed using population raster to obtain sample size that will correspond with settlement population density.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="pre-analysis.html#cb14-1" aria-hidden="true" tabindex="-1"></a>ADM4 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;inputs/MSNA20_ADM4.geojson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="pre-analysis.html#cb11-1" aria-hidden="true" tabindex="-1"></a>ADM4 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;inputs/MSNA20_ADM4.geojson&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `MSNA20_ADM4&#39; from data source 
 ##   `C:\Users\Yann SAY\Desktop\git\rcookbook\inputs\MSNA20_ADM4.geojson&#39; 
 ##   using driver `GeoJSON&#39;
@@ -390,50 +396,50 @@ First, let’s join our sampling frame (in this case it was generated with <a hr
 ## Dimension:     XY
 ## Bounding box:  xmin: 37.24611 ymin: 47.02683 xmax: 39.73611 ymax: 48.98579
 ## Geodetic CRS:  WGS 84</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="pre-analysis.html#cb16-1" aria-hidden="true" tabindex="-1"></a>sampling_frame <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/sampling_frame20200701-132150.csv&quot;</span>)</span>
-<span id="cb16-2"><a href="pre-analysis.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="pre-analysis.html#cb16-3" aria-hidden="true" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4 <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="pre-analysis.html#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">right_join</span>(sampling_frame, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;adm4Pcd&quot;</span> <span class="ot">=</span> <span class="st">&quot;adm4Pcode&quot;</span>))</span>
-<span id="cb16-5"><a href="pre-analysis.html#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="pre-analysis.html#cb16-6" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(ADM4_for_sample, <span class="fu">rep</span>(ADM4_for_sample<span class="sc">$</span>Survey, <span class="fu">nrow</span>(ADM4_for_sample)))<span class="sc">%&gt;%</span></span>
-<span id="cb16-7"><a href="pre-analysis.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  st_as_sf</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="pre-analysis.html#cb13-1" aria-hidden="true" tabindex="-1"></a>sampling_frame <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/sampling_frame20200701-132150.csv&quot;</span>)</span>
+<span id="cb13-2"><a href="pre-analysis.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="pre-analysis.html#cb13-3" aria-hidden="true" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4 <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="pre-analysis.html#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">right_join</span>(sampling_frame, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;adm4Pcd&quot;</span> <span class="ot">=</span> <span class="st">&quot;adm4Pcode&quot;</span>))</span>
+<span id="cb13-5"><a href="pre-analysis.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="pre-analysis.html#cb13-6" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(ADM4_for_sample, <span class="fu">rep</span>(ADM4_for_sample<span class="sc">$</span>Survey, <span class="fu">nrow</span>(ADM4_for_sample)))<span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="pre-analysis.html#cb13-7" aria-hidden="true" tabindex="-1"></a>  st_as_sf</span></code></pre></div>
 <p>Now we would need to transfer attributes from the settlement layer to our random points.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="pre-analysis.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first we should generate indexes that will be used for this transfer</span></span>
-<span id="cb17-2"><a href="pre-analysis.html#cb17-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_along</span>(ADM4_for_sample<span class="sc">$</span>Survey), ADM4_for_sample<span class="sc">$</span>Survey)</span>
-<span id="cb17-3"><a href="pre-analysis.html#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="pre-analysis.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#now we should add indexes to the settlement layer and then join this layer to the random points</span></span>
-<span id="cb17-5"><a href="pre-analysis.html#cb17-5" aria-hidden="true" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4_for_sample <span class="sc">%&gt;%</span></span>
-<span id="cb17-6"><a href="pre-analysis.html#cb17-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb17-7"><a href="pre-analysis.html#cb17-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.data.frame</span>(<span class="at">row.names =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))<span class="sc">%&gt;%</span></span>
-<span id="cb17-8"><a href="pre-analysis.html#cb17-8" aria-hidden="true" tabindex="-1"></a>                   tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;index&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb17-9"><a href="pre-analysis.html#cb17-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">mutate_at</span>(<span class="dv">1</span>, as.numeric)</span>
-<span id="cb17-10"><a href="pre-analysis.html#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="pre-analysis.html#cb17-11" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(sample_all_pnt)<span class="sc">%&gt;%</span></span>
-<span id="cb17-12"><a href="pre-analysis.html#cb17-12" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb17-13"><a href="pre-analysis.html#cb17-13" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">bind_cols</span>(index)<span class="sc">%&gt;%</span></span>
-<span id="cb17-14"><a href="pre-analysis.html#cb17-14" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">set_colnames</span>(<span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>,<span class="st">&quot;Latitude_pnt&quot;</span>,<span class="st">&quot;index&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb17-15"><a href="pre-analysis.html#cb17-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">left_join</span>(ADM4_for_sample, <span class="at">by =</span> <span class="st">&quot;index&quot;</span>)</span>
-<span id="cb17-16"><a href="pre-analysis.html#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="pre-analysis.html#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#with the code below we will get the unique id for each point that will have a settlement name and point number</span></span>
-<span id="cb17-18"><a href="pre-analysis.html#cb17-18" aria-hidden="true" tabindex="-1"></a>sample_all_pnt<span class="sc">$</span>GPS_id <span class="ot">&lt;-</span> <span class="fu">paste</span>(sample_all_pnt<span class="sc">$</span>adm4NmL, data.table<span class="sc">::</span><span class="fu">rowid</span>(sample_all_pnt<span class="sc">$</span>adm4NmL), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
-<span id="cb17-19"><a href="pre-analysis.html#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-20"><a href="pre-analysis.html#cb17-20" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="at">x =</span> sample_all_pnt, </span>
-<span id="cb17-21"><a href="pre-analysis.html#cb17-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>, <span class="st">&quot;Latitude_pnt&quot;</span>),</span>
-<span id="cb17-22"><a href="pre-analysis.html#cb17-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span>
-<span id="cb17-23"><a href="pre-analysis.html#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-24"><a href="pre-analysis.html#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co">#and now we can visualize our random points for some settlement to check their distribution</span></span>
-<span id="cb17-25"><a href="pre-analysis.html#cb17-25" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="sc">%&gt;%</span></span>
-<span id="cb17-26"><a href="pre-analysis.html#cb17-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(adm4NmL <span class="sc">==</span> <span class="st">&quot;Bakhmut&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb17-27"><a href="pre-analysis.html#cb17-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(adm4NmL)<span class="sc">%&gt;%</span></span>
-<span id="cb17-28"><a href="pre-analysis.html#cb17-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="pre-analysis.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first we should generate indexes that will be used for this transfer</span></span>
+<span id="cb14-2"><a href="pre-analysis.html#cb14-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_along</span>(ADM4_for_sample<span class="sc">$</span>Survey), ADM4_for_sample<span class="sc">$</span>Survey)</span>
+<span id="cb14-3"><a href="pre-analysis.html#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="pre-analysis.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#now we should add indexes to the settlement layer and then join this layer to the random points</span></span>
+<span id="cb14-5"><a href="pre-analysis.html#cb14-5" aria-hidden="true" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4_for_sample <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="pre-analysis.html#cb14-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="pre-analysis.html#cb14-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.data.frame</span>(<span class="at">row.names =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))<span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="pre-analysis.html#cb14-8" aria-hidden="true" tabindex="-1"></a>                   tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;index&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="pre-analysis.html#cb14-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">mutate_at</span>(<span class="dv">1</span>, as.numeric)</span>
+<span id="cb14-10"><a href="pre-analysis.html#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="pre-analysis.html#cb14-11" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(sample_all_pnt)<span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="pre-analysis.html#cb14-12" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="pre-analysis.html#cb14-13" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">bind_cols</span>(index)<span class="sc">%&gt;%</span></span>
+<span id="cb14-14"><a href="pre-analysis.html#cb14-14" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">set_colnames</span>(<span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>,<span class="st">&quot;Latitude_pnt&quot;</span>,<span class="st">&quot;index&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb14-15"><a href="pre-analysis.html#cb14-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">left_join</span>(ADM4_for_sample, <span class="at">by =</span> <span class="st">&quot;index&quot;</span>)</span>
+<span id="cb14-16"><a href="pre-analysis.html#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="pre-analysis.html#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#with the code below we will get the unique id for each point that will have a settlement name and point number</span></span>
+<span id="cb14-18"><a href="pre-analysis.html#cb14-18" aria-hidden="true" tabindex="-1"></a>sample_all_pnt<span class="sc">$</span>GPS_id <span class="ot">&lt;-</span> <span class="fu">paste</span>(sample_all_pnt<span class="sc">$</span>adm4NmL, data.table<span class="sc">::</span><span class="fu">rowid</span>(sample_all_pnt<span class="sc">$</span>adm4NmL), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb14-19"><a href="pre-analysis.html#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="pre-analysis.html#cb14-20" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="at">x =</span> sample_all_pnt, </span>
+<span id="cb14-21"><a href="pre-analysis.html#cb14-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>, <span class="st">&quot;Latitude_pnt&quot;</span>),</span>
+<span id="cb14-22"><a href="pre-analysis.html#cb14-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span>
+<span id="cb14-23"><a href="pre-analysis.html#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="pre-analysis.html#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#and now we can visualize our random points for some settlement to check their distribution</span></span>
+<span id="cb14-25"><a href="pre-analysis.html#cb14-25" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="sc">%&gt;%</span></span>
+<span id="cb14-26"><a href="pre-analysis.html#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(adm4NmL <span class="sc">==</span> <span class="st">&quot;Bakhmut&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-27"><a href="pre-analysis.html#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(adm4NmL)<span class="sc">%&gt;%</span></span>
+<span id="cb14-28"><a href="pre-analysis.html#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>The last step will be to export the sample points into any suitable GIS format (GeoJSON, Shapefile, KML, etc.) and transfer that file to the mobile devices of the enumerators.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="pre-analysis.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check if there are directory for the outputs and write there output geojson file</span></span>
-<span id="cb18-2"><a href="pre-analysis.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) {</span>
-<span id="cb18-3"><a href="pre-analysis.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)</span>
-<span id="cb18-4"><a href="pre-analysis.html#cb18-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-5"><a href="pre-analysis.html#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="pre-analysis.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(sample_all_pnt, <span class="st">&quot;outputs/sample_points.geojson&quot;</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="pre-analysis.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check if there are directory for the outputs and write there output geojson file</span></span>
+<span id="cb15-2"><a href="pre-analysis.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) {</span>
+<span id="cb15-3"><a href="pre-analysis.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)</span>
+<span id="cb15-4"><a href="pre-analysis.html#cb15-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-5"><a href="pre-analysis.html#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="pre-analysis.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(sample_all_pnt, <span class="st">&quot;outputs/sample_points.geojson&quot;</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Deleting source `outputs/sample_points.geojson&#39; using driver `GeoJSON&#39;
 ## Writing layer `sample_points&#39; to data source 
 ##   `outputs/sample_points.geojson&#39; using driver `GeoJSON&#39;
@@ -499,6 +505,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
