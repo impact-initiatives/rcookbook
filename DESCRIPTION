@@ -4,6 +4,7 @@ Version: 1.0.0.0
 Authors@R: c(
     person("Yann", "Say", email = "yann.say@impact-initiatives.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7390-4209")),
+    person("Assil", "Ben Amor", email = "massilbenamor@gmail.com", role = "aut"),
     person("Amnah", "Harahsheh", email = "amnah.harahsheh@reach-initiative.org", role = "aut"),
     person("Hanna", "Kurovska", email = "solem675@gmail.com", role = "aut", 
            comment = c(ORCID = "0000-0001-7257-6875")),
@@ -15,6 +16,7 @@ Authors@R: c(
     person("Ahmed", "Mohamoud", email = "axmedmaxamuud@yahoo.com", role = "ctb", 
            comment = c(ORCID = "0000-0003-3943-5987")),
     person("Khaibar", "Omari", email = "khaibar.omari7@gmail.com", role = "ctb"),
+    person("Damiano", "Scanferla", email = "damiano.scanferla@gmail.com", role = "ctb"),
     person("Yaroslav", "Smirnov", email = "sl.smirnow@gmail.com", role = "ctb", 
            comment = c(ORCID = "0000-0002-6653-8159")))
 Description: This is book aims to be a small collection of code used
