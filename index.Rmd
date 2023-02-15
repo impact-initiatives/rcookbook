@@ -1,6 +1,6 @@
 ---
 title: "R cookbook for analysis with IMPACT"
-author: "R CoP"
+author: "R Squad"
 site: bookdown::bookdown_site
 documentclass: book
 output:
