@@ -207,7 +207,7 @@ dfsvy %>%
 ```
 To calculate the weigthed percent mean of a multiple response option you need to created a srvyr object including the weights. The syntax is similar to dyplr and allows for the total columns
 
-```{r}
+```{r eval=F}
 weighted_object <- main_dataset %>% as_survey_design(ids = X_uuid, weights = stratum.weight)
 
 weighted_table <- weighted_object %>% 
@@ -384,12 +384,126 @@ This is a great format for manipulating/filtering and then graphing with ggplot
 
 ```
 
-### select_one 
-### select_mutiple
+## illuminate::survey_analysis
+`survey_analysis()` calculate the (un)weighted mean/proporation/median and unweighted count for all existing variable is the data set. If the variable is categorical then it calculates proportion, and for numeric variables it calculates mean and median. Note that all the choice multiple columns should be logical otherwise unweighted count/count by subset will be wrong. `illuminate::fix_data_type` can prepare the data or you can read the data with `illuminate::read_sheet`, which prepare the data while reading. 
 
-## Analysis with numerical variables
-### Averages
-###Summarytools (CRAN package)
+### EXAMPLE :: Survey analysis 
+
+###### Step 0:: Call libraries
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(illuminate)
+library(tidyverse)
+library(purrr)
+library(readxl)
+library(openxlsx)
+library(srvyr)
+```
+
+
+
+
+###### Step 1:: Read data
+Read data with `read_sheets()`. This will make sure your data is stored as appropriate data type. It is important to make sure that all the select multiple are stored as logical, otherwise un weighted count will be wrong. It is recommended to use the `read_sheets()` to read the data. use ``?read_sheets()` for more details. 
+``` {r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#  [recommended] read_sheets("[datapath]",data_type_fix = T,remove_all_NA_col = T,na_strings = c("NA",""," "))
+data_up<-read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+
+
+```
+The above code will give a dataframe  called `data_up`
+
+
+
+###### Step OPTIONAL:: Preaparing the data
+
+<span style="color: red;">ONLY APPLICABLE WHEN YOU ARE NOT READING YOUR DATA WITH `read_sheets()`</span>
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# data_up <- read_excel("data/data.xlsx")
+data_up <- fix_data_type(df = data_up)
+```
+
+
+###### Step 2:: Weight calculation
+To do the weighted analysis, you will need to calculate the weights. If your dataset already have the weights column then you can ignore this part
+
+###### Read sampleframe
+``` {r, eval=F,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+read_sheets("data/sampling_frame.xlsx")
+```
+
+
+This will give a dataframe called `sampling frame`
+
+``` {r, eval=F, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+weights <- data_up %>% group_by(governorate1) %>% summarise(
+  survey_count = n()
+) %>% left_join(sampling_frame,by =c("governorate1"="strata.names")) %>% 
+  mutate(sample_global=sum(survey_count),
+         pop_global=sum(population),
+         survey_weight= (population/pop_global)/(survey_count/sample_global)) %>% select(governorate1,survey_weight)
+```
+
+
+
+###### Add weights to the dataframe
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+data_up <- data_up %>% left_join(weights)
+```
+
+
+
+
+
+###### Step 3.1:: Weighted analysis
+
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+overall_analysis <- survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",strata = "governorate1")
+```
+
+###### Step 3.2:: Unweighted analysis
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+columns_to_analyze <- data_up[20:50] %>% names() 
+overall_analysis <- survey_analysis(df = data_up,weights = F,vars_to_analyze = columns_to_analyze )
+
+DT::datatable(overall_analysis,caption = "Example::Analysis table")
+```
+
+###### Step 3.3:: Weighted and disaggregated by gender analysis
+
+Use `?survey_analysis()` to know about the perameters. 
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code. Please define the name of the columns which you would like to analyze. Default will analyze all the variables exist in the dataset. 
+analysis_by_gender <-  survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",vars_to_analyze = columns_to_analyze,
+                                       strata = "governorate1",disag = c("va_child_income","gender_speaker"))
+```
+
+
+
+###### Step 4:: Export with `write_formatted_excel()`
+You can use any function to export the analysis however `write_formatted_excel()` can export formatted file. See the documentation for more details
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+write_list <- list(overall_analysis ="overall_analysis",
+                   analysis_by_gender ="analysis_by_gender"
+)
+write_formatted_excel(write_list,"analysis_output.xlsx",
+                      header_front_size = 12,
+                      body_front = "Times")
+```
+
+
+
+
+<!-- ### select_one  -->
+<!-- ### select_mutiple -->
+
+<!-- ## Analysis with numerical variables -->
+<!-- ### Averages -->
+<!-- ###Summarytools (CRAN package) -->
 
 ###hypegrammaR / koboquest / butteR
 
@@ -455,7 +569,7 @@ The arguments are: dataset, disaggregation variable, question to analyze, and we
 **Disaggregation variable**: b9_hohh_marital_status\
 **weights column**: stratum.weight\
 
-```{r}
+```{r, eval=FALSE}
 
 ratios_select_multiple <-
   function(df, x_var, y_prefix, weights_var) {
@@ -489,7 +603,7 @@ head(res)
 **Disaggregation variable**: b9_hohh_marital_status\
 **weights column**: stratum.weight\
 
-```{r}
+```{r, eval=F}
 res <-
   do.call("full_join", map(
     c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
@@ -505,7 +619,7 @@ head(res)
 **Disaggregation variable**: NA\
 **weights column**: NA\
 
-```{r}
+```{r,  eval=F}
 
 
 main_dataset$all <- "all"
@@ -536,7 +650,7 @@ Using any sampling calculator, for a 95% confindence level, 5% margin of error a
 
 If we look at each strata and the highest level of education completed by the household head (**b20_hohh_level_education**), we can see that the percentage of household were the head of household completed higher education varies between between 7 to 13 % in each strata.
 
-```{r, echo = F}
+```{r,  eval=F,echo = F}
 main_dataset %>% 
   group_by(strata, b20_hohh_level_education) %>% 
   tally() %>% 
