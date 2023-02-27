@@ -25,7 +25,9 @@ Description: This is book aims to be a small collection of code used
     exhaustive but just examples.
 License: MIT + file LICENSE
 Imports:
+    bookdown,
     data.table,
+    devtools,
     dplyr,
     eulerr,
     expss,
@@ -34,15 +36,17 @@ Imports:
     jsonlite,
     kableExtra,
     lubridate,
+    magrittr,
     nngeo,
     openxlsx,
     plotly,
     purrr,
     qdapRegex,
     readr,
-    readxl
+    readxl,
     httr,
     reshape,
+    scales,
     sdcMicro,
     sf,
     sjmisc,
@@ -50,6 +54,7 @@ Imports:
     srvyr,
     stringr,
     survey,
+    table,
     tibble,
     tidyr,
     tidyverse,

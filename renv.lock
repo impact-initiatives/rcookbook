@@ -2314,10 +2314,10 @@
     },
     "sdcMicro": {
       "Package": "sdcMicro",
-      "Version": "5.7.4",
+      "Version": "5.7.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4f6f2239147b37ad3514e027a68e9107",
+      "Hash": "124c0484da08cef2f4d72b7d21cb0d81",
       "Requirements": [
         "DT",
         "MASS",
