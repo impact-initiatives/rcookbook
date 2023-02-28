@@ -7,8 +7,7 @@ library(readxl)
 library(sjmisc)
 library(purrr)
 library(tidyr)
-library(sf)
-library(nngeo)
+
 
 main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
 
@@ -1035,92 +1034,4 @@ print(objSDC, "risk")
 
 ```
 
-## Spatial verification checks
-### Spatial verification checks on settlement level
-One of the important checks is to ensure that all surveys were collected in the correct locations (areas, settlements, sample points). The usual procedure to perform such checks is to compare GNSS-coordinates obtained by the data collection device with enumerator input that indicates data collection location
-
-First, let's generate random spatial coordinates (as real coordinates were excluded as part of personal data) and select columns that we need for cleaning.
-```{r}
-main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
-
-main_dataset$X_r6_gpslocation_latitude <- runif(nrow(main_dataset), min = 47, max = 48)
-main_dataset$X_r6_gpslocation_longitude <- runif(nrow(main_dataset), min = 37, max = 40)
-
-spatial_component <- main_dataset %>%
-  select(r3_current_settlement,adm4NameLat,X_r6_gpslocation_latitude,X_r6_gpslocation_longitude,X_uuid)%>%
-  setNames(c("code_settlement_dataset","name_settlement_dataset","latitude","longitude","X_uuid"))
-```
-
-Now with [sf library](https://cran.r-project.org/web/packages/sf/index.html) we should open geojson file with settlements boundaries and convert our dataset into sf data type.
-```{r}
-ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
-
-spatial_component <- st_as_sf(x = spatial_component, 
-                    coords = c("longitude", "latitude"),
-                    crs = "+proj=longlat +datum=WGS84")
-```
-
-With st_join() function from [nngeo library](https://cran.r-project.org/web/packages/nngeo/index.html) we are doing spatial join of interviews locations and settlement boundaries. Parameter "maxdist" specifies that join should be performed for all the points that are within 1000 meters from the closest polygon. After that, we compare the code of the closest settlement and the settlement code chosen by the enumerator. In case there is a difference in the codes we put "CHECK" status for such interviews and clarify interview location with the Field team.
-*Keep in mind that for this example we used random coordinates so most likely all the interviews will have "CHECK" status*
-```{r Spatial join, results='hide'}
-spatial_component <- st_join(spatial_component, ADM4, join = st_nn, k = 1, maxdist = 1000)
-
-spatial_component$spatial_check <- ifelse(spatial_component$code_settlement_dataset == spatial_component$adm4NmL
-                                          & !is.na(spatial_component$adm4NmL),
-                                          "OK",
-                                          "CHECK")
-```
-
-Print number of interviews that needs review
-```{r}
-print(paste("Number interviews to check",unlist(table(spatial_component$spatial_check))))
-```
-### Spatial verification checks on sample point level
-Previous spatial verification check can identify surveys that were collected in the wrong area (settlement). But if you are using random  sampling points (as described in [Generation of random sample points]) you can also check how your surveys corresponds with initially planned sample points.
-<br>
-To perform spatial verification on sample point level we should add our sample ids to the dataset (*of course in a real-life scenario you will already have them in your dataset*). Also, we should open initial sampling points generated at the sampling stage and that were used by the enumerators.
-```{r}
-spatial_component$GPS_id_data <- paste(spatial_component$name_settlement_dataset,
-                                  data.table::rowid(spatial_component$name_settlement_dataset), sep = "_")
-
-sample_points <- st_read(dsn = "outputs/sample_points.geojson")
-```
-
-Now let's use again st_join() function but this time apply it on two point layers. We would put argument k equal 3 that will give us sample ids of 3 points in the dataset that are located in 1 km radius from our initial sample points. In case function return NA value it will mean that there are no points were collected near our planned sample point.
-<br>
-*Keep in mind that for this book we are using randomly generated survey locations so most of the points will have NA or CHECK status*
-```{r Spatial join - point level, results='hide'}
-#first let's run st_join() function. You can reduce or increase maxdist value considering your circumstances.
-sample_point_check <- st_join(spatial_component, sample_points, join = st_nn, k = 3, maxdist = 1000)%>%
-  distinct()
-
-#now we should reshape our dataset and select only columns with point ids
-sample_point_check <- reshape2::dcast(sample_point_check, X_uuid + GPS_id_data  ~ GPS_id, value.var = "GPS_id", 
-                                      fun.aggregate =  NULL)
-
-sample_point_check <- as.data.frame(t(apply(sample_point_check,1, function(x) { return(c(x[!is.na(x)],x[is.na(x)]) )} )))%>%
-                      select(where(function(x) any(!is.na(x))))%>%
-                      set_names(c("uuid", "GPS_id", "pnt_1", "pnt_2", "pnt_3"))
-
-#and as a final step, we should mark all the interviews that will need additional review
-sample_point_check$Sample_Check <- ifelse(sample_point_check$GPS_id == sample_point_check$pnt_1 | 
-                                          sample_point_check$GPS_id == sample_point_check$pnt_2 | 
-                                          sample_point_check$GPS_id == sample_point_check$pnt_3, 
-                                          "OK", 
-                                          "CHECK")
-```
-
-Usually, there are always some interviews that were collected not accordingly to the sampling plan. They can be either too far away from the planned sample location or has different sample id due to enumerator mistake. Such cases are better to review manually using any GIS software (QGIS/ArcGIS Pro/ArcGIS Online/Google Earth Pro). But first, you will need to export your sample points into any spatial format (like geojson).
-```{r}
-#join spatial check on sample point level with spatial check on settlement level
-spatial_component <- spatial_component %>%
-                     left_join(sample_point_check, by = c("X_uuid" = "uuid"))
-
-#check if there are directory for the outputs and write there output geojson file
-if(!dir.exists("outputs")) {
-  dir.create("outputs")
-}
-
-st_write(spatial_component, "outputs/spatial_component_check.geojson", delete_dsn = TRUE)
-```
 
