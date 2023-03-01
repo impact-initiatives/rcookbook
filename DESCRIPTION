@@ -61,13 +61,15 @@ Imports:
     tidyverse,
     UpSetR,
     weights,
-    xlsformfill
+    xlsformfill,
+    impactR
 Remotes:
     impact-initiatives/cleaninginspectoR,
     impact-initiatives/hypegrammaR,
     impact-initiatives/kobostandards,
     impact-initiatives/surveyweights,
-    impact-initiatives/xlsformfill
+    impact-initiatives/xlsformfill,
+    gnoblet/impactR
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
