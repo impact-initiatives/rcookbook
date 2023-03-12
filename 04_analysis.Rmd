@@ -699,6 +699,8 @@ library(impactR)
 
 Though it has been used for several research cycles, including MSNAs, there is no test designed in the package. One discrepancy will be corrected in the next version using function `make_analysis_from_dap()`: it for now assumes that all `id_analysis` are distinct and not NAs when using `bind = TRUE`. The next version will also have a new feature: unweighted counts and some automation for select one and select multiple questions.
 
+Grouping is for now only possible for one variable. If you want to disagregate for instance by setting (rural vs. urban) and admin1, then you must mutate a new variable beforehand (it is as simple as pasting both columns).
+
 #### Rational
 
 The package is a wrapper around `srvyr`. The workflow is as follows:
@@ -795,6 +797,129 @@ impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), gro
 ## It means that unprotected water springs and open pit is the most common profile for rural hhs (12%), where as the most common profile for urban hhs is flush and pour toilet and tap water with national network (7%).
 
 ```
+
+### Third stage: one analysis at a time with the Kobo tool
+
+Now that we understands the `svy_*()` family of functions, we can use `make_analysis()` which is a wrapper around those for making analysis for medians, means, ratios, proportions of select ones and select multiples. The output has standardized columns,
+
+
+Let's say you don't have a full DAP sheet, and you just want to make individual analyses.
+
+1- Proportion for a single choice question:
+```{r impactR-prop-simple, eval = FALSE}
+# Single choice question, sanitation facility type
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", level = 0.95, vartype = "ci")
+
+# Same thing without labels, do not get labels of choices
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", get_label = FALSE)
+
+# Single choice question, by group setting (rural vs. urban) - group needs to be a character string here
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", group = "milieu")
+```
+2- Proportion overall: calculate the proportion with NAs as a category, this can be useful in case of a skip logic and you want to make the calculation over the whole population:
+```{r impactR-prop-simple-overall, eval = FALSE}
+# Single choice question: 
+impactR::make_analysis(design, survey, choices, r_1_date_reception_assistance, "prop_simple_overall", none_label = "No assistance received, do not know, prefere not to say, or missing data")
+```
+
+3- Multiple proportion:
+```{r impactR-prop-multiple, eval = FALSE}
+# Multiple choice question, here computing self-reported priority needs
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple", level = 0.95, vartype = "ci")
+
+# Multiple choice question, with no label and with groups
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple", get_label = FALSE, group = "milieu")
+```
+
+4- Multiple proportion overall: calculate the proportion for each choice over the whole population (replaces NAs by 0s in the dummy columns):
+```{r impactR-prop-multiple-overall, eval = FALSE}
+# Multiple choice question, estimates calculated over the whole population.
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple_overall")
+
+```
+
+5- Mean, median and counting numeric as character:
+```{r impactR-numeric, eval = FALSE}
+# Mean of interviewee's age
+impactR::make_analysis(design, survey, choices, i_enquete_age, "mean")
+
+# Median of interviewee's age
+impactR::make_analysis(design, survey, choices, i_enquete_age, "median")
+
+# Proportion counting a numeric variable as a character variable
+# Could be used for some particular numeric variables. For instance, below is the % of HHs by daily duration of access to electricity by setting (rural or urban).
+impactR::make_analysis(design, survey, choices, a_6_acces_courant, "count_numeric", group = "milieu")
+
+```
+
+6 - Last but not least, ratios (it does not consider NAs). For this, it is only necessary to write a character string with the two variable names separated by a comma:
+```{r impactR-ratio, eval = FALSE}
+# Let's calculate the % of children aged 3-17 that were registered to a formal school among the HHs that reported having children aged 3-17.
+impactR::make_analysis(design, survey, choices, "e_formellet,c_total_age_3a_17a", "ratio")
+```
+
+
+#### Fourth stage: Using a data analysis plan
+
+Now we can use a dap, which mainly consists of a dataframe with needed informations for performing the analysis. One line is one requested analysis. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
+
+```{r impactR-make_analysis_from_dap}
+# Here I produce a three-line DAP directly in R just for the sake of the example.
+dap <- tibble::tibble(
+  # Column: unique analaysis id identifier
+  id_analysis = c("foodsec_1", "foodsec_3", "foodsec_3"),
+  # Column: sector/research question
+  rq = c("FSL", "FSL", "FSL"),
+  # Column: sub-sector, sub research question
+  sub_rq = c("Food security", "Food security", "Livelihoods"),
+  # Column: indicator name
+  indicator = c("% of HHs by FCS category", "% of HHs by HHS level", "% of HHs by LCSI category"),
+  # Column: recall period
+  recall = c("7 days", "30 days", "30 days"),
+  # Column: the variable name in the dataset 
+  question_name = c("fcs_cat", "hhs_cat", "lcs_cat"),
+  # Column: subset (to be written by hand, does the calculation operates on a substed of the population)
+  subset = c(NA_character_, NA_character_, NA_character_),
+  # Column: analysis name to be passed to `make_analysis()`
+  analysis = c("prop_simple", "prop_simple", "prop_simple"),
+  # Column: analysis name used to be displayed later on
+  analysis_name = c("Proportion", "Proportion", "Proportion"),
+  # Column: if using analysis "prop_simple_overall", what is the label for NAs, passed through `make_analysis()`
+  none_label = c(NA_character_, NA_character_, NA_character_),
+  # Column: group label
+  group_name = "General population",
+  # Column: group variable from which to disaggregate (setting as an example)
+  group = c("milieu", "milieu", "milieu"),
+  # Column: level of confidence
+  level = c(0.95, 0.95, 0.95),
+  # Column: should NAs be removed?
+  na_rm = c("TRUE", "TRUE", "TRUE"),
+  # Column! var type, here we want confidence intervals
+  vartype = c("ci", "ci", "ci")
+)
+
+dap
+
+```
+
+
+Let's produce an analysis: 
+```{r}
+# Getting a list
+an <- impactR::make_analysis_from_dap(design, survey, choices, dap)
+# Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels
+
+# Getting a long dataframe
+impactR::make_analysis_from_dap(design, survey, choices, dap, bind = TRUE) |> head(10)
+
+# To perform the same analysis without grouping, you can just replace the "group" variable by NAs
+dap |> 
+  srvyr::mutate(group = rep(NA_character_, 3)) |> 
+  impactR::make_analysis_from_dap(design, survey, choices, dap = _, bind = TRUE) |> 
+  head(10)
+
+```
+
 
 
 
