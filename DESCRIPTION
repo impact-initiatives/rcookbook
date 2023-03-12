@@ -55,7 +55,8 @@ Imports:
     tidyverse,
     UpSetR,
     weights,
-    impactR
+    impactR,
+    janitor
 Remotes:
     impact-initiatives/cleaninginspectoR,
     impact-initiatives/hypegrammaR,

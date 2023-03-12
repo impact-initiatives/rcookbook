@@ -1256,6 +1256,32 @@
         "uuid"
       ]
     },
+    "impactR": {
+      "Package": "impactR",
+      "Version": "0.9.7.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "impactR",
+      "RemoteUsername": "gnoblet",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "437ccab8a3fda48fde574b1e0ccbb81bf542546d",
+      "Hash": "6c9aa2267d4cc0fa5e18afee5010e107",
+      "Requirements": [
+        "dplyr",
+        "glue",
+        "janitor",
+        "lubridate",
+        "purrr",
+        "readr",
+        "readxl",
+        "rlang",
+        "srvyr",
+        "stringr",
+        "tibble",
+        "tidyr"
+      ]
+    },
     "insight": {
       "Package": "insight",
       "Version": "0.14.2",
@@ -1271,6 +1297,27 @@
       "Repository": "CRAN",
       "Hash": "7ab57a6de7f48a8dc84910d1eca42883",
       "Requirements": []
+    },
+    "janitor": {
+      "Package": "janitor",
+      "Version": "2.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5baae149f1082f466df9d1442ba7aa65",
+      "Requirements": [
+        "dplyr",
+        "hms",
+        "lifecycle",
+        "lubridate",
+        "magrittr",
+        "purrr",
+        "rlang",
+        "snakecase",
+        "stringi",
+        "stringr",
+        "tidyr",
+        "tidyselect"
+      ]
     },
     "jpeg": {
       "Package": "jpeg",
@@ -2170,6 +2217,22 @@
         "magrittr"
       ]
     },
+    "rio": {
+      "Package": "rio",
+      "Version": "0.5.29",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9ee902fb3142b159f60bdb4eaf763a3a",
+      "Requirements": [
+        "curl",
+        "data.table",
+        "foreign",
+        "haven",
+        "openxlsx",
+        "readxl",
+        "tibble"
+      ]
+    },
     "rlang": {
       "Package": "rlang",
       "Version": "1.0.6",
@@ -2314,10 +2377,10 @@
     },
     "sdcMicro": {
       "Package": "sdcMicro",
-      "Version": "5.7.4",
+      "Version": "5.7.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4f6f2239147b37ad3514e027a68e9107",
+      "Hash": "124c0484da08cef2f4d72b7d21cb0d81",
       "Requirements": [
         "DT",
         "MASS",
@@ -2430,6 +2493,17 @@
         "rlang",
         "sjlabelled",
         "tidyselect"
+      ]
+    },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4079070fc210c7901c0832a3aeab894f",
+      "Requirements": [
+        "stringi",
+        "stringr"
       ]
     },
     "sourcetools": {
@@ -2873,10 +2947,10 @@
     },
     "units": {
       "Package": "units",
-      "Version": "0.8-0",
+      "Version": "0.8-1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6c374b265ba437f8d384ec7a313edd96",
+      "Hash": "81433967f9b34a120a4f5a5a016cd5ed",
       "Requirements": [
         "Rcpp"
       ]
