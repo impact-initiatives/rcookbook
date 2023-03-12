@@ -710,7 +710,72 @@ The package is a wrapper around `srvyr`. The workflow is as follows:
 
 #### Prepare data
 
-Data must have been imported with `ìmport_xlsx()` or `import_csv()` or some other way. Yet column names for multiple choices must follow this pattern "variable_choice1", with an underscore between the variable name from the survey sheet and the choices from the choices sheet. For instance, for the main drinking water source (if multiple choice), it could be "w_water_source_surface_water" or "w_water_source_stand_pipe".
+Data must have been imported with `ìmport_xlsx()` or `import_csv()` or with `janitor::clean_names()`. This is to ensure that column names for multiple choices follow this pattern: "variable_choice1", with an underscore between the variable name from the survey sheet and the choices from the choices sheet. For instance, for the main drinking water source (if multiple choice), it could be "w_water_source_surface_water" or "w_water_source_stand_pipe".
+
+
+### First stage: prepare data and survey design
+
+We start by downloading a dataset and the associated Kobo tool.
+
+```{r impactR-load-data}
+# Obtain data directly from the REACH Resource Center
+library(rio)
+
+# Sheet main contains the HH data
+main <- rio::import("https://www.impact-repository.org/document/reach/e2e66cb1/REACH_HTI_dataset_MSNA-2022.xlsx", 
+                    sheet = "main",
+                    # To ensure that no NA are produced on columns mainly composed of NAs
+                    guess_max = 21474836)
+
+# Sheet survey contains the survey sheet
+survey <- rio::import("https://www.impact-repository.org/document/reach/e2e66cb1/REACH_HTI_dataset_MSNA-2022.xlsx", 
+                    sheet = "survey",
+                    # To ensure that no NA are produced on columns mainly composed of NAs
+                    guess_max = 21474836)
+
+# Sheet choices contains, well, the choices sheet
+choices <- rio::import("https://www.impact-repository.org/document/reach/e2e66cb1/REACH_HTI_dataset_MSNA-2022.xlsx", 
+                    sheet = "choices",
+                    # To ensure that no NA are produced on columns mainly composed of NAs
+                    guess_max = 21474836)
+```
+
+Let's prepare:
+
+- data with `janitor::clean_names()` to ensure lower case and only underscore (no dots, no /, etc.).
+- survey and choices: let's separate column type from survey and rename the label column we want to keep to `label`, otherwise most functions won't work.
+
+
+```{r impactR-prepare-data-kobo}
+main <- main |> 
+  # To get clean_names()
+  janitor::clean_names() |> 
+  # To get better types
+  readr::type_convert()
+
+
+survey <- survey |> 
+  # To get clean names
+  janitor::clean_names() |> 
+  # To get two columns one for the variable type, and one for the list_name
+  impactR::split_survey(type) |> 
+  # To get one column labelled "label" if multiple languages are used
+  dplyr::rename(label = label_francais)
+
+choices <- choices |> 
+  janitor::clean_names() |> 
+  dplyr::rename(label = label_francais)
+```
+
+Now that the dataset and the Kobo tool are loaded, we can prepare the survey design:
+```{r impactR-prepare-survey-design}
+design <- main |> 
+  srvyr::as_survey_design(
+    strata = stratum,
+    weights = weights)
+
+```
+
 
 
 
