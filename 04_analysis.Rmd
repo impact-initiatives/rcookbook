@@ -677,6 +677,45 @@ sum(main_dataset$my_weights) == nrow(main_dataset)
 ```
 
 
+
+## impactR, based on `srvyr`
+
+
+`impactR` was at first designed for helping data officers to cover most of the research cycles' parts, from producing cleaning log, cleaning data, and analyzing it. It is available for download here: https://gnoblet.github.io/impactR/.
+
+The visualization (post-analysis) component has now been moved to package `visualizeR`: https://gnoblet.github.io/visualizeR/. Composite indicators now lies into `humind` : https://github.com/gnoblet/humind. Analysis is still a module of `impactR`; yet it will most probably shortly be moved to a smaller consolidated packages.
+
+There are some vignettes/some documentation on the Github website.
+
+You can install and load it with: 
+```{r impactR-install-load}
+# devtools::install_github("gnoblet/impactR")
+library(impactR)
+```
+
+### Introduction
+
+#### Caveats
+
+Though it has been used for several research cycles, including MSNAs, there is no test designed in the package. One discrepancy will be corrected in the next version using function `make_analysis_from_dap()`: it for now assumes that all `id_analysis` are distinct and not NAs when using `bind = TRUE`. The next version will also have a new feature: unweighted counts and some automation for select one and select multiple questions.
+
+#### Rational
+
+The package is a wrapper around `srvyr`. The workflow is as follows:
+
+1. Prepare data: Get your data, weights, strata ready, and prepare a survey design object (using `srvyr::as_survey_design()`).
+2. Individual general analysis: It has a small family of functions `svy_*()` such as `svy_prop()` which are wrappers around the `srvyr::survey_*()` family in order to harmonize outputs. These functions can be used on their owns and covers mean, median, ration, proportion, interaction.
+3. Individual analysis based on a Kobo tool: Prepare your Kobo tool, then use `make_analysis()`.
+4. Multiple analyses based on a Kobo tool: Prepare your Data Analysis Plan, then feed `make_analysis_from_dap()`.
+
+#### Prepare data
+
+Data must have been imported with `ìmport_xlsx()` or `import_csv()` or some other way. Yet column names for multiple choices must follow this pattern "variable_choice1", with an underscore between the variable name from the survey sheet and the choices from the choices sheet. For instance, for the main drinking water source (if multiple choice), it could be "w_water_source_surface_water" or "w_water_source_stand_pipe".
+
+
+
+
+
 ## Repeating the above
 
 ## Analysis - top X / ranking (select one and select multiple)
