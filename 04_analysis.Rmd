@@ -776,6 +776,26 @@ design <- main |>
 
 ```
 
+### Second stage: One variable analysis
+
+Let's give a few examples for the `svy_*()` family.
+
+```{r impactR-svy-family}
+# Median of respondent's age, with the confidence interval, no grouped analysis
+impactR::svy_median(design, i_enquete_age, vartype = "ci")
+
+# Proportion of respondent's gender, with the confidence interval, by setting (rural vs. urban)
+impactR::svy_prop(design, i_enquete_genre, milieu, vartype = "ci")
+
+# Ratio of the number of 0-17 yo children that attended school, with the confidence interval and no group
+impactR::svy_ratio(design, e_formellet, c_total_age_3a_17a, vartype = "ci")
+
+# Top 6 common profiles between type of sanitation and source of drinking water, by setting
+impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), group = milieu, vartype = "ci") |> head(6)
+## It means that unprotected water springs and open pit is the most common profile for rural hhs (12%), where as the most common profile for urban hhs is flush and pour toilet and tap water with national network (7%).
+
+```
+
 
 
 
