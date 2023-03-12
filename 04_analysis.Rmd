@@ -685,7 +685,7 @@ sum(main_dataset$my_weights) == nrow(main_dataset)
 
 The visualization (post-analysis) component has now been moved to package `visualizeR`: https://gnoblet.github.io/visualizeR/. Composite indicators now lies into `humind` : https://github.com/gnoblet/humind. Analysis is still a module of `impactR`; yet it will most probably shortly be moved to a smaller consolidated packages.
 
-There are some vignettes/some documentation on the Github website.
+There are some vignettes/some documentation on the Github website. In particular this one for analysis: https://gnoblet.github.io/impactR/articles/analysis.html.
 
 You can install and load it with: 
 ```{r impactR-install-load}
@@ -775,8 +775,6 @@ design <- main |>
     weights = weights)
 
 ```
-
-
 
 
 
