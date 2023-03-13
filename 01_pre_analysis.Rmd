@@ -12,7 +12,6 @@ library(stringr)
 library(purrr)
 library(readxl)
 library(qdapRegex)
-library(sf)
 library(tidyr)
 library(magrittr)
 library(dplyr)
@@ -75,61 +74,5 @@ check_constraints(questions,choices)
 ### Cluster sampling
 ### 2 stages random sampling
 ### Sample distribution usin population raster
-### Generation of random sample points
-It is quite common practice to select survey locations before data collection, using randomly distributed points. In this case, the enumerator finds the location of a certain sample point using mobile device navigation tools and conducts an interview near that location. That practice ensures that all survey locations were selected in a random manner.
-<br>
-First, let's join our sampling frame (in this case it was generated with [Probability sampling tool](https://impact-initiatives.shinyapps.io/r_sampling_tool_v2/)) to the settlement polygons and generate a random set of points within each polygon. We will use settlement polygons but it's possible to use rectangle or hexagon fishnet with interview numbers distributed using population raster to obtain sample size that will correspond with settlement population density. 
-```{r}
-ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
-sampling_frame <- read.csv("inputs/sampling_frame20200701-132150.csv")
 
-ADM4_for_sample <- ADM4 %>%
-        right_join(sampling_frame, by = c("adm4Pcd" = "adm4Pcode"))
-
-sample_all_pnt <- st_sample(ADM4_for_sample, rep(ADM4_for_sample$Survey, nrow(ADM4_for_sample)))%>%
-  st_as_sf
-```
-
-Now we would need to transfer attributes from the settlement layer to our random points.
-```{r, message= F, warning=F}
-#first we should generate indexes that will be used for this transfer
-index <- rep(seq_along(ADM4_for_sample$Survey), ADM4_for_sample$Survey)
-
-#now we should add indexes to the settlement layer and then join this layer to the random points
-ADM4_for_sample <- ADM4_for_sample %>%
-                   st_drop_geometry()%>%
-                   as.data.frame(row.names = 1:nrow(.))%>%
-                   tibble::rownames_to_column(var = "index")%>%
-                   mutate_at(1, as.numeric)
-
-sample_all_pnt <- st_coordinates(sample_all_pnt)%>%
-                  as.data.frame()%>%
-                  bind_cols(index)%>%
-                  set_colnames(c("Longitude_pnt","Latitude_pnt","index"))%>%
-                  left_join(ADM4_for_sample, by = "index")
-
-#with the code below we will get the unique id for each point that will have a settlement name and point number
-sample_all_pnt$GPS_id <- paste(sample_all_pnt$adm4NmL, data.table::rowid(sample_all_pnt$adm4NmL), sep = "_")
-
-sample_all_pnt <- st_as_sf(x = sample_all_pnt, 
-                    coords = c("Longitude_pnt", "Latitude_pnt"),
-                    crs = "+proj=longlat +datum=WGS84")
-
-#and now we can visualize our random points for some settlement to check their distribution
-sample_all_pnt %>%
-  filter(adm4NmL == "Bakhmut")%>%
-  select(adm4NmL)%>%
-  plot()
-
-```
-
-The last step will be to export the sample points into any suitable GIS format (GeoJSON, Shapefile, KML, etc.) and transfer that file to the mobile devices of the enumerators.
-```{r}
-#check if there are directory for the outputs and write there output geojson file
-if(!dir.exists("outputs")) {
-  dir.create("outputs")
-}
-
-st_write(sample_all_pnt, "outputs/sample_points.geojson", delete_dsn = TRUE)
-```
 

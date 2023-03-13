@@ -1065,8 +1065,8 @@ The population information should come from the sampling frame that was used to 
 ##         sample_strata = sample.counts)
 ##     return(weights[df[[data.stratum.column]]])
 ## }
-## &lt;bytecode: 0x00000226f6c86e80&gt;
-## &lt;environment: 0x00000226806a2780&gt;</code></pre>
+## &lt;bytecode: 0x000001e92c3b32e0&gt;
+## &lt;environment: 0x000001e925e23e10&gt;</code></pre>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="analysis.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_weigthing_function</span>(main_dataset) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## Warning in my_weigthing_function(main_dataset): &#39;weights&#39; is used as a column
 ## name (will not be calculated from the sampling frame)</code></pre>
@@ -1517,8 +1517,9 @@ Fortunately, R provides us with the third parameter, which allows us to skip thi
 <p>The use with the single choice question</p>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="analysis.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chi2_ind_wtd</span>(<span class="at">x =</span> <span class="st">&quot;f11_dinking_water_source&quot;</span>, <span class="at">y =</span> <span class="st">&quot;strata&quot;</span>,</span>
 <span id="cb226-2"><a href="analysis.html#cb226-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">weight =</span> <span class="st">&quot;stratum.weight&quot;</span>, main_dataset)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;strata&#39;. You can override using
-## the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by
+## &#39;strata&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 8 × 11
 ##   var_dep_val          dep_var_nam  base chisq    df        p hypo  `20km_rural`
 ##   &lt;chr&gt;                &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;

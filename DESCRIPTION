@@ -25,7 +25,10 @@ Description: This is book aims to be a small collection of code used
     exhaustive but just examples.
 License: MIT + file LICENSE
 Imports:
+    bookdown,
+    cleaninginspectoR,
     data.table,
+    devtools,
     dplyr,
     eulerr,
     expss,
@@ -33,23 +36,26 @@ Imports:
     ggpubr,
     jsonlite,
     kableExtra,
+    kobostandards,
     lubridate,
-    nngeo,
+    magrittr,
     openxlsx,
     plotly,
     purrr,
     qdapRegex,
     readr,
-    readxl
+    readxl,
     httr,
+    hypegrammaR,
     reshape,
+    scales,
     sdcMicro,
-    sf,
     sjmisc,
     spatstat,
     srvyr,
     stringr,
     survey,
+    surveyweights,
     tibble,
     tidyr,
     tidyverse,
@@ -57,6 +63,7 @@ Imports:
     weights,
     impactR,
     janitor
+    xlsformfill,
 Remotes:
     impact-initiatives/cleaninginspectoR,
     impact-initiatives/hypegrammaR,
