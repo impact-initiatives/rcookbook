@@ -593,7 +593,7 @@ impactR::make_analysis(design, survey, choices, "e_formellet,c_total_age_3a_17a"
 
 #### Fourth stage: Using a data analysis plan
 
-Now we can use a dap, which mainly consists of a dataframe with needed informations for performing the analysis. One line is one requested analysis. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
+Now we can use a dap, which mainly consists of a dataframe with needed informations for performing the analysis. One line is one requested analysis. All columns must be present. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
 
 ```{r impactR-make_analysis_from_dap}
 # Here I produce a three-line DAP directly in R just for the sake of the example.
