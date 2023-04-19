@@ -517,13 +517,13 @@ impactR::svy_ratio(design, e_formellet, c_total_age_3a_17a, vartype = "ci")
 
 # Top 6 common profiles between type of sanitation and source of drinking water, by setting
 impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), group = milieu, vartype = "ci") |> head(6)
-## It means that unprotected water springs and open pit is the most common profile for rural hhs (12%), where as the most common profile for urban hhs is flush and pour toilet and tap water with national network (7%).
+## It means that unprotected water springs and open pit is the most common profile for rural hhs (12%), whereas the most common profile for urban hhs is flush and pour toilet and tap water with national network (7%).
 
 ```
 
 ### Third stage: one analysis at a time with the Kobo tool
 
-Now that we understands the `svy_*()` family of functions, we can use `make_analysis()` which is a wrapper around those for making analysis for medians, means, ratios, proportions of select ones and select multiples. The output has standardized columns,
+Now that we understands the `svy_*()` family of functions, we can use `make_analysis()` which is a wrapper around those for making analysis for medians, means, ratios, proportions of select ones and select multiples. The output of `make_analysis()` has standardized columns among all types of analysis and labels are pulled out if possible thanks to the survey and choices sheets.
 
 
 Let's say you don't have a full DAP sheet, and you just want to make individual analyses.
