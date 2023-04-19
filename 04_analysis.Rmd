@@ -525,7 +525,6 @@ impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), gro
 
 Now that we understands the `svy_*()` family of functions, we can use `make_analysis()` which is a wrapper around those for making analysis for medians, means, ratios, proportions of select ones and select multiples. The output of `make_analysis()` has standardized columns among all types of analysis and labels are pulled out if possible thanks to the survey and choices sheets.
 
-
 Let's say you don't have a full DAP sheet, and you just want to make individual analyses.
 
 1- Proportion for a single choice question:
@@ -584,7 +583,7 @@ impactR::make_analysis(design, survey, choices, "e_formellet,c_total_age_3a_17a"
 
 #### Fourth stage: Using a data analysis plan
 
-Now we can use a dap, which mainly consists of a dataframe with needed informations for performing the analysis. One line is one requested analysis. All columns must be present. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
+Now we can use a dap, which mainly consists of a data frame with needed information for performing the analysis. One line is one requested analysis. All variables in the dap must exist in the dataset to be analysed. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
 
 ```{r impactR-make_analysis_from_dap}
 # Here I produce a three-line DAP directly in R just for the sake of the example.
