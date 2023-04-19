@@ -452,26 +452,17 @@ Data must have been imported with `ìmport_xlsx()` or `import_csv()` or with `ja
 We start by downloading a dataset and the associated Kobo tool.
 
 ```{r impactR-load-data}
-# Obtain data directly from the REACH Resource Center
-library(rio)
+# The dataset (main and roster sheets), and the Kobo tool sheets are saved as a RDS object
+all <- readRDS("inputs/REACH_HTI_dataset_MSNA-2022.RDS")
 
 # Sheet main contains the HH data
-main <- rio::import("https://www.impact-repository.org/document/reach/e2e66cb1/REACH_HTI_dataset_MSNA-2022.xlsx", 
-                    sheet = "main",
-                    # To ensure that no NA are produced on columns mainly composed of NAs
-                    guess_max = 21474836)
+main <- all$main
 
 # Sheet survey contains the survey sheet
-survey <- rio::import("https://www.impact-repository.org/document/reach/e2e66cb1/REACH_HTI_dataset_MSNA-2022.xlsx", 
-                    sheet = "survey",
-                    # To ensure that no NA are produced on columns mainly composed of NAs
-                    guess_max = 21474836)
+survey <- all$survey
 
 # Sheet choices contains, well, the choices sheet
-choices <- rio::import("https://www.impact-repository.org/document/reach/e2e66cb1/REACH_HTI_dataset_MSNA-2022.xlsx", 
-                    sheet = "choices",
-                    # To ensure that no NA are produced on columns mainly composed of NAs
-                    guess_max = 21474836)
+choices <- all$choices
 ```
 
 Let's prepare:
