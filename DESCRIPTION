@@ -62,7 +62,7 @@ Imports:
     UpSetR,
     weights,
     impactR,
-    janitor
+    janitor,
     xlsformfill,
 Remotes:
     impact-initiatives/cleaninginspectoR,
@@ -71,7 +71,8 @@ Remotes:
     impact-initiatives/surveyweights,
     impact-initiatives/xlsformfill,
     zackarno/butteR,
-    gnoblet/impactR
+    gnoblet/impactR,
+    mhkhan27/illuminate
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

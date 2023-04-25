@@ -1388,6 +1388,7 @@
         "tibble",
         "tidyr"
       ]
+    },
     "ini": {
       "Package": "ini",
       "Version": "0.3.1",
