@@ -1,0 +1,3624 @@
+---
+title: "R cookbook for analysis with IMPACT"
+author: "R Squad"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+---
+# Hello 
+Hello, 
+
+This is book aims to be a small collection of code used across different mission. It will show you examples of different problems you can face and you could solve them. Those codes are not exhaustive but just examples.
+
+<!--chapter:end:index.Rmd-->
+
+# Meta information
+There should be here the libraries, dataset, odk and sampling frame and any other thing.
+Note that some variables were NA'ed (age, etc.) In addition, it seems the weights are already added, and both loops where combined already.
+
+```{r, warning=FALSE, message=FALSE }
+## Importing dataset and questionnaire 
+library(magrittr)
+library(dplyr)
+library(readxl)
+library(hypegrammaR)
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
+
+main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+```
+
+## Creating the questionnaire object
+
+```{r, tidy=FALSE, warning=FALSE, results='hide', message=FALSE}
+
+
+questionnaire <- load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
+
+# Downloading data from kobo server 
+
+```{r include=FALSE}
+library(httr)
+library(readr) 
+library(tidyverse) 
+library(jsonlite)
+```
+
+## Defining the needed functions
+```{r}
+kobohr_getforms_csv <-function(url,u,pw){
+  rawdata<-GET(url,authenticate(u,pw),progress())
+  d_content_csv <-read_csv(content(rawdata,"raw",encoding = "UTF-8"))
+}
+
+download_data <-function(url,u,pw){
+  
+  rawdata<- GET(url,authenticate(u,pw),progress())
+  d_content <- read_csv(content(rawdata,"raw",encoding = "UTF-8"),na = c("n/a","")) %>% setNames(gsub("/",".",names(.))) 
+  
+  d_content
+
+}
+
+create_export <-function(type,lang,fields_from_all_versions,hierarchy_in_labels,group_sep,asset_uid,kobo_user,Kobo_pw){
+  api_url_export<-paste0(kobo_server_url,"exports/")
+  api_url_asset<-paste0(kobo_server_url,"assets/",asset_uid,"/")
+  api_url_export_asset<-paste0(kobo_server_url,"exports/",asset_uid,"/")
+  #
+  d<-list(source=api_url_asset,
+          type=type,
+          lang=lang,
+          fields_from_all_versions=fields_from_all_versions,
+          hierarchy_in_labels=hierarchy_in_labels,
+          group_sep=group_sep)
+  #fetch data
+  result<-httr::POST(url=api_url_export,
+                      body=d,
+                      authenticate(kobo_user,Kobo_pw),
+                      progress()
+  )
+  
+  print(paste0("status code:",result$status_code))
+  d_content <- rawToChar(result$content)
+  print(d_content)
+  d_content <- fromJSON(d_content)
+  return(d_content)
+}
+```
+
+## Creating data url and credentials variables
+
+```{r, ehco = F, message = F, warning= F}
+kobo_server_url<-"https://kobo.humanitarianresponse.info/"
+url <-"https://kc.humanitarianresponse.info/api/v1/data.csv"
+kobo_user = "rcop_test"
+kobo_pw = "e4#xV8zKAU)A)h58"
+list_forms <- as.data.frame(kobohr_getforms_csv (url,kobo_user, kobo_pw))
+
+####  Create a variable with the form id and create to dataurl link
+form_id = "965004"
+asset_uid = "a9XVuozs7VQ2bvbvMwKSdS"
+dataurl<- paste0("https://kc.humanitarianresponse.info/api/v1/data/",form_id,".csv")
+```
+
+## Fetching the data from the server
+
+```{r, eval = F}
+#### Download data as csv
+df <-  download_data(dataurl,kobo_user,kobo_pw)
+
+#### Create an export and download it
+type <- "xls"
+lang <- "xml"
+fields_from_all_versions <- "TRUE"
+hierarchy_in_labels <- "FALSE"
+group_sep = "/"
+
+d_exports<-create_export(type=type,
+                                lang=lang,
+                                fields_from_all_versions=fields_from_all_versions,
+                                hierarchy_in_labels=hierarchy_in_labels,
+                                group_sep=group_sep,
+                                asset_uid=asset_uid,
+                                kobo_user,
+                                kobo_pw)
+
+result<-httr::GET (url=paste0(as.character(d_exports$url),"?format=json"),
+                    authenticate(kobo_user,kobo_pw),
+                    progress()
+)
+
+
+result_file<-httr::GET (url=jsonlite::fromJSON(rawToChar(result$content))$result,
+                   authenticate(kobo_user,kobo_pw),
+                   progress()
+)
+
+httr::GET (result_file$url,
+           authenticate(kobo_user,kobo_pw),
+           progress(),
+           write_disk(tf <- tempfile(fileext = ".xlsx"))
+)
+
+df2 <- read_excel(tf)
+```
+
+
+<!--chapter:end:00_meta-information.Rmd-->
+
+# Pre analysis
+
+This section will show you different steps or tools that can be used before the 
+analysis takes place such as checking your KOBO tool or following up your data 
+collection.
+
+## Checking the XLS kobo tools for constraints errors 
+This function checks the relevant column in the questionnaire and flag  issues with constraints of type (selected(question_name,question_answer)). 
+
+```{r include = T, warning = FALSE, results = 'hide', message = FALSE}
+library(stringr)
+library(purrr)
+library(readxl)
+library(qdapRegex)
+library(tidyr)
+library(magrittr)
+library(dplyr)
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+check_answer_in_list <- function(constraint) {
+  
+  if(!str_detect(constraint,",")){
+    return(TRUE)
+  }
+
+  question_regex <- "\\{([^()]+)\\}"
+  answer_regex <- "\\'([^()]+)\\'"
+  
+  question <- gsub(question_regex, "\\1", str_extract_all(constraint, question_regex)[[1]])
+  answer <- gsub(answer_regex, "\\1", str_extract_all(constraint, answer_regex)[[1]])
+  
+  question_type <- questions %>% 
+                     filter(name==question) %>% 
+                     filter(!grepl("^(begin|end)\\s+group$",type)) %>% 
+                     pull(type)
+  
+  listname <- gsub("^.*\\s","",question_type)
+  
+  choices_list <- choices %>% filter(list_name==listname) %>% pull(name)
+  
+  return(answer %in% choices_list)
+  
+}
+
+check_constraints <- function(questions,choices) {
+  
+questions <- mutate_at(questions, c("name", "type"), ~str_trim(.))
+choices <- mutate_at(choices, c("list_name", "name"), ~str_trim(.))
+  
+  all_contraints <- questions %>% filter(grepl("selected",relevant)) %>% pull(relevant)
+  all_contraints <- gsub('"',"'",all_contraints)
+
+  rs_list <- map(all_contraints,~map_lgl(unlist(ex_default(.x, pattern = "selected\\s*\\([^\\)]*\\)")),check_answer_in_list))
+  
+  map2(rs_list,seq_along(rs_list), ~ if(length(which(!.x))!=0) {
+    return(unlist(ex_default(all_contraints[.y], pattern = "selected\\s*\\([^\\)]*\\)"))[which(!.x)])
+  } ) %>% unlist() %>% unique()
+  
+}
+```
+
+Call this function by passing the questionnaire and choices and the output will be the list of wrong constraints of type (selected(question_name,question_answer)) if any. An error means that the answer does not exist in the choices sheet
+
+```{r}
+check_constraints(questions,choices) 
+
+```
+
+## Sampling
+### Simple Random sampling
+### Stratified Random sampling
+### Cluster sampling
+### 2 stages random sampling
+### Sample distribution usin population raster
+
+
+
+<!--chapter:end:01_pre_analysis.Rmd-->
+
+# Data Collection and Processing
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(magrittr)
+library(dplyr)
+library(kableExtra)
+library(readxl)
+library(sjmisc)
+library(purrr)
+library(tidyr)
+
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+```
+
+```{r, tidy=FALSE, eval = F}
+#** un-comment those if you need them to be installed
+# devtools::install_github("https://github.com/impact-initiatives/xlsformfill/")
+# devtools::install_github("https://github.com/impact-initiatives/cleaninginspectoR/")
+```
+
+*
+Notes on **cleaninginspectoR**:
+- The function will return a dataframe with indexes not the uuid.
+- cleanninginspectoR uses function from the **magrittr** and **dplyr** packages. Don't forget to load them before using it.
+*
+
+## Testing the tool
+
+### Creating dummy data
+
+**xlsformfill** has a function **xlsform_fill** that will create dataset based on your KOBO questionnaire. It takes 3 arguments: your questions, your choices and how many rows you want.
+
+*Notes:
+- All questions will be filled. 
+- Skip logic are not implemented.
+- Constraints are not implemented.
+- Integers and text will be generated randomly
+*
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+dummy_dataset <- xlsformfill::xlsform_fill(questions = questions, choices = choices, n = 300)
+```
+```{r, tidy=FALSE, eval = F}
+dummy_dataset %>% head(10)
+```
+```{r, echo =F, message= F, warning=F,}
+dummy_dataset  %>% 
+  head(10) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+## Download data
+
+### Downloading Audit files using audit_URL
+Required Libraries: httr
+
+****
+
+"download_audit_files" will download audit files using the endpoint that is included in your data set, it's available in column called "audit_URL". The function will create a folder named by the uuid of each form/interview, and write the audit.csv inside it. The advantage of using the API over downloading manually from server is that you can download the audit files of each form that has recently been submitted to the server separately, rather than downloading cumulatively the whole audit files each time. One the top of that, you can benefit from the advantage of automation.
+
+```{r}
+download_audit_files <- function(df, uuid_column = "_uuid", audit_dir, usr, pass){
+  if (!"httr" %in% installed.packages()) 
+    stop("The package is httr is required!")
+  
+  if (is.na(audit_dir) || audit_dir == "") 
+    stop("The path for storing audit files can't be empty!")
+  
+  if (is.na(usr) || usr == "") 
+    stop("Username can't be empty!")
+  
+  if (is.na(pass) || pass == "") 
+    stop("Password can't be empty!")
+  
+  # checking if the output directory is already available
+  if (!dir.exists(audit_dir)) {
+    dir.create(audit_dir)
+    if (dir.exists(audit_dir)) {
+      cat("Attention: The audit file directory was created in", audit_dir,"\n")
+    }
+  }
+  
+  # checking if creating output directory was successful
+  if (!dir.exists(audit_dir))
+    stop("download_audit_fils was not able to create the output directory!")
+  # checking if uuid column exists in data set
+  if (!uuid_column %in% names(df))
+    stop("The column ", uuid_column, " is not available in data set.")
+  # checking if column audit_URL exists in data set
+  if (!uuid_column %in% names(df))
+    stop("The column ", uuid_column, " is not available in data set.")
+  if (!"audit_URL" %in% names(df))
+    stop("Error: the column audit_URL is not available in data set.")
+  
+  # getting the list of uuids that are already downloaded
+  available_audits <- dir(audit_dir)
+  
+  # excluding uuids that their audit files are already downloaded
+  df <- df[!df[[uuid_column]] %in% available_audits,]
+  
+  audits_endpoint_link <- df[["audit_URL"]]
+  names(audits_endpoint_link) <- df[[uuid_column]]
+  audits_endpoint_link <- na.omit(audits_endpoint_link)
+  
+  if (length(audits_endpoint_link) > 0) {
+    # iterating over each audit endpoint from data
+    for (i in 1:length(audits_endpoint_link)) {
+      uuid = names(audits_endpoint_link[i])
+      endpoint_link_i <- audits_endpoint_link[i]
+      cat("Downloading audit file for", uuid, "\n")
+      
+      # requesting data
+      audit_file <- content(GET(endpoint_link_i,
+                                authenticate(usr, pass),
+                                timeout(1000),
+                                progress()), "text", encoding = "UTF-8")
+      
+      if (!is.na(audit_file)) {
+        if (length(audit_file) > 2) {
+          dir.create(paste0(audit_dir, "/", uuid), showWarnings = F)
+          write.csv(audit_file, paste0(audit_dir, "/", uuid, "/audit.csv"), row.names = F)
+        }else if(!audit_file == "Attachment not found"){
+          if (grepl("[eventnodestartend]", audit_file)) {
+            dir.create(paste0(audit_dir, "/", uuid), showWarnings = F)
+            write.table(audit_file, paste0(audit_dir, "/", uuid, "/audit.csv"), row.names = F, col.names = FALSE, quote = F)
+          } else{
+            cat("Error: Downloading audit was unsucessful!\n")
+          }
+        }
+      } else{
+        cat("Error: Downloading audit was unsucessful!\n")
+      }
+    }
+  } else{
+    cat("Attention: All audit files for given data set is downloaded!")
+  }
+}
+
+```
+
+### Download audit files using form name
+Required Libraries: httr, jsonlite, dplyr, stringr
+
+****
+
+"download_audit_files_2" is a different version of "download_audit_files" module that will help you to download audit files using the form id directly from KOBO API. The rest of it's specifications best matches the download_audit_files.
+
+```{r}
+download_audit_files_2 <- function(form_id, output_dir, user, pass) {
+  if (!"stringr" %in% installed.packages()) 
+    stop("Could not find the package stringr!")
+  
+  if (!"dplyr" %in% installed.packages()) 
+    stop("Could not find the package dplyr!")
+  
+  if (!"httr" %in% installed.packages()) 
+    stop("Could not find the package httr!")
+  
+  if (!"jsonlite" %in% installed.packages()) 
+    stop("Could not find the package jsonlite!")
+  
+  if (is.na(output_dir) || output_dir == "") 
+    stop("The path for storing audit files can't be empty!")
+  
+  if (is.na(user) || user == "") 
+    stop("Username can't be empty!")
+  
+  if (is.na(pass) || pass == "") 
+    stop("Password can't be empty!")
+  
+  require(httr)
+  require(dplyr)
+  require(jsonlite)
+  require(stringr)
+  
+  # checking if the output directory is already available
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir)
+    if (dir.exists(output_dir)) {
+      cat("Attention: The audit file directory was created in", output_dir,"\n")
+    }
+  }
+  
+  # checking if creating output directory was successful
+  if (!dir.exists(output_dir))
+    stop("download_audit_fils was not able to create the output directory!")
+  
+  # listing audit files that are already available
+  available_audits <- dir(output_dir)
+  
+  # getting form url
+  form_url <- GET("https://kc.humanitarianresponse.info/api/v1/data", authenticate(user, pass), timeout(1000)) %>% 
+    content(., "text", encoding = "UTF-8") %>%
+    fromJSON(., flatten = T) %>% 
+    filter(id_string == form_id) %>% 
+    select(url) %>% 
+    unlist()
+  
+  if (length(form_url) > 0) {
+    
+    # getting attachment links of uuids that their audit is already downloaded
+    form_data <- GET(form_url, authenticate(user, pass), timeout(1000)) %>% 
+      content(., "text", encoding = "UTF-8") %>%
+      fromJSON(., flatten = T) %>% 
+      as.data.frame() %>% 
+      filter(!`_uuid` %in% available_audits)
+    
+    attachment_url <- form_data[["_attachments"]]
+    audit_file_links <- unlist(attachment_url)[names(unlist(attachment_url)) == "download_large_url"] %>% unname()
+    
+    # uuids <- form_data[["_uuid"]][lapply(attachment_url, length) %>% unlist() != 0]
+    # uuids <- str_extract(audit_file_links, "(?<=%2F)[a-z-0-9]*(?=%2Faudit.csv$)")
+    # names(audit_file_links) <- uuids
+    
+    download_audit <- function(audit_link, user, pass, output_dir, uuid) {
+      uuid <- str_extract(audit_link, "(?<=%2F)[a-z-0-9]*(?=%2Faudit.csv$)")
+      audit_file <- GET(audit_link, authenticate(user, pass), timeout(1000), progress()) %>% 
+        content(., "text", encoding = "UTF-8")
+      
+      cat("Downloading audit file for", uuid, "\n")
+      dir.create(paste0(output_dir, "/", uuid))
+      output_file_name <- paste0(output_dir, "/", uuid,"/audit.csv")
+      # write.csv(audit_file, output_file_name)
+      
+      if (!is.na(audit_file)) {
+        if (length(audit_file) > 2) {
+          write.csv(audit_file, output_file_name, row.names = F)
+        }else if(!audit_file == "Attachment not found"){
+          if (grepl("[eventnodestartend]", audit_file)) {
+            write.table(audit_file, output_file_name, row.names = F, col.names = FALSE, quote = F)
+          }
+        }
+      }
+    }
+    
+    downloaded_uuids <- sapply(audit_file_links, download_audit, user = user, pass = pass, output_dir = output_dir)
+  } else{
+    cat("Attention: All audit files for given form is downloaded!")
+  }
+}
+```
+
+## Data collection follow-up
+
+### checking surveys against the sampling frame
+It is important to ensure that number of interviews that have been collected in each sampling unit corresponds with the initial sampling frame. The best choice will be to check it on daily basis during the data collection and follow-up with the Field Team in case there were not enough interviews (or some extra surveys) in certain locations. But it is also a good practice to make a final check to understand the overall difference between the sampling frame and collected data.
+
+First let's open initial sampling frame generated by the [Probability sampling tool](https://impact-initiatives.shinyapps.io/r_sampling_tool_v2/)
+```{r}
+sampling_frame <- read.csv("inputs/sampling_frame20200701-132150.csv")
+```
+
+Now we should create summary table that will show number of interviews actually collected for each primary sampling unit (in our case it was settlement).
+*Keep in mind that you should use correct settlement codes that were verified during the data collection. In case you are not sure that settlement codes in the dataset are correct you should cross-check them with GPS-coordinates using [Spatial verification checks]*
+```{r}
+samples_collected <- main_dataset %>%
+                    group_by(r3_current_settlement)%>%
+                    count()
+```
+
+The next step will be left join of samples collected dataset to the sampling frame and finding the difference in collected surveys for each settlement.
+```{r}
+sampling_frame <- sampling_frame %>%
+  select(Survey, strata_id, adm4Pcode, adm4NameLat) %>%
+  left_join(samples_collected, by = c("adm4Pcode" = "r3_current_settlement"))%>%
+  tidyr::replace_na(list(n = 0))%>%
+  mutate(sample_difference = n - Survey)%>%
+  arrange(sample_difference)
+
+sampling_frame %>% 
+      head(10) %>%
+      kable() %>% 
+      kable_styling(font_size=12)
+```
+
+As we can see from the table above, there was only one settlement where the target number of the interviews was not collected. And considering that it's only one survey it will not affect our results and we can proceed with other checks.
+After checking how a number of collected surveys corresponds with the sampling frame for each primary sampling unit it will be also good to make the same check on strata level.
+To do that we can use [summarise](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise) function from [dplyr library](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8)
+```{r}
+strata_level_check <- sampling_frame %>%
+                      group_by(strata_id)%>%
+                      summarise(Survey_Planned = sum(Survey),
+                                Survey_Collected = sum(n))%>%
+                      mutate(Difference = Survey_Collected - Survey_Planned)%>%
+                      arrange(desc(Difference))
+
+strata_level_check %>% 
+      kable() %>% 
+      kable_styling(font_size=12)
+
+```
+After this check, we can see that for two strata we collected the exact number of interviews that were initially planned. And for two strata there is slight overachievement in 4 and 3 surveys.
+
+## Data falsification
+
+### Check for time (in the dataset)
+
+Required Libraries: "dplyr" and "lubridate"
+
+****
+  
+"time_check" will return the elapsed time for each interview based on it's start and end columns also classifies if it's "too short", "too long", or "okay".
+As an example, we will use a dummy data set to apply the function to it. The function also needs a time_min (the minimum time in minutes that an interview should take to be completed) and a time_max (the maximum time in minutes that an interview should take to be completed) parameters.
+```{r, eval=T}
+library(dplyr)
+library(lubridate)
+
+# Creating a dummy data set
+start <- c("2020-12-01T09:40:05.750+04:30","2020-12-01T09:40:18.709+04:30","2020-12-01T09:45:40.879+04:30","2020-12-01T09:46:28.328+05:00")
+end <- c("2020-12-01T09:44:44.438+04:30","2020-12-01T10:01:27.890+04:30","2020-12-01T10:17:44.021+04:30","2020-12-01T10:18:32.717+05:00")
+
+my_df <- data.frame(start, end)
+
+# Initializing variables
+time_min <- 8
+time_max <- 30
+
+# declaring the function
+time_check <- function(df, time_min, time_max){
+  df <- df %>% mutate(interview_duration = difftime(as.POSIXct(ymd_hms(end)), as.POSIXct(ymd_hms(start)), units = "mins"),
+                      CHECK_interview_duration = case_when(
+                        interview_duration < time_min ~ "Too short",
+                        interview_duration > time_max ~ "Too long",
+                        TRUE ~ "Okay"
+                      )
+  )
+  return(df)
+}
+
+# Applying the function to data frame
+processed_df <- time_check(my_df, time_min, time_max)
+```
+```{r, tidy=FALSE, eval = F}
+processed_df
+```
+```{r, echo =F, message= F, warning=F,}
+processed_df %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+****
+
+### Check for time (audit files)	
+
+  Required Libraries: "dplyr", "lubridate", and "expss"
+
+****
+  
+  "time_check_audit" will calculate the interview duration using the audit files. And, if the audit file for that particular uuid is not found in the audit directory (where you paste the audit files), it will calculate it using start and end time columns in the data set.
+Audit files should be stored inside a folder (to avoid redefining its name while calling the function, call it "audit_files") in the project folder.
+```{r, eval = T, message = F, warning = F, results = 'hide'}
+library(dplyr)
+library(lubridate)
+library(expss)
+
+# reading files.
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+
+# Initializing variables
+time_min <- 8
+time_max <- 30
+
+
+# declaring the function
+time_check_audit <- function(df_raw, x_uuid="_uuid", time_min, time_max, audit_dir_path = "./audit_files/", today = "today"){
+  if (!any(duplicated(df_raw[[x_uuid]]))) {
+    # Audit Checks
+    # audit_dir_path < -audit_dir_path
+    uuids <- dir(audit_dir_path)
+    dfl <- list()
+    all_uuids <- length(uuids)
+
+    for(i in 1: length(uuids)){
+      df <- read.csv(paste0(audit_dir_path, uuids[i], "/audit.csv"))
+      df <- df %>% filter(node != "")
+      duration_ms <- sum(df$end - df$start)
+      duration_secs <-duration_ms/1000
+      duration_minutes <- round(duration_secs/60,1)
+      dfl[[i]] <- data.frame(uuid = uuids[i], duration_ms=duration_ms, 
+                             durations_secs=duration_secs, duration_minutes = duration_minutes)
+      cat("\014","Running audit: ", round((i/all_uuids) * 100,0),"%\n", sep = "")
+    }
+    duration_df <- do.call("rbind", dfl)
+    duration_df <- dplyr::rename(duration_df, `_uuid` = uuid)
+    
+    #time check based on start end time
+    df_str_audit_all <- df_raw %>% 
+      mutate(start_end = difftime(as.POSIXct(ymd_hms(end)), as.POSIXct(ymd_hms(start)), units = "mins")) 
+    
+    #creating a binding column with same name.
+    df_str_audit_all$`_uuid` <- df_str_audit_all[[x_uuid]]
+
+    # Join Audit checks and main data set
+    df_str_audit_all <- df_str_audit_all %>%
+      left_join(select(duration_df, `_uuid`, duration_minutes), by =  "_uuid")
+    
+    # Checking time duration with audit file, if not available, from dataset start/end.
+    df_str_audit_all <- df_str_audit_all %>%
+      mutate(interview_duration = if_na(duration_minutes, start_end),
+             CHECK_interview_duration = case_when(
+               interview_duration < time_min ~ "Too short",
+               interview_duration > time_max ~ "Too long",
+               TRUE ~ "Okay")
+      ) %>% select( -c(duration_minutes,start_end))
+    
+    return(df_str_audit_all)
+  }else{
+    stop("Error: df_raw has duplicate in uuid column, resolve the duplication to proceed!")
+  }
+}
+
+# Applying the function to data frame
+processed_df <- time_check_audit(main_dataset, 
+                                 x_uuid = "X_uuid",
+                                 time_min, time_max, 
+                                 audit_dir_path = "inputs/reach_global/attachments/dc4b0f40bf934293aedd3f31ff43f6d1/")
+```
+```{r, tidy=FALSE, eval = F}
+processed_df %>%
+  select(`_uuid`, interview_duration, CHECK_interview_duration) %>% 
+  head(10)
+```
+```{r, echo =F, message= F, warning=F,}
+processed_df %>% 
+  select(`_uuid`, interview_duration, CHECK_interview_duration) %>% 
+  head(10) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+****
+
+### Check for time - calculating the elapsed time between each interview
+
+Required Libraries: lubridate
+
+****
+  
+"time_btwn_ints" will calculate the elapsed time between the ending time of the first interview of an enumerator and the start time of its second interview, and the process applies for all interviews of each enumerator.
+It needs a location identifier as a parameter to check if the elapsed time is matching with the threshold (given as a parameter) in the same location or not. Also it will be checked if the elapsed time matches the given threshold for interviews in different locations by the same enumerator.
+```{r, eval = T}
+library(lubridate)
+
+# Creating a dummy data set
+start <-  c("2020-12-01T09:40:05.750+04:30",
+            "2020-12-01T09:45:18.709+04:30",
+            "2020-12-01T09:45:40.879+04:30",
+            "2020-12-01T10:02:40.879+04:30",
+            "2020-12-01T10:25:28.32+04:30")
+end <-  c("2020-12-01T09:44:44.438+04:30",
+          "2020-12-01T10:01:27.890+04:30",
+          "2020-12-01T10:17:44.021+04:30",
+          "2020-12-01T10:05:40.879+04:30",
+          "2020-12-01T10:38:32.717+04:30")
+device_id <- c("000215",
+               "000215",
+               "000216",
+               "000215",
+               "000216")
+village <- c("Village A",
+             "Village A",
+             "Village B",
+             "Village A",
+             "Village C")
+
+my_df <- data.frame(start, end, device_id, village)
+
+# declaring the function
+time_btwn_ints <- function(df, device_id, start_col = "start", end_col = "end", 
+                           village_col, same_village_threshold = 3, diff_village_threshold = 5){
+  checked_df <- df
+  
+  # sort by device_id and start_col
+  checked_df <- checked_df[order(checked_df[[start_col]]), ]
+  checked_df <- checked_df[order(checked_df[[device_id]]), ]
+  
+  # For each row starting from the second row:
+  # 1) calculate the time between the end of the (r-1) survey and the start of the (r) survey
+  # 2) insert the eight check-message based on the calculated time and the village
+  issue.same.village <- paste0("The elapsed time between two interviews in the same village is less than ",same_village_threshold, " minutes")
+  issue.diff.village <- paste0("The elapsed time between two interviews in different villages is less than ", diff_village_threshold, " minutes")
+  checked_df$check <- "OK"
+  checked_df$gap_between_ints <- NA
+  for (r in 2:nrow(checked_df)){
+    if (as.character(checked_df[r, device_id])==as.character(checked_df[r-1, device_id])){
+      checked_df$gap_between_ints[r] <- difftime(as.POSIXct(ymd_hms(checked_df[r, start_col])),
+                                                 as.POSIXct(ymd_hms(checked_df[r-1, end_col])),
+                                                 units = "mins")
+      
+      if (as.character(checked_df[r, village_col])==as.character(checked_df[r-1, village_col])){
+        if (checked_df$gap_between_ints[r] < same_village_threshold) checked_df[r, "check"] <- issue.same.village
+      } else{
+        if (checked_df$gap_between_ints[r] < diff_village_threshold) checked_df[r, "check"] <- issue.diff.village
+      }
+    }
+  }
+  
+  return(checked_df)
+}
+
+# Applying the function to data frame
+processed_df <- time_btwn_ints(df = my_df, device_id = "device_id",village_col = "village", same_village_threshold = 2,diff_village_threshold = 10)
+
+```
+```{r, tidy=FALSE, eval = F}
+processed_df
+```
+```{r, echo =F, message= F, warning=F,}
+processed_df %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+****
+
+### Silouhette analysis	
+Custom script (using ???)
+
+### Check for duplicates	
+#### cleaninginspectoR - find_duplicates
+
+**find_duplicates** will take the dataset and a column name to look for duplicates as arguments.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+cleaninginspectoR::find_duplicates(main_dataset, duplicate.column.name = "X_uuid")
+
+dummy_dataset[301, ] <- dummy_dataset[300, ]
+cleaninginspectoR::find_duplicates(dummy_dataset, duplicate.column.name = "uuid")
+```
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+cleaninginspectoR::find_duplicates(dummy_dataset, duplicate.column.name = "start")
+```
+
+#### base - duplicated
+
+If you are looking in duplicates value in several columns (first and second name, names and ID number,etc.), you can use the **duplicated**. 
+
+```{r, tidy=T}
+dummy_test <- data.frame(col_a = c("a", "a", "c"), 
+                         col_b = c("b", "b", "f"))
+dummy_test
+```
+Rows 1 and 2 are duplications. 
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+duplicated(dummy_test)
+```
+
+**find_duplicates()** and **duplicated()** functions will return position or value **only of one** duplicated record. But after identification of the duplicate, it will be good to check how many of such duplicated records in the dataset and check if they have any other duplicated columns. Based on your investigation, you will need to delete one or several records. e.g. Enumerator submitted the first survey by mistake and after some time submitted a corrected survey with the same id (in case we allow for the enumerator to select the id of the enterprise or sample). In such a way, find_duplicates() will identify the second survey but we will need to delete the first one.
+
+
+#### Find most similar surveys
+
+The function **find_similar_surveys()** compares each survey with each other survey in the dataset and finds the most similar one, i.e., the one with the lowest number of different answers. The function uses the gower matrix to make the comparison more efficient. The function returns a dataframe with the same number of rows (all surveys) and a few additional columns indicating the ID of the most similar survey and how many columns are different.
+
+Depending on the size of the questionnaire and on the data collection methodology, we can set a maximum threshold on the number of differences and follow up on all the surveys that have a matching survey with a lower number of differences than the threshold. For example, in the MSNA in Syria, we used a maximum threshold of 7 differences.
+
+In the version below, the function uses only the data from the main sheet of the survey. If the tools includes loop(s), it makes sense to add a few relevant columns from the loops to the main dataframe so that they are also used in the search of the most similar survey. For example, for an HH survey with a loop for the HH composition, one can add to the main dataframe one column with the concatenation of the genders of the HH components and one column with the concatenation of the ages of the HH components (from the loop).
+
+```{r, eval=F}
+find_similar_surveys <- function(raw.data, tool.survey, uuid="_uuid"){
+  # 1) store UUIDs
+  uuids <- raw.data[[uuid]]
+  
+  # 2) convert all columns to character and tolower
+  raw.data <- mutate_all(raw.data, as.character)
+  raw.data <- mutate_all(raw.data, tolower)
+  
+  # 3) remove columns that are naturally different in each survey:
+  # - columns of type = "start", "end", "text" (for the other responses), etc.
+  # - columns starting with "_"
+  # - option columns for the select multiple -> keeping only the concatenation column
+  types_to_remove <- c("start", "end", "today", "deviceid", "date", "geopoint", "audit", 
+                       "note", "calculate", "text")
+  cols_to_keep <- data.frame(column=colnames(raw.data)) %>% 
+    left_join(select(tool.survey, name, type), by=c("column"="name")) %>% 
+    filter(!(type %in% types_to_remove) & !str_starts(column, "_") & !str_detect(column, "/"))
+  raw.data <- raw.data[, all_of(cols$column)]
+  
+  # 4) remove columns with all NA; convert remaining NA to "NA"; convert all columns to factor
+  raw.data <- raw.data[, colSums(is.na(raw.data))<nrow(raw.data)]
+  raw.data[is.na(raw.data)] <- "NA"
+  raw.data <- raw.data %>% mutate_if(is.character, factor)
+  error.message <- "NAs detected, remove them before proceeding (it can happen when converting to factor)"
+  if (sum(is.na(raw.data))>0) stop(error.message)
+  
+  # 5) calculate gower distance
+  gower_dist <- daisy(raw.data, metric="gower", warnBin=F, warnAsym=F, warnConst=F)
+  gower_mat <- as.matrix(gower_dist)
+  
+  # 6) convert distance to number of differences and determine closest matching survey
+  r <- unlist(lapply(1:nrow(raw.data), function(i) sort(gower_mat[i,]*ncol(raw.data))[2]))
+  
+  # 7) add relevant columns
+  raw.data[["num_cols_not_NA"]] <- rowSums(raw.data!="NA")
+  raw.data[[uuid]] <- uuids
+  raw.data[["_id_most_similar_survey"]] <- uuids[as.numeric(names(r))]
+  raw.data[["number_different_columns"]] <- as.numeric(r)
+  raw.data <- raw.data %>% arrange(number_different_columns, uuid)
+  
+  return(raw.data)
+}
+```
+
+
+##	Data checks	
+### Check for outliers	
+There are 2 commons ways to detect outliers :
+
+- Using the range of 3 standards deviations from the mean. 
+- Using the range of 1.5 inter quartile from the 1st and 3rd quartile. 
+
+Outliers can exist but it is important to check them.
+
+#### cleaninginspectoR - find_outliers
+The function find_outliers will use the rule of the 3 standards deviations from the mean for normal values and log values. 
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+cleaning_log <- cleaninginspectoR::find_outliers(main_dataset)
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+###	Check others
+#### cleaninginspectoR - find_other_responses
+
+**find_other_responses** will look for all columns with "other", "Other", "autre", "Autre",  and return their values.
+
+*Notes:
+- If your *other* questions do not have those 4 strings in their names, the function will not pick it.
+*
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+cleaning_log <- cleaninginspectoR::find_other_responses(main_dataset)
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log %>% head(10)
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log  %>% 
+  head(10) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+#### base + dplyr
+
+This example will take all the text type from the questionnaire, filter for the ones that are in the dataset and return all the values. 
+```{r, tidy=FALSE, echo=T}
+oth <- questions$name[questions$type == "text"]
+oth <- oth[oth %in% names(main_dataset)]
+oth_log <- oth %>% 
+  lapply(function(x) {
+    main_dataset %>% 
+      select("X_uuid", !!sym(x)) %>% 
+      filter(!is.na(!!sym(x))) %>%
+      as.data.frame() %>% 
+      mutate(col_names = x) %>%
+      rename(other_text = !!sym(x)) %>%
+      arrange(other_text)}) %>% 
+  do.call(rbind,.)
+```
+```{r, tidy=FALSE, eval = F}
+oth_log %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+oth_log  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+*Please note that it takes the values as they are. You may want to trim and remove caps or any other regex work if you want better summary *
+
+This other example looks at the frequency of a given *other* option, it could be used to see if some should be recoded as options directly.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+oth_prop <- oth %>% 
+  lapply(function(x) {
+    main_dataset %>% 
+      group_by(!!sym(x)) %>% 
+      tally(sort = T) %>% 
+      rename(other_text = !!sym(x)) %>% 
+      filter(!is.na(other_text)) %>%
+      mutate(col_names = x, 
+             prop = n/nrow(main_dataset))
+    }) %>% 
+  do.call(rbind,.)
+```
+```{r, tidy=FALSE, eval = F}
+oth_prop %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+oth_prop  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+### Issue log Function
+
+this function will help the generation of standard cleaning log file that holds issues that need clarification. first we need to subset or filter data based on the check list, then that is the log_sheet function will help us to transform that subsetted data into standard cleaning log format. 
+
+```{r}
+log_sheet <- function(data, question.name, issue, action){
+  cleaning_logbook <- data.frame("uuid" = as.character(),
+                                 "question.name" = as.character(),
+                                 "issue" = as.character(),
+                                 "feedback" = as.character(),
+                                 "action" = as.character(),
+                                 "old.value" = as.character(),
+                                 "new.value" = as.character(),
+                                 stringsAsFactors = F)
+  if(nrow(data) > 0){
+    for(a in 1:nrow(data)) {
+      cleaning_logbook <- cleaning_logbook %>% 
+        add_row(
+          tibble_row(
+            uuid = as.character(data[a, "X_uuid"]),
+            question.name = as.character(question.name),
+            issue = as.character(issue),
+            feedback = as.character(""),
+            action = as.character(action),
+            old.value = as.character(data[a, question.name]),
+            new.value = as.character("")
+            
+          )
+        )
+    }
+  }
+  return(cleaning_logbook)
+}
+
+```
+
+Now, lets use the function to log an issue where consent to calls follow-up is no and log them into standard cleaning log format
+
+```{r}
+issue_file <- main_dataset %>% 
+  filter(a3_consent_to_follow_up_calls == "no") %>% 
+  log_sheet(question.name = "a3_consent_to_follow_up_calls", 
+            issue = "flagging consent followup calls with no response as an example",
+            action = "flag")
+```
+
+
+
+###	Check for logical check	
+hum hum hum ?? 
+Custom script (using dplyr?)
+		
+- Any value that is arbitrary set (from an informed source e.g. an informal setttlement cannot be lower than 15 households). This type of outliers could also be considered as logical checks.
+
+## cleaninginspectoR - inspect_all
+
+cleanninginspectoR has a function inspect *inspect_all* that will look for outliers, others responses that may need recoding, duplicated uuid and possible sensitive columns. It takes as arguments the dataset and the uuid column name. 
+```{r, tidy=FALSE, message= F, warning=F, error=F}
+cleaning_log <- cleaninginspectoR::inspect_all(main_dataset, "X_uuid")
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log %>% head(20)
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log  %>% 
+  head(20) %>%
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+## Data cleaning		
+### Re-generate text column for select multiple questions 
+**Description**: During data cleaning (when recoding the other options for example), there is a high chance that the dummies and text columns become inconsistent. That can cause issues when analyzing the data if both the dummies and text columns are used. To avoid that, the following function can be used to regenerate and update the text columns based on the dummies columns.
+
+**Usage**:
+1- Create a list of the questions to regenerate: 
+
+```{r}
+select_multiple_questions = c("b10_hohh_vulnerability","f17_store_drinking_water","b11_hohh_chronic_illness")
+```
+
+2- Define the function 
+```{r}
+generate_from_binaries <- function(data,select_multiple_questions) {
+  
+  do.call("cbind",map(select_multiple_questions,function(question_name,data) {
+    
+    df <- data %>% select(grep(paste0("^",question_name,"\\."), names(data))) ## Subseting the dataset to include only dummies related to one question
+    df <- mutate_all(df,as.numeric) ## Making sure the dummies columns are numerical
+    colnames(df) <- gsub(paste0(question_name,"\\."),"",colnames(df)) ## Keeping only the options names in the colnames
+    df <- map2_df(df, names(df), ~  replace(.x, .x==1, .y) %>% replace(. == 0, NA)) ## Replacing a cell with a value of '1' with its respective column name and '0' with NA
+    df %>%
+      unite(!!sym(question_name),names(df),remove=TRUE,na.rm=TRUE,sep=" ") %>% ## concatenate the columns using " " as a seperator 
+      as.data.frame() %>% ## Convert to dataframe
+      mutate_all(list(~na_if(.,""))) ## replace empty string with NA
+  },data)) 
+  
+}
+```
+
+3- Call the function the generate the columns and replace directely in the data set using replace_columns
+
+```{r}
+main_dataset <- replace_columns(main_dataset, generate_from_binaries(main_dataset,select_multiple_questions)) 
+```
+
+
+### Clean data base on cleaning log	
+Required Libraries: Base R Packages
+
+****
+  
+  The function "incorporate_logs" applies cleaning log on raw data. It gets cleaning log in a format that must contain 5 mandatory columns including uuid, question.name, old.value, new.value, and changed. as result it would return the cleaned data frame, master cleaning log (logs that are both applied and not applied on data), the version of cleaning log that was applied on raw data, a report of duplicate logs, and logs that their question name or uuid is not available in raw data frame.
+
+****
+
+```{r, eval = T}
+# Creating a dummy data set
+city_name <- c("kabul", "new dlehi", "peshawar","new york")
+population <- c(4430000, 21750000, 1970000, 8419000)
+uuid <- c("eae001", "eae002", "eae003","eae004")
+
+my_df <- data.frame(city_name, population, uuid)
+
+# Creating a dummy cleaning log
+old.value <- c("kabul", 4430000, "europe","kabul")
+question.name <- c("city_name", "population", "continent","city_name")
+new.value <- c("moscow",11920000,"asia","moscow")
+uuid <- c("eae001","eae001","eae001","eae001")
+changed <- c("yes","yes","yes","yes")
+
+cleaning_log <- data.frame(uuid,question.name, old.value, new.value, changed)
+
+### declaring the function
+incorporate_logs = function(raw_df, cleaning_log, df_group_seprator = "/", uuid_col = "_uuid"){
+  error <- "Error!
+Execution was haulted due to one of the following issues:
+  - Cleaning log is empty
+  - There is no changes in data (in cleaning log changed property for all logs is set to 'NO')
+  - One/morethan one of the (uuid, question.name, old.value, new.value, and changed) columns are missing or column names are misspelled
+"
+  if (sum(grepl("uuid|question.name|old.value|new.value|changed", names(cleaning_log)))==5) {
+    `%nin%` = Negate(`%in%`)
+    # changing the group seprator (operator) from "/" to "."
+    names(raw_df) <- gsub(df_group_seprator,".",names(raw_df))
+    cleaning_log$question.name <- gsub(df_group_seprator,".", cleaning_log$question.name)
+    
+    # subsetting logs that their question is not (available) in dataset
+    logs_not_in_rawdf <- cleaning_log[cleaning_log$question.name %nin% names(raw_df) | cleaning_log$uuid %nin% raw_df[[uuid_col]], ]
+    logs_not_in_rawdf <- logs_not_in_rawdf[logs_not_in_rawdf$changed %in% c("yes","Yes"),]
+    
+    # subsetting logs that their question exist in raw data frame and its new value is changed
+    cleaning_log.changed <- cleaning_log[cleaning_log$question.name %in% names(raw_df) & cleaning_log$uuid %in% raw_df[[uuid_col]], ]
+    cleaning_log.changed <- cleaning_log.changed[cleaning_log.changed$changed %in% c("yes","Yes"),]
+    
+    # capturing duplicate logs
+    cleaning_log$unique_key <- paste(cleaning_log$uuid, cleaning_log$question.name, sep = "_")
+    duplicate_logs <- cleaning_log[(duplicated(cleaning_log$unique_key) | duplicated(cleaning_log$unique_key, fromLast = T)),]
+    
+    # cleaning master cleaning log
+    cleaning_log <- cleaning_log[cleaning_log$uuid %nin% logs_not_in_rawdf$uuid | cleaning_log$question.name %nin% logs_not_in_rawdf$question.name,]
+    cleaning_log <- cleaning_log[!is.na(cleaning_log$question.name), ]
+    cleaning_log <- cleaning_log[!is.na(cleaning_log$uuid), ]
+    
+    raw_df_valid <- raw_df
+    if (nrow(cleaning_log.changed)>0) {
+      # Apply cleaning log on raw data
+      for (rowi in 1:nrow(cleaning_log.changed)){
+        uuid_i <- cleaning_log.changed$uuid[rowi]
+        var_i <- cleaning_log.changed$question.name[rowi]
+        old_i <- cleaning_log.changed$old.value[rowi]
+        new_i <- cleaning_log.changed$new.value[rowi]
+        if(class(raw_df_valid[[var_i]]) == "character"){
+          new_i <- as.character(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "numeric"){
+          new_i <- as.numeric(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "logical"){
+          new_i <- as.integer(new_i)
+        }else if(class(raw_df_valid[[var_i]]) == "integer"){
+          new_i <- as.integer(new_i)
+        }
+        # Find the variable according to the row of the cleaning log
+        raw_df_valid[raw_df_valid[[uuid_col]] == uuid_i, var_i] <- new_i
+        print(paste(rowi,"uuid:", uuid_i, "Old value:", old_i, "changed to", new_i, "for", var_i))
+      }
+      return(list(cleaned_df = raw_df_valid, cleaning_log.applied = cleaning_log.changed, logs_not_in_rawDF = logs_not_in_rawdf, duplicate_logs = duplicate_logs, master_cleaning_log = cleaning_log))
+    }else{
+      cat(error)
+      return(list(cleaned_df = raw_df_valid, cleaning_log.applied = cleaning_log.changed,logs_not_in_rawdf = logs_not_in_rawdf))
+    }
+  }else{
+    cat(error)
+  }
+}
+
+### Applying the function to data frame
+incorprated_logs <- incorporate_logs(my_df, cleaning_log, uuid_col = "uuid")
+
+cleaned_data <- incorprated_logs$cleaned_df
+master_cleaning_log <- incorprated_logs$master_cleaning_log
+logs_not_in_rawDf <- incorprated_logs$logs_not_in_rawDF
+cleaning_log.applied <- incorprated_logs$cleaning_log.applied
+duplicate_log <- incorprated_logs$duplicate_logs
+
+```
+```{r, tidy=FALSE, eval = F}
+cleaned_data
+```
+```{r, echo =F, message= F, warning=F,}
+cleaned_data %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+master_cleaning_log
+```
+```{r, echo =F, message= F, warning=F,}
+master_cleaning_log %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+logs_not_in_rawDf
+```
+```{r, echo =F, message= F, warning=F,}
+logs_not_in_rawDf %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+cleaning_log.applied
+```
+```{r, echo =F, message= F, warning=F,}
+cleaning_log.applied %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+```{r, tidy=FALSE, eval = F}
+duplicate_log
+```
+```{r, echo =F, message= F, warning=F,}
+duplicate_log %>% 
+  kable() %>% 
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+****
+
+### Check cleaning log, raw dataset and clean dataset	
+dplyr
+waldo 
+arsenal
+
+## Data cleaning - miscellaneous		
+###	Check for data sanity	check if the data follow ODK format (select_one, select_multiple, xxx, choices)
+To be created
+
+###	Turns label to xml	
+Custom script (using ???)
+
+###	Statistical Disclosure Control Methods	
+Statistical Disclosure Control techniques can be defined as the set of methods to reduce the risk of disclosing information on individuals or organizations.
+
+
+Statistical Disclosure Control Process
+
+1. Measuring the disclosure risk
+Disclosure risk occurs if an unacceptably narrow estimation of a respondent’s confidential information is possible or if exact disclosure is possible with a high level of confidence.
+
+so we'll need to clasify the variables into three categories;
+
+* Non-identifying variables (e.g. respondent feelings)
+* Direct identifiers (e.g. respondent names, phone numbers)
+* Quasi-identifiers (e.g. age, gender, gps coordinates)
+
+we'll use the main_dataset for demonstrating the process
+
+```{r, echo = F}
+# load the SdcMicro package 
+library(sdcMicro)
+
+# 
+selectedKeyVars <- c("a2_hh_representative_name", # direct identifiers
+                     "a3_1_phone", # direct identifiers
+                     "b4_gender", # quasi identifiers 
+                     "b5_age", # quasi identifiers
+                     "b8_hohh_sex", # quasi identifiers
+                     "b9_hohh_marital_status", # quasi identifiers
+                     "X_r6_gpslocation_latitude", # quasi identifiers
+                     "X_r6_gpslocation_longitude", # quasi identifiers
+                     "X_r6_gpslocation_precision") # quasi identifiers
+```
+
+
+2. Applying anonymization methods
+Sometimes we may have some direct identifier variables that feed our analysis plans and in that cases we will need to deduct data by categorizing continuous variables. 
+
+3. Measuring utility and information loss
+```{r}
+# weight variable
+weightVars <- c('stratum.weight')
+
+# checking risk
+objSDC <- createSdcObj(dat = main_dataset, 
+                       keyVars = selectedKeyVars, weightVar = weightVars)
+
+
+print(objSDC, "risk")
+
+#Generate an internal report
+#report(objSDC, filename = "disclosure_risk_report",internal = T, verbose = TRUE) 
+
+```
+
+
+
+<!--chapter:end:02_cleaning.Rmd-->
+
+# Composite indicators
+composeR
+dplyr::case_when
+
+## Composite with 1 categorical variable - select one
+
+This example will look at creating an improved source of water variable. The indicator of interest is **f11_dinking_water_source** and the options for un-improved source of water are:
+
+- trucked_in_water_truck_with_a_tank_etc
+- drinking_water_from_water_kiosk_booth_with_water_for_bottling
+- bottled_water_water_purchased_in_bottles
+- other_specify
+
+```{r }
+#Creating a vector of un-improved source of water
+unimproved_source <- c("trucked_in_water_truck_with_a_tank_etc", "drinking_water_from_water_kiosk_booth_with_water_for_bottling", "bottled_water_water_purchased_in_bottles", "other_specify")
+
+#Using base R
+main_dataset$wash_drinkingwater_improved_source_baser <- ifelse(main_dataset$f11_dinking_water_source %in% unimproved_source, "not_improved", "improved")
+table(main_dataset$f11_dinking_water_source, main_dataset$wash_drinkingwater_improved_source_baser, useNA = "ifany")
+
+#Using base R 
+main_dataset$wash_drinkingwater_improved_source_baser2 <- NA
+main_dataset$wash_drinkingwater_improved_source_baser2[main_dataset$f11_dinking_water_source %in% unimproved_source] <- "not_improved"
+main_dataset$wash_drinkingwater_improved_source_baser2[!(main_dataset$f11_dinking_water_source %in% unimproved_source)] <- "improved"
+
+#Same same
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_drinkingwater_improved_source_baser2, useNA = "ifany")
+
+#Using case_when
+main_dataset <- main_dataset %>%
+  mutate(wash_improved_source_dplyr = case_when(f11_dinking_water_source %in% unimproved_source ~ "not_improved",
+                                                TRUE ~ "improved"))
+table(main_dataset$f11_dinking_water_source, main_dataset$wash_improved_source_dplyr, useNA = "ifany")
+
+#Same same
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_improved_source_dplyr)
+```
+
+In the previous example, there was no missing value. For this example, the indicator to be built will turn a yes/no question into a dummy variable (1 and 0). The variable of interest is  *b16_hohh_pension_eligible* 
+
+```{r }
+table(main_dataset$b16_hohh_pension_eligible, useNA = "ifany")
+
+#Using base R
+main_dataset$hohh_pension_eligible_dummy_baser <- ifelse(main_dataset$b16_hohh_pension_eligible == "yes", 1, 0)
+
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_baser, useNA = "ifany")
+
+#Using case_when
+main_dataset <- main_dataset %>%
+  mutate(hohh_pension_eligible_dummy_dplyr = case_when(b16_hohh_pension_eligible == "yes" ~ 1,
+                                                b16_hohh_pension_eligible == "no" ~ 0))
+
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_dplyr, useNA = "ifany")
+
+#Same same
+table(main_dataset$hohh_pension_eligible_dummy_baser, main_dataset$hohh_pension_eligible_dummy_dplyr, useNA = "ifany")
+```
+
+```{r }
+#Watch out for NA. This was is not correct. 
+main_dataset <- main_dataset %>%
+  mutate(hohh_pension_eligible_dummy_dplyr2 = case_when(b16_hohh_pension_eligible == "yes" ~ 1,
+                                                TRUE ~ 0))
+table(main_dataset$b16_hohh_pension_eligible, main_dataset$hohh_pension_eligible_dummy_dplyr2, useNA = "ifany")
+
+#Not same same
+table(main_dataset$hohh_pension_eligible_dummy_baser, main_dataset$hohh_pension_eligible_dummy_dplyr2, useNA = "ifany")
+```
+
+
+## Composite with 2 categorical variables 
+This example will look at creating an indicator whether or not the sources for drinking and for cooking, cleaning and non-drinking purposes are both improved. The indicators of interest are **f11_dinking_water_source** (and more specifically **wash_drinkingwater_improved_source_baser** from previous paragraph) and **f14_technical_water_source** (*F14_What is your HH's main source of water for cooking, cleaning, and non-drinking purposes*). 
+
+First, a new variable has to be created, **wash_otherwater_improved_source_baser**.
+
+```{r }
+#Using base R
+main_dataset$wash_otherwater_improved_source_baser <- ifelse(main_dataset$f14_technical_water_source %in% unimproved_source, "not_improved", "improved")
+
+main_dataset$wash_bothwater_improved_source_baser <- ifelse(main_dataset$wash_drinkingwater_improved_source_baser == "improved" & main_dataset$wash_otherwater_improved_source_baser == "improved", "both_improved", "not_both_improved")
+
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_otherwater_improved_source_baser, main_dataset$wash_bothwater_improved_source_baser, useNA = "ifany")
+```
+
+Now, the variable will be coded to have 3 categories instead: both improved, at least drinking water and not improved.
+
+```{r }
+main_dataset$wash_bothwater_improved_source_baser2 <- ifelse(main_dataset$wash_drinkingwater_improved_source_baser == "improved" & main_dataset$wash_otherwater_improved_source_baser == "improved", "both_improved", 
+                                                             ifelse(main_dataset$wash_drinkingwater_improved_source_baser == "improved", "at_least_drinking", "not_both_improved"))
+
+table(main_dataset$wash_drinkingwater_improved_source_baser, main_dataset$wash_otherwater_improved_source_baser, main_dataset$wash_bothwater_improved_source_baser2, useNA = "ifany")
+```
+
+```{r }
+#Using dplyr
+main_dataset <- main_dataset %>%
+  mutate(wash_bothwater_improved_source_dplyr = case_when(wash_drinkingwater_improved_source_baser == "improved" & wash_otherwater_improved_source_baser == "improved" ~ "both_improved",
+                                                          wash_drinkingwater_improved_source_baser == "improved" ~ "at_least_drinking", 
+                                                          TRUE ~ "not_both_improved"
+                                                          ))
+
+table(main_dataset$wash_bothwater_improved_source_dplyr,  main_dataset$wash_bothwater_improved_source_baser2, useNA = "ifany")
+```
+## Composite with 1 categorical variable - select multiple
+In this example we are creating an indicator to score whether or not drinking water is being processed or purified before usage. The indicator is calculated based on one categorical question **f12_drinking_water_treat**
+
+```{r }
+#Using dplyr
+main_dataset <- main_dataset %>%
+   mutate(
+     wash_indicator1 = case_when(
+       f12_drinking_water_treat.do_not_process_purify == 1 ~ 3 ,
+       f12_drinking_water_treat.cleaning_with_chemicals_chlorination == 1 |
+       f12_drinking_water_treat.water_precipitation == 1 |
+       f12_drinking_water_treat.filtering_the_water_pitcher_filter == 1 |
+       f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter == 1 |
+       f12_drinking_water_treat.boiling == 1 |
+       f12_drinking_water_treat.percolation == 1 ~ 1
+   ) )
+
+
+#Using base R
+main_dataset$wash_indicator2 = ifelse(
+  main_dataset$f12_drinking_water_treat.do_not_process_purify == 1,3,
+  ifelse(
+    main_dataset$f12_drinking_water_treat.cleaning_with_chemicals_chlorination == 1 |
+       main_dataset$f12_drinking_water_treat.water_precipitation == 1 |
+       main_dataset$f12_drinking_water_treat.filtering_the_water_pitcher_filter == 1 |
+       main_dataset$f12_drinking_water_treat.filtering_the_water_reverse_osmosis_filter == 1 |
+       main_dataset$f12_drinking_water_treat.boiling == 1 |
+       main_dataset$f12_drinking_water_treat.percolation == 1,
+    1,NA))
+```
+
+## Composite with 1 numerical variable
+This example will look at creating one a categorical variable based on a number, **f6_how_many_wood_hh_consumed_last_winter  **, 'less than 5', between 5 (included) and 10 and '10 and above'.
+
+```{r }
+main_dataset <- main_dataset %>%
+  mutate(wood_consumed_categories = case_when(f6_how_many_wood_hh_consumed_last_winter < 5 ~ "less_than_5",
+                                              f6_how_many_wood_hh_consumed_last_winter < 10 ~ "between5_and10",
+                                              f6_how_many_wood_hh_consumed_last_winter >= 10 ~ "ten_above"))
+
+```
+
+## Composite with 2 numerical variables
+
+This example will look at creating one of the indicators necessary to compute the FCS. In some cases, we need to check if the sum of number of days for 2 types of food are above 7 or not. If the sum is above 7, then it has to return 7 otherwise, the sum of both variables.
+
+```{r }
+# Combine cereals/roots and meat/eggs and make maximum 7 days
+## Using base R
+main_dataset$fcs_cereal_roots  <- ifelse((main_dataset$g1_cereals_consumption + main_dataset$g2_roots_consumption) > 7,
+                                7,
+                                main_dataset$g1_cereals_consumption + main_dataset$g2_roots_consumption)
+
+## Using dplyr
+main_dataset <- main_dataset %>%
+  mutate(fcs_meat_eggs = ifelse((g5_meat_consumption + g6_eggs_consumption) > 7, 7,
+                                 g5_meat_consumption + g6_eggs_consumption))
+
+
+```
+
+## Composite with 2 or more numerical variables
+
+This example will look at creating the food consumption score. 
+```{r }
+main_dataset <- main_dataset %>%
+  mutate(FCS_score_dplyr = fcs_cereal_roots * 2 + g3_vegetables_consumption * 1 + g4_fruits_consumption * 1 + fcs_meat_eggs * 4 + g7_pulses_consumption * 3 + g8_dairy_consumption * 4 + g9_oil_consumption * 0.5 + g10_sugar_consumption * 0.5)
+
+main_dataset$FCS_score_baser  <- (main_dataset$fcs_cereal_roots * 2)+
+  (main_dataset$g3_vegetables_consumption * 1)+
+  (main_dataset$g4_fruits_consumption * 1)+
+  (main_dataset$fcs_meat_eggs * 4)+
+  (main_dataset$g7_pulses_consumption * 3)+
+  (main_dataset$g8_dairy_consumption * 4)+
+  (main_dataset$g9_oil_consumption * 0.5)+
+  (main_dataset$g10_sugar_consumption * 0.5)
+
+```
+
+
+
+## New indicators from a loop to main dataset
+e.g. aggregating the number of children going to school from a loop
+
+
+<!--chapter:end:03_composite-indicators.Rmd-->
+
+# Analysis
+
+
+
+## srvyr package
+
+"The srvyr package aims to add dplyr like syntax to the survey package." It is a very useful package for a variety of aggregations of survey data.
+
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+###makes some additions. 
+library(tidyverse)
+library(srvyr)
+library(kableExtra)
+df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+dfsvy<-as_survey(df)
+```
+
+### Categorical variables
+srvyr package allows categorical variables to be broken down using a similar syntax as dplyr.  Using dplyr you might typically calculate a percent mean as follows:
+```{r}
+
+df %>% 
+  group_by(b9_hohh_marital_status) %>% 
+  summarise(
+    n=n()
+  ) %>% 
+  ungroup() %>% 
+  mutate(
+    pct_mean=n/sum(n)
+  )
+
+```
+
+To calculate the percent mean of a categorical variable using srvyr object is required. The syntax is quite similar to dplyr, but a bit less verbose. By specifying the vartype as "ci" we also get the upper and lower confidence intervals
+
+```{r}
+dfsvy %>% 
+  group_by(b9_hohh_marital_status) %>% 
+  summarise(
+    pct_mean = survey_mean(vartype = "ci")
+  )
+
+```
+To calculate the weigthed percent mean of a multiple response option you need to created a srvyr object including the weights. The syntax is similar to dyplr and allows for the total columns
+
+```{r}
+weighted_object <- main_dataset %>% as_survey_design(ids = X_uuid, weights = stratum.weight)
+
+weighted_table <- weighted_object %>% 
+                  group_by(adm1NameLat) %>% #group by categorical variable
+                  summarise_at(vars(starts_with("b10_hohh_vulnerability.")), survey_mean) %>% #select multiple response question
+                  ungroup() %>% 
+                  bind_rows(
+                            summarise_at(weighted_object,
+                            vars(starts_with("b10_hohh_vulnerability.")), survey_mean) # bind the total
+                  ) %>%
+                mutate_at(vars(adm1NameLat), ~replace(., is.na(.), "Total")) %>% 
+                select(., -(ends_with("_se"))) %>%  #remove the colums with the variance type calculations
+                mutate_if(is.numeric, ~ . * 100) %>%
+                mutate_if(is.numeric, round, 2)
+
+
+print(weighted_table)
+
+
+```
+### Numeric variables
+srvyr treats the calculation/aggregation of numeric variables differently in an attempt to mirror dplyr syntax 
+
+to calculate the mean and median expenditure in dplyr you would likely do the following
+```{r}
+
+df %>% 
+  summarise(
+    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),
+    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),
+    )
+
+```
+
+If you wanted to subset this by another variable in dplyr you would add the group_by argument
+```{r}
+
+df %>% 
+  group_by(strata) %>% 
+  summarise(
+    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),
+    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),
+    )
+
+```
+
+This is the reason why the syntax also varies between categorical and numeric variables in srvyr. Therefore, to do the same using srvyr you would do the following (with a survey object). Note that due to this difference in syntax the na.rm argument works for numeric variables, but **does not work** for categorical variables. This was modified when srvyr was updated from v 0.3.8
+
+```{r}
+dfsvy %>% 
+  summarise(
+   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = "ci"),
+  )
+
+
+```
+
+similar to dplyr you can easily add a group_by argument to add a subset calculation
+```{r}
+dfsvy %>% 
+  group_by(strata) %>% 
+  summarise(
+   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = "ci"),
+  )
+
+
+```
+
+
+
+### select_one 
+### select_mutiple
+
+## Analysis with numerical variables
+### Averages
+###Summarytools (CRAN package)
+
+###hypegrammaR / koboquest / butteR
+
+### Median
+####Spatstat
+[Spatstat](https://cran.r-project.org/web/packages/spatstat/index.html) - library with set of different functions for analyzing Spatial Point Patterns but also quite useful for analysis of weighted data.
+
+At first let's select all numerical variables from the dataset using Kobo questionnaire and dataset. It can be done with the following custom function:
+```{r}
+library(spatstat)
+
+select_numerical <- function(dataset, kobo){
+  kobo_questions <- kobo[grepl("integer|decimal|calculate", kobo$type),c("type","name")]
+  names.use <- names(dataset)[(names(dataset) %in% as.character(kobo_questions$name))]
+  numerical <- dataset[,c(names.use,"X_uuid",'strata','stratum.weight')] #Here we can select any other relevant variables
+  numerical[names.use] <- lapply(numerical[names.use], gsub, pattern = 'NA', replacement = NA)
+  numerical[names.use] <- lapply(numerical[names.use], as.numeric)
+  return(numerical)
+}
+
+numerical_questions <- select_numerical(main_dataset, questions)
+
+numerical_classes <- sapply(numerical_questions[,1:c(ncol(numerical_questions)-3)], class) #Here we can check class of each selected variable
+numerical_classes <- numerical_classes["character" %in% numerical_classes] #and here we check if any variable has class "character"
+numerical_questions <- numerical_questions[ , !names(numerical_questions) %in% numerical_classes] #if any variable has a character class then we remove it
+rm(numerical_classes)#and here we removing vector with classes from our environment
+
+```
+
+Now let's calculate weighted median for "n1_HH_total_expenditure".
+```{r}
+weighted.median(numerical_questions$n1_HH_total_expenditure, numerical_questions$stratum.weight, na.rm=TRUE)
+```
+
+But if we want to calculate weighted medians for each variable we will need to iterate this function on those variables. But first we will need to exclude variables with less than 3 observations.
+```{r}
+counts <- numerical_questions %>%
+select(-X_uuid, -strata) %>%
+summarise(across(.cols = everything(), .fns= ~sum(!is.na(.)) ))%>%
+t()#Calculating count of observation for each variable
+
+numerical_questions <- numerical_questions[ , (names(numerical_questions) %in% rownames(subset(counts, counts[,1] > 3)))]
+#removing variables with less than 3 observations
+
+
+medians <- lapply(numerical_questions[1:46], weighted.median, w = numerical_questions$stratum.weight, na.rm=TRUE)%>%
+  as.data.frame()
+```
+
+Now we can transpond resulting vector and add description to the calculation
+```{r}
+medians <- as.data.frame(t(medians),stringsAsFactors = FALSE)
+names(medians)[1] <- "Median_wght"
+head(medians)
+```
+
+## Ratios
+
+This function computes the % of answers for select multiple questions.\
+The output can be used as a data merge file for indesign.\
+The arguments are: dataset, disaggregation variable, question to analyze, and weight column.\
+
+### Example1: \
+**Question**: e11_items_do_not_have_per_hh\
+**Disaggregation variable**: b9_hohh_marital_status\
+**weights column**: stratum.weight\
+
+```{r}
+
+ratios_select_multiple <-
+  function(df, x_var, y_prefix, weights_var) {
+    df %>%
+      group_by({
+        {
+          x_var
+        }
+      }) %>% filter(!is.na(y_prefix)) %>%
+      summarize(across(starts_with(paste0(y_prefix, ".")),
+                       list(pct = ~ weighted.mean(., {
+                         {
+                           weights_var
+                         }
+                       }, na.rm = T))))
+  }
+
+res <-
+  ratios_select_multiple(
+    main_dataset,
+    b9_hohh_marital_status,
+    "e11_items_do_not_have_per_hh",
+    stratum.weight
+  )
+
+head(res)
+```
+
+### Example2 - Analyzing multiple questions and combine the output:\
+**Question**: e11_items_do_not_have_per_hh and b11_hohh_chronic_illness\
+**Disaggregation variable**: b9_hohh_marital_status\
+**weights column**: stratum.weight\
+
+```{r}
+res <-
+  do.call("full_join", map(
+    c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
+    ~ ratios_select_multiple(main_dataset, b9_hohh_marital_status, .x, stratum.weight)
+  ))
+
+head(res)
+
+```
+
+### Example3 - No dissagregation is needed and/or the data is not weighted:\
+**Question**: e11_items_do_not_have_per_hh and b11_hohh_chronic_illness\
+**Disaggregation variable**: NA\
+**weights column**: NA\
+
+```{r}
+
+
+main_dataset$all <- "all"
+main_dataset$no_weights <- 1
+
+res <-
+  do.call("full_join", map(
+    c("e11_items_do_not_have_per_hh", "b11_hohh_chronic_illness"),
+    ~ ratios_select_multiple(main_dataset, all, .x, no_weights)
+  ))
+
+head(res)
+
+```
+
+
+
+## Weights
+
+Weights can be used for different reasons. In most of cases, we will use weights to correct for difference between strata size. Once the population has a certain (big) size, for the same design, the size of the sample won't change much. In the case of the dataset, there are 4 stratas:\
+- within 20km of the border in rural areas : 89,408 households\
+- within 20km of the border in urban areas : 203,712 households\
+- within 20km of the border in rural areas : 39,003 households\
+- within 20km of the border in rural areas : 211,857 households
+
+Using any sampling calculator, for a 95% confindence level, 5% margin of error and 5% buffer, we will have around 400 samples per strata even though the urban areas are much bigger.\
+*Note: The error of 5% for 90,000 is 4,500 households while for 200,000 households is 10,000 households*
+
+If we look at each strata and the highest level of education completed by the household head (**b20_hohh_level_education**), we can see that the percentage of household were the head of household completed higher education varies between between 7 to 13 % in each strata.
+
+```{r, echo = F}
+main_dataset %>% 
+  group_by(strata, b20_hohh_level_education) %>% 
+  tally() %>% 
+  mutate(tot_n = sum(n),
+         prop = round(n/tot_n*100)) %>% 
+  filter(b20_hohh_level_education == "complete_higher")
+```
+
+However, if we want to know overall the percentage of who finished higher education we cannot just take the overall percentages, i.e. $\frac{40 + 51 +38 + 28}{407 + 404 + 402 + 404}$ = $\frac{157}{1617}$ = 10%.\
+We cannot do this because the first strata represent 90,000 households, the second 200,000 households, the third 40,000 households and the last one 210,000 households. We will use weights to compensate this difference.
+
+We will use this formula:\
+weight of strata = $\frac{\frac{strata\\ population}{total\\ population}}{\frac{strata\\ sample}{total\\ sample}}$
+
+### tidyverse
+
+The following example will show how to calculate the weights with **tidyverse**.
+
+To calculate weights, we will need all the following information: - *population of the strata*,\
+- *total population*,\
+- *sample* and\
+- *total sample*.\
+The population information should come from the sampling frame that was used to draw the sampling.
+
+```{r, echo = T}
+my_sampling_frame <- readxl::read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
+                                        sheet = "for_r") %>% 
+  rename(population_strata = population)
+my_sampling_frame
+```
+
+Then, we need to get the actual sample from the dataset.
+
+```{r}
+sample_per_strata_table <- main_dataset %>% 
+  group_by(strata) %>% 
+  tally() %>% 
+  rename(strata_sample = n) %>% 
+  ungroup()
+
+sample_per_strata_table
+```
+
+Then, we can join the tables together and calculate the weights per strata.
+
+```{r, message = F}
+weight_table <- sample_per_strata_table %>% 
+  left_join(my_sampling_frame) %>% 
+  mutate(weights = (population_strata/sum(population_strata))/(strata_sample/sum(strata_sample)))
+
+weight_table
+```
+
+Then we can finally add them to the dataset.
+
+```{r}
+main_dataset <- main_dataset %>% 
+  left_join(select(weight_table, strata, weights), by = "strata")
+head(main_dataset$weights)
+```
+
+We can check that each strata has only 1 weight.
+
+```{r}
+main_dataset %>% 
+  group_by(strata, weights) %>%
+  tally()
+```
+
+We can check that the sum of weights is equal to the number of interviews.
+
+```{r}
+
+sum(main_dataset$weights) == nrow(main_dataset)
+```
+
+### surveyweights
+
+**surveyweights** was created to calculate weights. The function **weighting_fun_from_samplingframe** creates a function that calculates weights from the dataset and the sampling frame.
+
+*Note: surveyweights can be found on [github](https://github.com/impact-initiatives/surveyweights).*
+
+First you need to create the weighting function. **weighting_fun_from_samplingframe** will take 5 arguments:\
+- sampling.frame: a data frame with your population figures and stratas.\
+- data.stratum.column : column name of the strata in the dataset.\
+- sampling.frame.population.column : column name of population figures in the sampling frame.\
+- sampling.frame.stratum.column : column name of the strata in the sampling frame.\
+- data : dataset
+
+```{r}
+library(surveyweights)
+
+my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
+                                                                      data.stratum.column = "strata",
+                                                                      sampling.frame.population.column = "population_strata", 
+                                                                      sampling.frame.stratum.column = "strata", 
+                                                                      data = main_dataset)
+```
+
+See that the **my_weigthing_function** is not a vector of weights. It is a function that takes the dataset as argument and returns a vector of weights.
+
+```{r}
+is.function(my_weigthing_function)
+```
+
+```{r}
+my_weigthing_function
+my_weigthing_function(main_dataset) %>% head()
+```
+
+*Note: A warning shows that if the column weights exists in the dataset, **my_weigthing_function** will not calculate weights. We need to remove the weights column from the previous example.*
+
+```{r}
+main_dataset$weights <- NULL
+my_weigthing_function(main_dataset) %>% head()
+```
+
+To add the weights, we need to add a new column.
+
+```{r}
+main_dataset$my_weights <- my_weigthing_function(main_dataset)
+
+head(main_dataset$my_weights)
+```
+
+As for the previous example, we can check that only 1 weight is used per strata.
+
+```{r}
+main_dataset %>% 
+  group_by(strata, my_weights) %>% 
+  tally()
+```
+
+We can check that the sum of weights is equal to the number of interviews.
+
+```{r}
+sum(main_dataset$my_weights) == nrow(main_dataset)
+```
+
+
+
+## impactR, based on `srvyr`
+
+
+`impactR` was at first designed for helping data officers to cover most of the research cycles' parts, from producing cleaning log, cleaning data, and analyzing it. It is available for download here: https://gnoblet.github.io/impactR/.
+
+The visualization (post-analysis) component has now been moved to package `visualizeR`: https://gnoblet.github.io/visualizeR/. Composite indicators now lies into `humind` : https://github.com/gnoblet/humind. Analysis is still a module of `impactR`; yet it will most probably shortly be moved to a smaller consolidated packages.
+
+There are some vignettes/some documentation on the Github website. In particular this one for analysis: https://gnoblet.github.io/impactR/articles/analysis.html.
+
+You can install and load it with: 
+```{r impactR-install-load}
+# devtools::install_github("gnoblet/impactR")
+library(impactR)
+```
+
+### Introduction
+
+#### Caveats
+
+Though it has been used for several research cycles, including MSNAs, there is no test designed in the package. One discrepancy will be corrected in the next version using function `make_analysis_from_dap()`: it for now assumes that all `id_analysis` are distinct and not NAs when using `bind = TRUE`. The next version will also have a new feature: unweighted counts and some automation for select one and select multiple questions.
+
+Grouping is for now only possible for one variable. If you want to disagregate for instance by setting (rural vs. urban) and admin1, then you must mutate a new variable beforehand (it is as simple as pasting both columns).
+
+#### Rational
+
+The package is a wrapper around `srvyr`. The workflow is as follows:
+
+1. Prepare data: Get your data, weights, strata ready, and prepare a survey design object (using `srvyr::as_survey_design()`).
+2. Individual general analysis: It has a small family of functions `svy_*()` such as `svy_prop()` which are wrappers around the `srvyr::survey_*()` family in order to harmonize outputs. These functions can be used on their owns and covers mean, median, ration, proportion, interaction.
+3. Individual analysis based on a Kobo tool: Prepare your Kobo tool, then use `make_analysis()`.
+4. Multiple analyses based on a Kobo tool: Prepare your Data Analysis Plan, then feed `make_analysis_from_dap()`.
+
+#### Prepare data
+
+Data must have been imported with `ìmport_xlsx()` or `import_csv()` or with `janitor::clean_names()`. This is to ensure that column names for multiple choices follow this pattern: "variable_choice1", with an underscore between the variable name from the survey sheet and the choices from the choices sheet. For instance, for the main drinking water source (if multiple choice), it could be "w_water_source_surface_water" or "w_water_source_stand_pipe".
+
+
+### First stage: prepare data and survey design
+
+We start by downloading a dataset and the associated Kobo tool.
+
+```{r impactR-load-data}
+# The dataset (main and roster sheets), and the Kobo tool sheets are saved as a RDS object
+all <- readRDS("inputs/REACH_HTI_dataset_MSNA-2022.RDS")
+
+# Sheet main contains the HH data
+main <- all$main
+
+# Sheet survey contains the survey sheet
+survey <- all$survey
+
+# Sheet choices contains, well, the choices sheet
+choices <- all$choices
+```
+
+Let's prepare:
+
+- data with `janitor::clean_names()` to ensure lower case and only underscore (no dots, no /, etc.).
+- survey and choices: let's separate column type from survey and rename the label column we want to keep to `label`, otherwise most functions won't work.
+
+
+```{r impactR-prepare-data-kobo}
+main <- main |> 
+  # To get clean_names()
+  janitor::clean_names() |> 
+  # To get better types
+  readr::type_convert()
+
+
+survey <- survey |> 
+  # To get clean names
+  janitor::clean_names() |> 
+  # To get two columns one for the variable type, and one for the list_name
+  impactR::split_survey(type) |> 
+  # To get one column labelled "label" if multiple languages are used
+  dplyr::rename(label = label_francais)
+
+choices <- choices |> 
+  janitor::clean_names() |> 
+  dplyr::rename(label = label_francais)
+```
+
+Now that the dataset and the Kobo tool are loaded, we can prepare the survey design:
+```{r impactR-prepare-survey-design}
+design <- main |> 
+  srvyr::as_survey_design(
+    strata = stratum,
+    weights = weights)
+
+```
+
+### Second stage: One variable analysis
+
+Let's give a few examples for the `svy_*()` family.
+
+```{r impactR-svy-family}
+# Median of respondent's age, with the confidence interval, no grouped analysis
+impactR::svy_median(design, i_enquete_age, vartype = "ci")
+
+# Proportion of respondent's gender, with the confidence interval, by setting (rural vs. urban)
+impactR::svy_prop(design, i_enquete_genre, milieu, vartype = "ci")
+
+# Ratio of the number of 0-17 yo children that attended school, with the confidence interval and no group
+impactR::svy_ratio(design, e_formellet, c_total_age_3a_17a, vartype = "ci")
+
+# Top 6 common profiles between type of sanitation and source of drinking water, by setting
+impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), group = milieu, vartype = "ci") |> head(6)
+## It means that unprotected water springs and open pit is the most common profile for rural hhs (12%), whereas the most common profile for urban hhs is flush and pour toilet and tap water with national network (7%).
+
+```
+
+### Third stage: one analysis at a time with the Kobo tool
+
+Now that we understands the `svy_*()` family of functions, we can use `make_analysis()` which is a wrapper around those for making analysis for medians, means, ratios, proportions of select ones and select multiples. The output of `make_analysis()` has standardized columns among all types of analysis and labels are pulled out if possible thanks to the survey and choices sheets.
+
+Let's say you don't have a full DAP sheet, and you just want to make individual analyses.
+
+1- Proportion for a single choice question:
+```{r impactR-prop-simple, eval = FALSE}
+# Single choice question, sanitation facility type
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", level = 0.95, vartype = "ci")
+
+# Same thing without labels, do not get labels of choices
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", get_label = FALSE)
+
+# Single choice question, by group setting (rural vs. urban) - group needs to be a character string here
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", group = "milieu")
+```
+2- Proportion overall: calculate the proportion with NAs as a category, this can be useful in case of a skip logic and you want to make the calculation over the whole population:
+```{r impactR-prop-simple-overall, eval = FALSE}
+# Single choice question: 
+impactR::make_analysis(design, survey, choices, r_1_date_reception_assistance, "prop_simple_overall", none_label = "No assistance received, do not know, prefere not to say, or missing data")
+```
+
+3- Multiple proportion:
+```{r impactR-prop-multiple, eval = FALSE}
+# Multiple choice question, here computing self-reported priority needs
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple", level = 0.95, vartype = "ci")
+
+# Multiple choice question, with no label and with groups
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple", get_label = FALSE, group = "milieu")
+```
+
+4- Multiple proportion overall: calculate the proportion for each choice over the whole population (replaces NAs by 0s in the dummy columns):
+```{r impactR-prop-multiple-overall, eval = FALSE}
+# Multiple choice question, estimates calculated over the whole population.
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple_overall")
+
+```
+
+5- Mean, median and counting numeric as character:
+```{r impactR-numeric, eval = FALSE}
+# Mean of interviewee's age
+impactR::make_analysis(design, survey, choices, i_enquete_age, "mean")
+
+# Median of interviewee's age
+impactR::make_analysis(design, survey, choices, i_enquete_age, "median")
+
+# Proportion counting a numeric variable as a character variable
+# Could be used for some particular numeric variables. For instance, below is the % of HHs by daily duration of access to electricity by setting (rural or urban).
+impactR::make_analysis(design, survey, choices, a_6_acces_courant, "count_numeric", group = "milieu")
+
+```
+
+6 - Last but not least, ratios (it does not consider NAs). For this, it is only necessary to write a character string with the two variable names separated by a comma:
+```{r impactR-ratio, eval = FALSE}
+# Let's calculate the % of children aged 3-17 that were registered to a formal school among the HHs that reported having children aged 3-17.
+impactR::make_analysis(design, survey, choices, "e_formellet,c_total_age_3a_17a", "ratio")
+```
+
+
+#### Fourth stage: Using a data analysis plan
+
+Now we can use a dap, which mainly consists of a data frame with needed information for performing the analysis. One line is one requested analysis. All variables in the dap must exist in the dataset to be analysed. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
+
+```{r impactR-make_analysis_from_dap}
+# Here I produce a three-line DAP directly in R just for the sake of the example.
+dap <- tibble::tibble(
+  # Column: unique analaysis id identifier
+  id_analysis = c("foodsec_1", "foodsec_3", "foodsec_3"),
+  # Column: sector/research question
+  rq = c("FSL", "FSL", "FSL"),
+  # Column: sub-sector, sub research question
+  sub_rq = c("Food security", "Food security", "Livelihoods"),
+  # Column: indicator name
+  indicator = c("% of HHs by FCS category", "% of HHs by HHS level", "% of HHs by LCSI category"),
+  # Column: recall period
+  recall = c("7 days", "30 days", "30 days"),
+  # Column: the variable name in the dataset 
+  question_name = c("fcs_cat", "hhs_cat", "lcs_cat"),
+  # Column: subset (to be written by hand, does the calculation operates on a substed of the population)
+  subset = c(NA_character_, NA_character_, NA_character_),
+  # Column: analysis name to be passed to `make_analysis()`
+  analysis = c("prop_simple", "prop_simple", "prop_simple"),
+  # Column: analysis name used to be displayed later on
+  analysis_name = c("Proportion", "Proportion", "Proportion"),
+  # Column: if using analysis "prop_simple_overall", what is the label for NAs, passed through `make_analysis()`
+  none_label = c(NA_character_, NA_character_, NA_character_),
+  # Column: group label
+  group_name = "General population",
+  # Column: group variable from which to disaggregate (setting as an example)
+  group = c("milieu", "milieu", "milieu"),
+  # Column: level of confidence
+  level = c(0.95, 0.95, 0.95),
+  # Column: should NAs be removed?
+  na_rm = c("TRUE", "TRUE", "TRUE"),
+  # Column! var type, here we want confidence intervals
+  vartype = c("ci", "ci", "ci")
+)
+
+dap
+
+```
+
+
+Let's produce an analysis: 
+```{r}
+# Getting a list
+an <- impactR::make_analysis_from_dap(design, survey, choices, dap)
+# Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels
+
+# Getting a long dataframe
+impactR::make_analysis_from_dap(design, survey, choices, dap, bind = TRUE) |> head(10)
+
+# To perform the same analysis without grouping, you can just replace the "group" variable by NAs
+dap |> 
+  srvyr::mutate(group = rep(NA_character_, 3)) |> 
+  impactR::make_analysis_from_dap(design, survey, choices, dap = _, bind = TRUE) |> 
+  head(10)
+
+```
+
+
+## EXAMPLE :: Survey analysis using illuminate 
+`illuminate` is designed for making the data analysis easy and less time consuming. The package is based on tidyr, dplyr,srvyr packages.You can install the package from [here](https://github.com/mhkhan27/illuminate). HOWEVER the package is not maintained by the author anymore and it doesnt includes any tests.  
+
+### Step 0:: Call libraries
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(illuminate)
+library(tidyverse)
+library(purrr)
+library(readxl)
+library(openxlsx)
+library(srvyr)
+```
+
+
+
+
+### Step 1:: Read data
+Read data with `read_sheets()`. This will make sure your data is stored as appropriate data type. It is important to make sure that all the select multiple are stored as logical, otherwise un weighted count will be wrong. It is recommended to use the `read_sheets()` to read the data. use ``?read_sheets()` for more details. 
+``` {r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#  [recommended] read_sheets("[datapath]",data_type_fix = T,remove_all_NA_col = T,na_strings = c("NA",""," "))
+data_up<-read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+
+
+```
+The above code will give a dataframe  called `data_up`
+
+
+
+### Step OPTIONAL:: Preaparing the data
+
+<span style="color: red;">ONLY APPLICABLE WHEN YOU ARE NOT READING YOUR DATA WITH `read_sheets()`</span>
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# data_up <- read_excel("data/data.xlsx")
+data_up <- fix_data_type(df = data_up)
+```
+
+
+### Step 2:: Weight calculation
+To do the weighted analysis, you will need to calculate the weights. If your dataset already have the weights column then you can ignore this part
+
+### Read sampleframe
+``` {r, eval=F,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+sampling_frame <- read.csv("[Sample frame path]")
+```
+
+
+This will give a data frame called `sampling_frame`
+
+``` {r, eval=F, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+
+weights <- data_up %>% group_by(governorate1) %>% summarise(
+  survey_count = n()
+) %>% left_join(sampling_frame,by =c("governorate1"="strata.names")) %>% 
+  mutate(sample_global=sum(survey_count),
+         pop_global=sum(population),
+         survey_weight= (population/pop_global)/(survey_count/sample_global)) %>% select(governorate1,survey_weight)
+```
+
+
+
+### Add weights to the dataframe
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+data_up <- data_up %>% left_join(weights,by= "governorate1")
+```
+
+
+
+
+
+### Step 3.1:: Weighted analysis
+To do the weighted analysis, you need to set `weights` parameter to `TRUE` and provide `weight_column` and `strata`. You should define the name of the data set weight column in the `weight_column` parameter and name of the strata column name from the data set. 
+
+Additionally, please define the name of the columns which you would like to analyze in `vars_to_analyze`. Default will analyze all the variables that exist in the data set.
+
+Lastly, please define the `sm_sep` parameter carefully. It must be either `/` or `,`. Use `/` when your select multiple type questions are separated by `/` (example-  parent_name/child_name1,parent_name/child_name2,
+parent_name/child_name3.....). On the other hand use `.` when the multiple choices are separated by `.`. (example -  parent_name.child_name1,parent_name.child_name2,parent_name.child_name3)
+
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+
+overall_analysis <- survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",strata = "governorate1")
+
+# As var_to_analyze is not defined, here the function will analyze all the variables. 
+```
+
+### Step 3.2:: Unweighted analysis
+To do unweighted analysis, you need to set the `weights` parameter `FALSE`. 
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+columns_to_analyze <- data_up[20:50] %>% names() ## Defining  names of the variables to be analyzed. 
+overall_analysis <- survey_analysis(df = data_up,weights = F,vars_to_analyze = columns_to_analyze )
+
+DT::datatable(overall_analysis,caption = "Example::Analysis table")
+```
+
+### Step 3.3:: Weighted and disaggregated by gender analysis
+
+Use `?survey_analysis()` to know about the perameters. 
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+analysis_by_gender <-  survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",vars_to_analyze = columns_to_analyze,
+                                       strata = "governorate1",disag = c("va_child_income","gender_speaker"))
+```
+
+
+
+### Step 4:: Export with `write_formatted_excel()`
+You can use any function to export the analysis however `write_formatted_excel()` can export formatted file. See the documentation for more details.
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+write_list <- list(overall_analysis ="overall_analysis",
+                   analysis_by_gender ="analysis_by_gender"
+)
+write_formatted_excel(write_list,"analysis_output.xlsx",
+                      header_front_size = 12,
+                      body_front = "Times")
+```
+
+
+
+
+## Repeating the above
+
+## Analysis - top X / ranking (select one and select multiple)
+
+First: select_one question
+
+The indicator of interest is **e1_shelter_type** and the options are:
+
+- solid_finished_house
+- solid_finished_apartment
+- unfinished_nonenclosed_building
+- collective_shelter
+- tent
+- makeshift_shelter
+- none_sleeping_in_open
+- other_specify
+- dont_know_refuse_to_answer
+
+```{r}
+# Top X/ranking for select_one type questions 
+select_one_topX <- function(df, question_name, X = 3) { # by default return top 3
+  # test message
+  if(length(colnames(df)[grepl(question_name, colnames(df), fixed = T)]) == 0) {
+    stop(print(paste("question name:", question_name, "doesn't exist in the main dataset. Please double check and make required changes!")))
+  }
+  
+  df <- df %>%
+    select(!!sym(question_name))%>%          
+    filter(!is.na(!!sym(question_name))) %>% # remove NA values from percentage calculations 
+    mutate_at(question_name, as.factor) %>%  # added to have all groups
+    group_by(!!sym(question_name), .drop=F) %>% 
+    summarise(n = n()) %>%
+    mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
+    arrange(desc(percentages)) %>% 
+    mutate_at(question_name, as.character) %>% 
+    head(X)   # keep top X percentages only 
+  
+  if(nrow(df) == 0) warning("None of the choices was selected!")
+ 
+  return(df)
+}
+
+# return top 4 shelter types
+shelter_type_top4 <- select_one_topX(df = main_dataset, question_name = "e1_shelter_type", X = 4)
+```
+
+Second: select_multiple question
+
+The indicator of interest is **e3_shelter_enclosure_issues** and the options are:
+
+- no_issues
+- lack_of_insulation_from_cold
+- leaks_during_light_rain_snow
+- leaks_during_heavy_rain_snow
+- limited_ventilation_less_than_05m2_ventilation_in_each_room_including_kitchen
+- presence_of_dirt_or_debris_removable
+- presence_of_dirt_or_debris_nonremovable
+- none_of_the_above
+- other_specify
+- dont_know
+
+```{r}
+# Top X/ranking for select_multiple type questions
+select_multiple_topX <- function(df, question_name, X = 3) {
+  # test message
+  if(length(colnames(df)[grepl(question_name, colnames(df), fixed = T)]) == 0){
+    stop(print(paste("question name:", question_name, "doesn't exist in the main dataset. Please double check and make required changes!")))
+  }
+  
+  df <- df %>%
+    select(colnames(df)[grepl(paste0(question_name, "."), colnames(df), fixed = T)])
+  
+  # if question was not answered
+  if(all(is.na(df))) warning("None of the choices was selected!")
+
+  # Keeping only the options names in the colnames
+  colnames(df) <- gsub(paste0(question_name, "\\."), "", colnames(df))
+  
+  # calculate top X percentages
+  df <- df %>%
+    mutate_all(as.numeric) %>% 
+    pivot_longer(cols = everything(), names_to = question_name, values_to = "choices") %>%
+    group_by(!!sym(question_name), .drop=F) %>% 
+    summarise(n = sum(choices, na.rm = T),
+              percentages = round(sum(choices, na.rm = T) / n() * 100, digits = 2)) %>% # remove NA values from percentages calculations
+    arrange(desc(percentages)) %>% 
+    head(X)   # keep top X percentages only 
+  
+  return(df)
+}
+
+# return top 7 shelter enclosure issues
+shelter_enclosure_issues_top7 <- select_multiple_topX(df = main_dataset, question_name = "e3_shelter_enclosure_issues", X = 7)
+```
+
+
+## Borda count
+
+## Hypothesis testing
+### T-test
+
+#### What is a T-test
+
+A t-test is a type of inferential statistic used to determine if there is a significant difference between the means of two groups. A t-test is used as a hypothesis testing tool, which allows testing of an assumption applicable to a population. 
+
+
+#### How it works
+
+Mathematically, the t-test takes a sample from each of the two sets and establishes the problem statement by assuming a null hypothesis that the two means are equal. Based on the applicable formulas, certain values are calculated and compared against the standard values, and the assumed null hypothesis is accepted or rejected accordingly.
+
+If the null hypothesis qualifies to be rejected, it indicates that data readings are strong and are probably not due to chance.
+
+
+#### T-Test Assumptions
+
+- The first assumption made regarding t-tests concerns the scale of measurement. The assumption for a t-test is that the scale of measurement applied to the data collected follows a continuous or ordinal scale, such as the scores for an IQ test.
+
+- The second assumption made is that of a simple random sample, that the data is collected from a representative, randomly selected portion of the total population.
+
+- The third assumption is the data, when plotted, results in a normal distribution, bell-shaped distribution curve.
+
+- The final assumption is the homogeneity of variance. Homogeneous, or equal, variance exists when the standard deviations of samples are approximately equal.
+
+
+#### Example
+
+We are going to look at the income of the household for female/male headed household. The main_dataset doesn't contain the head of household gender information, so we are creating and randomly populating the gender variable.
+
+```{r, warning=F}
+set.seed(10)
+main_dataset$hoh_gender = sample(c('Male', 'Female'), nrow(main_dataset), replace=TRUE)
+main_dataset$b15_hohh_income = as.numeric(main_dataset$b15_hohh_income)
+
+```
+
+```{r}
+t_test_results <- t.test(b15_hohh_income ~ hoh_gender, data = main_dataset)
+t_test_results
+```
+In the result above :
+
+t is the t-test statistic value (t = -0.19105),
+df is the degrees of freedom (df= 1525.6),
+p-value is the significance level of the t-test (p-value = 0.8485).
+conf.int is the confidence interval of the means difference at 95% (conf.int = [-270.3420, 328.6883]);
+sample estimates is the mean value of the sample (mean = 3459.044, 3429.871).
+
+**Interpretation:**
+
+The p-value of the test is 0.8485, which is higher than the significance level alpha = 0.05. We can't reject the null hypothesis and we can't conclude that men headed household average income is significantly different from women headed household average income. Which makes sense in this case given that the gender variable was randomly generated. 
+
+
+### ANOVA
+
+#### What is ANOVA 
+
+Similar to T-test, ANOVA is a statistical test for estimating how a quantitative dependent variable changes according to the levels of one or more categorical independent variables. ANOVA tests whether there is a difference in means of the groups at each level of the independent variable.
+
+The null hypothesis (H0) of the ANOVA is no difference in means, and the alternate hypothesis (Ha) is that the means are different from one another.
+
+The T-test is used to compare the means between two groups, whereas ANOVA is used to compare the means among three or more groups.
+
+
+#### Types of ANOVA
+
+There are two main types of ANOVA: one-way (or unidirectional) and two-way.
+A two-way ANOVA is an extension of the one-way ANOVA. With a one-way, you have one independent variable affecting a dependent variable. With a two-way ANOVA, there are two independents. For example, a two-way ANOVA allows a company to compare worker productivity based on two independent variables, such as salary and skill set. It is utilized to observe the interaction between the two factors and tests the effect of two factors at the same time.
+
+#### Example
+
+We are using the same example as the previous test.
+
+```{r}
+
+res.aov <- aov(b15_hohh_income ~ hoh_gender, data = main_dataset)
+
+summary(res.aov)
+```
+
+As the p-value is more than the significance level 0.05, we can't conclude that there are significant differences between the hoh_gender groups.
+
+#### Bonus : Visualization of the data to confirm the findinds 
+
+```{r, warning=F}
+library(ggpubr)
+
+ggline(main_dataset, x = "hoh_gender", y = "b15_hohh_income", 
+       add = c("mean_se", "jitter"), 
+       order = c("Female", "Male"),
+       ylab = "HH income", xlab = "hoh gender")
+```
+
+
+### chi-squares
+
+Pearson`s chi-squared test.
+Chi-squared test is a statistical hypothesis test, based on comparing expected and observed frequencies of 2-way distribution (2-way table).
+
+There are three types of tests (hypothesis) that could be tested with chi-squared: independence of variables, homogenity of distribution of the characteristic across "stratas" and goodness of fit (whether the actual distribution is different from the hypothetical one). Two former versions use the same calculation.
+
+Chi-squared test is a non-parametric test.
+It is used with nominal to nominal (nominal to ordinal) scales.
+For running chi-squared test, each cell of the crosstab should contain at least 5 observations.
+
+Note, that chi-squared test indicates significance of differences in values on a *table level*. Thus, it is impossible to track significance in differences for particular options.
+
+(For example, it is possible to say that satisfaction with public transport and living in urban / rural areas are connected. However, we can conclude from the test itself, that "satisfied" and "dissatisfied" options differ, while "indifferent" does not. By the way, it is possible to come up with this conclusion while interpreting a corresponding crosstab. Also, chi-squared test can tell nothing about the strength and the direction of a liaison between variables).
+
+
+#### Chi-squared test for independence
+
+The test for weighted data is being run with the survey library
+
+
+```{r, message= F, warning=F, error=F, echo=T}
+library(survey)
+library(dplyr)
+library(weights)
+```
+
+The use of the survey package functions requires specifying survey design object (which reslects sampling approach).
+
+```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
+
+svy_design <- svydesign(data=main_dataset, 
+                        id = ~1, 
+                        strata = main_dataset$strata, 
+                        probs = NULL,
+                        weights = main_dataset$stratum.weight)
+
+```
+
+Specifying function for getting chi-squared outputs.
+
+Hereby test Chi^2 test of independence is used. So, the test is performed to find out if strata variable and target variable are independent,
+**H0** - the distribution of target variable values is equal across all stratas
+**H1**  - strata and target var are not independent, so distribution varies across stratas.
+
+Apart from getting test statistic and p value, we would like to detect manually what are the biggest and the smallest values across groups/stratas (in case if the difference is significant and it makes sense to do it).
+
+Hereby test Chi^2 test of independence is used. So, the test is performed to find out if strata variable and target variable are independent,
+H0 - the distribution of target var. values is equal across all stratas
+H1  - strata and target var are not independent, so distribution varies across stratas.
+
+Within the Survey package, the suggested function uses Scott & Rao adjustment for complex survey design
+
+#####Simple single call of the test.
+
+Let's say that the research aim is to understand whether the main water source is dependent on the area where HH lives (strata variable).
+
+Thus, in our case:
+H0 - the distribution of water source is equal across stratas and these variables are independent
+H1 - the distribution of water source differs by strata and these variables are not independent.
+
+Running the chi-squared test:
+
+(Survey version - requires a survey design object)
+
+```{r}
+svychisq(~ f11_dinking_water_source + strata, design = svy_design, statistic = "Chisq")
+
+```
+
+The current output presents the result of Pearson's chi-squared test (Rao & Scott adjustment accounts for weighted data) [https://www.researchgate.net/publication/38360147_On_Simple_Adjustments_to_Chi-Square_Tests_with_Sample_Survey_Data].
+
+The output consist of three parameters:
+1. X-squared - observed value of chi-squared parameter,
+2. df - "degrees of freedom" or number of independent categories in data -1
+Having only these two elements it is possible to see, if with the current number of df, the value of chi-squared parameter is greater than the critical value for the chosen level of probability, using (tables of chi-squared critical values) [https://www.itl.nist.gov/div898/handbook/eda/section3/eda3674.htm]
+Fortunately, R provides us with the third parameter, which allows us to skip this step.
+3. p-value - stands for the probability of getting value of the chi-squared parameter greater or equal to the given one assuming that H0 is true. If p-value < 0.05 (for 95% confidence level, or 0.01 for 99%), the H0 can be rejected.
+
+In the current example, as p-value is very low, H0 can be rejected, and hence, strata variable and drinking water source are not independent. 
+
+(Weights package - can work with the dataframe directly, without the survey design object)
+
+```{r}
+wtd.chi.sq(var1 = main_dataset$f11_dinking_water_source, var2 = main_dataset$strata, weight = main_dataset$stratum.weight)
+```
+
+
+Specifying the function for crosstabs with chi-squared tests for independence.
+
+#####Functions to have test results along with crosstabs
+
+1. The function with survey design object. 
+
+Apart from getting test statistic and p value, we would like to detect manually what are the biggest and the smallest values across groups/stratas (in case if the difference is significant and it makes sense to do it).
+
+The function also helps to find out smallest and the largest values per row 
+
+```{r}
+chi2_ind_extr <- function(x, y, design){
+  my_var <- y
+
+# running Pearson's chi-squared test
+  s_chi <- svychisq(as.formula(paste0("~", x,"+", y)), design, statistic = "Chisq")
+  
+  # extracting basic parameters
+  wmy_t <- as.data.frame(s_chi$observed)
+  wmy_t$p <- s_chi$p.value
+  wmy_t$chi_adj <- s_chi$statistic
+  wmy_t$df <- s_chi$parameter
+  #indicating significance
+  wmy_t$independence <- ifelse(wmy_t$p < 0.05, "h1", "h0")
+  colnames(wmy_t)[1:2] <- c("var_x", "var_y")
+  wmy_t_w <- spread(wmy_t, var_y, Freq)
+  wmy_t_w[,1] <- paste0(x, " ", wmy_t_w[,1])
+  colnames(wmy_t_w)[1] <- "variable"
+  # getting percent from weighted frequencies
+  cols_no_prop <- c("variable", "p", "independence", "max", "min", "chi_adj", "df")
+  wmy_t_w[, !colnames(wmy_t_w) %in% cols_no_prop] <- lapply(wmy_t_w[, !colnames(wmy_t_w) %in% cols_no_prop], function(x){x/sum(x, na.rm = T)})
+  # indicating extremum values
+  cols_to_compare <- colnames(wmy_t_w)[!colnames(wmy_t_w) %in% c("p", "chi_adj", "df", "independence", "min", "max", "variable")]
+  wmy_t_w$max <- ifelse(wmy_t_w$independence == "h1", cols_to_compare[apply(wmy_t_w, 1, which.max)], 0)
+  
+  wmy_t_w$min <- ifelse(wmy_t_w$independence == "h1", cols_to_compare[apply(wmy_t_w, 1, which.min)], 0)
+  
+  #adding Overall value to the table
+  ovl_tab <- as.data.frame(prop.table(svytable(as.formula(paste0("~",x)), design)))
+  colnames(ovl_tab) <- c("options", "overall")
+  wmy_t_w <- wmy_t_w %>% bind_cols(ovl_tab)
+  return(wmy_t_w)
+}
+```
+
+The use with a single-choice question
+
+```{r, warning=F}
+chi2_ind_extr("f11_dinking_water_source", "strata", svy_design)
+```
+In the given output, **p** indicates chi-squared test p-value, **chi_adj** - value of chi-squared parameter, **df** - degrees of freedom, **independence** - indicates which hypothesis is accepted, h0 or h1. In the current function, H1 is accepted if p < 0.05. In case H0 is rejected and H1 accepted, in **min** and **max** columns minimum and maximum y variable categories are given.
+
+The use with a multiple-choice question.
+
+The test would not work if any of dummies consists from zeros only, it need to be checked in advance, thus, let's filter such variables out from the vector of variable names
+
+Getting full range of dummies from the question
+
+```{r}
+names <- names(main_dataset)
+f12 <- names[grepl("f12_drinking_water_treat.", names)]
+```
+
+Defining a function which would remove zero-sum variables for us
+
+if the absence of empty cells for each strata is needed, per_cell = T
+```{r}
+non_zero_for_test <- function(var, strata, dataset, per_cell = F){
+  sum <- as.data.frame(sapply(dataset[, names(dataset) %in% var], sum))
+  sum <- cbind(rownames(sum), sum)
+  filtered <- sum[sum[,2] > 0,1]
+  tab <- as.data.frame(sapply(dataset[,names(dataset) %in% filtered], table, dataset[, strata]))
+  ntab <- names(tab)
+  #if the absence of empty cells for each strata is needed, per_cell = T
+  tab <- tab[, which(colnames(tab) %in% ntab)]
+  zeros <- apply(apply(tab, 2, function(x) x==0), 2, any)
+  zeros <- zeros[zeros == F]
+  zeros <- as.data.frame(zeros)
+  zeros <- cbind(rownames(zeros), zeros)
+  zeros_lab <- as.vector(unlist(strsplit(zeros[,1], split = ".Freq")))
+  result <- c()
+  if(per_cell == T){
+    result <- zeros_lab
+  } else {
+    result <- ntab
+  }
+  message(paste0(abs(length(var) - length(result)), " variables were removed because of containing zeros in stratas"))
+  
+  return(result)
+}
+```
+
+Using the test with multiple choice question.
+
+```{r, warning=F}
+nz_f12 <- non_zero_for_test(f12, "strata", main_dataset, per_cell = F)
+
+f12_sig <- lapply(nz_f12, chi2_ind_extr, y = "strata", design = svy_design)
+
+f12_sig_df <- Reduce(rbind, f12_sig)
+
+#removing 0 ("not selected") options
+f12_sig_df <- f12_sig_df %>% filter(options == 1)
+f12_sig_df
+```
+
+2. The function without the survey design object
+
+```{r}
+chi2_ind_wtd <- function(x, y, weight, dataset){
+  i <- 1
+  table_new <- data.frame()
+  for (i in 1:length(x)) {
+  ni <- x[i]
+  ti <- dataset %>% 
+    filter(!is.na(!!sym(y))) %>%
+    group_by(!!sym(y), !!sym(ni)) %>% 
+    filter(!is.na(!!sym(ni))) %>%
+    summarise(wtn = sum(!!sym(weight)), n = n()) %>%
+    mutate(prop = wtn/sum(wtn), varnam = ni)
+  names(ti) <- c("var_ind", "var_dep_val", "wtn", "n",  "prop", "dep_var_nam")
+  ti <- ti %>% ungroup() %>% mutate(base = sum(c_across(n)))
+  chi_test  <- wtd.chi.sq(var1 = dataset[, paste0(y)], var2 = dataset[, paste0(ni)], weight = dataset[, paste0(weight)])
+  ti$chisq <- chi_test[1]
+  ti$df <- chi_test[2]
+  ti$p <- chi_test[3]
+  ti$hypo <- ifelse(ti$p < 0.05, "h1", "h0")
+  table_new <- rbind(table_new, ti)
+}
+table_cl_new_1 <- table_new %>% 
+  #filter(var_dep_val != "0") %>% 
+  filter(!is.na(var_dep_val))
+#mutate(var_id = paste0(dep_var_nam, ".", var_dep_val))
+table_cl_new_1 <- table_cl_new_1[, -c(3, 4)]
+
+table_sprd <- tidyr::spread(table_cl_new_1, var_ind, prop) %>%
+  arrange(dep_var_nam)
+return(table_sprd)
+}
+```
+
+The use with the single choice question
+
+```{r}
+chi2_ind_wtd(x = "f11_dinking_water_source", y = "strata",
+             weight = "stratum.weight", main_dataset)
+```
+The use with multiple choice questions
+
+```{r, message = F}
+names <- names(main_dataset)
+
+f12_names <- names[grepl("f12_drinking_water_treat.", names)]
+
+f12_sig2 <- lapply(f12_names, chi2_ind_wtd, y = "strata", weight = "stratum.weight", main_dataset)
+
+f12_tab_df <- Reduce(rbind, f12_sig2)
+f12_tab_df
+```
+
+### Chi-squared Goodness of Fit test
+
+Goodness of test chi-squared test is used to compare the observed distribution with the hypothetical one,
+
+For instance, we would like to test the hypothesis, that 90% of HHs had soap in their HHs at the moment of the survey.
+
+```{r}
+main_dataset <- main_dataset %>% mutate(soap = case_when(
+ p16_soap_household == "dont_know_refuse_to_answer" ~ "NA",
+ p16_soap_household == "no" ~ "no",
+ p16_soap_household == "yes_soap_is_not_shown" ~ "yes",
+ p16_soap_household == "yes_soap_is_shown" ~ "yes"
+))
+soap_prob <- as.data.frame(prop.table(table(main_dataset$soap)))
+soap_prob <- soap_prob[, 2]
+# please, note that this is a function call with unweighted data!
+chisq.test(soap_prob, p = c(0, 0.1, 0.9))
+```
+As p value is lower than the chosen confidence level, hypothesis of equality of the current distribution to hypothetical 90% / 10% of soap-owners can be rejected.
+
+Defining a function for checking the distribution within a particular group, against the "hypothetical" overall sample.
+
+For the overall sample we would need a variable which has the same value across all observations (e.g. informed consent == yes etc.)
+
+```{r}
+
+chi2_GoF <- function(name, stratum_hyp, stratum_2, value_stratum_hyp, value_stratum_2, data, weights){
+  i <- 1
+  table_1 <- data.frame()
+  for (i in 1:length(name)) {
+    ni <- name[i]
+    ti <- data %>% 
+      group_by(!!sym(ni)) %>% filter(!!sym(stratum_hyp) == paste0(value_stratum_hyp)) %>%
+      filter(!is.na(!!sym(ni))) %>%
+      summarise(wtn = sum(!!sym(weights)), n = n()) %>%
+      mutate(prop = wtn/sum(wtn), base = sum(wtn), cnt = sum(n))%>%
+      mutate(varnam = ni)
+    names(ti) <- c("var", "wtn", "n", "prop", "base_w", "count", "nam")
+    table_1 <- rbind(table_1, ti)
+  }
+  table_cl_1 <- table_1 %>% filter(!is.na(var)) %>%
+    mutate(var_id = paste0(nam, ".", var))
+  i <- 1
+  table_2 <- data.frame()
+  for (i in 1:length(name)) {
+    ni <- name[i]
+    ti <- data %>% 
+      group_by(!!sym(ni)) %>% filter(!!sym(stratum_2) == paste0(value_stratum_2)) %>%
+      filter(!is.na(!!sym(ni))) %>%
+      summarise(wtn = sum(!!sym(weights)), n = n()) %>%
+      mutate(prop = wtn/sum(wtn), base = sum(wtn), cnt = sum(n))%>%
+      mutate(varnam = ni)
+    names(ti) <- c("var", "wtn", "n", "prop", "base_w", "count", "nam")
+    table_2 <- rbind(table_2, ti)
+  }
+  
+  table_cl_2 <- table_2 %>% filter(!is.na(var)) %>%
+    mutate(var_id = paste0(nam, ".", var))
+  table_cl_compare <- merge(table_cl_1, table_cl_2, by = "var_id", all = T)
+  names(table_cl_compare) <- c("var.id", "var.hyp", "wtn.hyp", "n.hyp", "prop.hyp", "base.hyp", "base_nw.hyp","nam.hyp", "var.2", "wtn.2", "n.2", "prop.2", "base.2", "base_nw.2", "nam.2")
+  
+  #Dealing with NA issues
+  table_cl_compare$nam.hyp[is.na(table_cl_compare$nam.hyp)] <- table_cl_compare$nam.2[is.na(table_cl_compare$nam.hyp)]
+  
+  table_cl_compare$nam.2[is.na(table_cl_compare$nam.2)] <- table_cl_compare$nam.hyp[is.na(table_cl_compare$nam.2)]
+  
+  table_cl_compare$to_split <- table_cl_compare$nam.hyp
+  
+  table_cl_compare <- separate(table_cl_compare, col = to_split, into = c("indctr", "item"), sep ="\\.")
+  
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base_nw.hyp, .direction  = "down") %>% fill(base_nw.hyp, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base.hyp, .direction  = "down") %>% fill(base.hyp, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base_nw.2, .direction  = "down") %>% fill(base_nw.2, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base.2) %>% fill(base_nw.hyp, .direction  = "down") %>% fill(base.2, .direction  = "up") %>% ungroup()
+  
+  table_cl_compare$prop.hyp[is.na(table_cl_compare$prop.hyp)] <- 0
+  table_cl_compare$prop.2[is.na(table_cl_compare$prop.2)] <- 0
+  
+  table_cl_compare$wtn.hyp[is.na(table_cl_compare$wtn.hyp)] <- 0
+  table_cl_compare$wtn.2[is.na(table_cl_compare$wtn.2)] <- 0
+  
+  table_cl_compare$chi2 <- chisq.test(table_cl_compare$wtn.2, p = table_cl_compare$prop.hyp)$statistic
+  table_cl_compare$p <- chisq.test(table_cl_compare$wtn.2, p = table_cl_compare$prop.hyp)$p.value
+  table_cl_compare$df <- chisq.test(table_cl_compare$wtn.2, p = table_cl_compare$prop.hyp)$df
+  
+  table_cl_compare$H0 <- ifelse(table_cl_compare$p <= 0.05, "H1 - different", "H0 - same")
+  return(table_cl_compare)
+}
+
+```
+
+Using the function with a single choice question
+
+```{r}
+chi2_GoF(name = "f11_dinking_water_source", stratum_hyp = "a1_informed_consent", stratum_2 = "strata", value_stratum_hyp = "yes", value_stratum_2 = "5km_rural", data = main_dataset, weights = "stratum.weight")
+```
+Using the function with the multiple responce set
+
+```{r, warning=F}
+names <- names(main_dataset)
+
+f12_names <- names[grepl("f12_drinking_water_treat.", names)]
+
+#removing empty variables from the MR set
+nz_f12 <- non_zero_for_test(f12_names, "strata", main_dataset, per_cell = F)
+
+table(main_dataset[, nz_f12[4]], main_dataset[, "strata"])
+
+
+f12_sig2 <- lapply(nz_f12, chi2_GoF, stratum_hyp = "a1_informed_consent", stratum_2 = "strata", value_stratum_hyp = "yes", value_stratum_2 = "5km_rural", data = main_dataset, weights = "stratum.weight")
+
+f12_sig2_df <- Reduce(rbind, f12_sig2)
+f12_sig2_df
+```
+
+
+
+
+<!--chapter:end:04_analysis.Rmd-->
+
+# Outputs
+
+## From long to large table
+How to move from a tidy format to a large format
+
+## Merge file
+How to create a merge file
+
+## Graphs
+### spider graphs
+### prison graphs
+
+### Bar graphs
+
+Loading libraries and the main dataset
+```{r  warning = FALSE, results = 'hide', message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(openxlsx)
+library(data.table)
+library(reshape)
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+```
+
+
+Choosing the needed indicator for building bar graph. The indicators in the questionnaire could be in 2 types: Only one answer can be selected (select_one question) and multiple answers can be selected (select_multiple question). Will review it separately.
+
+1. For select one questions:
+
+Preparing values for visualization (replacing xml values to lables) 
+```{r warning=F}
+# Loading questionnaire
+questions <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "survey", na.strings = "")
+choices <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "choices", na.strings = "")
+
+# Based on value we get option type
+q.list_name <- str_split(questions[questions$name == "b9_hohh_marital_status" & !is.na(questions$name), "type"], " ")[[1]][2]
+
+# New table with xml and labels
+labels <- choices %>%
+  filter(list_name == q.list_name) %>%
+  select(name, "label::English") %>%
+  dplyr::rename(b9_hohh_marital_status = name, b9_hohh_marital_status_label = "label::English")
+
+# Add a column with English labels to the main dataset
+main_dataset <- merge(labels, main_dataset, by = 'b9_hohh_marital_status')
+```
+
+
+Building a bar graph
+```{r warning=F}
+ggplot((main_dataset %>%
+          filter(!is.na(b9_hohh_marital_status_label)) %>%
+          dplyr::group_by(b9_hohh_marital_status_label) %>%
+          dplyr::summarize(weight_sum = round(sum(stratum.weight), 2))), aes(y = reorder(b9_hohh_marital_status_label, weight_sum), x = weight_sum/sum(weight_sum))) +
+  geom_bar(stat = "identity", fill = "#EE5859") +
+  geom_text(aes(label = paste(round((weight_sum/sum(weight_sum)*100),0),"%")), color = "#58585A", size = 4, hjust = -0.1) +
+  scale_x_continuous(labels = scales::percent) +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+```
+
+
+Removing temporary data
+```{r warning=F}
+rm(labels, q.list_name)
+```
+
+
+2. For select multiple questions:
+
+Preparing values for visualization (replacing xml values to lables; calculating results) 
+```{r warning=F}
+# Getting needed columns from the main dataset (indicator and weight)
+visual_dataset <- main_dataset[,grepl("b10_hohh_vulnerability.|stratum.weight", names(main_dataset))]
+
+# Reshaping the dataset
+visual_dataset <- melt(visual_dataset, id.vars = "stratum.weight")
+
+# Grouping by choices and getting sum of weights
+visual_dataset <- visual_dataset %>%
+  mutate(weight = stratum.weight * value) %>%
+  group_by(variable) %>% 
+  summarise(weight_sum = sum(as.numeric(weight))) %>%
+  mutate(percentage = round(weight_sum / sum(main_dataset$stratum.weight)*100)) %>%
+  dplyr::rename(b10_hohh_vulnerability = variable)
+
+# Based on value we get option type and replacing xmls to the labels and 
+q.list_name <- str_split(questions[questions$name == "b10_hohh_vulnerability" & !is.na(questions$name), "type"], " ")[[1]][2]
+
+# New table with xml and labels
+labels <- choices %>%
+  filter(list_name == q.list_name) %>%
+  select(name, "label::English") %>%
+  dplyr::rename(b10_hohh_vulnerability = name, b10_hohh_vulnerability_label = "label::English") %>%
+  mutate(b10_hohh_vulnerability = paste0("b10_hohh_vulnerability.", b10_hohh_vulnerability))
+
+# Add a column with English labels to the visualization dataset
+visual_dataset <- merge(labels, visual_dataset, by = 'b10_hohh_vulnerability')
+```
+
+
+Building a bar graph
+```{r warning=F}
+ggplot(visual_dataset, aes(y = reorder(b10_hohh_vulnerability_label, percentage), x = percentage)) +
+  geom_bar(stat = "identity", fill = "#EE5859") +
+  geom_text(aes(label = paste(percentage, "%")), color = "#58585A", size = 4, hjust = -0.1) +
+  scale_x_continuous(labels = scales::percent) +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+```
+
+
+Removing temporary data
+```{r warning=F}
+rm(labels, q.list_name)
+```
+
+
+### Euler diagram
+*An Euler diagram  is a diagrammatic means of representing sets and their relationships. They are particularly useful for explaining complex hierarchies and overlapping definitions. They are similar to another set diagramming technique, Venn diagrams. Unlike Venn diagrams, which show all possible relations between different sets, the Euler diagram shows only relevant relationships. [Source](https://en.wikipedia.org/wiki/Euler_diagram)*
+
+First let's load [Eulerr library](https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html) and our dataset
+```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+```
+
+Euler diagrams are particularly useful to visualize overlaps between HH characteristics that help better understand the demographic profile of the area. For example, let's visualize overlaps between such HH characteristics as age, displacement status, income level, disability, and employment status.
+```{r tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(eulerr)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(tibble)
+library(UpSetR)
+
+vulnerability_data <- main_dataset %>%
+    select(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,
+           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)%>%
+  #select all necessary columns
+    mutate(displaced = ifelse(d1_hh_displacement_status == "no", 0, 1),
+           low_income = ifelse(as.numeric(b15_hohh_income) >= 2189, 0, 1))%>% #2189 UAH(83$) is minimal monthly income in 2020
+  #calculate binary indicators in case they are not available in the dataset directly from select multiple questions
+    select(-d1_hh_displacement_status, -b15_hohh_income)%>%
+    setNames(c("disability", "60+", "unemployed", "uuid", "strata", "weight", "displaced", "low_income"))
+  #remove unnecessary columns and rename other column
+
+vulnerability_data <- #create column that will combine all binary columns into one (same approach as in ### Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)
+    map2_df(vulnerability_data, names(vulnerability_data), ~  replace(.x, .x==1, .y) %>% 
+    replace(. == 0, NA)) %>%
+    unite(combined, disability, `60+`, displaced, low_income, unemployed, remove = FALSE, na.rm = TRUE, sep = '&')%>%
+    filter(!combined == "")
+
+#calculate weighted summary statistics for each combination
+vulnerability_summary <- vulnerability_data %>%
+  select(strata, weight, combined)%>% 
+  group_by(combined) %>% 
+  summarise(weight_sum = sum(as.numeric(weight)))%>%
+  mutate(per = weight_sum / sum(weight_sum) * 100)%>%
+  filter(per > 1)%>%
+  select(-weight_sum)
+
+#convert data frame into named numeric vector that is used by plot function
+vulnerability_input <-  vulnerability_summary %>%
+                        deframe()
+```
+
+In this block we will build euler diagram using REACH color palette and some basic styling.
+```{r}
+plot(euler(vulnerability_input),
+     edges = FALSE,
+     quantities = list(type = "percent", fontsize = 8),
+     labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed"),
+     legend = list(labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed")),
+     fills = c("#7CB6C4","#B6C8B1","#F6E3E3","#D1CAB8","#D1D3D4")
+     )
+```
+
+As an alternative, we also can build a Venn diagram that shows each relation (even not possible in reality). As you can see Venn diagram in this case is less readable and usable.
+```{r}
+plot(venn(vulnerability_input),
+     edges = FALSE,
+     quantities = list(type = "percent", fontsize = 8), 
+     labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed"),
+     legend = list(labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed")),
+     fills = c("#7CB6C4","#B6C8B1","#F6E3E3","#D1CAB8","#D1D3D4"))
+```
+Another popular type of diagram that shows relation is [UpSetR diagram](https://github.com/hms-dbmi/UpSetR). Even with default styling, it's quite good in the visualization of intersections between different HH characteristics.
+```{r}
+upset(fromExpression(vulnerability_input), order.by = "freq")
+```
+
+
+
+
+### Venn diagram
+### UpSet plots
+### boxplots
+
+
+## Labels
+### Xml to Label
+The following code transform column headers, select_one and select_multiple values from XML to Label.
+
+Loading Libraries
+```{r warning=F}
+library(tidyverse)
+```
+
+Dataset column headers function
+
+```{r}
+xml2label_question <- function(tool_survey, tool_choices, col){
+  # for each column check if it is a select multiple
+  if (str_detect(col, "/")) {
+    q.name <- str_split(col, "/")[[1]][1]
+    c.name <- paste0(tail(str_split(col, "/")[[1]], -1), collapse="/")
+  } else {
+    q.name <- col
+    c.name <- NA
+  }
+  
+  # returning the label and make sure to include the label of multiple choices after /
+  if (q.name %in% tool_survey$name){
+    q <- tool_survey[tool_survey$name==q.name,]
+    q.label <- q$`label::english`
+    if (is.na(q.label) | q$type %in% c("note")) q.label <- q.name
+    if (!is.na(c.name)){
+      q.list_name=ifelse(q$list_name=="NA", NA, q$list_name)
+      c.label <- tool_choices[tool_choices$list_name==q.list_name & tool_choices$name==c.name, "label::english"]
+    } else c.label <- NA
+    label <- ifelse(is.na(c.label), q.label, paste0(q.label, "/", c.label))
+  } else label <- q.name
+  return(label)
+}
+```
+
+Select_one values function
+```{r}
+xml2label_choices_one <- function(tool_survey, tool_choices, data, col) {
+  # select the type column from each select_one question
+  q.type <- tool_survey$type[tool_survey$name==col]
+  
+  # take the id of the choices to get the list name
+  q.list_name <- str_split(q.type, " ")[[1]][2]
+  
+  # export the choices relevant to each select_one question
+  choices <- tool_choices %>% filter(list_name == q.list_name) %>% 
+      select(name, `label::english`) %>% rename(label=`label::english`)
+  
+  # replace the xml with label using left_join
+  d.join <- data.frame(col=as.character(data[[col]])) %>% 
+    left_join(choices, by=c("col"="name")) %>% select(label)
+  
+  # return only the new label column and replace it in the for loop using vectors 
+  return(d.join$label)
+}
+```
+
+Select_multiple values function
+```{r}
+xml2label_choices_multiple <- function(tool_survey, tool_choices, data, col) {
+  # select all the columns with all the options for each select_multiple
+  d.join <- data %>% 
+    select(contains(paste0(col,"/")))
+  col_internal <- colnames(d.join)
+  
+  # for each column with options
+  for(j in 1:length(col_internal)){
+    # change all 1's to the xml answer
+    xml_answer <- str_split(col_internal[j], "/")[[1]][2]
+    d.join <- d.join %>% 
+      mutate(!!sym(col_internal[j]) := ifelse(!!sym(col_internal[j]) == "1", xml_answer, NA))
+    
+    # get the list of the xml and label options for each select multiple questions
+    choice_id <- filter(tool_survey, str_starts(name, str_split(col_internal[j],"/")[[1]][1])) %>% 
+      select(list_name)
+    choice_id <- choice_id$list_name
+    t.choices <- tool_choices %>% 
+      filter(list_name == choice_id) %>% 
+      select(name, `label::english`) %>% rename(label = `label::english`)
+    
+    # replace the xml with label using left_join
+    d.new.join <- data.frame(col=as.character(d.join[[col_internal[j]]])) %>%
+      left_join(t.choices, by=c("col"="name")) %>% select(label)
+    d.join[col_internal[j]] <- d.new.join$label
+  }
+  
+  # concatenate all the answers, removing NAs in one cell and separated by a ';' 
+  d.join <- d.join %>% 
+    unite("Merged", everything(), sep= ";", na.rm = T)
+  
+  # return only the new label column and replace it in the for loop using vectors
+  return(d.join$Merged)
+}
+```
+
+Example
+```{r, eval = F}
+filename_tool <- "enter your tool link here"
+filename_cleaned_data <- "enter your data hear"
+
+# loading tool
+tool_survey <- read_excel(filename_tool, sheet = "survey", col_types = "text") %>% 
+  filter(!is.na(name)) %>% 
+  # adding two columns showing the question type and the id of the list_name choices separately
+  mutate(q.type = as.character(lapply(type, function(x) str_split(x, " ")[[1]][1])),
+         list_name = as.character(lapply(type, function(x) str_split(x, " ")[[1]][2])))
+
+tool_choices <- read_excel(filename_tool, sheet = "choices", col_types = "text") %>% 
+  filter(!is.na(list_name))
+
+
+# loading the data
+main_dataset <- read_excel(filename_cleaned_data, col_types = "text")
+
+# creating another data frame with changes
+
+data_labeled <- main_dataset
+
+# select_one values - XML to Label
+
+tool_select_one <- tool_survey %>% 
+  filter(str_starts(type, "select_one "))
+
+col_select_one <- tool_select_one$name
+
+for (i in 1:length(col_select_one)){
+  if(!is.null(data_labeled[[col_select_one[i]]])){
+    data_labeled[[col_select_one[i]]] <- xml2label_choices_one(tool_survey,tool_choices,main_dataset,col_select_one[i])
+  }
+}
+
+# select_multiple values - XML to Label
+
+tool_select_multi <- tool_survey %>% 
+  filter(str_starts(type, "select_multiple "))
+col_select_multi <- tool_select_multi$name
+
+for (i in 1:length(col_select_multi)){
+  if(!is.null(data_labeled[[col_select_multi[i]]])){
+    data_labeled[[col_select_multi[i]]] <- xml2label_choices_multiple(tool_survey,tool_choices,main_dataset,col_select_multi[i])
+  }
+}
+
+# Column headers - XML to Label
+col_names <- colnames(main_dataset)
+
+for (i in 1:length(col_names)) {
+  colnames(data_labeled)[i] <- xml2label_question(tool_survey, tool_choices, col_names[i])
+  
+}
+```
+
+### change from label to xml
+
+## Dashboarding - Sharing information
+Html files
+Tableau
+Power BI
+Shiny
+
+## Outputs with hypothesis testing results
+
+<!--chapter:end:05_outputs.Rmd-->
+
+# Miscellaneous
+
+Geocoding - stringdist
+R output to be used with SPSS
+
+Individual loops analysis
+Calculation of CI
+
+guidelines on hypothesis testing
+
+<!--chapter:end:06_miscellaneous.Rmd-->
+
+# Archives
+
+This part are some code that were written but cannot be run in the cookbook because of some dependencies, deprecated version, etc. They are still valid and useful but just cannot be run automatically to render the book. They are not evaluated.
+
+## 01 Pre analysis
+### Generation of random sample points
+It is quite common practice to select survey locations before data collection, using randomly distributed points. In this case, the enumerator finds the location of a certain sample point using mobile device navigation tools and conducts an interview near that location. That practice ensures that all survey locations were selected in a random manner.
+<br>
+First, let's join our sampling frame (in this case it was generated with [Probability sampling tool](https://impact-initiatives.shinyapps.io/r_sampling_tool_v2/)) to the settlement polygons and generate a random set of points within each polygon. We will use settlement polygons but it's possible to use rectangle or hexagon fishnet with interview numbers distributed using population raster to obtain sample size that will correspond with settlement population density. 
+```{r, tidy=FALSE, eval = F}
+library(sf)
+
+ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
+sampling_frame <- read.csv("inputs/sampling_frame20200701-132150.csv")
+
+ADM4_for_sample <- ADM4 %>%
+        right_join(sampling_frame, by = c("adm4Pcd" = "adm4Pcode"))
+
+sample_all_pnt <- st_sample(ADM4_for_sample, rep(ADM4_for_sample$Survey, nrow(ADM4_for_sample)))%>%
+  st_as_sf
+```
+
+Now we would need to transfer attributes from the settlement layer to our random points.
+```{r, tidy=FALSE, eval = F}
+#first we should generate indexes that will be used for this transfer
+index <- rep(seq_along(ADM4_for_sample$Survey), ADM4_for_sample$Survey)
+
+#now we should add indexes to the settlement layer and then join this layer to the random points
+ADM4_for_sample <- ADM4_for_sample %>%
+                   st_drop_geometry()%>%
+                   as.data.frame(row.names = 1:nrow(.))%>%
+                   tibble::rownames_to_column(var = "index")%>%
+                   mutate_at(1, as.numeric)
+
+sample_all_pnt <- st_coordinates(sample_all_pnt)%>%
+                  as.data.frame()%>%
+                  bind_cols(index)%>%
+                  set_colnames(c("Longitude_pnt","Latitude_pnt","index"))%>%
+                  left_join(ADM4_for_sample, by = "index")
+
+#with the code below we will get the unique id for each point that will have a settlement name and point number
+sample_all_pnt$GPS_id <- paste(sample_all_pnt$adm4NmL, data.table::rowid(sample_all_pnt$adm4NmL), sep = "_")
+
+sample_all_pnt <- st_as_sf(x = sample_all_pnt, 
+                    coords = c("Longitude_pnt", "Latitude_pnt"),
+                    crs = "+proj=longlat +datum=WGS84")
+
+#and now we can visualize our random points for some settlement to check their distribution
+sample_all_pnt %>%
+  filter(adm4NmL == "Bakhmut")%>%
+  select(adm4NmL)%>%
+  plot()
+
+```
+
+The last step will be to export the sample points into any suitable GIS format (GeoJSON, Shapefile, KML, etc.) and transfer that file to the mobile devices of the enumerators.
+```{r, tidy=FALSE, eval = F}
+#check if there are directory for the outputs and write there output geojson file
+if(!dir.exists("outputs")) {
+  dir.create("outputs")
+}
+
+st_write(sample_all_pnt, "outputs/sample_points.geojson", delete_dsn = TRUE)
+```
+
+## Cleaning
+
+## Spatial verification checks
+### Spatial verification checks on settlement level
+One of the important checks is to ensure that all surveys were collected in the correct locations (areas, settlements, sample points). The usual procedure to perform such checks is to compare GNSS-coordinates obtained by the data collection device with enumerator input that indicates data collection location
+
+First, let's generate random spatial coordinates (as real coordinates were excluded as part of personal data) and select columns that we need for cleaning.
+```{r, tidy=FALSE, eval = F}
+library(sf)
+library(nngeo)
+```
+
+
+```{r, tidy=FALSE, eval = F}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
+
+main_dataset$X_r6_gpslocation_latitude <- runif(nrow(main_dataset), min = 47, max = 48)
+main_dataset$X_r6_gpslocation_longitude <- runif(nrow(main_dataset), min = 37, max = 40)
+
+spatial_component <- main_dataset %>%
+  select(r3_current_settlement,adm4NameLat,X_r6_gpslocation_latitude,X_r6_gpslocation_longitude,X_uuid)%>%
+  setNames(c("code_settlement_dataset","name_settlement_dataset","latitude","longitude","X_uuid"))
+```
+
+Now with [sf library](https://cran.r-project.org/web/packages/sf/index.html) we should open geojson file with settlements boundaries and convert our dataset into sf data type.
+```{r, tidy=FALSE, eval = F}
+ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
+
+spatial_component <- st_as_sf(x = spatial_component, 
+                    coords = c("longitude", "latitude"),
+                    crs = "+proj=longlat +datum=WGS84")
+```
+
+With st_join() function from [nngeo library](https://cran.r-project.org/web/packages/nngeo/index.html) we are doing spatial join of interviews locations and settlement boundaries. Parameter "maxdist" specifies that join should be performed for all the points that are within 1000 meters from the closest polygon. After that, we compare the code of the closest settlement and the settlement code chosen by the enumerator. In case there is a difference in the codes we put "CHECK" status for such interviews and clarify interview location with the Field team.
+*Keep in mind that for this example we used random coordinates so most likely all the interviews will have "CHECK" status*
+```{r Spatial join, tidy=FALSE, eval = F}
+spatial_component <- st_join(spatial_component, ADM4, join = st_nn, k = 1, maxdist = 1000)
+
+spatial_component$spatial_check <- ifelse(spatial_component$code_settlement_dataset == spatial_component$adm4NmL
+                                          & !is.na(spatial_component$adm4NmL),
+                                          "OK",
+                                          "CHECK")
+```
+
+Print number of interviews that needs review
+```{r, tidy=FALSE, eval = F}
+print(paste("Number interviews to check",unlist(table(spatial_component$spatial_check))))
+```
+### Spatial verification checks on sample point level
+Previous spatial verification check can identify surveys that were collected in the wrong area (settlement). But if you are using random  sampling points (as described in [Generation of random sample points]) you can also check how your surveys corresponds with initially planned sample points.
+<br>
+To perform spatial verification on sample point level we should add our sample ids to the dataset (*of course in a real-life scenario you will already have them in your dataset*). Also, we should open initial sampling points generated at the sampling stage and that were used by the enumerators.
+```{r, tidy=FALSE, eval = F}
+spatial_component$GPS_id_data <- paste(spatial_component$name_settlement_dataset,
+                                  data.table::rowid(spatial_component$name_settlement_dataset), sep = "_")
+
+sample_points <- st_read(dsn = "outputs/sample_points.geojson")
+```
+
+Now let's use again st_join() function but this time apply it on two point layers. We would put argument k equal 3 that will give us sample ids of 3 points in the dataset that are located in 1 km radius from our initial sample points. In case function return NA value it will mean that there are no points were collected near our planned sample point.
+<br>
+*Keep in mind that for this book we are using randomly generated survey locations so most of the points will have NA or CHECK status*
+```{r Spatial join - point level, tidy=FALSE, eval = F}
+#first let's run st_join() function. You can reduce or increase maxdist value considering your circumstances.
+sample_point_check <- st_join(spatial_component, sample_points, join = st_nn, k = 3, maxdist = 1000)%>%
+  distinct()
+
+#now we should reshape our dataset and select only columns with point ids
+sample_point_check <- reshape2::dcast(sample_point_check, X_uuid + GPS_id_data  ~ GPS_id, value.var = "GPS_id", 
+                                      fun.aggregate =  NULL)
+
+sample_point_check <- as.data.frame(t(apply(sample_point_check,1, function(x) { return(c(x[!is.na(x)],x[is.na(x)]) )} )))%>%
+                      select(where(function(x) any(!is.na(x))))%>%
+                      set_names(c("uuid", "GPS_id", "pnt_1", "pnt_2", "pnt_3"))
+
+#and as a final step, we should mark all the interviews that will need additional review
+sample_point_check$Sample_Check <- ifelse(sample_point_check$GPS_id == sample_point_check$pnt_1 | 
+                                          sample_point_check$GPS_id == sample_point_check$pnt_2 | 
+                                          sample_point_check$GPS_id == sample_point_check$pnt_3, 
+                                          "OK", 
+                                          "CHECK")
+```
+
+Usually, there are always some interviews that were collected not accordingly to the sampling plan. They can be either too far away from the planned sample location or has different sample id due to enumerator mistake. Such cases are better to review manually using any GIS software (QGIS/ArcGIS Pro/ArcGIS Online/Google Earth Pro). But first, you will need to export your sample points into any spatial format (like geojson).
+```{r, tidy=FALSE, eval = F}
+#join spatial check on sample point level with spatial check on settlement level
+spatial_component <- spatial_component %>%
+                     left_join(sample_point_check, by = c("X_uuid" = "uuid"))
+
+#check if there are directory for the outputs and write there output geojson file
+if(!dir.exists("outputs")) {
+  dir.create("outputs")
+}
+
+st_write(spatial_component, "outputs/spatial_component_check.geojson", delete_dsn = TRUE)
+```
+
+
+## Analayis
+### hypegrammaR 
+hypegrammaR follow the case mapping logic to compute analysis. It will also use the kobo questionnaire tool to help some of decision to be made.
+
+This just load the information that will be need to conduct the analysis :
+
+- dataset, 
+- kobotool (questions and choices), 
+- sample frame
+```{r, tidy=FALSE, eval = F}
+library(hypegrammaR)
+library(magrittr)
+library(surveyweights)
+library(srvyr)
+library(readxl)
+library(spatstat)
+library(ggpubr)
+
+#load dataset
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "",stringsAsFactors = F)
+
+#load kobotool
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+#load sampling frame
+my_sampling_frame <- read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
+                             sheet = "for_r")
+```
+
+The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.
+```{r, tidy=FALSE, eval = F}
+#create a questionnaire object
+my_questionnaire <- hypegrammaR::load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
+
+The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset **HAS** to be the same. 
+What it does, it create a function that will calculate the weights based on your dataset. 
+*(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)*
+```{r, tidy=FALSE, eval = F}
+#create a weigthing function
+my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
+                                                                      data.stratum.column = "strata",
+                                                                      sampling.frame.population.column = "population", 
+                                                                      sampling.frame.stratum.column = "strata", 
+                                                                      data = main_dataset)
+```
+If you want to add the weights to your dataframe this is how you can do it.
+```{r, tidy=FALSE, eval = F}
+#optional, if you want to add the weights into the dataset.
+main_dataset$stratum.weight <- my_weigthing_function(main_dataset)
+
+```
+
+
+hypegrammaR uses cases to choose what type analysis to do. A "case" for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :
+
+- XXXX: hypothesis type (group_difference, direct_reporting)  
+- YYYY: dependent var type (categorical, numerical)  
+- ZZZZ: independent var type (categorical, numerical, *empty* if no independent variable) . 
+
+All cases implemented can been seen with this code.
+
+```{r, tidy=FALSE, eval = F}
+hypegrammaR:::list_all_cases(implemented_only = T)
+```
+
+
+If you want to know what are the different proportion of the displacement status for each strata. The following information I need are:
+hypothesis : group_difference  
+dependent variable : d1_hh_displacement_status -> categorical  
+independent_variable : strata -> categorical 
+```{r, tidy=FALSE, eval = F}
+#analysis 
+my_case <- hypegrammaR::map_to_case(hypothesis.type = "group_difference",
+                       dependent.var.type = "categorical",
+                       independent.var.type = "categorical")
+
+my_case
+```
+
+The function map_to_result will calculate your summary statistics, it will take a couple of arguments.
+```{r, tidy=FALSE, eval = F}
+my_results <- hypegrammaR::map_to_result(data = main_dataset, 
+                            dependent.var = "d1_hh_displacement_status", 
+                            independent.var = "strata",
+                            case = my_case, 
+                            weighting = my_weigthing_function,
+                            questionnaire = my_questionnaire,
+                            confidence_level = .90)
+```
+
+The result object is a list with several information:
+
+- parameters: returns the information used of that analysis
+- summary statistics: returns the summary statistics in a tidy format
+- hypothesis test: returns hypothesis testing information (if avalaible)
+- message: returns a message (if the analysis went well or not)
+
+```{r, tidy=FALSE, eval = F}
+my_results$summary.statistic %>% head()
+```
+
+
+If you need to run several analysis, you can use a data analysis plan (DAP) file which is a file that comprises of the following columns:
+  
+- dependent.variable: name of the dependent variable (kobo name, column name)  
+- dependent.variable.type: type of the dependent variable (categorical or numerical or empty)  
+- independent.variable: name of the independent variable (kobo name, column name)  
+- independent.variable.type: type of the independent variable (categorical or numerical or empty)  
+- repeat.for.variable: name of the variable to repeat the analysis for (e.g per camp or district or governorate)  
+- hypothesis.type: type of hypothesis (group_difference, direct_reporting)
+- you can have other columns to help you write the analysis plan such as RQ and sub RQ
+
+**You cannot have duplicate columns**
+
+Below, I am creating the DAP, but you could read a csv file. It has :
+
+- 2 categorical variables, (select multiple type in kobo), *l4_which_difficult_access_health* and *j10_education_security_concerns_in_the_vicinity_of_facility*
+- 2 categorical variables, (select one type in kobo), *b9_hohh_marital_status* and *d1_hh_displacement_status*,
+- 2 numerical variables (integer type in kobo): *b7_hohh_age* and *b5_age*
+
+It will repeat the analysis 3 times for each dependent variable:
+
+- using the *strata* variable as independent variable (first 6 rows), 
+- using no independent variable, for the complete dataset (national level?), (second 6 rows),
+- using the *b9_hohh_marital_status* as independent variable but repeating each strata (last 6 rows)
+```{r, tidy=FALSE, eval = F}
+
+#dap 
+my_dap <- data.frame(dependent.variable = c(rep(c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
+                 "b5_age", "b9_hohh_marital_status",
+                    "d1_hh_displacement_status"), 2), c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
+                 "b5_age",
+                    "d1_hh_displacement_status")),
+                     dependent.variable.type = c(rep(c("categorical", "categorical", "numerical", "numerical", "categorical", "categorical"),2),"categorical", "categorical", "numerical", "numerical", "categorical"),
+                     independent.variable = c(rep("strata", 6), rep(NA, 6), rep("b9_hohh_marital_status", 5)),
+                     independent.variable.type = c(rep("categorical", 6), rep(NA, 6), rep("categorical", 5)), 
+                     hypothesis.type = c(rep("group_difference", 6), rep("direct_reporting", 6), rep("group_difference", 5)), 
+                     repeat.for.variable = c(rep(NA, 12), rep("strata", 5))
+                     )
+
+
+my_dap 
+```
+
+To use a DAP, you need to use the function **from_analysisplan_map_to_output** instead of the combination of **map_to_case** and **map_to_result**. It will look for the case itself. **from_analysisplan_map_to_output** a list of list of results. So you need to wriggle a bit around to come to a master dataframe.
+```{r, tidy=FALSE, eval = F}
+my_results <- hypegrammaR::from_analysisplan_map_to_output(data =main_dataset,
+                                analysisplan = my_dap,
+                                weighting = my_weigthing_function,
+                                questionnaire = my_questionnaire,
+                                confidence_level = .90)
+
+long_table <- my_results$results %>% 
+  lapply(function(x) x[["summary.statistic"]]) %>% 
+  do.call(rbind, .)
+```
+```{r, tidy=FALSE, eval = F}
+long_table %>% head()
+```
+
+### butteR survey_collapse
+
+The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged. 
+
+The main advantages of survey_collapse
+
+1. The standardized output produced
+2. Ability to analyze both categorical and numerical columns with a consistent syntax
+3. Batch analyses and ability to perform many different subsetting investigations with ease
+
+Below is an example of its use.
+
+First we must read in some data and make it into a srvyr object
+
+```{r, tidy=FALSE, eval = F}
+###makes some additions. 
+library(tidyverse)
+library(butteR)
+library(srvyr)
+library(kableExtra)
+df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+dfsvy<-as_survey(df)
+```
+
+For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
+```{r, tidy=FALSE, eval = F}
+# here are some random concatenated select multiple parent questions
+select_multiple_parent_cols<-c("l4_which_difficult_access_health",
+                        "j10_education_security_concerns_in_the_vicinity_of_facility")
+numeric_cols<- c("b7_hohh_age",
+                 "b5_age")
+select_one_cols<- c("b9_hohh_marital_status",
+                    "d1_hh_displacement_status")
+mixed_columns<- c(select_multiple_parent_cols, numeric_cols, select_one_cols)
+```
+
+
+A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.
+
+Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It's a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated
+
+**note: I am commenting this section as it seems to break with the latest update**
+
+```{r, tidy=FALSE, eval = F}
+outputs<-list()
+
+outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>%
+  mutate(analysis_level= "overall")
+
+outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>%
+  mutate(analysis_level= "strata")
+```
+
+
+Here is an example of what the long format data looks like as a table.
+```{r, tidy=FALSE, eval = F}
+outputs$strata %>%
+  head(100) %>%
+  kable() %>%
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+This is a great format for manipulating/filtering and then graphing with ggplot
+```{r, tidy=FALSE, eval = F}
+output_df<- bind_rows(outputs)
+
+output_df %>%
+  filter(analysis_level=="overall") %>%
+  mutate(question_val= paste0(variable,".",variable_val)) %>%
+  ggplot(aes(x= question_val,y= `mean/pct`))+
+  geom_point(stat="identity", position = position_dodge(width = 0.3))+
+  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`),
+                width=0.2,position = position_dodge(width = 0.3))+
+  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+  coord_flip()+
+  theme_bw()+
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_text(angle=90),
+    legend.title= element_blank()
+  )
+
+
+# Easy to plot subset findings as well!
+output_df %>%
+  filter(analysis_level=="strata") %>%
+  mutate(question_val= paste0(variable,".",variable_val)) %>%
+  ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+
+  geom_point(stat="identity", position = position_dodge(width = 0.3))+
+  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`),
+                width=0.2,position = position_dodge(width = 0.3))+
+  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+  coord_flip()+
+  theme_bw()+
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_text(angle=90),
+    legend.title= element_blank()
+  )
+
+
+```
+
+<!--chapter:end:07_archives.Rmd-->
+

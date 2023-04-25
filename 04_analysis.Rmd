@@ -643,6 +643,130 @@ dap |>
 ```
 
 
+## EXAMPLE :: Survey analysis using illuminate 
+`illuminate` is designed for making the data analysis easy and less time consuming. The package is based on tidyr, dplyr,srvyr packages.You can install the package from [here](https://github.com/mhkhan27/illuminate). HOWEVER the package is not maintained by the author anymore and it doesnt includes any tests.  
+
+### Step 0:: Call libraries
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(illuminate)
+library(tidyverse)
+library(purrr)
+library(readxl)
+library(openxlsx)
+library(srvyr)
+```
+
+
+
+
+### Step 1:: Read data
+Read data with `read_sheets()`. This will make sure your data is stored as appropriate data type. It is important to make sure that all the select multiple are stored as logical, otherwise un weighted count will be wrong. It is recommended to use the `read_sheets()` to read the data. use ``?read_sheets()` for more details. 
+``` {r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#  [recommended] read_sheets("[datapath]",data_type_fix = T,remove_all_NA_col = T,na_strings = c("NA",""," "))
+data_up<-read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+
+
+```
+The above code will give a dataframe  called `data_up`
+
+
+
+### Step OPTIONAL:: Preaparing the data
+
+<span style="color: red;">ONLY APPLICABLE WHEN YOU ARE NOT READING YOUR DATA WITH `read_sheets()`</span>
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# data_up <- read_excel("data/data.xlsx")
+data_up <- fix_data_type(df = data_up)
+```
+
+
+### Step 2:: Weight calculation
+To do the weighted analysis, you will need to calculate the weights. If your dataset already have the weights column then you can ignore this part
+
+### Read sampleframe
+``` {r, eval=F,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+sampling_frame <- read.csv("[Sample frame path]")
+```
+
+
+This will give a data frame called `sampling_frame`
+
+``` {r, eval=F, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+
+weights <- data_up %>% group_by(governorate1) %>% summarise(
+  survey_count = n()
+) %>% left_join(sampling_frame,by =c("governorate1"="strata.names")) %>% 
+  mutate(sample_global=sum(survey_count),
+         pop_global=sum(population),
+         survey_weight= (population/pop_global)/(survey_count/sample_global)) %>% select(governorate1,survey_weight)
+```
+
+
+
+### Add weights to the dataframe
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+data_up <- data_up %>% left_join(weights,by= "governorate1")
+```
+
+
+
+
+
+### Step 3.1:: Weighted analysis
+To do the weighted analysis, you need to set `weights` parameter to `TRUE` and provide `weight_column` and `strata`. You should define the name of the data set weight column in the `weight_column` parameter and name of the strata column name from the data set. 
+
+Additionally, please define the name of the columns which you would like to analyze in `vars_to_analyze`. Default will analyze all the variables that exist in the data set.
+
+Lastly, please define the `sm_sep` parameter carefully. It must be either `/` or `,`. Use `/` when your select multiple type questions are separated by `/` (example-  parent_name/child_name1,parent_name/child_name2,
+parent_name/child_name3.....). On the other hand use `.` when the multiple choices are separated by `.`. (example -  parent_name.child_name1,parent_name.child_name2,parent_name.child_name3)
+
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+
+overall_analysis <- survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",strata = "governorate1")
+
+# As var_to_analyze is not defined, here the function will analyze all the variables. 
+```
+
+### Step 3.2:: Unweighted analysis
+To do unweighted analysis, you need to set the `weights` parameter `FALSE`. 
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+columns_to_analyze <- data_up[20:50] %>% names() ## Defining  names of the variables to be analyzed. 
+overall_analysis <- survey_analysis(df = data_up,weights = F,vars_to_analyze = columns_to_analyze )
+
+DT::datatable(overall_analysis,caption = "Example::Analysis table")
+```
+
+### Step 3.3:: Weighted and disaggregated by gender analysis
+
+Use `?survey_analysis()` to know about the perameters. 
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+analysis_by_gender <-  survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",vars_to_analyze = columns_to_analyze,
+                                       strata = "governorate1",disag = c("va_child_income","gender_speaker"))
+```
+
+
+
+### Step 4:: Export with `write_formatted_excel()`
+You can use any function to export the analysis however `write_formatted_excel()` can export formatted file. See the documentation for more details.
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+write_list <- list(overall_analysis ="overall_analysis",
+                   analysis_by_gender ="analysis_by_gender"
+)
+write_formatted_excel(write_list,"analysis_output.xlsx",
+                      header_front_size = 12,
+                      body_front = "Times")
+```
+
 
 
 
