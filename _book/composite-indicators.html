@@ -277,6 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="analysis.html#anova" id="toc-anova"><span class="toc-section-number">7.10.2</span> ANOVA</a></li>
 <li><a href="analysis.html#chi-squares" id="toc-chi-squares"><span class="toc-section-number">7.10.3</span> chi-squares</a></li>
 <li><a href="analysis.html#chi-squared-goodness-of-fit-test" id="toc-chi-squared-goodness-of-fit-test"><span class="toc-section-number">7.10.4</span> Chi-squared Goodness of Fit test</a></li>
+<li><a href="analysis.html#proportion-tests-z-test" id="toc-proportion-tests-z-test"><span class="toc-section-number">7.10.5</span> Proportion tests (z-test)</a></li>
 </ul></li>
 </ul></li>
 <li><a href="outputs.html#outputs" id="toc-outputs"><span class="toc-section-number">8</span> Outputs</a>
@@ -357,15 +358,25 @@ dplyr::case_when</p>
 <span id="cb70-5"><a href="composite-indicators.html#cb70-5" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source, <span class="st">&quot;not_improved&quot;</span>, <span class="st">&quot;improved&quot;</span>)</span>
 <span id="cb70-6"><a href="composite-indicators.html#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source, main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##                                                                
-##                                                                 improved not_improved
-##   bottled_water_water_purchased_in_bottles                             0           68
-##   drinking_water_from_water_kiosk_booth_with_water_for_bottling        0          366
-##   other_specify                                                        0           11
-##   personal_well                                                      414            0
-##   public_well_or_boreholes_shared_access                             187            0
-##   tap_drinking_water_centralized_water_supply                        479            0
-##   technical_piped_water                                                2            0
-##   trucked_in_water_truck_with_a_tank_etc                               0           90</code></pre>
+##                                                                 improved
+##   bottled_water_water_purchased_in_bottles                             0
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling        0
+##   other_specify                                                        0
+##   personal_well                                                      414
+##   public_well_or_boreholes_shared_access                             187
+##   tap_drinking_water_centralized_water_supply                        479
+##   technical_piped_water                                                2
+##   trucked_in_water_truck_with_a_tank_etc                               0
+##                                                                
+##                                                                 not_improved
+##   bottled_water_water_purchased_in_bottles                                68
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling          366
+##   other_specify                                                           11
+##   personal_well                                                            0
+##   public_well_or_boreholes_shared_access                                   0
+##   tap_drinking_water_centralized_water_supply                              0
+##   technical_piped_water                                                    0
+##   trucked_in_water_truck_with_a_tank_etc                                  90</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="composite-indicators.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using base R </span></span>
 <span id="cb72-2"><a href="composite-indicators.html#cb72-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2 <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb72-3"><a href="composite-indicators.html#cb72-3" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser2[main_dataset<span class="sc">$</span>f11_dinking_water_source <span class="sc">%in%</span> unimproved_source] <span class="ot">&lt;-</span> <span class="st">&quot;not_improved&quot;</span></span>
@@ -383,15 +394,25 @@ dplyr::case_when</p>
 <span id="cb74-4"><a href="composite-indicators.html#cb74-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;improved&quot;</span>))</span>
 <span id="cb74-5"><a href="composite-indicators.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>f11_dinking_water_source, main_dataset<span class="sc">$</span>wash_improved_source_dplyr, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
 <pre><code>##                                                                
-##                                                                 improved not_improved
-##   bottled_water_water_purchased_in_bottles                             0           68
-##   drinking_water_from_water_kiosk_booth_with_water_for_bottling        0          366
-##   other_specify                                                        0           11
-##   personal_well                                                      414            0
-##   public_well_or_boreholes_shared_access                             187            0
-##   tap_drinking_water_centralized_water_supply                        479            0
-##   technical_piped_water                                                2            0
-##   trucked_in_water_truck_with_a_tank_etc                               0           90</code></pre>
+##                                                                 improved
+##   bottled_water_water_purchased_in_bottles                             0
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling        0
+##   other_specify                                                        0
+##   personal_well                                                      414
+##   public_well_or_boreholes_shared_access                             187
+##   tap_drinking_water_centralized_water_supply                        479
+##   technical_piped_water                                                2
+##   trucked_in_water_truck_with_a_tank_etc                               0
+##                                                                
+##                                                                 not_improved
+##   bottled_water_water_purchased_in_bottles                                68
+##   drinking_water_from_water_kiosk_booth_with_water_for_bottling          366
+##   other_specify                                                           11
+##   personal_well                                                            0
+##   public_well_or_boreholes_shared_access                                   0
+##   tap_drinking_water_centralized_water_supply                              0
+##   technical_piped_water                                                    0
+##   trucked_in_water_truck_with_a_tank_etc                                  90</code></pre>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="composite-indicators.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Same same</span></span>
 <span id="cb76-2"><a href="composite-indicators.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(main_dataset<span class="sc">$</span>wash_drinkingwater_improved_source_baser, main_dataset<span class="sc">$</span>wash_improved_source_dplyr)</span></code></pre></div>
 <pre><code>##               
