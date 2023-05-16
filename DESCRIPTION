@@ -2,23 +2,24 @@ Package: rcookbook
 Title: R cookbook for analysis with IMPACT
 Version: 1.0.0.0
 Authors@R: c(
-    person("Yann", "Say", email = "yann.say@impact-initiatives.org", role = c("aut", "cre"),
+    person("Yann", "Say", , "yann.say@impact-initiatives.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7390-4209")),
-    person("Assil", "Ben Amor", email = "massilbenamor@gmail.com", role = "aut"),
-    person("Amnah", "Harahsheh", email = "amnah.harahsheh@reach-initiative.org", role = "aut"),
-    person("Hanna", "Kurovska", email = "solem675@gmail.com", role = "aut", 
+    person("Assil", "Ben Amor", , "massilbenamor@gmail.com", role = "aut"),
+    person("Amnah", "Harahsheh", , "amnah.harahsheh@reach-initiative.org", role = "aut"),
+    person("Hanna", "Kurovska", , "solem675@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0001-7257-6875")),
-    person("Zack", "Arno", email = "zackarno@gmail.com", role = "ctb"),
-    person("Abraham", "Azar", email = "abraham.azar30@outlook.com", role = "ctb", 
+    person("Zack", "Arno", , "zackarno@gmail.com", role = "ctb"),
+    person("Abraham", "Azar", , "abraham.azar30@outlook.com", role = "ctb",
            comment = c(ORCID = "0000-0002-2470-4016")),
-    person("Jahid", "Babayev", email = "babayevjahid@gmail.com", role = "ctb", 
+    person("Jahid", "Babayev", , "babayevjahid@gmail.com", role = "ctb",
            comment = c(ORCID = "0000-0003-4633-8261")),
-    person("Ahmed", "Mohamoud", email = "axmedmaxamuud@yahoo.com", role = "ctb", 
+    person("Ahmed", "Mohamoud", , "axmedmaxamuud@yahoo.com", role = "ctb",
            comment = c(ORCID = "0000-0003-3943-5987")),
-    person("Khaibar", "Omari", email = "khaibar.omari7@gmail.com", role = "ctb"),
-    person("Damiano", "Scanferla", email = "damiano.scanferla@gmail.com", role = "ctb"),
-    person("Yaroslav", "Smirnov", email = "sl.smirnow@gmail.com", role = "ctb", 
-           comment = c(ORCID = "0000-0002-6653-8159")))
+    person("Khaibar", "Omari", , "khaibar.omari7@gmail.com", role = "ctb"),
+    person("Damiano", "Scanferla", , "damiano.scanferla@gmail.com", role = "ctb"),
+    person("Yaroslav", "Smirnov", , "sl.smirnow@gmail.com", role = "ctb",
+           comment = c(ORCID = "0000-0002-6653-8159"))
+  )
 Description: This is book aims to be a small collection of code used
     across different mission. It will show you examples of different
     problems you can face and you could solve them. Those codes are not
@@ -34,6 +35,10 @@ Imports:
     expss,
     ggplot2,
     ggpubr,
+    httr,
+    hypegrammaR,
+    impactR,
+    janitor,
     jsonlite,
     kableExtra,
     kobostandards,
@@ -45,8 +50,6 @@ Imports:
     qdapRegex,
     readr,
     readxl,
-    httr,
-    hypegrammaR,
     reshape,
     scales,
     sdcMicro,
@@ -61,18 +64,16 @@ Imports:
     tidyverse,
     UpSetR,
     weights,
-    impactR,
-    janitor,
-    xlsformfill,
+    xlsformfill
 Remotes:
+    gnoblet/impactR,
     impact-initiatives/cleaninginspectoR,
     impact-initiatives/hypegrammaR,
     impact-initiatives/kobostandards,
     impact-initiatives/surveyweights,
     impact-initiatives/xlsformfill,
-    zackarno/butteR,
-    gnoblet/impactR,
-    mhkhan27/illuminate
+    mhkhan27/illuminate,
+    zackarno/butteR
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
