@@ -1,0 +1,6 @@
+"0","names <- names(ds_ua14)"
+"0","ng5 <- names[grepl(""b10_hohh_vulnerability"", names)]"
+"0",""
+"0","vulnerability_prop_test <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = ""a1_informed_consent"", value_stratum = ""yes"", name = ng5, weights = ""stratum.weight"")"
+"0",""
+"0","vulnerability_prop_test"

@@ -1,0 +1,5 @@
+"0","weight_table <- sample_per_strata_table %>% "
+"0","  left_join(my_sampling_frame) %>% "
+"0","  mutate(weights = (population_strata/sum(population_strata))/(strata_sample/sum(strata_sample)))"
+"0",""
+"0","weight_table"

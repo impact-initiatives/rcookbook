@@ -1,0 +1,5 @@
+"0","chi2_GoF(name = ""f11_dinking_water_source"", stratum_hyp = ""a1_informed_consent"", stratum_2 = ""strata"", value_stratum_hyp = ""yes"", value_stratum_2 = ""5km_rural"", data = main_dataset, weights = ""stratum.weight"")"
+"2","Warning: Expected 2 pieces. Missing pieces filled with `NA` in 8 rows [1, 2, 3, 4, 5, 6, 7, 8]."
+"2","Warning: Chi-squared approximation may be incorrect"
+"2","Warning: Chi-squared approximation may be incorrect"
+"2","Warning: Chi-squared approximation may be incorrect"

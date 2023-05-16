@@ -1,0 +1,10 @@
+"0","nz_f12 <- non_zero_for_test(f12, ""strata"", main_dataset, per_cell = F)"
+"2","2 variables were removed because of containing zeros in stratas
+"
+"0","f12_sig <- lapply(nz_f12, chi2_ind_extr, y = ""strata"", design = svy_design)"
+"0",""
+"0","f12_sig_df <- Reduce(rbind, f12_sig)"
+"0",""
+"0","#removing 0 (""not selected"") options"
+"0","f12_sig_df <- f12_sig_df %>% filter(options == 1)"
+"0","f12_sig_df"

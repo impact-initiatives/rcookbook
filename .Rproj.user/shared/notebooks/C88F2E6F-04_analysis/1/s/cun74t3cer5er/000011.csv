@@ -1,0 +1,2 @@
+"0","# with an independent variable"
+"0","house_type_married <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = ""b9_hohh_marital_status"", value_stratum = ""married"", name = ""e2_home_type"", weights = ""stratum.weight"")"

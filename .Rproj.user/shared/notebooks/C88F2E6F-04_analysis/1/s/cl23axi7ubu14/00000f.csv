@@ -1,0 +1,2 @@
+"0","# data_up <- read_excel(""data/data.xlsx"")"
+"0","data_up <- fix_data_type(df = data_up)"

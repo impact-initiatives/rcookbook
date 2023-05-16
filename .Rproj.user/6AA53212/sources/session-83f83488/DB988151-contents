@@ -1,0 +1,367 @@
+# Outputs
+
+## From long to large table
+How to move from a tidy format to a large format
+
+## Merge file
+How to create a merge file
+
+## Graphs
+### spider graphs
+### prison graphs
+
+### Bar graphs
+
+Loading libraries and the main dataset
+```{r  warning = FALSE, results = 'hide', message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(openxlsx)
+library(data.table)
+library(reshape)
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+```
+
+
+Choosing the needed indicator for building bar graph. The indicators in the questionnaire could be in 2 types: Only one answer can be selected (select_one question) and multiple answers can be selected (select_multiple question). Will review it separately.
+
+1. For select one questions:
+
+Preparing values for visualization (replacing xml values to lables) 
+```{r warning=F}
+# Loading questionnaire
+questions <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "survey", na.strings = "")
+choices <- read.xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx", sheet = "choices", na.strings = "")
+
+# Based on value we get option type
+q.list_name <- str_split(questions[questions$name == "b9_hohh_marital_status" & !is.na(questions$name), "type"], " ")[[1]][2]
+
+# New table with xml and labels
+labels <- choices %>%
+  filter(list_name == q.list_name) %>%
+  select(name, "label::English") %>%
+  dplyr::rename(b9_hohh_marital_status = name, b9_hohh_marital_status_label = "label::English")
+
+# Add a column with English labels to the main dataset
+main_dataset <- merge(labels, main_dataset, by = 'b9_hohh_marital_status')
+```
+
+
+Building a bar graph
+```{r warning=F}
+ggplot((main_dataset %>%
+          filter(!is.na(b9_hohh_marital_status_label)) %>%
+          dplyr::group_by(b9_hohh_marital_status_label) %>%
+          dplyr::summarize(weight_sum = round(sum(stratum.weight), 2))), aes(y = reorder(b9_hohh_marital_status_label, weight_sum), x = weight_sum/sum(weight_sum))) +
+  geom_bar(stat = "identity", fill = "#EE5859") +
+  geom_text(aes(label = paste(round((weight_sum/sum(weight_sum)*100),0),"%")), color = "#58585A", size = 4, hjust = -0.1) +
+  scale_x_continuous(labels = scales::percent) +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+```
+
+
+Removing temporary data
+```{r warning=F}
+rm(labels, q.list_name)
+```
+
+
+2. For select multiple questions:
+
+Preparing values for visualization (replacing xml values to lables; calculating results) 
+```{r warning=F}
+# Getting needed columns from the main dataset (indicator and weight)
+visual_dataset <- main_dataset[,grepl("b10_hohh_vulnerability.|stratum.weight", names(main_dataset))]
+
+# Reshaping the dataset
+visual_dataset <- melt(visual_dataset, id.vars = "stratum.weight")
+
+# Grouping by choices and getting sum of weights
+visual_dataset <- visual_dataset %>%
+  mutate(weight = stratum.weight * value) %>%
+  group_by(variable) %>% 
+  summarise(weight_sum = sum(as.numeric(weight))) %>%
+  mutate(percentage = round(weight_sum / sum(main_dataset$stratum.weight)*100)) %>%
+  dplyr::rename(b10_hohh_vulnerability = variable)
+
+# Based on value we get option type and replacing xmls to the labels and 
+q.list_name <- str_split(questions[questions$name == "b10_hohh_vulnerability" & !is.na(questions$name), "type"], " ")[[1]][2]
+
+# New table with xml and labels
+labels <- choices %>%
+  filter(list_name == q.list_name) %>%
+  select(name, "label::English") %>%
+  dplyr::rename(b10_hohh_vulnerability = name, b10_hohh_vulnerability_label = "label::English") %>%
+  mutate(b10_hohh_vulnerability = paste0("b10_hohh_vulnerability.", b10_hohh_vulnerability))
+
+# Add a column with English labels to the visualization dataset
+visual_dataset <- merge(labels, visual_dataset, by = 'b10_hohh_vulnerability')
+```
+
+
+Building a bar graph
+```{r warning=F}
+ggplot(visual_dataset, aes(y = reorder(b10_hohh_vulnerability_label, percentage), x = percentage)) +
+  geom_bar(stat = "identity", fill = "#EE5859") +
+  geom_text(aes(label = paste(percentage, "%")), color = "#58585A", size = 4, hjust = -0.1) +
+  scale_x_continuous(labels = scales::percent) +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_blank(), axis.ticks.y = element_blank(), axis.text.y = element_text(color = "#58585A", size = 12),
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+```
+
+
+Removing temporary data
+```{r warning=F}
+rm(labels, q.list_name)
+```
+
+
+### Euler diagram
+*An Euler diagram  is a diagrammatic means of representing sets and their relationships. They are particularly useful for explaining complex hierarchies and overlapping definitions. They are similar to another set diagramming technique, Venn diagrams. Unlike Venn diagrams, which show all possible relations between different sets, the Euler diagram shows only relevant relationships. [Source](https://en.wikipedia.org/wiki/Euler_diagram)*
+
+First let's load [Eulerr library](https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html) and our dataset
+```{r}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+```
+
+Euler diagrams are particularly useful to visualize overlaps between HH characteristics that help better understand the demographic profile of the area. For example, let's visualize overlaps between such HH characteristics as age, displacement status, income level, disability, and employment status.
+```{r tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(eulerr)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(tibble)
+library(UpSetR)
+
+vulnerability_data <- main_dataset %>%
+    select(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,
+           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)%>%
+  #select all necessary columns
+    mutate(displaced = ifelse(d1_hh_displacement_status == "no", 0, 1),
+           low_income = ifelse(as.numeric(b15_hohh_income) >= 2189, 0, 1))%>% #2189 UAH(83$) is minimal monthly income in 2020
+  #calculate binary indicators in case they are not available in the dataset directly from select multiple questions
+    select(-d1_hh_displacement_status, -b15_hohh_income)%>%
+    setNames(c("disability", "60+", "unemployed", "uuid", "strata", "weight", "displaced", "low_income"))
+  #remove unnecessary columns and rename other column
+
+vulnerability_data <- #create column that will combine all binary columns into one (same approach as in ### Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)
+    map2_df(vulnerability_data, names(vulnerability_data), ~  replace(.x, .x==1, .y) %>% 
+    replace(. == 0, NA)) %>%
+    unite(combined, disability, `60+`, displaced, low_income, unemployed, remove = FALSE, na.rm = TRUE, sep = '&')%>%
+    filter(!combined == "")
+
+#calculate weighted summary statistics for each combination
+vulnerability_summary <- vulnerability_data %>%
+  select(strata, weight, combined)%>% 
+  group_by(combined) %>% 
+  summarise(weight_sum = sum(as.numeric(weight)))%>%
+  mutate(per = weight_sum / sum(weight_sum) * 100)%>%
+  filter(per > 1)%>%
+  select(-weight_sum)
+
+#convert data frame into named numeric vector that is used by plot function
+vulnerability_input <-  vulnerability_summary %>%
+                        deframe()
+```
+
+In this block we will build euler diagram using REACH color palette and some basic styling.
+```{r}
+plot(euler(vulnerability_input),
+     edges = FALSE,
+     quantities = list(type = "percent", fontsize = 8),
+     labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed"),
+     legend = list(labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed")),
+     fills = c("#7CB6C4","#B6C8B1","#F6E3E3","#D1CAB8","#D1D3D4")
+     )
+```
+
+As an alternative, we also can build a Venn diagram that shows each relation (even not possible in reality). As you can see Venn diagram in this case is less readable and usable.
+```{r}
+plot(venn(vulnerability_input),
+     edges = FALSE,
+     quantities = list(type = "percent", fontsize = 8), 
+     labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed"),
+     legend = list(labels = c("60+", "Displaced", "Low income", "Disability", "Unemployed")),
+     fills = c("#7CB6C4","#B6C8B1","#F6E3E3","#D1CAB8","#D1D3D4"))
+```
+Another popular type of diagram that shows relation is [UpSetR diagram](https://github.com/hms-dbmi/UpSetR). Even with default styling, it's quite good in the visualization of intersections between different HH characteristics.
+```{r}
+upset(fromExpression(vulnerability_input), order.by = "freq")
+```
+
+
+
+
+### Venn diagram
+### UpSet plots
+### boxplots
+
+
+## Labels
+### Xml to Label
+The following code transform column headers, select_one and select_multiple values from XML to Label.
+
+Loading Libraries
+```{r warning=F}
+library(tidyverse)
+```
+
+Dataset column headers function
+
+```{r}
+xml2label_question <- function(tool_survey, tool_choices, col){
+  # for each column check if it is a select multiple
+  if (str_detect(col, "/")) {
+    q.name <- str_split(col, "/")[[1]][1]
+    c.name <- paste0(tail(str_split(col, "/")[[1]], -1), collapse="/")
+  } else {
+    q.name <- col
+    c.name <- NA
+  }
+  
+  # returning the label and make sure to include the label of multiple choices after /
+  if (q.name %in% tool_survey$name){
+    q <- tool_survey[tool_survey$name==q.name,]
+    q.label <- q$`label::english`
+    if (is.na(q.label) | q$type %in% c("note")) q.label <- q.name
+    if (!is.na(c.name)){
+      q.list_name=ifelse(q$list_name=="NA", NA, q$list_name)
+      c.label <- tool_choices[tool_choices$list_name==q.list_name & tool_choices$name==c.name, "label::english"]
+    } else c.label <- NA
+    label <- ifelse(is.na(c.label), q.label, paste0(q.label, "/", c.label))
+  } else label <- q.name
+  return(label)
+}
+```
+
+Select_one values function
+```{r}
+xml2label_choices_one <- function(tool_survey, tool_choices, data, col) {
+  # select the type column from each select_one question
+  q.type <- tool_survey$type[tool_survey$name==col]
+  
+  # take the id of the choices to get the list name
+  q.list_name <- str_split(q.type, " ")[[1]][2]
+  
+  # export the choices relevant to each select_one question
+  choices <- tool_choices %>% filter(list_name == q.list_name) %>% 
+      select(name, `label::english`) %>% rename(label=`label::english`)
+  
+  # replace the xml with label using left_join
+  d.join <- data.frame(col=as.character(data[[col]])) %>% 
+    left_join(choices, by=c("col"="name")) %>% select(label)
+  
+  # return only the new label column and replace it in the for loop using vectors 
+  return(d.join$label)
+}
+```
+
+Select_multiple values function
+```{r}
+xml2label_choices_multiple <- function(tool_survey, tool_choices, data, col) {
+  # select all the columns with all the options for each select_multiple
+  d.join <- data %>% 
+    select(contains(paste0(col,"/")))
+  col_internal <- colnames(d.join)
+  
+  # for each column with options
+  for(j in 1:length(col_internal)){
+    # change all 1's to the xml answer
+    xml_answer <- str_split(col_internal[j], "/")[[1]][2]
+    d.join <- d.join %>% 
+      mutate(!!sym(col_internal[j]) := ifelse(!!sym(col_internal[j]) == "1", xml_answer, NA))
+    
+    # get the list of the xml and label options for each select multiple questions
+    choice_id <- filter(tool_survey, str_starts(name, str_split(col_internal[j],"/")[[1]][1])) %>% 
+      select(list_name)
+    choice_id <- choice_id$list_name
+    t.choices <- tool_choices %>% 
+      filter(list_name == choice_id) %>% 
+      select(name, `label::english`) %>% rename(label = `label::english`)
+    
+    # replace the xml with label using left_join
+    d.new.join <- data.frame(col=as.character(d.join[[col_internal[j]]])) %>%
+      left_join(t.choices, by=c("col"="name")) %>% select(label)
+    d.join[col_internal[j]] <- d.new.join$label
+  }
+  
+  # concatenate all the answers, removing NAs in one cell and separated by a ';' 
+  d.join <- d.join %>% 
+    unite("Merged", everything(), sep= ";", na.rm = T)
+  
+  # return only the new label column and replace it in the for loop using vectors
+  return(d.join$Merged)
+}
+```
+
+Example
+```{r, eval = F}
+filename_tool <- "enter your tool link here"
+filename_cleaned_data <- "enter your data hear"
+
+# loading tool
+tool_survey <- read_excel(filename_tool, sheet = "survey", col_types = "text") %>% 
+  filter(!is.na(name)) %>% 
+  # adding two columns showing the question type and the id of the list_name choices separately
+  mutate(q.type = as.character(lapply(type, function(x) str_split(x, " ")[[1]][1])),
+         list_name = as.character(lapply(type, function(x) str_split(x, " ")[[1]][2])))
+
+tool_choices <- read_excel(filename_tool, sheet = "choices", col_types = "text") %>% 
+  filter(!is.na(list_name))
+
+
+# loading the data
+main_dataset <- read_excel(filename_cleaned_data, col_types = "text")
+
+# creating another data frame with changes
+
+data_labeled <- main_dataset
+
+# select_one values - XML to Label
+
+tool_select_one <- tool_survey %>% 
+  filter(str_starts(type, "select_one "))
+
+col_select_one <- tool_select_one$name
+
+for (i in 1:length(col_select_one)){
+  if(!is.null(data_labeled[[col_select_one[i]]])){
+    data_labeled[[col_select_one[i]]] <- xml2label_choices_one(tool_survey,tool_choices,main_dataset,col_select_one[i])
+  }
+}
+
+# select_multiple values - XML to Label
+
+tool_select_multi <- tool_survey %>% 
+  filter(str_starts(type, "select_multiple "))
+col_select_multi <- tool_select_multi$name
+
+for (i in 1:length(col_select_multi)){
+  if(!is.null(data_labeled[[col_select_multi[i]]])){
+    data_labeled[[col_select_multi[i]]] <- xml2label_choices_multiple(tool_survey,tool_choices,main_dataset,col_select_multi[i])
+  }
+}
+
+# Column headers - XML to Label
+col_names <- colnames(main_dataset)
+
+for (i in 1:length(col_names)) {
+  colnames(data_labeled)[i] <- xml2label_question(tool_survey, tool_choices, col_names[i])
+  
+}
+```
+
+### change from label to xml
+
+## Dashboarding - Sharing information
+Html files
+Tableau
+Power BI
+Shiny
+
+## Outputs with hypothesis testing results

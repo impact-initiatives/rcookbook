@@ -1,0 +1,2 @@
+"0","names <- names(main_dataset)"
+"0","f12 <- names[grepl(""f12_drinking_water_treat."", names)]"

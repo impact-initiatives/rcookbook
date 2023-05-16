@@ -1,0 +1,2 @@
+"0","# Median of respondent's age, with the confidence interval, no grouped analysis"
+"0","impactR::svy_median(design, i_enquete_age, vartype = ""ci"")"

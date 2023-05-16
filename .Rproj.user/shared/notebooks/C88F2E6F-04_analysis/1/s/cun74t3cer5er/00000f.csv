@@ -1,0 +1,5 @@
+"0","library(dplyr)"
+"0","# without independent variable"
+"0","marital_prop_test <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = ""a1_informed_consent"", value_stratum = ""yes"", name = ""b9_hohh_marital_status"", weights = ""stratum.weight"")"
+"0",""
+"0","marital_prop_test"

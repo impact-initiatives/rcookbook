@@ -1,0 +1,8 @@
+"0","main_dataset <- read.csv(""inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv"", na.strings = """", stringsAsFactors = F)"
+"0",""
+"0","svy_design <- svydesign(data=main_dataset, "
+"0","                        id = ~1, "
+"0","                        strata = main_dataset$strata, "
+"0","                        probs = NULL,"
+"0","                        weights = main_dataset$stratum.weight)"
+"0",""

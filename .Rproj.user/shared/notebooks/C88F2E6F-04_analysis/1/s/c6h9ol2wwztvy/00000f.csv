@@ -1,0 +1,20 @@
+"0","# Getting a list"
+"0","an <- impactR::make_analysis_from_dap(design, survey, choices, dap)"
+"2","Warning:  "
+"2","Warning: Col: 'fcs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"2","Warning: Col: 'hhs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"2","Warning: Col: 'lcs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"0","# Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels"
+"0",""
+"0","# Getting a long dataframe"
+"0","impactR::make_analysis_from_dap(design, survey, choices, dap, bind = TRUE) |> head(10)"
+"2","Warning:  "
+"2","Warning: Col: 'fcs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"2","Warning: Col: 'hhs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"2","Warning: Col: 'lcs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."

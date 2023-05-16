@@ -1,0 +1,57 @@
+"0","library(spatstat)"
+"2","Loading required package: spatstat.data
+"
+"2","Loading required package: spatstat.geom
+"
+"2","spatstat.geom 3.0-3
+"
+"2","Loading required package: spatstat.random
+"
+"2","spatstat.random 3.0-1
+"
+"2","Loading required package: spatstat.explore
+"
+"2","Loading required package: nlme
+"
+"2","
+Attaching package: ‘nlme’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+"
+"2","spatstat.explore 3.0-5
+"
+"2","Loading required package: spatstat.model
+"
+"2","Loading required package: rpart
+"
+"2","spatstat.model 3.0-2
+"
+"2","Loading required package: spatstat.linnet
+"
+"2","spatstat.linnet 3.0-3
+"
+"2","
+spatstat 3.0-2 
+For an introduction to spatstat, type ‘beginner’ 
+
+"
+"0","select_numerical <- function(dataset, kobo){"
+"0","  kobo_questions <- kobo[grepl(""integer|decimal|calculate"", kobo$type),c(""type"",""name"")]"
+"0","  names.use <- names(dataset)[(names(dataset) %in% as.character(kobo_questions$name))]"
+"0","  numerical <- dataset[,c(names.use,""X_uuid"",'strata','stratum.weight')] #Here we can select any other relevant variables"
+"0","  numerical[names.use] <- lapply(numerical[names.use], gsub, pattern = 'NA', replacement = NA)"
+"0","  numerical[names.use] <- lapply(numerical[names.use], as.numeric)"
+"0","  return(numerical)"
+"0","}"
+"0",""
+"0","numerical_questions <- select_numerical(main_dataset, questions)"
+"0",""
+"0","numerical_classes <- sapply(numerical_questions[,1:c(ncol(numerical_questions)-3)], class) #Here we can check class of each selected variable"
+"0","numerical_classes <- numerical_classes[""character"" %in% numerical_classes] #and here we check if any variable has class ""character"""
+"0","numerical_questions <- numerical_questions[ , !names(numerical_questions) %in% numerical_classes] #if any variable has a character class then we remove it"
+"0","rm(numerical_classes)#and here we removing vector with classes from our environment"
+"0",""

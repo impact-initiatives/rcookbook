@@ -1,0 +1,5 @@
+"0","design <- main |> "
+"0","  srvyr::as_survey_design("
+"0","    strata = stratum,"
+"0","    weights = weights)"
+"0",""

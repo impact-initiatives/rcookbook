@@ -1,0 +1,3 @@
+"0",""
+"0","# Top 6 common profiles between type of sanitation and source of drinking water, by setting"
+"0","impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), group = milieu, vartype = ""ci"") |> head(6)"

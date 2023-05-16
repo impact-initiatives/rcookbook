@@ -1,0 +1,12 @@
+"0","# To perform the same analysis without grouping, you can just replace the ""group"" variable by NAs"
+"0","dap |> "
+"0","  srvyr::mutate(group = rep(NA_character_, 3)) |> "
+"0","  impactR::make_analysis_from_dap(design, survey, choices, dap = _, bind = TRUE) |> "
+"0","  head(10)"
+"2","Warning:  "
+"2","Warning: Col: 'fcs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"2","Warning: Col: 'hhs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."
+"2","Warning: Col: 'lcs_cat' is not in survey$name.
+An empty vector or an empty tibble is returned."

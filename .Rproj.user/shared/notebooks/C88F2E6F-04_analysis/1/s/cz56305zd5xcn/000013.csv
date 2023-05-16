@@ -1,0 +1,3 @@
+"0",""
+"0","# Ratio of the number of 0-17 yo children that attended school, with the confidence interval and no group"
+"0","impactR::svy_ratio(design, e_formellet, c_total_age_3a_17a, vartype = ""ci"")"
