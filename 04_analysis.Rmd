@@ -1,169 +1,6 @@
 # Analysis
 
-## hypegrammaR 
-hypegrammaR follow the case mapping logic to compute analysis. It will also use the kobo questionnaire tool to help some of decision to be made.
 
-This just load the information that will be need to conduct the analysis :
-
-- dataset, 
-- kobotool (questions and choices), 
-- sample frame
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-library(hypegrammaR)
-library(magrittr)
-library(surveyweights)
-library(srvyr)
-library(readxl)
-library(spatstat)
-library(ggpubr)
-
-#load dataset
-main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "",stringsAsFactors = F)
-
-#load kobotool
-questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
-choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
-
-#load sampling frame
-my_sampling_frame <- read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
-                             sheet = "for_r")
-```
-
-The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-#create a questionnaire object
-my_questionnaire <- hypegrammaR::load_questionnaire(data = main_dataset,
-                                    questions = questions,
-                                    choices = choices,
-                                    choices.label.column.to.use = "label::English")
-
-```
-
-The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset **HAS** to be the same. 
-What it does, it create a function that will calculate the weights based on your dataset. 
-*(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)*
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-#create a weigthing function
-my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
-                                                                      data.stratum.column = "strata",
-                                                                      sampling.frame.population.column = "population", 
-                                                                      sampling.frame.stratum.column = "strata", 
-                                                                      data = main_dataset)
-```
-If you want to add the weights to your dataframe this is how you can do it.
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-#optional, if you want to add the weights into the dataset.
-main_dataset$stratum.weight <- my_weigthing_function(main_dataset)
-
-```
-
-
-hypegrammaR uses cases to choose what type analysis to do. A "case" for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :
-
-- XXXX: hypothesis type (group_difference, direct_reporting)  
-- YYYY: dependent var type (categorical, numerical)  
-- ZZZZ: independent var type (categorical, numerical, *empty* if no independent variable) . 
-
-All cases implemented can been seen with this code.
-
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-hypegrammaR:::list_all_cases(implemented_only = T)
-```
-
-
-If you want to know what are the different proportion of the displacement status for each strata. The following information I need are:
-hypothesis : group_difference  
-dependent variable : d1_hh_displacement_status -> categorical  
-independent_variable : strata -> categorical 
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-#analysis 
-my_case <- hypegrammaR::map_to_case(hypothesis.type = "group_difference",
-                       dependent.var.type = "categorical",
-                       independent.var.type = "categorical")
-
-my_case
-```
-
-The function map_to_result will calculate your summary statistics, it will take a couple of arguments.
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-my_results <- hypegrammaR::map_to_result(data = main_dataset, 
-                            dependent.var = "d1_hh_displacement_status", 
-                            independent.var = "strata",
-                            case = my_case, 
-                            weighting = my_weigthing_function,
-                            questionnaire = my_questionnaire,
-                            confidence_level = .90)
-```
-
-The result object is a list with several information:
-
-- parameters: returns the information used of that analysis
-- summary statistics: returns the summary statistics in a tidy format
-- hypothesis test: returns hypothesis testing information (if avalaible)
-- message: returns a message (if the analysis went well or not)
-
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-my_results$summary.statistic %>% head()
-```
-
-
-If you need to run several analysis, you can use a data analysis plan (DAP) file which is a file that comprises of the following columns:
-  
-- dependent.variable: name of the dependent variable (kobo name, column name)  
-- dependent.variable.type: type of the dependent variable (categorical or numerical or empty)  
-- independent.variable: name of the independent variable (kobo name, column name)  
-- independent.variable.type: type of the independent variable (categorical or numerical or empty)  
-- repeat.for.variable: name of the variable to repeat the analysis for (e.g per camp or district or governorate)  
-- hypothesis.type: type of hypothesis (group_difference, direct_reporting)
-- you can have other columns to help you write the analysis plan such as RQ and sub RQ
-
-**You cannot have duplicate columns**
-
-Below, I am creating the DAP, but you could read a csv file. It has :
-
-- 2 categorical variables, (select multiple type in kobo), *l4_which_difficult_access_health* and *j10_education_security_concerns_in_the_vicinity_of_facility*
-- 2 categorical variables, (select one type in kobo), *b9_hohh_marital_status* and *d1_hh_displacement_status*,
-- 2 numerical variables (integer type in kobo): *b7_hohh_age* and *b5_age*
-
-It will repeat the analysis 3 times for each dependent variable:
-
-- using the *strata* variable as independent variable (first 6 rows), 
-- using no independent variable, for the complete dataset (national level?), (second 6 rows),
-- using the *b9_hohh_marital_status* as independent variable but repeating each strata (last 6 rows)
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-
-#dap 
-my_dap <- data.frame(dependent.variable = c(rep(c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
-                 "b5_age", "b9_hohh_marital_status",
-                    "d1_hh_displacement_status"), 2), c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
-                 "b5_age",
-                    "d1_hh_displacement_status")),
-                     dependent.variable.type = c(rep(c("categorical", "categorical", "numerical", "numerical", "categorical", "categorical"),2),"categorical", "categorical", "numerical", "numerical", "categorical"),
-                     independent.variable = c(rep("strata", 6), rep(NA, 6), rep("b9_hohh_marital_status", 5)),
-                     independent.variable.type = c(rep("categorical", 6), rep(NA, 6), rep("categorical", 5)), 
-                     hypothesis.type = c(rep("group_difference", 6), rep("direct_reporting", 6), rep("group_difference", 5)), 
-                     repeat.for.variable = c(rep(NA, 12), rep("strata", 5))
-                     )
-
-
-my_dap 
-```
-
-To use a DAP, you need to use the function **from_analysisplan_map_to_output** instead of the combination of **map_to_case** and **map_to_result**. It will look for the case itself. **from_analysisplan_map_to_output** a list of list of results. So you need to wriggle a bit around to come to a master dataframe.
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T, results='hide'}
-my_results <- hypegrammaR::from_analysisplan_map_to_output(data =main_dataset,
-                                analysisplan = my_dap,
-                                weighting = my_weigthing_function,
-                                questionnaire = my_questionnaire,
-                                confidence_level = .90)
-
-long_table <- my_results$results %>% 
-  lapply(function(x) x[["summary.statistic"]]) %>% 
-  do.call(rbind, .)
-```
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-long_table %>% head()
-```
 
 ## srvyr package
 
@@ -172,10 +9,18 @@ long_table %>% head()
 ```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
 ###makes some additions. 
 library(tidyverse)
-library(butteR)
 library(srvyr)
 library(kableExtra)
+library(readxl)
 df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
+
+main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
 dfsvy<-as_survey(df)
 ```
 
@@ -276,113 +121,7 @@ dfsvy %>%
 
 ```
 
-## butteR survey_collapse
 
-
-
-
-The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged. 
-
-The main advantages of survey_collapse
-
-1. The standardized output produced
-2. Ability to analyze both categorical and numerical columns with a consistent syntax
-3. Batch analyses and ability to perform many different subsetting investigations with ease
-
-Below is an example of its use.
-
-First we must read in some data and make it into a srvyr object
-
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
-###makes some additions. 
-library(tidyverse)
-library(butteR)
-library(srvyr)
-library(kableExtra)
-df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
-dfsvy<-as_survey(df)
-```
-
-For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
-```{r,message=F,warning=F, results="hide"}
-# here are some random concatenated select multiple parent questions
-select_multiple_parent_cols<-c("l4_which_difficult_access_health",
-                        "j10_education_security_concerns_in_the_vicinity_of_facility")
-numeric_cols<- c("b7_hohh_age",
-                 "b5_age")
-select_one_cols<- c("b9_hohh_marital_status",
-                    "d1_hh_displacement_status")
-mixed_columns<- c(select_multiple_parent_cols, numeric_cols, select_one_cols)
-```
-
-
-A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.
-
-Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It's a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated
-
-**note: I am commenting this section as it seems to break with the latest update**
-
-```{r,message=F,warning=F, results="hide"}
-outputs<-list()
-
-# outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>% 
-#   mutate(analysis_level= "overall")
-# 
-# outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>% 
-#   mutate(analysis_level= "strata")
-```
-
-
-Here is an example of what the long format data looks like as a table.
-```{r, echo =F}
-# outputs$strata %>% 
-#   head(100) %>% 
-#   kable() %>% 
-#   kable_styling(font_size=8) %>%
-#   scroll_box(width = "100%", box_css = "border: 0px;")
-```
-
-
-This is a great format for manipulating/filtering and then graphing with ggplot
-```{r}
-# output_df<- bind_rows(outputs)
-# 
-# output_df %>% 
-#   filter(analysis_level=="overall") %>% 
-#   mutate(question_val= paste0(variable,".",variable_val)) %>% 
-#   ggplot(aes(x= question_val,y= `mean/pct`))+
-#   geom_point(stat="identity", position = position_dodge(width = 0.3))+
-#   geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
-#                 width=0.2,position = position_dodge(width = 0.3))+
-#   scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
-#   coord_flip()+
-#   theme_bw()+
-#   theme(
-#     axis.title = element_blank(),
-#     axis.text.x = element_text(angle=90),
-#     legend.title= element_blank()
-#   ) 
-# 
-# 
-# # Easy to plot subset findings as well!
-# output_df %>% 
-#   filter(analysis_level=="strata") %>% 
-#   mutate(question_val= paste0(variable,".",variable_val)) %>% 
-#   ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+
-#   geom_point(stat="identity", position = position_dodge(width = 0.3))+
-#   geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`), 
-#                 width=0.2,position = position_dodge(width = 0.3))+
-#   scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
-#   coord_flip()+
-#   theme_bw()+
-#   theme(
-#     axis.title = element_blank(),
-#     axis.text.x = element_text(angle=90),
-#     legend.title= element_blank()
-#   ) 
-
-
-```
 
 ### select_one 
 ### select_mutiple
@@ -399,6 +138,8 @@ This is a great format for manipulating/filtering and then graphing with ggplot
 
 At first let's select all numerical variables from the dataset using Kobo questionnaire and dataset. It can be done with the following custom function:
 ```{r}
+library(spatstat)
+
 select_numerical <- function(dataset, kobo){
   kobo_questions <- kobo[grepl("integer|decimal|calculate", kobo$type),c("type","name")]
   names.use <- names(dataset)[(names(dataset) %in% as.character(kobo_questions$name))]
@@ -677,6 +418,367 @@ sum(main_dataset$my_weights) == nrow(main_dataset)
 ```
 
 
+
+## impactR, based on `srvyr`
+
+
+`impactR` was at first designed for helping data officers to cover most of the research cycles' parts, from producing cleaning log, cleaning data, and analyzing it. It is available for download here: https://gnoblet.github.io/impactR/.
+
+The visualization (post-analysis) component has now been moved to package `visualizeR`: https://gnoblet.github.io/visualizeR/. Composite indicators now lies into `humind` : https://github.com/gnoblet/humind. Analysis is still a module of `impactR`; yet it will most probably shortly be moved to a smaller consolidated packages.
+
+There are some vignettes/some documentation on the Github website. In particular this one for analysis: https://gnoblet.github.io/impactR/articles/analysis.html.
+
+You can install and load it with: 
+```{r impactR-install-load}
+# devtools::install_github("gnoblet/impactR")
+library(impactR)
+```
+
+### Introduction
+
+#### Caveats
+
+Though it has been used for several research cycles, including MSNAs, there is no test designed in the package. One discrepancy will be corrected in the next version using function `make_analysis_from_dap()`: it for now assumes that all `id_analysis` are distinct and not NAs when using `bind = TRUE`. The next version will also have a new feature: unweighted counts and some automation for select one and select multiple questions.
+
+Grouping is for now only possible for one variable. If you want to disagregate for instance by setting (rural vs. urban) and admin1, then you must mutate a new variable beforehand (it is as simple as pasting both columns).
+
+#### Rational
+
+The package is a wrapper around `srvyr`. The workflow is as follows:
+
+1. Prepare data: Get your data, weights, strata ready, and prepare a survey design object (using `srvyr::as_survey_design()`).
+2. Individual general analysis: It has a small family of functions `svy_*()` such as `svy_prop()` which are wrappers around the `srvyr::survey_*()` family in order to harmonize outputs. These functions can be used on their owns and covers mean, median, ration, proportion, interaction.
+3. Individual analysis based on a Kobo tool: Prepare your Kobo tool, then use `make_analysis()`.
+4. Multiple analyses based on a Kobo tool: Prepare your Data Analysis Plan, then feed `make_analysis_from_dap()`.
+
+#### Prepare data
+
+Data must have been imported with `ìmport_xlsx()` or `import_csv()` or with `janitor::clean_names()`. This is to ensure that column names for multiple choices follow this pattern: "variable_choice1", with an underscore between the variable name from the survey sheet and the choices from the choices sheet. For instance, for the main drinking water source (if multiple choice), it could be "w_water_source_surface_water" or "w_water_source_stand_pipe".
+
+
+### First stage: prepare data and survey design
+
+We start by downloading a dataset and the associated Kobo tool.
+
+```{r impactR-load-data}
+# The dataset (main and roster sheets), and the Kobo tool sheets are saved as a RDS object
+all <- readRDS("inputs/REACH_HTI_dataset_MSNA-2022.RDS")
+
+# Sheet main contains the HH data
+main <- all$main
+
+# Sheet survey contains the survey sheet
+survey <- all$survey
+
+# Sheet choices contains, well, the choices sheet
+choices <- all$choices
+```
+
+Let's prepare:
+
+- data with `janitor::clean_names()` to ensure lower case and only underscore (no dots, no /, etc.).
+- survey and choices: let's separate column type from survey and rename the label column we want to keep to `label`, otherwise most functions won't work.
+
+
+```{r impactR-prepare-data-kobo}
+main <- main |> 
+  # To get clean_names()
+  janitor::clean_names() |> 
+  # To get better types
+  readr::type_convert()
+
+
+survey <- survey |> 
+  # To get clean names
+  janitor::clean_names() |> 
+  # To get two columns one for the variable type, and one for the list_name
+  impactR::split_survey(type) |> 
+  # To get one column labelled "label" if multiple languages are used
+  dplyr::rename(label = label_francais)
+
+choices <- choices |> 
+  janitor::clean_names() |> 
+  dplyr::rename(label = label_francais)
+```
+
+Now that the dataset and the Kobo tool are loaded, we can prepare the survey design:
+```{r impactR-prepare-survey-design}
+design <- main |> 
+  srvyr::as_survey_design(
+    strata = stratum,
+    weights = weights)
+
+```
+
+### Second stage: One variable analysis
+
+Let's give a few examples for the `svy_*()` family.
+
+```{r impactR-svy-family}
+# Median of respondent's age, with the confidence interval, no grouped analysis
+impactR::svy_median(design, i_enquete_age, vartype = "ci")
+
+# Proportion of respondent's gender, with the confidence interval, by setting (rural vs. urban)
+impactR::svy_prop(design, i_enquete_genre, milieu, vartype = "ci")
+
+# Ratio of the number of 0-17 yo children that attended school, with the confidence interval and no group
+impactR::svy_ratio(design, e_formellet, c_total_age_3a_17a, vartype = "ci")
+
+# Top 6 common profiles between type of sanitation and source of drinking water, by setting
+impactR::svy_interact(design, c(h_2_type_latrine, h_1_principal_source_eau), group = milieu, vartype = "ci") |> head(6)
+## It means that unprotected water springs and open pit is the most common profile for rural hhs (12%), whereas the most common profile for urban hhs is flush and pour toilet and tap water with national network (7%).
+
+```
+
+### Third stage: one analysis at a time with the Kobo tool
+
+Now that we understands the `svy_*()` family of functions, we can use `make_analysis()` which is a wrapper around those for making analysis for medians, means, ratios, proportions of select ones and select multiples. The output of `make_analysis()` has standardized columns among all types of analysis and labels are pulled out if possible thanks to the survey and choices sheets.
+
+Let's say you don't have a full DAP sheet, and you just want to make individual analyses.
+
+1- Proportion for a single choice question:
+```{r impactR-prop-simple, eval = FALSE}
+# Single choice question, sanitation facility type
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", level = 0.95, vartype = "ci")
+
+# Same thing without labels, do not get labels of choices
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", get_label = FALSE)
+
+# Single choice question, by group setting (rural vs. urban) - group needs to be a character string here
+impactR::make_analysis(design, survey, choices, h_2_type_latrine, "prop_simple", group = "milieu")
+```
+2- Proportion overall: calculate the proportion with NAs as a category, this can be useful in case of a skip logic and you want to make the calculation over the whole population:
+```{r impactR-prop-simple-overall, eval = FALSE}
+# Single choice question: 
+impactR::make_analysis(design, survey, choices, r_1_date_reception_assistance, "prop_simple_overall", none_label = "No assistance received, do not know, prefere not to say, or missing data")
+```
+
+3- Multiple proportion:
+```{r impactR-prop-multiple, eval = FALSE}
+# Multiple choice question, here computing self-reported priority needs
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple", level = 0.95, vartype = "ci")
+
+# Multiple choice question, with no label and with groups
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple", get_label = FALSE, group = "milieu")
+```
+
+4- Multiple proportion overall: calculate the proportion for each choice over the whole population (replaces NAs by 0s in the dummy columns):
+```{r impactR-prop-multiple-overall, eval = FALSE}
+# Multiple choice question, estimates calculated over the whole population.
+impactR::make_analysis(design, survey, choices, r_1_besoin_prioritaire, "prop_multiple_overall")
+
+```
+
+5- Mean, median and counting numeric as character:
+```{r impactR-numeric, eval = FALSE}
+# Mean of interviewee's age
+impactR::make_analysis(design, survey, choices, i_enquete_age, "mean")
+
+# Median of interviewee's age
+impactR::make_analysis(design, survey, choices, i_enquete_age, "median")
+
+# Proportion counting a numeric variable as a character variable
+# Could be used for some particular numeric variables. For instance, below is the % of HHs by daily duration of access to electricity by setting (rural or urban).
+impactR::make_analysis(design, survey, choices, a_6_acces_courant, "count_numeric", group = "milieu")
+
+```
+
+6 - Last but not least, ratios (it does not consider NAs). For this, it is only necessary to write a character string with the two variable names separated by a comma:
+```{r impactR-ratio, eval = FALSE}
+# Let's calculate the % of children aged 3-17 that were registered to a formal school among the HHs that reported having children aged 3-17.
+impactR::make_analysis(design, survey, choices, "e_formellet,c_total_age_3a_17a", "ratio")
+```
+
+
+#### Fourth stage: Using a data analysis plan
+
+Now we can use a dap, which mainly consists of a data frame with needed information for performing the analysis. One line is one requested analysis. All variables in the dap must exist in the dataset to be analysed. Usually an excel sheet is the easiest way to go as it can be co-constructed by both an AO and a DO.
+
+```{r impactR-make_analysis_from_dap}
+# Here I produce a three-line DAP directly in R just for the sake of the example.
+dap <- tibble::tibble(
+  # Column: unique analaysis id identifier
+  id_analysis = c("foodsec_1", "foodsec_3", "foodsec_3"),
+  # Column: sector/research question
+  rq = c("FSL", "FSL", "FSL"),
+  # Column: sub-sector, sub research question
+  sub_rq = c("Food security", "Food security", "Livelihoods"),
+  # Column: indicator name
+  indicator = c("% of HHs by FCS category", "% of HHs by HHS level", "% of HHs by LCSI category"),
+  # Column: recall period
+  recall = c("7 days", "30 days", "30 days"),
+  # Column: the variable name in the dataset 
+  question_name = c("fcs_cat", "hhs_cat", "lcs_cat"),
+  # Column: subset (to be written by hand, does the calculation operates on a substed of the population)
+  subset = c(NA_character_, NA_character_, NA_character_),
+  # Column: analysis name to be passed to `make_analysis()`
+  analysis = c("prop_simple", "prop_simple", "prop_simple"),
+  # Column: analysis name used to be displayed later on
+  analysis_name = c("Proportion", "Proportion", "Proportion"),
+  # Column: if using analysis "prop_simple_overall", what is the label for NAs, passed through `make_analysis()`
+  none_label = c(NA_character_, NA_character_, NA_character_),
+  # Column: group label
+  group_name = "General population",
+  # Column: group variable from which to disaggregate (setting as an example)
+  group = c("milieu", "milieu", "milieu"),
+  # Column: level of confidence
+  level = c(0.95, 0.95, 0.95),
+  # Column: should NAs be removed?
+  na_rm = c("TRUE", "TRUE", "TRUE"),
+  # Column! var type, here we want confidence intervals
+  vartype = c("ci", "ci", "ci")
+)
+
+dap
+
+```
+
+
+Let's produce an analysis: 
+```{r}
+# Getting a list
+an <- impactR::make_analysis_from_dap(design, survey, choices, dap)
+# Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels
+
+# Getting a long dataframe
+impactR::make_analysis_from_dap(design, survey, choices, dap, bind = TRUE) |> head(10)
+
+# To perform the same analysis without grouping, you can just replace the "group" variable by NAs
+dap |> 
+  srvyr::mutate(group = rep(NA_character_, 3)) |> 
+  impactR::make_analysis_from_dap(design, survey, choices, dap = _, bind = TRUE) |> 
+  head(10)
+
+```
+
+
+## EXAMPLE :: Survey analysis using illuminate 
+`illuminate` is designed for making the data analysis easy and less time consuming. The package is based on tidyr, dplyr,srvyr packages.You can install the package from [here](https://github.com/mhkhan27/illuminate). HOWEVER the package is not maintained by the author anymore and it doesnt includes any tests.  
+
+### Step 0:: Call libraries
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+library(illuminate)
+library(tidyverse)
+library(purrr)
+library(readxl)
+library(openxlsx)
+library(srvyr)
+```
+
+
+
+
+### Step 1:: Read data
+Read data with `read_sheets()`. This will make sure your data is stored as appropriate data type. It is important to make sure that all the select multiple are stored as logical, otherwise un weighted count will be wrong. It is recommended to use the `read_sheets()` to read the data. use ``?read_sheets()` for more details. 
+``` {r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+#  [recommended] read_sheets("[datapath]",data_type_fix = T,remove_all_NA_col = T,na_strings = c("NA",""," "))
+data_up<-read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+
+
+```
+The above code will give a dataframe  called `data_up`
+
+
+
+### Step OPTIONAL:: Preaparing the data
+
+<span style="color: red;">ONLY APPLICABLE WHEN YOU ARE NOT READING YOUR DATA WITH `read_sheets()`</span>
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# data_up <- read_excel("data/data.xlsx")
+data_up <- fix_data_type(df = data_up)
+```
+
+
+### Step 2:: Weight calculation
+To do the weighted analysis, you will need to calculate the weights. If your dataset already have the weights column then you can ignore this part
+
+### Read sampleframe
+``` {r, eval=F,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+sampling_frame <- read.csv("[Sample frame path]")
+```
+
+
+This will give a data frame called `sampling_frame`
+
+``` {r, eval=F, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+
+weights <- data_up %>% group_by(governorate1) %>% summarise(
+  survey_count = n()
+) %>% left_join(sampling_frame,by =c("governorate1"="strata.names")) %>% 
+  mutate(sample_global=sum(survey_count),
+         pop_global=sum(population),
+         survey_weight= (population/pop_global)/(survey_count/sample_global)) %>% select(governorate1,survey_weight)
+```
+
+
+
+### Add weights to the dataframe
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+data_up <- data_up %>% left_join(weights,by= "governorate1")
+```
+
+
+
+
+
+### Step 3.1:: Weighted analysis
+To do the weighted analysis, you need to set `weights` parameter to `TRUE` and provide `weight_column` and `strata`. You should define the name of the data set weight column in the `weight_column` parameter and name of the strata column name from the data set. 
+
+Additionally, please define the name of the columns which you would like to analyze in `vars_to_analyze`. Default will analyze all the variables that exist in the data set.
+
+Lastly, please define the `sm_sep` parameter carefully. It must be either `/` or `,`. Use `/` when your select multiple type questions are separated by `/` (example-  parent_name/child_name1,parent_name/child_name2,
+parent_name/child_name3.....). On the other hand use `.` when the multiple choices are separated by `.`. (example -  parent_name.child_name1,parent_name.child_name2,parent_name.child_name3)
+
+``` {r, eval=FALSE, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+
+overall_analysis <- survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",strata = "governorate1")
+
+# As var_to_analyze is not defined, here the function will analyze all the variables. 
+```
+
+### Step 3.2:: Unweighted analysis
+To do unweighted analysis, you need to set the `weights` parameter `FALSE`. 
+
+``` {r, eval=T,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+columns_to_analyze <- data_up[20:50] %>% names() ## Defining  names of the variables to be analyzed. 
+overall_analysis <- survey_analysis(df = data_up,weights = F,vars_to_analyze = columns_to_analyze )
+
+DT::datatable(overall_analysis,caption = "Example::Analysis table")
+```
+
+### Step 3.3:: Weighted and disaggregated by gender analysis
+
+Use `?survey_analysis()` to know about the perameters. 
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+# dummy code.
+analysis_by_gender <-  survey_analysis(df = data_up,weights = T,weight_column = "survey_weight",vars_to_analyze = columns_to_analyze,
+                                       strata = "governorate1",disag = c("va_child_income","gender_speaker"))
+```
+
+
+
+### Step 4:: Export with `write_formatted_excel()`
+You can use any function to export the analysis however `write_formatted_excel()` can export formatted file. See the documentation for more details.
+
+``` {r, eval=FALSE,tidy=FALSE, message= F, warning=F, error=F, echo=T}
+write_list <- list(overall_analysis ="overall_analysis",
+                   analysis_by_gender ="analysis_by_gender"
+)
+write_formatted_excel(write_list,"analysis_output.xlsx",
+                      header_front_size = 12,
+                      body_front = "Times")
+```
+
+
+
+
 ## Repeating the above
 
 ## Analysis - top X / ranking (select one and select multiple)
@@ -861,6 +963,8 @@ As the p-value is more than the significance level 0.05, we can't conclude that 
 #### Bonus : Visualization of the data to confirm the findinds 
 
 ```{r, warning=F}
+library(ggpubr)
+
 ggline(main_dataset, x = "hoh_gender", y = "b15_hohh_income", 
        add = c("mean_se", "jitter"), 
        order = c("Female", "Male"),
@@ -1231,6 +1335,162 @@ f12_sig2 <- lapply(nz_f12, chi2_GoF, stratum_hyp = "a1_informed_consent", stratu
 f12_sig2_df <- Reduce(rbind, f12_sig2)
 f12_sig2_df
 ```
+
+### Proportion tests (z-test)
+
+Test for equality of proportions for independent samples. To compare column proportions for independent samples, two tailed z-test of proportions could be used.
+
+Main assumptions of use of this test are: 
+
+(1) normally distributed data
+(2) sample size > 30 and n at each point >= 5 (!Thus, for the variables were there are few observations, approximation could be incorrect!)
+The detailed explanation of this statistic and its use in R could be found here: http://www.sthda.com/english/wiki/two-proportions-z-test-in-r
+
+As in our datasets weighting is used, in the current test, we use weighted proportions and weighted counts for calculating test statistics.
+
+```{r z_proportion_test}
+zprop_compare_weighted <- function(data_old, data_new, stratum, value_stratum, name, weights, strict = F){
+  names_new <- names(data_new)
+  not_in_new <- names_new[which(!(name %in% names_new))]
+i <- 1
+table_old <- data.frame()
+for (i in 1:length(name)) {
+  ni <- name[i]
+  ti <- data_old %>% 
+    group_by(!!sym(ni)) %>% filter(!!sym(stratum) == paste0(value_stratum)) %>%
+    filter(!is.na(!!sym(ni))) %>%
+    filter(!!sym(ni) != 'refuse') %>%
+    dplyr::summarize(wtn = sum(!!sym(weights)), n = n()) %>%
+    mutate(prop = wtn/sum(wtn), base = sum(wtn), cnt = sum(n))%>%
+    mutate(varnam = ni)
+  names(ti) <- c("var", "wtn", "n", "prop", "base_w", "count", "nam")
+  table_old <- rbind(table_old, ti)
+}
+table_cl_old <- table_old %>% filter(var != "0") %>% filter(!is.na(var)) %>%
+  mutate(var_id = paste0(nam, ".", var))
+i <- 1
+table_new <- data.frame()
+for (i in 1:length(name)) {
+  ni <- name[i]
+  ti <- data_new %>% 
+    group_by(!!sym(ni)) %>% filter(!!sym(stratum) == paste0(value_stratum)) %>%
+    filter(!is.na(!!sym(ni))) %>%
+    filter(!!sym(ni) != 'refuse') %>%
+    dplyr::summarize(wtn = sum(!!sym(weights)), n = n()) %>%
+    mutate(prop = wtn/sum(wtn), base = sum(wtn), cnt = sum(n))%>%
+    mutate(varnam = ni)
+  names(ti) <- c("var", "wtn", "n", "prop", "base_w", "count", "nam")
+  table_new <- rbind(table_new, ti)
+}
+table_cl_new <- table_new %>% filter(var != "0") %>% filter(!is.na(var)) %>%
+  mutate(var_id = paste0(nam, ".", var))
+table_cl_compare <- merge(table_cl_old, table_cl_new, by = "var_id", all = T)
+names(table_cl_compare) <- c("var.id", "var.old", "wtn.old", "n.old", "prop.old", "base.old", "base_nw.old","nam.old", "var.new", "wtn.new", "n.new", "prop.new", "base.new", "base_nw.new", "nam.new")
+
+#Dealing with NA issues
+
+  table_cl_compare$nam.old[is.na(table_cl_compare$nam.old)] <- table_cl_compare$nam.new[is.na(table_cl_compare$nam.old)]
+  
+    table_cl_compare$nam.new[is.na(table_cl_compare$nam.new)] <- table_cl_compare$nam.old[is.na(table_cl_compare$nam.new)]
+
+table_cl_compare$to_split <- table_cl_compare$nam.old
+  
+table_cl_compare <- separate(table_cl_compare, col = to_split, into = c("indctr", "item"), sep ="\\.")
+
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base_nw.old, .direction  = "down") %>% fill(base_nw.old, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base.old, .direction  = "down") %>% fill(base.old, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base_nw.new, .direction  = "down") %>% fill(base_nw.new, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base.new) %>% fill(base_nw.old, .direction  = "down") %>% fill(base.new, .direction  = "up") %>% ungroup()
+
+
+table_cl_compare$prop.old[is.na(table_cl_compare$prop.old)] <- 0
+table_cl_compare$prop.new[is.na(table_cl_compare$prop.new)] <- 0
+
+table_cl_compare$wtn.old[is.na(table_cl_compare$wtn.old)] <- 0
+table_cl_compare$wtn.new[is.na(table_cl_compare$wtn.new)] <- 0
+
+for (i in 1:nrow(table_cl_compare)){
+pt <- prop.test(x = c(table_cl_compare$wtn.old[i], table_cl_compare$wtn.new[i]), n = c(table_cl_compare$base.old[i], table_cl_compare$base.new[i]))
+table_cl_compare$prp_tst_p[i] <- pt$p.value
+}
+table_cl_compare$sig <- ifelse(table_cl_compare$prp_tst_p < 0.05, "Significant diff.", "Not significant")
+table_cl_compare$stratum <- paste0(value_stratum)
+
+
+table_cl_compare_final <- table_cl_compare %>% 
+  filter(case_when(strict == T ~ (prop.old*n.new >= 10 & prop.old*n.old >=10),
+                   strict == F ~ (base_nw.old >= 30 & base_nw.new >=30)))
+
+table_cl_compare_final <- table_cl_compare_final %>% filter(!(nam.old %in% not_in_new))
+
+if(nrow(table_cl_compare_final) < nrow(table_cl_compare)){
+  ss_vars <- table_cl_compare$var.id[which(!(table_cl_compare$var.id %in% table_cl_compare_final$var.id))]
+  warning(paste0("Too small sample size. Variables that were removed from the analysis", ss_vars))
+}
+
+return(table_cl_compare_final)
+}
+```
+
+##### Applying the function
+
+Z-tests can be used for wave to wave or round to round comparisons.
+
+Assuming, there was staged data collection and at stage1 Luhansk oblast was assessed, while at stage2 Donetsk oblast was assessed (it is an artificial division, for correct comparison between wave), hence we have two different datasets for Donetska and Luhanska regions (UA14 and UA44 respectively) and the question is whether proportions of female-led households, living in each shelter type are the same.
+
+Thus, H0 - proportions are the same, H1 - proportions are different.
+
+
+```{r}
+ds_ua14 <- main_dataset |> filter(r1_current_oblast == "UA14")
+ds_ua44 <- main_dataset |> filter(r1_current_oblast == "UA44")
+```
+
+
+Applying the function for single choices
+
+- *data_old, data_new* - dataset1 and dataset2;
+- *stratum* - independent variable (should be the same for both datasets), if there is no need for independent variable, variable that have same value across the entire dataset can be used (e.g. "informed consent");
+- *value_stratum* - independent variable value, that should be used for crosstabulations (e.g. we would like to compare the proportions for certain settlement or household type);
+- *name* - dependent variable name;
+- *weights* - weighting variable;
+- *strict* - (TRUE/FALSE) specifies if the less strict restrictment to sample size (n>30) or more strict one (n at each point >= 5) should be applied. FALSE be default
+
+
+```{r, warning=FALSE}
+library(dplyr)
+# without independent variable
+marital_prop_test <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = "a1_informed_consent", value_stratum = "yes", name = "b9_hohh_marital_status", weights = "stratum.weight")
+
+marital_prop_test
+# with an independent variable
+house_type_married <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = "b9_hohh_marital_status", value_stratum = "married", name = "e2_home_type", weights = "stratum.weight")
+```
+Output numeric columns:
+- *wtn.old* - weighted counts for the first (old) data
+- *n.old* - unweighted counts for the first (old) data
+- *prop.old* - weighted proportion for the first (old) data
+- *base.old* - weighted base (total count) for the first (old) data
+- *base_nw.old* - unweighted base (total count) for the first (old) data
+- *wtn.new* - weighted counts for the second (new) data
+- *n.new* - unweighted counts for the second (new) data
+- *prop.new* - weighted proportion for for the second (new) data
+- *base.new* - weighted base (total count) for the second (new) data
+- *base_nw.new* - unweighted base (total count) for the second (new) data
+- *prp_tst_p* - p-value for proportions test
+- *sig* - indication if p<0.05
+
+Applying the function for multiple choice questions
+
+```{r, warning=FALSE}
+names <- names(ds_ua14)
+ng5 <- names[grepl("b10_hohh_vulnerability", names)]
+
+vulnerability_prop_test <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = "a1_informed_consent", value_stratum = "yes", name = ng5, weights = "stratum.weight")
+
+vulnerability_prop_test
+```
+
 
 
 

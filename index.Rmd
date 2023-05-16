@@ -1,12 +1,12 @@
 ---
 title: "R cookbook for analysis with IMPACT"
-author: "R CoP"
+author: "R Squad"
 site: bookdown::bookdown_site
 documentclass: book
 output:
   bookdown::gitbook: default
 ---
 # Hello 
-Hello, 
+Hello,
 
-This is book aims to be a small collection of code used across different mission. It will show you examples of different problems you can face and you could solve them. Those codes are not exhaustive but just examples.
+This book aims to be a small collection of codes used across different mission. It contains examples of different problems you can face and offers guidance to solve them. The codes are not exhaustive but just examples.

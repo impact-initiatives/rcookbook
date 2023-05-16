@@ -1,0 +1,433 @@
+# Archives
+
+This part are some code that were written but cannot be run in the cookbook because of some dependencies, deprecated version, etc. They are still valid and useful but just cannot be run automatically to render the book. They are not evaluated.
+
+## 01 Pre analysis
+### Generation of random sample points
+It is quite common practice to select survey locations before data collection, using randomly distributed points. In this case, the enumerator finds the location of a certain sample point using mobile device navigation tools and conducts an interview near that location. That practice ensures that all survey locations were selected in a random manner.
+<br>
+First, let's join our sampling frame (in this case it was generated with [Probability sampling tool](https://impact-initiatives.shinyapps.io/r_sampling_tool_v2/)) to the settlement polygons and generate a random set of points within each polygon. We will use settlement polygons but it's possible to use rectangle or hexagon fishnet with interview numbers distributed using population raster to obtain sample size that will correspond with settlement population density. 
+```{r, tidy=FALSE, eval = F}
+library(sf)
+
+ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
+sampling_frame <- read.csv("inputs/sampling_frame20200701-132150.csv")
+
+ADM4_for_sample <- ADM4 %>%
+        right_join(sampling_frame, by = c("adm4Pcd" = "adm4Pcode"))
+
+sample_all_pnt <- st_sample(ADM4_for_sample, rep(ADM4_for_sample$Survey, nrow(ADM4_for_sample)))%>%
+  st_as_sf
+```
+
+Now we would need to transfer attributes from the settlement layer to our random points.
+```{r, tidy=FALSE, eval = F}
+#first we should generate indexes that will be used for this transfer
+index <- rep(seq_along(ADM4_for_sample$Survey), ADM4_for_sample$Survey)
+
+#now we should add indexes to the settlement layer and then join this layer to the random points
+ADM4_for_sample <- ADM4_for_sample %>%
+                   st_drop_geometry()%>%
+                   as.data.frame(row.names = 1:nrow(.))%>%
+                   tibble::rownames_to_column(var = "index")%>%
+                   mutate_at(1, as.numeric)
+
+sample_all_pnt <- st_coordinates(sample_all_pnt)%>%
+                  as.data.frame()%>%
+                  bind_cols(index)%>%
+                  set_colnames(c("Longitude_pnt","Latitude_pnt","index"))%>%
+                  left_join(ADM4_for_sample, by = "index")
+
+#with the code below we will get the unique id for each point that will have a settlement name and point number
+sample_all_pnt$GPS_id <- paste(sample_all_pnt$adm4NmL, data.table::rowid(sample_all_pnt$adm4NmL), sep = "_")
+
+sample_all_pnt <- st_as_sf(x = sample_all_pnt, 
+                    coords = c("Longitude_pnt", "Latitude_pnt"),
+                    crs = "+proj=longlat +datum=WGS84")
+
+#and now we can visualize our random points for some settlement to check their distribution
+sample_all_pnt %>%
+  filter(adm4NmL == "Bakhmut")%>%
+  select(adm4NmL)%>%
+  plot()
+
+```
+
+The last step will be to export the sample points into any suitable GIS format (GeoJSON, Shapefile, KML, etc.) and transfer that file to the mobile devices of the enumerators.
+```{r, tidy=FALSE, eval = F}
+#check if there are directory for the outputs and write there output geojson file
+if(!dir.exists("outputs")) {
+  dir.create("outputs")
+}
+
+st_write(sample_all_pnt, "outputs/sample_points.geojson", delete_dsn = TRUE)
+```
+
+## Cleaning
+
+## Spatial verification checks
+### Spatial verification checks on settlement level
+One of the important checks is to ensure that all surveys were collected in the correct locations (areas, settlements, sample points). The usual procedure to perform such checks is to compare GNSS-coordinates obtained by the data collection device with enumerator input that indicates data collection location
+
+First, let's generate random spatial coordinates (as real coordinates were excluded as part of personal data) and select columns that we need for cleaning.
+```{r, tidy=FALSE, eval = F}
+library(sf)
+library(nngeo)
+```
+
+
+```{r, tidy=FALSE, eval = F}
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "", stringsAsFactors = F)
+
+main_dataset$X_r6_gpslocation_latitude <- runif(nrow(main_dataset), min = 47, max = 48)
+main_dataset$X_r6_gpslocation_longitude <- runif(nrow(main_dataset), min = 37, max = 40)
+
+spatial_component <- main_dataset %>%
+  select(r3_current_settlement,adm4NameLat,X_r6_gpslocation_latitude,X_r6_gpslocation_longitude,X_uuid)%>%
+  setNames(c("code_settlement_dataset","name_settlement_dataset","latitude","longitude","X_uuid"))
+```
+
+Now with [sf library](https://cran.r-project.org/web/packages/sf/index.html) we should open geojson file with settlements boundaries and convert our dataset into sf data type.
+```{r, tidy=FALSE, eval = F}
+ADM4 <- st_read(dsn = "inputs/MSNA20_ADM4.geojson")
+
+spatial_component <- st_as_sf(x = spatial_component, 
+                    coords = c("longitude", "latitude"),
+                    crs = "+proj=longlat +datum=WGS84")
+```
+
+With st_join() function from [nngeo library](https://cran.r-project.org/web/packages/nngeo/index.html) we are doing spatial join of interviews locations and settlement boundaries. Parameter "maxdist" specifies that join should be performed for all the points that are within 1000 meters from the closest polygon. After that, we compare the code of the closest settlement and the settlement code chosen by the enumerator. In case there is a difference in the codes we put "CHECK" status for such interviews and clarify interview location with the Field team.
+*Keep in mind that for this example we used random coordinates so most likely all the interviews will have "CHECK" status*
+```{r Spatial join, tidy=FALSE, eval = F}
+spatial_component <- st_join(spatial_component, ADM4, join = st_nn, k = 1, maxdist = 1000)
+
+spatial_component$spatial_check <- ifelse(spatial_component$code_settlement_dataset == spatial_component$adm4NmL
+                                          & !is.na(spatial_component$adm4NmL),
+                                          "OK",
+                                          "CHECK")
+```
+
+Print number of interviews that needs review
+```{r, tidy=FALSE, eval = F}
+print(paste("Number interviews to check",unlist(table(spatial_component$spatial_check))))
+```
+### Spatial verification checks on sample point level
+Previous spatial verification check can identify surveys that were collected in the wrong area (settlement). But if you are using random  sampling points (as described in [Generation of random sample points]) you can also check how your surveys corresponds with initially planned sample points.
+<br>
+To perform spatial verification on sample point level we should add our sample ids to the dataset (*of course in a real-life scenario you will already have them in your dataset*). Also, we should open initial sampling points generated at the sampling stage and that were used by the enumerators.
+```{r, tidy=FALSE, eval = F}
+spatial_component$GPS_id_data <- paste(spatial_component$name_settlement_dataset,
+                                  data.table::rowid(spatial_component$name_settlement_dataset), sep = "_")
+
+sample_points <- st_read(dsn = "outputs/sample_points.geojson")
+```
+
+Now let's use again st_join() function but this time apply it on two point layers. We would put argument k equal 3 that will give us sample ids of 3 points in the dataset that are located in 1 km radius from our initial sample points. In case function return NA value it will mean that there are no points were collected near our planned sample point.
+<br>
+*Keep in mind that for this book we are using randomly generated survey locations so most of the points will have NA or CHECK status*
+```{r Spatial join - point level, tidy=FALSE, eval = F}
+#first let's run st_join() function. You can reduce or increase maxdist value considering your circumstances.
+sample_point_check <- st_join(spatial_component, sample_points, join = st_nn, k = 3, maxdist = 1000)%>%
+  distinct()
+
+#now we should reshape our dataset and select only columns with point ids
+sample_point_check <- reshape2::dcast(sample_point_check, X_uuid + GPS_id_data  ~ GPS_id, value.var = "GPS_id", 
+                                      fun.aggregate =  NULL)
+
+sample_point_check <- as.data.frame(t(apply(sample_point_check,1, function(x) { return(c(x[!is.na(x)],x[is.na(x)]) )} )))%>%
+                      select(where(function(x) any(!is.na(x))))%>%
+                      set_names(c("uuid", "GPS_id", "pnt_1", "pnt_2", "pnt_3"))
+
+#and as a final step, we should mark all the interviews that will need additional review
+sample_point_check$Sample_Check <- ifelse(sample_point_check$GPS_id == sample_point_check$pnt_1 | 
+                                          sample_point_check$GPS_id == sample_point_check$pnt_2 | 
+                                          sample_point_check$GPS_id == sample_point_check$pnt_3, 
+                                          "OK", 
+                                          "CHECK")
+```
+
+Usually, there are always some interviews that were collected not accordingly to the sampling plan. They can be either too far away from the planned sample location or has different sample id due to enumerator mistake. Such cases are better to review manually using any GIS software (QGIS/ArcGIS Pro/ArcGIS Online/Google Earth Pro). But first, you will need to export your sample points into any spatial format (like geojson).
+```{r, tidy=FALSE, eval = F}
+#join spatial check on sample point level with spatial check on settlement level
+spatial_component <- spatial_component %>%
+                     left_join(sample_point_check, by = c("X_uuid" = "uuid"))
+
+#check if there are directory for the outputs and write there output geojson file
+if(!dir.exists("outputs")) {
+  dir.create("outputs")
+}
+
+st_write(spatial_component, "outputs/spatial_component_check.geojson", delete_dsn = TRUE)
+```
+
+
+## Analayis
+### hypegrammaR 
+hypegrammaR follow the case mapping logic to compute analysis. It will also use the kobo questionnaire tool to help some of decision to be made.
+
+This just load the information that will be need to conduct the analysis :
+
+- dataset, 
+- kobotool (questions and choices), 
+- sample frame
+```{r, tidy=FALSE, eval = F}
+library(hypegrammaR)
+library(magrittr)
+library(surveyweights)
+library(srvyr)
+library(readxl)
+library(spatstat)
+library(ggpubr)
+
+#load dataset
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "",stringsAsFactors = F)
+
+#load kobotool
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
+
+#load sampling frame
+my_sampling_frame <- read_excel("inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx", 
+                             sheet = "for_r")
+```
+
+The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.
+```{r, tidy=FALSE, eval = F}
+#create a questionnaire object
+my_questionnaire <- hypegrammaR::load_questionnaire(data = main_dataset,
+                                    questions = questions,
+                                    choices = choices,
+                                    choices.label.column.to.use = "label::English")
+
+```
+
+The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset **HAS** to be the same. 
+What it does, it create a function that will calculate the weights based on your dataset. 
+*(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)*
+```{r, tidy=FALSE, eval = F}
+#create a weigthing function
+my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,
+                                                                      data.stratum.column = "strata",
+                                                                      sampling.frame.population.column = "population", 
+                                                                      sampling.frame.stratum.column = "strata", 
+                                                                      data = main_dataset)
+```
+If you want to add the weights to your dataframe this is how you can do it.
+```{r, tidy=FALSE, eval = F}
+#optional, if you want to add the weights into the dataset.
+main_dataset$stratum.weight <- my_weigthing_function(main_dataset)
+
+```
+
+
+hypegrammaR uses cases to choose what type analysis to do. A "case" for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :
+
+- XXXX: hypothesis type (group_difference, direct_reporting)  
+- YYYY: dependent var type (categorical, numerical)  
+- ZZZZ: independent var type (categorical, numerical, *empty* if no independent variable) . 
+
+All cases implemented can been seen with this code.
+
+```{r, tidy=FALSE, eval = F}
+hypegrammaR:::list_all_cases(implemented_only = T)
+```
+
+
+If you want to know what are the different proportion of the displacement status for each strata. The following information I need are:
+hypothesis : group_difference  
+dependent variable : d1_hh_displacement_status -> categorical  
+independent_variable : strata -> categorical 
+```{r, tidy=FALSE, eval = F}
+#analysis 
+my_case <- hypegrammaR::map_to_case(hypothesis.type = "group_difference",
+                       dependent.var.type = "categorical",
+                       independent.var.type = "categorical")
+
+my_case
+```
+
+The function map_to_result will calculate your summary statistics, it will take a couple of arguments.
+```{r, tidy=FALSE, eval = F}
+my_results <- hypegrammaR::map_to_result(data = main_dataset, 
+                            dependent.var = "d1_hh_displacement_status", 
+                            independent.var = "strata",
+                            case = my_case, 
+                            weighting = my_weigthing_function,
+                            questionnaire = my_questionnaire,
+                            confidence_level = .90)
+```
+
+The result object is a list with several information:
+
+- parameters: returns the information used of that analysis
+- summary statistics: returns the summary statistics in a tidy format
+- hypothesis test: returns hypothesis testing information (if avalaible)
+- message: returns a message (if the analysis went well or not)
+
+```{r, tidy=FALSE, eval = F}
+my_results$summary.statistic %>% head()
+```
+
+
+If you need to run several analysis, you can use a data analysis plan (DAP) file which is a file that comprises of the following columns:
+  
+- dependent.variable: name of the dependent variable (kobo name, column name)  
+- dependent.variable.type: type of the dependent variable (categorical or numerical or empty)  
+- independent.variable: name of the independent variable (kobo name, column name)  
+- independent.variable.type: type of the independent variable (categorical or numerical or empty)  
+- repeat.for.variable: name of the variable to repeat the analysis for (e.g per camp or district or governorate)  
+- hypothesis.type: type of hypothesis (group_difference, direct_reporting)
+- you can have other columns to help you write the analysis plan such as RQ and sub RQ
+
+**You cannot have duplicate columns**
+
+Below, I am creating the DAP, but you could read a csv file. It has :
+
+- 2 categorical variables, (select multiple type in kobo), *l4_which_difficult_access_health* and *j10_education_security_concerns_in_the_vicinity_of_facility*
+- 2 categorical variables, (select one type in kobo), *b9_hohh_marital_status* and *d1_hh_displacement_status*,
+- 2 numerical variables (integer type in kobo): *b7_hohh_age* and *b5_age*
+
+It will repeat the analysis 3 times for each dependent variable:
+
+- using the *strata* variable as independent variable (first 6 rows), 
+- using no independent variable, for the complete dataset (national level?), (second 6 rows),
+- using the *b9_hohh_marital_status* as independent variable but repeating each strata (last 6 rows)
+```{r, tidy=FALSE, eval = F}
+
+#dap 
+my_dap <- data.frame(dependent.variable = c(rep(c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
+                 "b5_age", "b9_hohh_marital_status",
+                    "d1_hh_displacement_status"), 2), c("l4_which_difficult_access_health", "j10_education_security_concerns_in_the_vicinity_of_facility", "b7_hohh_age",
+                 "b5_age",
+                    "d1_hh_displacement_status")),
+                     dependent.variable.type = c(rep(c("categorical", "categorical", "numerical", "numerical", "categorical", "categorical"),2),"categorical", "categorical", "numerical", "numerical", "categorical"),
+                     independent.variable = c(rep("strata", 6), rep(NA, 6), rep("b9_hohh_marital_status", 5)),
+                     independent.variable.type = c(rep("categorical", 6), rep(NA, 6), rep("categorical", 5)), 
+                     hypothesis.type = c(rep("group_difference", 6), rep("direct_reporting", 6), rep("group_difference", 5)), 
+                     repeat.for.variable = c(rep(NA, 12), rep("strata", 5))
+                     )
+
+
+my_dap 
+```
+
+To use a DAP, you need to use the function **from_analysisplan_map_to_output** instead of the combination of **map_to_case** and **map_to_result**. It will look for the case itself. **from_analysisplan_map_to_output** a list of list of results. So you need to wriggle a bit around to come to a master dataframe.
+```{r, tidy=FALSE, eval = F}
+my_results <- hypegrammaR::from_analysisplan_map_to_output(data =main_dataset,
+                                analysisplan = my_dap,
+                                weighting = my_weigthing_function,
+                                questionnaire = my_questionnaire,
+                                confidence_level = .90)
+
+long_table <- my_results$results %>% 
+  lapply(function(x) x[["summary.statistic"]]) %>% 
+  do.call(rbind, .)
+```
+```{r, tidy=FALSE, eval = F}
+long_table %>% head()
+```
+
+### butteR survey_collapse
+
+The survey_collapse function available in butteR aggregates both categorical and numerical columns of a srvyr object. It provides a standardized format output that includes mean/pct mean (point estimates), and the upper/lower confidence intervals along with the unweighted number/frequency for each response option. The survey_collapse function is built around the great srvyr package. The srvyr package is a more modern/tidyverse style wrapper for the survey package. Both the srvyr and survye packages are great and there use is highligh encouraged. 
+
+The main advantages of survey_collapse
+
+1. The standardized output produced
+2. Ability to analyze both categorical and numerical columns with a consistent syntax
+3. Batch analyses and ability to perform many different subsetting investigations with ease
+
+Below is an example of its use.
+
+First we must read in some data and make it into a srvyr object
+
+```{r, tidy=FALSE, eval = F}
+###makes some additions. 
+library(tidyverse)
+library(butteR)
+library(srvyr)
+library(kableExtra)
+df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+dfsvy<-as_survey(df)
+```
+
+For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.
+```{r, tidy=FALSE, eval = F}
+# here are some random concatenated select multiple parent questions
+select_multiple_parent_cols<-c("l4_which_difficult_access_health",
+                        "j10_education_security_concerns_in_the_vicinity_of_facility")
+numeric_cols<- c("b7_hohh_age",
+                 "b5_age")
+select_one_cols<- c("b9_hohh_marital_status",
+                    "d1_hh_displacement_status")
+mixed_columns<- c(select_multiple_parent_cols, numeric_cols, select_one_cols)
+```
+
+
+A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.
+
+Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It's a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated
+
+**note: I am commenting this section as it seems to break with the latest update**
+
+```{r, tidy=FALSE, eval = F}
+outputs<-list()
+
+outputs$overall<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns) %>%
+  mutate(analysis_level= "overall")
+
+outputs$strata<-butteR::survey_collapse(df = dfsvy,vars_to_analyze = mixed_columns,disag = "strata") %>%
+  mutate(analysis_level= "strata")
+```
+
+
+Here is an example of what the long format data looks like as a table.
+```{r, tidy=FALSE, eval = F}
+outputs$strata %>%
+  head(100) %>%
+  kable() %>%
+  kable_styling(font_size=8) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
+
+This is a great format for manipulating/filtering and then graphing with ggplot
+```{r, tidy=FALSE, eval = F}
+output_df<- bind_rows(outputs)
+
+output_df %>%
+  filter(analysis_level=="overall") %>%
+  mutate(question_val= paste0(variable,".",variable_val)) %>%
+  ggplot(aes(x= question_val,y= `mean/pct`))+
+  geom_point(stat="identity", position = position_dodge(width = 0.3))+
+  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`),
+                width=0.2,position = position_dodge(width = 0.3))+
+  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+  coord_flip()+
+  theme_bw()+
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_text(angle=90),
+    legend.title= element_blank()
+  )
+
+
+# Easy to plot subset findings as well!
+output_df %>%
+  filter(analysis_level=="strata") %>%
+  mutate(question_val= paste0(variable,".",variable_val)) %>%
+  ggplot(aes(x= question_val,y= `mean/pct`, color=subset_1_val))+
+  geom_point(stat="identity", position = position_dodge(width = 0.3))+
+  geom_errorbar(aes(ymin= `mean/pct_low`, ymax= `mean/pct_upp`),
+                width=0.2,position = position_dodge(width = 0.3))+
+  scale_y_continuous(labels = scales::percent,breaks = seq(0,1,by=0.1))+
+  coord_flip()+
+  theme_bw()+
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_text(angle=90),
+    legend.title= element_blank()
+  )
+
+
+```
