@@ -635,7 +635,7 @@ dap
 
 
 Let's produce an analysis: 
-```{r}
+```{r, eval = F}
 # Getting a list
 an <- impactR::make_analysis_from_dap(design, survey, choices, dap)
 # Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels
