@@ -1,7 +1,0 @@
-"0","res <-"
-"0","  do.call(""full_join"", map("
-"0","    c(""e11_items_do_not_have_per_hh"", ""b11_hohh_chronic_illness""),"
-"0","    ~ ratios_select_multiple(main_dataset, b9_hohh_marital_status, .x, stratum.weight)"
-"0","  ))"
-"2","Joining, by = ""b9_hohh_marital_status"""
-"0","head(res)"

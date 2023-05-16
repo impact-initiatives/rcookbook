@@ -1,4 +1,0 @@
-"0","#  [recommended] read_sheets(""[datapath]"",data_type_fix = T,remove_all_NA_col = T,na_strings = c(""NA"","""","" ""))"
-"0","data_up<-read.csv(""inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv"")"
-"0",""
-"0",""

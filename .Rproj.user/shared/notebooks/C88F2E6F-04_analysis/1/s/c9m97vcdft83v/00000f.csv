@@ -1,4 +1,0 @@
-"0","dfsvy %>% "
-"0","  summarise("
-"0","   mean= survey_mean(n1_HH_total_expenditure,na.rm=T,vartype = ""ci""),"
-"0","  )"

@@ -1,4 +1,0 @@
-"0","set.seed(10)"
-"0","main_dataset$hoh_gender = sample(c('Male', 'Female'), nrow(main_dataset), replace=TRUE)"
-"0","main_dataset$b15_hohh_income = as.numeric(main_dataset$b15_hohh_income)"
-"0",""

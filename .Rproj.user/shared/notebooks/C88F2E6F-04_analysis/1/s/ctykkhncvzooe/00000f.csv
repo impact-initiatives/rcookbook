@@ -1,8 +1,0 @@
-"0","names <- names(main_dataset)"
-"0",""
-"0","f12_names <- names[grepl(""f12_drinking_water_treat."", names)]"
-"0",""
-"0","f12_sig2 <- lapply(f12_names, chi2_ind_wtd, y = ""strata"", weight = ""stratum.weight"", main_dataset)"
-"0",""
-"0","f12_tab_df <- Reduce(rbind, f12_sig2)"
-"0","f12_tab_df"

@@ -1,5 +1,0 @@
-"0","dfsvy %>% "
-"0","  group_by(b9_hohh_marital_status) %>% "
-"0","  summarise("
-"0","    pct_mean = survey_mean(vartype = ""ci"")"
-"0","  )"

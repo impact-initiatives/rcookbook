@@ -21,7 +21,7 @@
   
   
 
-<meta name="author" content="R CoP" />
+<meta name="author" content="R Squad" />
 
 
 
@@ -33,7 +33,7 @@
 <link rel="prev" href="meta-information.html"/>
 <link rel="next" href="pre-analysis.html"/>
 <script src="libs/header-attrs-2.19/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -55,6 +55,14 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.19/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -156,7 +164,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="pre-analysis.html#cluster-sampling" id="toc-cluster-sampling"><span class="toc-section-number">4.2.3</span> Cluster sampling</a></li>
 <li><a href="pre-analysis.html#stages-random-sampling" id="toc-stages-random-sampling"><span class="toc-section-number">4.2.4</span> 2 stages random sampling</a></li>
 <li><a href="pre-analysis.html#sample-distribution-usin-population-raster" id="toc-sample-distribution-usin-population-raster"><span class="toc-section-number">4.2.5</span> Sample distribution usin population raster</a></li>
-<li><a href="pre-analysis.html#generation-of-random-sample-points" id="toc-generation-of-random-sample-points"><span class="toc-section-number">4.2.6</span> Generation of random sample points</a></li>
 </ul></li>
 </ul></li>
 <li><a href="data-collection-and-processing.html#data-collection-and-processing" id="toc-data-collection-and-processing"><span class="toc-section-number">5</span> Data Collection and Processing</a>
@@ -202,11 +209,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="data-collection-and-processing.html#turns-label-to-xml" id="toc-turns-label-to-xml"><span class="toc-section-number">5.8.2</span> Turns label to xml</a></li>
 <li><a href="data-collection-and-processing.html#statistical-disclosure-control-methods" id="toc-statistical-disclosure-control-methods"><span class="toc-section-number">5.8.3</span> Statistical Disclosure Control Methods</a></li>
 </ul></li>
-<li><a href="data-collection-and-processing.html#spatial-verification-checks" id="toc-spatial-verification-checks"><span class="toc-section-number">5.9</span> Spatial verification checks</a>
-<ul>
-<li><a href="data-collection-and-processing.html#spatial-verification-checks-on-settlement-level" id="toc-spatial-verification-checks-on-settlement-level"><span class="toc-section-number">5.9.1</span> Spatial verification checks on settlement level</a></li>
-<li><a href="data-collection-and-processing.html#spatial-verification-checks-on-sample-point-level" id="toc-spatial-verification-checks-on-sample-point-level"><span class="toc-section-number">5.9.2</span> Spatial verification checks on sample point level</a></li>
-</ul></li>
 </ul></li>
 <li><a href="composite-indicators.html#composite-indicators" id="toc-composite-indicators"><span class="toc-section-number">6</span> Composite indicators</a>
 <ul>
@@ -220,35 +222,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><a href="analysis.html#analysis" id="toc-analysis"><span class="toc-section-number">7</span> Analysis</a>
 <ul>
-<li><a href="analysis.html#hypegrammar" id="toc-hypegrammar"><span class="toc-section-number">7.1</span> hypegrammaR</a></li>
-<li><a href="analysis.html#srvyr-package" id="toc-srvyr-package"><span class="toc-section-number">7.2</span> srvyr package</a>
+<li><a href="analysis.html#srvyr-package" id="toc-srvyr-package"><span class="toc-section-number">7.1</span> srvyr package</a>
 <ul>
-<li><a href="analysis.html#categorical-variables" id="toc-categorical-variables"><span class="toc-section-number">7.2.1</span> Categorical variables</a></li>
-<li><a href="analysis.html#numeric-variables" id="toc-numeric-variables"><span class="toc-section-number">7.2.2</span> Numeric variables</a></li>
+<li><a href="analysis.html#categorical-variables" id="toc-categorical-variables"><span class="toc-section-number">7.1.1</span> Categorical variables</a></li>
+<li><a href="analysis.html#numeric-variables" id="toc-numeric-variables"><span class="toc-section-number">7.1.2</span> Numeric variables</a></li>
+<li><a href="analysis.html#select_one" id="toc-select_one"><span class="toc-section-number">7.1.3</span> select_one</a></li>
+<li><a href="analysis.html#select_mutiple" id="toc-select_mutiple"><span class="toc-section-number">7.1.4</span> select_mutiple</a></li>
 </ul></li>
-<li><a href="analysis.html#butter-survey_collapse" id="toc-butter-survey_collapse"><span class="toc-section-number">7.3</span> butteR survey_collapse</a>
+<li><a href="analysis.html#analysis-with-numerical-variables" id="toc-analysis-with-numerical-variables"><span class="toc-section-number">7.2</span> Analysis with numerical variables</a>
 <ul>
-<li><a href="analysis.html#select_one" id="toc-select_one"><span class="toc-section-number">7.3.1</span> select_one</a></li>
-<li><a href="analysis.html#select_mutiple" id="toc-select_mutiple"><span class="toc-section-number">7.3.2</span> select_mutiple</a></li>
+<li><a href="analysis.html#averages" id="toc-averages"><span class="toc-section-number">7.2.1</span> Averages</a></li>
+<li><a href="analysis.html#median" id="toc-median"><span class="toc-section-number">7.2.2</span> Median</a></li>
 </ul></li>
-<li><a href="analysis.html#analysis-with-numerical-variables" id="toc-analysis-with-numerical-variables"><span class="toc-section-number">7.4</span> Analysis with numerical variables</a>
+<li><a href="analysis.html#ratios" id="toc-ratios"><span class="toc-section-number">7.3</span> Ratios</a>
 <ul>
-<li><a href="analysis.html#averages" id="toc-averages"><span class="toc-section-number">7.4.1</span> Averages</a></li>
-<li><a href="analysis.html#median" id="toc-median"><span class="toc-section-number">7.4.2</span> Median</a></li>
-</ul></li>
-<li><a href="analysis.html#ratios" id="toc-ratios"><span class="toc-section-number">7.5</span> Ratios</a>
-<ul>
-<li><a href="analysis.html#example1" id="toc-example1"><span class="toc-section-number">7.5.1</span> Example1:<br />
+<li><a href="analysis.html#example1" id="toc-example1"><span class="toc-section-number">7.3.1</span> Example1:<br />
 </a></li>
-<li><a href="analysis.html#example2---analyzing-multiple-questions-and-combine-the-output" id="toc-example2---analyzing-multiple-questions-and-combine-the-output"><span class="toc-section-number">7.5.2</span> Example2 - Analyzing multiple questions and combine the output:<br />
+<li><a href="analysis.html#example2---analyzing-multiple-questions-and-combine-the-output" id="toc-example2---analyzing-multiple-questions-and-combine-the-output"><span class="toc-section-number">7.3.2</span> Example2 - Analyzing multiple questions and combine the output:<br />
 </a></li>
-<li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted" id="toc-example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.5.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
+<li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted" id="toc-example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.3.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
 </a></li>
 </ul></li>
-<li><a href="analysis.html#weights" id="toc-weights"><span class="toc-section-number">7.6</span> Weights</a>
+<li><a href="analysis.html#weights" id="toc-weights"><span class="toc-section-number">7.4</span> Weights</a>
 <ul>
-<li><a href="analysis.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">7.6.1</span> tidyverse</a></li>
-<li><a href="analysis.html#surveyweights" id="toc-surveyweights"><span class="toc-section-number">7.6.2</span> surveyweights</a></li>
+<li><a href="analysis.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">7.4.1</span> tidyverse</a></li>
+<li><a href="analysis.html#surveyweights" id="toc-surveyweights"><span class="toc-section-number">7.4.2</span> surveyweights</a></li>
+</ul></li>
+<li><a href="analysis.html#impactr-based-on-srvyr" id="toc-impactr-based-on-srvyr"><span class="toc-section-number">7.5</span> impactR, based on <code>srvyr</code></a>
+<ul>
+<li><a href="analysis.html#introduction" id="toc-introduction"><span class="toc-section-number">7.5.1</span> Introduction</a></li>
+<li><a href="analysis.html#first-stage-prepare-data-and-survey-design" id="toc-first-stage-prepare-data-and-survey-design"><span class="toc-section-number">7.5.2</span> First stage: prepare data and survey design</a></li>
+<li><a href="analysis.html#second-stage-one-variable-analysis" id="toc-second-stage-one-variable-analysis"><span class="toc-section-number">7.5.3</span> Second stage: One variable analysis</a></li>
+<li><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool" id="toc-third-stage-one-analysis-at-a-time-with-the-kobo-tool"><span class="toc-section-number">7.5.4</span> Third stage: one analysis at a time with the Kobo tool</a></li>
+</ul></li>
+<li><a href="analysis.html#example-survey-analysis-using-illuminate" id="toc-example-survey-analysis-using-illuminate"><span class="toc-section-number">7.6</span> EXAMPLE :: Survey analysis using illuminate</a>
+<ul>
+<li><a href="analysis.html#step-0-call-libraries" id="toc-step-0-call-libraries"><span class="toc-section-number">7.6.1</span> Step 0:: Call libraries</a></li>
+<li><a href="analysis.html#step-1-read-data" id="toc-step-1-read-data"><span class="toc-section-number">7.6.2</span> Step 1:: Read data</a></li>
+<li><a href="analysis.html#step-optional-preaparing-the-data" id="toc-step-optional-preaparing-the-data"><span class="toc-section-number">7.6.3</span> Step OPTIONAL:: Preaparing the data</a></li>
+<li><a href="analysis.html#step-2-weight-calculation" id="toc-step-2-weight-calculation"><span class="toc-section-number">7.6.4</span> Step 2:: Weight calculation</a></li>
+<li><a href="analysis.html#read-sampleframe" id="toc-read-sampleframe"><span class="toc-section-number">7.6.5</span> Read sampleframe</a></li>
+<li><a href="analysis.html#add-weights-to-the-dataframe" id="toc-add-weights-to-the-dataframe"><span class="toc-section-number">7.6.6</span> Add weights to the dataframe</a></li>
+<li><a href="analysis.html#step-3.1-weighted-analysis" id="toc-step-3.1-weighted-analysis"><span class="toc-section-number">7.6.7</span> Step 3.1:: Weighted analysis</a></li>
+<li><a href="analysis.html#step-3.2-unweighted-analysis" id="toc-step-3.2-unweighted-analysis"><span class="toc-section-number">7.6.8</span> Step 3.2:: Unweighted analysis</a></li>
+<li><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis" id="toc-step-3.3-weighted-and-disaggregated-by-gender-analysis"><span class="toc-section-number">7.6.9</span> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
+<li><a href="analysis.html#step-4-export-with-write_formatted_excel" id="toc-step-4-export-with-write_formatted_excel"><span class="toc-section-number">7.6.10</span> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
 </ul></li>
 <li><a href="analysis.html#repeating-the-above" id="toc-repeating-the-above"><span class="toc-section-number">7.7</span> Repeating the above</a></li>
 <li><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple" id="toc-analysis---top-x-ranking-select-one-and-select-multiple"><span class="toc-section-number">7.8</span> Analysis - top X / ranking (select one and select multiple)</a></li>
@@ -259,6 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="analysis.html#anova" id="toc-anova"><span class="toc-section-number">7.10.2</span> ANOVA</a></li>
 <li><a href="analysis.html#chi-squares" id="toc-chi-squares"><span class="toc-section-number">7.10.3</span> chi-squares</a></li>
 <li><a href="analysis.html#chi-squared-goodness-of-fit-test" id="toc-chi-squared-goodness-of-fit-test"><span class="toc-section-number">7.10.4</span> Chi-squared Goodness of Fit test</a></li>
+<li><a href="analysis.html#proportion-tests-z-test" id="toc-proportion-tests-z-test"><span class="toc-section-number">7.10.5</span> Proportion tests (z-test)</a></li>
 </ul></li>
 </ul></li>
 <li><a href="outputs.html#outputs" id="toc-outputs"><span class="toc-section-number">8</span> Outputs</a>
@@ -284,6 +303,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="outputs.html#outputs-with-hypothesis-testing-results" id="toc-outputs-with-hypothesis-testing-results"><span class="toc-section-number">8.6</span> Outputs with hypothesis testing results</a></li>
 </ul></li>
 <li><a href="miscellaneous.html#miscellaneous" id="toc-miscellaneous"><span class="toc-section-number">9</span> Miscellaneous</a></li>
+<li><a href="archives.html#archives" id="toc-archives"><span class="toc-section-number">10</span> Archives</a>
+<ul>
+<li><a href="archives.html#pre-analysis-1" id="toc-pre-analysis-1"><span class="toc-section-number">10.1</span> 01 Pre analysis</a>
+<ul>
+<li><a href="archives.html#generation-of-random-sample-points" id="toc-generation-of-random-sample-points"><span class="toc-section-number">10.1.1</span> Generation of random sample points</a></li>
+</ul></li>
+<li><a href="archives.html#cleaning" id="toc-cleaning"><span class="toc-section-number">10.2</span> Cleaning</a></li>
+<li><a href="archives.html#spatial-verification-checks" id="toc-spatial-verification-checks"><span class="toc-section-number">10.3</span> Spatial verification checks</a>
+<ul>
+<li><a href="archives.html#spatial-verification-checks-on-settlement-level" id="toc-spatial-verification-checks-on-settlement-level"><span class="toc-section-number">10.3.1</span> Spatial verification checks on settlement level</a></li>
+<li><a href="archives.html#spatial-verification-checks-on-sample-point-level" id="toc-spatial-verification-checks-on-sample-point-level"><span class="toc-section-number">10.3.2</span> Spatial verification checks on sample point level</a></li>
+</ul></li>
+<li><a href="archives.html#analayis" id="toc-analayis"><span class="toc-section-number">10.4</span> Analayis</a>
+<ul>
+<li><a href="archives.html#hypegrammar" id="toc-hypegrammar"><span class="toc-section-number">10.4.1</span> hypegrammaR</a></li>
+<li><a href="archives.html#butter-survey_collapse" id="toc-butter-survey_collapse"><span class="toc-section-number">10.4.2</span> butteR survey_collapse</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>

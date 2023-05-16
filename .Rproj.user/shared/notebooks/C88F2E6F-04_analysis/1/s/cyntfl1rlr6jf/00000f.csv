@@ -1,7 +1,0 @@
-"0","sample_per_strata_table <- main_dataset %>% "
-"0","  group_by(strata) %>% "
-"0","  tally() %>% "
-"0","  rename(strata_sample = n) %>% "
-"0","  ungroup()"
-"0",""
-"0","sample_per_strata_table"

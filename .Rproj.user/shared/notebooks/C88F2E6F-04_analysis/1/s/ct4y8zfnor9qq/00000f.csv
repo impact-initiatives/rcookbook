@@ -1,7 +1,0 @@
-"0","library(surveyweights)"
-"0",""
-"0","my_weigthing_function <- surveyweights::weighting_fun_from_samplingframe(sampling.frame = my_sampling_frame,"
-"0","                                                                      data.stratum.column = ""strata"","
-"0","                                                                      sampling.frame.population.column = ""population_strata"", "
-"0","                                                                      sampling.frame.stratum.column = ""strata"", "
-"0","                                                                      data = main_dataset)"

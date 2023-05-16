@@ -1,3 +1,0 @@
-"0",""
-"0","# Proportion of respondent's gender, with the confidence interval, by setting (rural vs. urban)"
-"0","impactR::svy_prop(design, i_enquete_genre, milieu, vartype = ""ci"")"

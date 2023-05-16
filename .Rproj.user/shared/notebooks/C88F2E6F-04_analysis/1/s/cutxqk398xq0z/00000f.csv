@@ -1,6 +1,0 @@
-"0","main_dataset %>% "
-"0","  group_by(strata, b20_hohh_level_education) %>% "
-"0","  tally() %>% "
-"0","  mutate(tot_n = sum(n),"
-"0","         prop = round(n/tot_n*100)) %>% "
-"0","  filter(b20_hohh_level_education == ""complete_higher"")"

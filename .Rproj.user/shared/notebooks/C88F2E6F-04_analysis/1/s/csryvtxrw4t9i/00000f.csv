@@ -1,4 +1,0 @@
-"0","my_sampling_frame <- readxl::read_excel(""inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx"", "
-"0","                                        sheet = ""for_r"") %>% "
-"0","  rename(population_strata = population)"
-"0","my_sampling_frame"

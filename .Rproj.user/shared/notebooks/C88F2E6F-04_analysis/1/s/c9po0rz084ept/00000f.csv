@@ -1,7 +1,0 @@
-"0",""
-"0","df %>% "
-"0","  group_by(strata) %>% "
-"0","  summarise("
-"0","    mean_expenditure= mean(n1_HH_total_expenditure,na.rm=T),"
-"0","    median_expenditure=median(n1_HH_total_expenditure,na.rm=T),"
-"0","    )"
