@@ -339,16 +339,16 @@ geom_point(data = ball, aes(x = h, y = v-5), color = "firebrick", size = 20)
 
 ```{r}
 p <- ggplot(table_food, aes(x=as.factor(id), y=value), width = 0.3) +       
-# Note that id is a factor. If x is numeric, there is some space between the first bar
-# Placing base layer of bars
+  # Note that id is a factor. If x is numeric, there is some space between the first bar
+  # Placing base layer of bars
   geom_bar(aes(x=as.factor(id), y=filler), fill="#E0E2E2", stat="identity", alpha=1) + 
   geom_bar(aes(x=as.factor(id), y=value, fill=highlight), stat="identity", alpha=1) + 
   scale_fill_manual(breaks = c("moderate", 'good', "bad"), values = c("moderate" = "#93A0A9", "good" = "#A5C9A1", "bad" = "#EE5859")) +
-# Add a val=100/75/50/25 lines. Do it at the beginning to make sure barplots are OVER it.
- geom_segment(data=grid_data, aes(x = end, y = 75, xend = start, yend = 75), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
- geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
- geom_segment(data=grid_data, aes(x = end, y = 25, xend = start, yend = 25), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
-
+  # Add a val=100/75/50/25 lines. Do it at the beginning to make sure barplots are OVER it.
+  geom_segment(data=grid_data, aes(x = end, y = 75, xend = start, yend = 75), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 25, xend = start, yend = 25), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
   theme_minimal(base_family = "Arial") +
   theme(
     legend.position = "none",
@@ -359,13 +359,13 @@ p <- ggplot(table_food, aes(x=as.factor(id), y=value), width = 0.3) +
   coord_polar() + 
   
   # Add text showing the value of each 100/75/50/25 lines
- annotate("text", x = rep(max(table_food$id),3), y = c(25, 50, 75), label = c("25%", "50%", "75%") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
+  annotate("text", x = rep(max(table_food$id),3), y = c(25, 50, 75), label = c("25%", "50%", "75%") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
   # Labels inside bars
-  geom_text(data=label_data, aes(x=id, y=lab_placement, label=individual, hjust=hjust, ), color = "black", fontface="bold",alpha=0.8, size=4, angle= label_data$angle, inherit.aes = FALSE, family = "Arial Narrow") +
+  geom_text(data=label_data, aes(x=id, y=lab_placement+50, label=individual, hjust=hjust, ), color = "black", fontface="bold",alpha=0.8, size=2, inherit.aes = FALSE, family = "Arial Narrow") +
   # Value numbers at the beginning of each bar
-  geom_text(data=label_data, aes(x=id, y=lab_placement-10, label=value, hjust=hjust, ), color = "black", fontface="bold",alpha=0.8, size=3, angle= label_data$angle, inherit.aes = FALSE, family = "Arial Narrow")+
+  geom_text(data=label_data, aes(x=id, y=lab_placement+75, label=value, hjust=hjust, ), color = "black", fontface="bold",alpha=0.8, size=2, inherit.aes = FALSE, family = "Arial Narrow")+
   # labels of groups
-  geom_text(data=base_data, aes(x = title, y = -25, label=group))
+  geom_text(data=base_data, aes(x = title, y = 25, label=group), size = 2, inherit.aes = FALSE)
 p
 
 ```
