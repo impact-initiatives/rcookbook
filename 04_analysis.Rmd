@@ -11,7 +11,16 @@
 library(tidyverse)
 library(srvyr)
 library(kableExtra)
+library(readxl)
 df<-read_csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv")
+
+main_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv", na.strings = "")
+loop_dataset <- read.csv("inputs/UKR2007_MSNA20_HH_dataset_loop_rcop.csv", na.strings = "")
+
+main_dataset <- main_dataset %>% select_if(~ !(all(is.na(.x)) | all(. == "")))
+
+questions <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="survey")
+choices <- read_xlsx("inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx",sheet="choices")
 dfsvy<-as_survey(df)
 ```
 
@@ -626,7 +635,7 @@ dap
 
 
 Let's produce an analysis: 
-```{r}
+```{r, eval = F}
 # Getting a list
 an <- impactR::make_analysis_from_dap(design, survey, choices, dap)
 # Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels
@@ -1326,6 +1335,162 @@ f12_sig2 <- lapply(nz_f12, chi2_GoF, stratum_hyp = "a1_informed_consent", stratu
 f12_sig2_df <- Reduce(rbind, f12_sig2)
 f12_sig2_df
 ```
+
+### Proportion tests (z-test)
+
+Test for equality of proportions for independent samples. To compare column proportions for independent samples, two tailed z-test of proportions could be used.
+
+Main assumptions of use of this test are: 
+
+(1) normally distributed data
+(2) sample size > 30 and n at each point >= 5 (!Thus, for the variables were there are few observations, approximation could be incorrect!)
+The detailed explanation of this statistic and its use in R could be found here: http://www.sthda.com/english/wiki/two-proportions-z-test-in-r
+
+As in our datasets weighting is used, in the current test, we use weighted proportions and weighted counts for calculating test statistics.
+
+```{r z_proportion_test}
+zprop_compare_weighted <- function(data_old, data_new, stratum, value_stratum, name, weights, strict = F){
+  names_new <- names(data_new)
+  not_in_new <- names_new[which(!(name %in% names_new))]
+i <- 1
+table_old <- data.frame()
+for (i in 1:length(name)) {
+  ni <- name[i]
+  ti <- data_old %>% 
+    group_by(!!sym(ni)) %>% filter(!!sym(stratum) == paste0(value_stratum)) %>%
+    filter(!is.na(!!sym(ni))) %>%
+    filter(!!sym(ni) != 'refuse') %>%
+    dplyr::summarize(wtn = sum(!!sym(weights)), n = n()) %>%
+    mutate(prop = wtn/sum(wtn), base = sum(wtn), cnt = sum(n))%>%
+    mutate(varnam = ni)
+  names(ti) <- c("var", "wtn", "n", "prop", "base_w", "count", "nam")
+  table_old <- rbind(table_old, ti)
+}
+table_cl_old <- table_old %>% filter(var != "0") %>% filter(!is.na(var)) %>%
+  mutate(var_id = paste0(nam, ".", var))
+i <- 1
+table_new <- data.frame()
+for (i in 1:length(name)) {
+  ni <- name[i]
+  ti <- data_new %>% 
+    group_by(!!sym(ni)) %>% filter(!!sym(stratum) == paste0(value_stratum)) %>%
+    filter(!is.na(!!sym(ni))) %>%
+    filter(!!sym(ni) != 'refuse') %>%
+    dplyr::summarize(wtn = sum(!!sym(weights)), n = n()) %>%
+    mutate(prop = wtn/sum(wtn), base = sum(wtn), cnt = sum(n))%>%
+    mutate(varnam = ni)
+  names(ti) <- c("var", "wtn", "n", "prop", "base_w", "count", "nam")
+  table_new <- rbind(table_new, ti)
+}
+table_cl_new <- table_new %>% filter(var != "0") %>% filter(!is.na(var)) %>%
+  mutate(var_id = paste0(nam, ".", var))
+table_cl_compare <- merge(table_cl_old, table_cl_new, by = "var_id", all = T)
+names(table_cl_compare) <- c("var.id", "var.old", "wtn.old", "n.old", "prop.old", "base.old", "base_nw.old","nam.old", "var.new", "wtn.new", "n.new", "prop.new", "base.new", "base_nw.new", "nam.new")
+
+#Dealing with NA issues
+
+  table_cl_compare$nam.old[is.na(table_cl_compare$nam.old)] <- table_cl_compare$nam.new[is.na(table_cl_compare$nam.old)]
+  
+    table_cl_compare$nam.new[is.na(table_cl_compare$nam.new)] <- table_cl_compare$nam.old[is.na(table_cl_compare$nam.new)]
+
+table_cl_compare$to_split <- table_cl_compare$nam.old
+  
+table_cl_compare <- separate(table_cl_compare, col = to_split, into = c("indctr", "item"), sep ="\\.")
+
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base_nw.old, .direction  = "down") %>% fill(base_nw.old, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base.old, .direction  = "down") %>% fill(base.old, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base_nw.new, .direction  = "down") %>% fill(base_nw.new, .direction  = "up") %>% ungroup()
+  table_cl_compare <- table_cl_compare %>% group_by(indctr) %>% fill(base.new) %>% fill(base_nw.old, .direction  = "down") %>% fill(base.new, .direction  = "up") %>% ungroup()
+
+
+table_cl_compare$prop.old[is.na(table_cl_compare$prop.old)] <- 0
+table_cl_compare$prop.new[is.na(table_cl_compare$prop.new)] <- 0
+
+table_cl_compare$wtn.old[is.na(table_cl_compare$wtn.old)] <- 0
+table_cl_compare$wtn.new[is.na(table_cl_compare$wtn.new)] <- 0
+
+for (i in 1:nrow(table_cl_compare)){
+pt <- prop.test(x = c(table_cl_compare$wtn.old[i], table_cl_compare$wtn.new[i]), n = c(table_cl_compare$base.old[i], table_cl_compare$base.new[i]))
+table_cl_compare$prp_tst_p[i] <- pt$p.value
+}
+table_cl_compare$sig <- ifelse(table_cl_compare$prp_tst_p < 0.05, "Significant diff.", "Not significant")
+table_cl_compare$stratum <- paste0(value_stratum)
+
+
+table_cl_compare_final <- table_cl_compare %>% 
+  filter(case_when(strict == T ~ (prop.old*n.new >= 10 & prop.old*n.old >=10),
+                   strict == F ~ (base_nw.old >= 30 & base_nw.new >=30)))
+
+table_cl_compare_final <- table_cl_compare_final %>% filter(!(nam.old %in% not_in_new))
+
+if(nrow(table_cl_compare_final) < nrow(table_cl_compare)){
+  ss_vars <- table_cl_compare$var.id[which(!(table_cl_compare$var.id %in% table_cl_compare_final$var.id))]
+  warning(paste0("Too small sample size. Variables that were removed from the analysis", ss_vars))
+}
+
+return(table_cl_compare_final)
+}
+```
+
+##### Applying the function
+
+Z-tests can be used for wave to wave or round to round comparisons.
+
+Assuming, there was staged data collection and at stage1 Luhansk oblast was assessed, while at stage2 Donetsk oblast was assessed (it is an artificial division, for correct comparison between wave), hence we have two different datasets for Donetska and Luhanska regions (UA14 and UA44 respectively) and the question is whether proportions of female-led households, living in each shelter type are the same.
+
+Thus, H0 - proportions are the same, H1 - proportions are different.
+
+
+```{r}
+ds_ua14 <- main_dataset |> filter(r1_current_oblast == "UA14")
+ds_ua44 <- main_dataset |> filter(r1_current_oblast == "UA44")
+```
+
+
+Applying the function for single choices
+
+- *data_old, data_new* - dataset1 and dataset2;
+- *stratum* - independent variable (should be the same for both datasets), if there is no need for independent variable, variable that have same value across the entire dataset can be used (e.g. "informed consent");
+- *value_stratum* - independent variable value, that should be used for crosstabulations (e.g. we would like to compare the proportions for certain settlement or household type);
+- *name* - dependent variable name;
+- *weights* - weighting variable;
+- *strict* - (TRUE/FALSE) specifies if the less strict restrictment to sample size (n>30) or more strict one (n at each point >= 5) should be applied. FALSE be default
+
+
+```{r, warning=FALSE}
+library(dplyr)
+# without independent variable
+marital_prop_test <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = "a1_informed_consent", value_stratum = "yes", name = "b9_hohh_marital_status", weights = "stratum.weight")
+
+marital_prop_test
+# with an independent variable
+house_type_married <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = "b9_hohh_marital_status", value_stratum = "married", name = "e2_home_type", weights = "stratum.weight")
+```
+Output numeric columns:
+- *wtn.old* - weighted counts for the first (old) data
+- *n.old* - unweighted counts for the first (old) data
+- *prop.old* - weighted proportion for the first (old) data
+- *base.old* - weighted base (total count) for the first (old) data
+- *base_nw.old* - unweighted base (total count) for the first (old) data
+- *wtn.new* - weighted counts for the second (new) data
+- *n.new* - unweighted counts for the second (new) data
+- *prop.new* - weighted proportion for for the second (new) data
+- *base.new* - weighted base (total count) for the second (new) data
+- *base_nw.new* - unweighted base (total count) for the second (new) data
+- *prp_tst_p* - p-value for proportions test
+- *sig* - indication if p<0.05
+
+Applying the function for multiple choice questions
+
+```{r, warning=FALSE}
+names <- names(ds_ua14)
+ng5 <- names[grepl("b10_hohh_vulnerability", names)]
+
+vulnerability_prop_test <- zprop_compare_weighted(data_old = ds_ua14, data_new = ds_ua44, stratum = "a1_informed_consent", value_stratum = "yes", name = ng5, weights = "stratum.weight")
+
+vulnerability_prop_test
+```
+
 
 
 

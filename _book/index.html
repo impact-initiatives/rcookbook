@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>R cookbook for analysis with IMPACT</title>
   <meta name="description" content="R cookbook for analysis with IMPACT" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="R cookbook for analysis with IMPACT" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -32,8 +31,8 @@
   
 
 <link rel="next" href="meta-information.html"/>
-<script src="libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,18 +48,17 @@
 
 
 
-
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.27/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
@@ -130,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -143,98 +145,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="index.html#hello" id="toc-hello"><span class="toc-section-number">1</span> Hello</a></li>
-<li><a href="meta-information.html#meta-information" id="toc-meta-information"><span class="toc-section-number">2</span> Meta information</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello</a></li>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
 <ul>
-<li><a href="meta-information.html#creating-the-questionnaire-object" id="toc-creating-the-questionnaire-object"><span class="toc-section-number">2.1</span> Creating the questionnaire object</a></li>
+<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li><a href="downloading-data-from-kobo-server.html#downloading-data-from-kobo-server" id="toc-downloading-data-from-kobo-server"><span class="toc-section-number">3</span> Downloading data from kobo server</a>
+<li class="chapter" data-level="3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html"><i class="fa fa-check"></i><b>3</b> Downloading data from kobo server</a>
 <ul>
-<li><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions" id="toc-defining-the-needed-functions"><span class="toc-section-number">3.1</span> Defining the needed functions</a></li>
-<li><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables" id="toc-creating-data-url-and-credentials-variables"><span class="toc-section-number">3.2</span> Creating data url and credentials variables</a></li>
-<li><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server" id="toc-fetching-the-data-from-the-server"><span class="toc-section-number">3.3</span> Fetching the data from the server</a></li>
+<li class="chapter" data-level="3.1" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions"><i class="fa fa-check"></i><b>3.1</b> Defining the needed functions</a></li>
+<li class="chapter" data-level="3.2" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables"><i class="fa fa-check"></i><b>3.2</b> Creating data url and credentials variables</a></li>
+<li class="chapter" data-level="3.3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server"><i class="fa fa-check"></i><b>3.3</b> Fetching the data from the server</a></li>
 </ul></li>
-<li><a href="pre-analysis.html#pre-analysis" id="toc-pre-analysis"><span class="toc-section-number">4</span> Pre analysis</a>
+<li class="chapter" data-level="4" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>4</b> Pre analysis</a>
 <ul>
-<li><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors" id="toc-checking-the-xls-kobo-tools-for-constraints-errors"><span class="toc-section-number">4.1</span> Checking the XLS kobo tools for constraints errors</a></li>
-<li><a href="pre-analysis.html#sampling" id="toc-sampling"><span class="toc-section-number">4.2</span> Sampling</a>
+<li class="chapter" data-level="4.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>4.1</b> Checking the XLS kobo tools for constraints errors</a></li>
+<li class="chapter" data-level="4.2" data-path="pre-analysis.html"><a href="pre-analysis.html#sampling"><i class="fa fa-check"></i><b>4.2</b> Sampling</a>
 <ul>
-<li><a href="pre-analysis.html#simple-random-sampling" id="toc-simple-random-sampling"><span class="toc-section-number">4.2.1</span> Simple Random sampling</a></li>
-<li><a href="pre-analysis.html#stratified-random-sampling" id="toc-stratified-random-sampling"><span class="toc-section-number">4.2.2</span> Stratified Random sampling</a></li>
-<li><a href="pre-analysis.html#cluster-sampling" id="toc-cluster-sampling"><span class="toc-section-number">4.2.3</span> Cluster sampling</a></li>
-<li><a href="pre-analysis.html#stages-random-sampling" id="toc-stages-random-sampling"><span class="toc-section-number">4.2.4</span> 2 stages random sampling</a></li>
-<li><a href="pre-analysis.html#sample-distribution-usin-population-raster" id="toc-sample-distribution-usin-population-raster"><span class="toc-section-number">4.2.5</span> Sample distribution usin population raster</a></li>
-</ul></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-collection-and-processing" id="toc-data-collection-and-processing"><span class="toc-section-number">5</span> Data Collection and Processing</a>
-<ul>
-<li><a href="data-collection-and-processing.html#testing-the-tool" id="toc-testing-the-tool"><span class="toc-section-number">5.1</span> Testing the tool</a>
-<ul>
-<li><a href="data-collection-and-processing.html#creating-dummy-data" id="toc-creating-dummy-data"><span class="toc-section-number">5.1.1</span> Creating dummy data</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#download-data" id="toc-download-data"><span class="toc-section-number">5.2</span> Download data</a>
-<ul>
-<li><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url" id="toc-downloading-audit-files-using-audit_url"><span class="toc-section-number">5.2.1</span> Downloading Audit files using audit_URL</a></li>
-<li><a href="data-collection-and-processing.html#download-audit-files-using-form-name" id="toc-download-audit-files-using-form-name"><span class="toc-section-number">5.2.2</span> Download audit files using form name</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-collection-follow-up" id="toc-data-collection-follow-up"><span class="toc-section-number">5.3</span> Data collection follow-up</a>
-<ul>
-<li><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame" id="toc-checking-surveys-against-the-sampling-frame"><span class="toc-section-number">5.3.1</span> checking surveys against the sampling frame</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-falsification" id="toc-data-falsification"><span class="toc-section-number">5.4</span> Data falsification</a>
-<ul>
-<li><a href="data-collection-and-processing.html#check-for-time-in-the-dataset" id="toc-check-for-time-in-the-dataset"><span class="toc-section-number">5.4.1</span> Check for time (in the dataset)</a></li>
-<li><a href="data-collection-and-processing.html#check-for-time-audit-files" id="toc-check-for-time-audit-files"><span class="toc-section-number">5.4.2</span> Check for time (audit files)</a></li>
-<li><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview" id="toc-check-for-time---calculating-the-elapsed-time-between-each-interview"><span class="toc-section-number">5.4.3</span> Check for time - calculating the elapsed time between each interview</a></li>
-<li><a href="data-collection-and-processing.html#silouhette-analysis" id="toc-silouhette-analysis"><span class="toc-section-number">5.4.4</span> Silouhette analysis</a></li>
-<li><a href="data-collection-and-processing.html#check-for-duplicates" id="toc-check-for-duplicates"><span class="toc-section-number">5.4.5</span> Check for duplicates</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-checks" id="toc-data-checks"><span class="toc-section-number">5.5</span> Data checks</a>
-<ul>
-<li><a href="data-collection-and-processing.html#check-for-outliers" id="toc-check-for-outliers"><span class="toc-section-number">5.5.1</span> Check for outliers</a></li>
-<li><a href="data-collection-and-processing.html#check-others" id="toc-check-others"><span class="toc-section-number">5.5.2</span> Check others</a></li>
-<li><a href="data-collection-and-processing.html#issue-log-function" id="toc-issue-log-function"><span class="toc-section-number">5.5.3</span> Issue log Function</a></li>
-<li><a href="data-collection-and-processing.html#check-for-logical-check" id="toc-check-for-logical-check"><span class="toc-section-number">5.5.4</span> Check for logical check</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#cleaninginspector---inspect_all" id="toc-cleaninginspector---inspect_all"><span class="toc-section-number">5.6</span> cleaninginspectoR - inspect_all</a></li>
-<li><a href="data-collection-and-processing.html#data-cleaning" id="toc-data-cleaning"><span class="toc-section-number">5.7</span> Data cleaning</a>
-<ul>
-<li><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions" id="toc-re-generate-text-column-for-select-multiple-questions"><span class="toc-section-number">5.7.1</span> Re-generate text column for select multiple questions</a></li>
-<li><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log" id="toc-clean-data-base-on-cleaning-log"><span class="toc-section-number">5.7.2</span> Clean data base on cleaning log</a></li>
-<li><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset" id="toc-check-cleaning-log-raw-dataset-and-clean-dataset"><span class="toc-section-number">5.7.3</span> Check cleaning log, raw dataset and clean dataset</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-cleaning---miscellaneous" id="toc-data-cleaning---miscellaneous"><span class="toc-section-number">5.8</span> Data cleaning - miscellaneous</a>
-<ul>
-<li><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices" id="toc-check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><span class="toc-section-number">5.8.1</span> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
-<li><a href="data-collection-and-processing.html#turns-label-to-xml" id="toc-turns-label-to-xml"><span class="toc-section-number">5.8.2</span> Turns label to xml</a></li>
-<li><a href="data-collection-and-processing.html#statistical-disclosure-control-methods" id="toc-statistical-disclosure-control-methods"><span class="toc-section-number">5.8.3</span> Statistical Disclosure Control Methods</a></li>
+<li class="chapter" data-level="4.2.1" data-path="pre-analysis.html"><a href="pre-analysis.html#simple-random-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Simple Random sampling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pre-analysis.html"><a href="pre-analysis.html#stratified-random-sampling"><i class="fa fa-check"></i><b>4.2.2</b> Stratified Random sampling</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pre-analysis.html"><a href="pre-analysis.html#cluster-sampling"><i class="fa fa-check"></i><b>4.2.3</b> Cluster sampling</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pre-analysis.html"><a href="pre-analysis.html#stages-random-sampling"><i class="fa fa-check"></i><b>4.2.4</b> 2 stages random sampling</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pre-analysis.html"><a href="pre-analysis.html#sample-distribution-usin-population-raster"><i class="fa fa-check"></i><b>4.2.5</b> Sample distribution usin population raster</a></li>
 </ul></li>
 </ul></li>
-<li><a href="composite-indicators.html#composite-indicators" id="toc-composite-indicators"><span class="toc-section-number">6</span> Composite indicators</a>
+<li class="chapter" data-level="5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>5</b> Data Collection and Processing</a>
 <ul>
-<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one" id="toc-composite-with-1-categorical-variable---select-one"><span class="toc-section-number">6.1</span> Composite with 1 categorical variable - select one</a></li>
-<li><a href="composite-indicators.html#composite-with-2-categorical-variables" id="toc-composite-with-2-categorical-variables"><span class="toc-section-number">6.2</span> Composite with 2 categorical variables</a></li>
-<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple" id="toc-composite-with-1-categorical-variable---select-multiple"><span class="toc-section-number">6.3</span> Composite with 1 categorical variable - select multiple</a></li>
-<li><a href="composite-indicators.html#composite-with-1-numerical-variable" id="toc-composite-with-1-numerical-variable"><span class="toc-section-number">6.4</span> Composite with 1 numerical variable</a></li>
-<li><a href="composite-indicators.html#composite-with-2-numerical-variables" id="toc-composite-with-2-numerical-variables"><span class="toc-section-number">6.5</span> Composite with 2 numerical variables</a></li>
-<li><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables" id="toc-composite-with-2-or-more-numerical-variables"><span class="toc-section-number">6.6</span> Composite with 2 or more numerical variables</a></li>
-<li><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset" id="toc-new-indicators-from-a-loop-to-main-dataset"><span class="toc-section-number">6.7</span> New indicators from a loop to main dataset</a></li>
+<li class="chapter" data-level="5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>5.1</b> Testing the tool</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>5.1.1</b> Creating dummy data</a></li>
 </ul></li>
-<li><a href="analysis.html#analysis" id="toc-analysis"><span class="toc-section-number">7</span> Analysis</a>
+<li class="chapter" data-level="5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>5.2</b> Download data</a>
 <ul>
-<li><a href="analysis.html#srvyr-package" id="toc-srvyr-package"><span class="toc-section-number">7.1</span> srvyr package</a>
-<ul>
-<li><a href="analysis.html#categorical-variables" id="toc-categorical-variables"><span class="toc-section-number">7.1.1</span> Categorical variables</a></li>
-<li><a href="analysis.html#numeric-variables" id="toc-numeric-variables"><span class="toc-section-number">7.1.2</span> Numeric variables</a></li>
-<li><a href="analysis.html#select_one" id="toc-select_one"><span class="toc-section-number">7.1.3</span> select_one</a></li>
-<li><a href="analysis.html#select_mutiple" id="toc-select_mutiple"><span class="toc-section-number">7.1.4</span> select_mutiple</a></li>
+<li class="chapter" data-level="5.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url"><i class="fa fa-check"></i><b>5.2.1</b> Downloading Audit files using audit_URL</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-audit-files-using-form-name"><i class="fa fa-check"></i><b>5.2.2</b> Download audit files using form name</a></li>
 </ul></li>
-<li><a href="analysis.html#analysis-with-numerical-variables" id="toc-analysis-with-numerical-variables"><span class="toc-section-number">7.2</span> Analysis with numerical variables</a>
+<li class="chapter" data-level="5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>5.3</b> Data collection follow-up</a>
 <ul>
-<li><a href="analysis.html#averages" id="toc-averages"><span class="toc-section-number">7.2.1</span> Averages</a></li>
-<li><a href="analysis.html#median" id="toc-median"><span class="toc-section-number">7.2.2</span> Median</a></li>
+<li class="chapter" data-level="5.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame"><i class="fa fa-check"></i><b>5.3.1</b> checking surveys against the sampling frame</a></li>
 </ul></li>
-<li><a href="analysis.html#ratios" id="toc-ratios"><span class="toc-section-number">7.3</span> Ratios</a>
+<li class="chapter" data-level="5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>5.4</b> Data falsification</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>5.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>5.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>5.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>5.4.4</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>5.4.5</b> Check for duplicates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>5.5</b> Data checks</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>5.5.1</b> Check for outliers</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>5.5.2</b> Check others</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#issue-log-function"><i class="fa fa-check"></i><b>5.5.3</b> Issue log Function</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>5.5.4</b> Check for logical check</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>5.6</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="5.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>5.7</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>5.7.1</b> Re-generate text column for select multiple questions</a></li>
+<li class="chapter" data-level="5.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>5.7.2</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="5.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>5.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>5.8</b> Data cleaning - miscellaneous</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>5.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li class="chapter" data-level="5.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>5.8.2</b> Turns label to xml</a></li>
+<li class="chapter" data-level="5.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>5.8.3</b> Statistical Disclosure Control Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>6</b> Composite indicators</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>6.1</b> Composite with 1 categorical variable - select one</a></li>
+<li class="chapter" data-level="6.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Composite with 2 categorical variables</a></li>
+<li class="chapter" data-level="6.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>6.3</b> Composite with 1 categorical variable - select multiple</a></li>
+<li class="chapter" data-level="6.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>6.4</b> Composite with 1 numerical variable</a></li>
+<li class="chapter" data-level="6.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>6.5</b> Composite with 2 numerical variables</a></li>
+<li class="chapter" data-level="6.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>6.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="6.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>6.7</b> New indicators from a loop to main dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>7</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>7.1</b> srvyr package</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>7.1.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="7.1.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>7.1.2</b> Numeric variables</a></li>
+<li class="chapter" data-level="7.1.3" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>7.1.3</b> select_one</a></li>
+<li class="chapter" data-level="7.1.4" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>7.1.4</b> select_mutiple</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>7.2</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>7.2.1</b> Averages</a></li>
+<li class="chapter" data-level="7.2.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>7.2.2</b> Median</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="analysis.html"><a href="analysis.html#ratios"><i class="fa fa-check"></i><b>7.3</b> Ratios</a>
 <ul>
 <li><a href="analysis.html#example1" id="toc-example1"><span class="toc-section-number">7.3.1</span> Example1:<br />
 </a></li>
@@ -243,81 +245,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted" id="toc-example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.3.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
 </a></li>
 </ul></li>
-<li><a href="analysis.html#weights" id="toc-weights"><span class="toc-section-number">7.4</span> Weights</a>
+<li class="chapter" data-level="7.4" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>7.4</b> Weights</a>
 <ul>
-<li><a href="analysis.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">7.4.1</span> tidyverse</a></li>
-<li><a href="analysis.html#surveyweights" id="toc-surveyweights"><span class="toc-section-number">7.4.2</span> surveyweights</a></li>
+<li class="chapter" data-level="7.4.1" data-path="analysis.html"><a href="analysis.html#tidyverse"><i class="fa fa-check"></i><b>7.4.1</b> tidyverse</a></li>
+<li class="chapter" data-level="7.4.2" data-path="analysis.html"><a href="analysis.html#surveyweights"><i class="fa fa-check"></i><b>7.4.2</b> surveyweights</a></li>
 </ul></li>
-<li><a href="analysis.html#impactr-based-on-srvyr" id="toc-impactr-based-on-srvyr"><span class="toc-section-number">7.5</span> impactR, based on <code>srvyr</code></a>
+<li class="chapter" data-level="7.5" data-path="analysis.html"><a href="analysis.html#impactr-based-on-srvyr"><i class="fa fa-check"></i><b>7.5</b> impactR, based on <code>srvyr</code></a>
 <ul>
-<li><a href="analysis.html#introduction" id="toc-introduction"><span class="toc-section-number">7.5.1</span> Introduction</a></li>
-<li><a href="analysis.html#first-stage-prepare-data-and-survey-design" id="toc-first-stage-prepare-data-and-survey-design"><span class="toc-section-number">7.5.2</span> First stage: prepare data and survey design</a></li>
-<li><a href="analysis.html#second-stage-one-variable-analysis" id="toc-second-stage-one-variable-analysis"><span class="toc-section-number">7.5.3</span> Second stage: One variable analysis</a></li>
-<li><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool" id="toc-third-stage-one-analysis-at-a-time-with-the-kobo-tool"><span class="toc-section-number">7.5.4</span> Third stage: one analysis at a time with the Kobo tool</a></li>
+<li class="chapter" data-level="7.5.1" data-path="analysis.html"><a href="analysis.html#introduction"><i class="fa fa-check"></i><b>7.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.5.2" data-path="analysis.html"><a href="analysis.html#first-stage-prepare-data-and-survey-design"><i class="fa fa-check"></i><b>7.5.2</b> First stage: prepare data and survey design</a></li>
+<li class="chapter" data-level="7.5.3" data-path="analysis.html"><a href="analysis.html#second-stage-one-variable-analysis"><i class="fa fa-check"></i><b>7.5.3</b> Second stage: One variable analysis</a></li>
+<li class="chapter" data-level="7.5.4" data-path="analysis.html"><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool"><i class="fa fa-check"></i><b>7.5.4</b> Third stage: one analysis at a time with the Kobo tool</a></li>
 </ul></li>
-<li><a href="analysis.html#example-survey-analysis-using-illuminate" id="toc-example-survey-analysis-using-illuminate"><span class="toc-section-number">7.6</span> EXAMPLE :: Survey analysis using illuminate</a>
+<li class="chapter" data-level="7.6" data-path="analysis.html"><a href="analysis.html#example-survey-analysis-using-illuminate"><i class="fa fa-check"></i><b>7.6</b> EXAMPLE :: Survey analysis using illuminate</a>
 <ul>
-<li><a href="analysis.html#step-0-call-libraries" id="toc-step-0-call-libraries"><span class="toc-section-number">7.6.1</span> Step 0:: Call libraries</a></li>
-<li><a href="analysis.html#step-1-read-data" id="toc-step-1-read-data"><span class="toc-section-number">7.6.2</span> Step 1:: Read data</a></li>
-<li><a href="analysis.html#step-optional-preaparing-the-data" id="toc-step-optional-preaparing-the-data"><span class="toc-section-number">7.6.3</span> Step OPTIONAL:: Preaparing the data</a></li>
-<li><a href="analysis.html#step-2-weight-calculation" id="toc-step-2-weight-calculation"><span class="toc-section-number">7.6.4</span> Step 2:: Weight calculation</a></li>
-<li><a href="analysis.html#read-sampleframe" id="toc-read-sampleframe"><span class="toc-section-number">7.6.5</span> Read sampleframe</a></li>
-<li><a href="analysis.html#add-weights-to-the-dataframe" id="toc-add-weights-to-the-dataframe"><span class="toc-section-number">7.6.6</span> Add weights to the dataframe</a></li>
-<li><a href="analysis.html#step-3.1-weighted-analysis" id="toc-step-3.1-weighted-analysis"><span class="toc-section-number">7.6.7</span> Step 3.1:: Weighted analysis</a></li>
-<li><a href="analysis.html#step-3.2-unweighted-analysis" id="toc-step-3.2-unweighted-analysis"><span class="toc-section-number">7.6.8</span> Step 3.2:: Unweighted analysis</a></li>
-<li><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis" id="toc-step-3.3-weighted-and-disaggregated-by-gender-analysis"><span class="toc-section-number">7.6.9</span> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
-<li><a href="analysis.html#step-4-export-with-write_formatted_excel" id="toc-step-4-export-with-write_formatted_excel"><span class="toc-section-number">7.6.10</span> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
+<li class="chapter" data-level="7.6.1" data-path="analysis.html"><a href="analysis.html#step-0-call-libraries"><i class="fa fa-check"></i><b>7.6.1</b> Step 0:: Call libraries</a></li>
+<li class="chapter" data-level="7.6.2" data-path="analysis.html"><a href="analysis.html#step-1-read-data"><i class="fa fa-check"></i><b>7.6.2</b> Step 1:: Read data</a></li>
+<li class="chapter" data-level="7.6.3" data-path="analysis.html"><a href="analysis.html#step-optional-preaparing-the-data"><i class="fa fa-check"></i><b>7.6.3</b> Step OPTIONAL:: Preaparing the data</a></li>
+<li class="chapter" data-level="7.6.4" data-path="analysis.html"><a href="analysis.html#step-2-weight-calculation"><i class="fa fa-check"></i><b>7.6.4</b> Step 2:: Weight calculation</a></li>
+<li class="chapter" data-level="7.6.5" data-path="analysis.html"><a href="analysis.html#read-sampleframe"><i class="fa fa-check"></i><b>7.6.5</b> Read sampleframe</a></li>
+<li class="chapter" data-level="7.6.6" data-path="analysis.html"><a href="analysis.html#add-weights-to-the-dataframe"><i class="fa fa-check"></i><b>7.6.6</b> Add weights to the dataframe</a></li>
+<li class="chapter" data-level="7.6.7" data-path="analysis.html"><a href="analysis.html#step-3.1-weighted-analysis"><i class="fa fa-check"></i><b>7.6.7</b> Step 3.1:: Weighted analysis</a></li>
+<li class="chapter" data-level="7.6.8" data-path="analysis.html"><a href="analysis.html#step-3.2-unweighted-analysis"><i class="fa fa-check"></i><b>7.6.8</b> Step 3.2:: Unweighted analysis</a></li>
+<li class="chapter" data-level="7.6.9" data-path="analysis.html"><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis"><i class="fa fa-check"></i><b>7.6.9</b> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
+<li class="chapter" data-level="7.6.10" data-path="analysis.html"><a href="analysis.html#step-4-export-with-write_formatted_excel"><i class="fa fa-check"></i><b>7.6.10</b> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
 </ul></li>
-<li><a href="analysis.html#repeating-the-above" id="toc-repeating-the-above"><span class="toc-section-number">7.7</span> Repeating the above</a></li>
-<li><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple" id="toc-analysis---top-x-ranking-select-one-and-select-multiple"><span class="toc-section-number">7.8</span> Analysis - top X / ranking (select one and select multiple)</a></li>
-<li><a href="analysis.html#borda-count" id="toc-borda-count"><span class="toc-section-number">7.9</span> Borda count</a></li>
-<li><a href="analysis.html#hypothesis-testing" id="toc-hypothesis-testing"><span class="toc-section-number">7.10</span> Hypothesis testing</a>
+<li class="chapter" data-level="7.7" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>7.7</b> Repeating the above</a></li>
+<li class="chapter" data-level="7.8" data-path="analysis.html"><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple"><i class="fa fa-check"></i><b>7.8</b> Analysis - top X / ranking (select one and select multiple)</a></li>
+<li class="chapter" data-level="7.9" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>7.9</b> Borda count</a></li>
+<li class="chapter" data-level="7.10" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>7.10</b> Hypothesis testing</a>
 <ul>
-<li><a href="analysis.html#t-test" id="toc-t-test"><span class="toc-section-number">7.10.1</span> T-test</a></li>
-<li><a href="analysis.html#anova" id="toc-anova"><span class="toc-section-number">7.10.2</span> ANOVA</a></li>
-<li><a href="analysis.html#chi-squares" id="toc-chi-squares"><span class="toc-section-number">7.10.3</span> chi-squares</a></li>
-<li><a href="analysis.html#chi-squared-goodness-of-fit-test" id="toc-chi-squared-goodness-of-fit-test"><span class="toc-section-number">7.10.4</span> Chi-squared Goodness of Fit test</a></li>
+<li class="chapter" data-level="7.10.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>7.10.1</b> T-test</a></li>
+<li class="chapter" data-level="7.10.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>7.10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="7.10.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>7.10.3</b> chi-squares</a></li>
+<li class="chapter" data-level="7.10.4" data-path="analysis.html"><a href="analysis.html#chi-squared-goodness-of-fit-test"><i class="fa fa-check"></i><b>7.10.4</b> Chi-squared Goodness of Fit test</a></li>
+<li class="chapter" data-level="7.10.5" data-path="analysis.html"><a href="analysis.html#proportion-tests-z-test"><i class="fa fa-check"></i><b>7.10.5</b> Proportion tests (z-test)</a></li>
 </ul></li>
 </ul></li>
-<li><a href="outputs.html#outputs" id="toc-outputs"><span class="toc-section-number">8</span> Outputs</a>
+<li class="chapter" data-level="8" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>8</b> Outputs</a>
 <ul>
-<li><a href="outputs.html#from-long-to-large-table" id="toc-from-long-to-large-table"><span class="toc-section-number">8.1</span> From long to large table</a></li>
-<li><a href="outputs.html#merge-file" id="toc-merge-file"><span class="toc-section-number">8.2</span> Merge file</a></li>
-<li><a href="outputs.html#graphs" id="toc-graphs"><span class="toc-section-number">8.3</span> Graphs</a>
+<li class="chapter" data-level="8.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>8.1</b> From long to large table</a></li>
+<li class="chapter" data-level="8.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>8.2</b> Merge file</a></li>
+<li class="chapter" data-level="8.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>8.3</b> Graphs</a>
 <ul>
-<li><a href="outputs.html#spider-graphs" id="toc-spider-graphs"><span class="toc-section-number">8.3.1</span> spider graphs</a></li>
-<li><a href="outputs.html#prison-graphs" id="toc-prison-graphs"><span class="toc-section-number">8.3.2</span> prison graphs</a></li>
-<li><a href="outputs.html#bar-graphs" id="toc-bar-graphs"><span class="toc-section-number">8.3.3</span> Bar graphs</a></li>
-<li><a href="outputs.html#euler-diagram" id="toc-euler-diagram"><span class="toc-section-number">8.3.4</span> Euler diagram</a></li>
-<li><a href="outputs.html#venn-diagram" id="toc-venn-diagram"><span class="toc-section-number">8.3.5</span> Venn diagram</a></li>
-<li><a href="outputs.html#upset-plots" id="toc-upset-plots"><span class="toc-section-number">8.3.6</span> UpSet plots</a></li>
-<li><a href="outputs.html#boxplots" id="toc-boxplots"><span class="toc-section-number">8.3.7</span> boxplots</a></li>
+<li class="chapter" data-level="8.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>8.3.1</b> spider graphs</a></li>
+<li class="chapter" data-level="8.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>8.3.2</b> prison graphs</a></li>
+<li class="chapter" data-level="8.3.3" data-path="outputs.html"><a href="outputs.html#bar-graphs"><i class="fa fa-check"></i><b>8.3.3</b> Bar graphs</a></li>
+<li class="chapter" data-level="8.3.4" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>8.3.4</b> Euler diagram</a></li>
+<li class="chapter" data-level="8.3.5" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>8.3.5</b> Venn diagram</a></li>
+<li class="chapter" data-level="8.3.6" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>8.3.6</b> UpSet plots</a></li>
+<li class="chapter" data-level="8.3.7" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>8.3.7</b> boxplots</a></li>
 </ul></li>
-<li><a href="outputs.html#labels" id="toc-labels"><span class="toc-section-number">8.4</span> Labels</a>
+<li class="chapter" data-level="8.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>8.4</b> Labels</a>
 <ul>
-<li><a href="outputs.html#xml-to-label" id="toc-xml-to-label"><span class="toc-section-number">8.4.1</span> Xml to Label</a></li>
-<li><a href="outputs.html#change-from-label-to-xml" id="toc-change-from-label-to-xml"><span class="toc-section-number">8.4.2</span> change from label to xml</a></li>
+<li class="chapter" data-level="8.4.1" data-path="outputs.html"><a href="outputs.html#xml-to-label"><i class="fa fa-check"></i><b>8.4.1</b> Xml to Label</a></li>
+<li class="chapter" data-level="8.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>8.4.2</b> change from label to xml</a></li>
 </ul></li>
-<li><a href="outputs.html#dashboarding---sharing-information" id="toc-dashboarding---sharing-information"><span class="toc-section-number">8.5</span> Dashboarding - Sharing information</a></li>
-<li><a href="outputs.html#outputs-with-hypothesis-testing-results" id="toc-outputs-with-hypothesis-testing-results"><span class="toc-section-number">8.6</span> Outputs with hypothesis testing results</a></li>
+<li class="chapter" data-level="8.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>8.5</b> Dashboarding - Sharing information</a></li>
+<li class="chapter" data-level="8.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>8.6</b> Outputs with hypothesis testing results</a></li>
 </ul></li>
-<li><a href="miscellaneous.html#miscellaneous" id="toc-miscellaneous"><span class="toc-section-number">9</span> Miscellaneous</a></li>
-<li><a href="archives.html#archives" id="toc-archives"><span class="toc-section-number">10</span> Archives</a>
+<li class="chapter" data-level="9" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous</a></li>
+<li class="chapter" data-level="10" data-path="archives.html"><a href="archives.html"><i class="fa fa-check"></i><b>10</b> Archives</a>
 <ul>
-<li><a href="archives.html#pre-analysis-1" id="toc-pre-analysis-1"><span class="toc-section-number">10.1</span> 01 Pre analysis</a>
+<li class="chapter" data-level="10.1" data-path="archives.html"><a href="archives.html#pre-analysis-1"><i class="fa fa-check"></i><b>10.1</b> 01 Pre analysis</a>
 <ul>
-<li><a href="archives.html#generation-of-random-sample-points" id="toc-generation-of-random-sample-points"><span class="toc-section-number">10.1.1</span> Generation of random sample points</a></li>
+<li class="chapter" data-level="10.1.1" data-path="archives.html"><a href="archives.html#generation-of-random-sample-points"><i class="fa fa-check"></i><b>10.1.1</b> Generation of random sample points</a></li>
 </ul></li>
-<li><a href="archives.html#cleaning" id="toc-cleaning"><span class="toc-section-number">10.2</span> Cleaning</a></li>
-<li><a href="archives.html#spatial-verification-checks" id="toc-spatial-verification-checks"><span class="toc-section-number">10.3</span> Spatial verification checks</a>
+<li class="chapter" data-level="10.2" data-path="archives.html"><a href="archives.html#cleaning"><i class="fa fa-check"></i><b>10.2</b> Cleaning</a></li>
+<li class="chapter" data-level="10.3" data-path="archives.html"><a href="archives.html#spatial-verification-checks"><i class="fa fa-check"></i><b>10.3</b> Spatial verification checks</a>
 <ul>
-<li><a href="archives.html#spatial-verification-checks-on-settlement-level" id="toc-spatial-verification-checks-on-settlement-level"><span class="toc-section-number">10.3.1</span> Spatial verification checks on settlement level</a></li>
-<li><a href="archives.html#spatial-verification-checks-on-sample-point-level" id="toc-spatial-verification-checks-on-sample-point-level"><span class="toc-section-number">10.3.2</span> Spatial verification checks on sample point level</a></li>
+<li class="chapter" data-level="10.3.1" data-path="archives.html"><a href="archives.html#spatial-verification-checks-on-settlement-level"><i class="fa fa-check"></i><b>10.3.1</b> Spatial verification checks on settlement level</a></li>
+<li class="chapter" data-level="10.3.2" data-path="archives.html"><a href="archives.html#spatial-verification-checks-on-sample-point-level"><i class="fa fa-check"></i><b>10.3.2</b> Spatial verification checks on sample point level</a></li>
 </ul></li>
-<li><a href="archives.html#analayis" id="toc-analayis"><span class="toc-section-number">10.4</span> Analayis</a>
+<li class="chapter" data-level="10.4" data-path="archives.html"><a href="archives.html#analayis"><i class="fa fa-check"></i><b>10.4</b> Analayis</a>
 <ul>
-<li><a href="archives.html#hypegrammar" id="toc-hypegrammar"><span class="toc-section-number">10.4.1</span> hypegrammaR</a></li>
-<li><a href="archives.html#butter-survey_collapse" id="toc-butter-survey_collapse"><span class="toc-section-number">10.4.2</span> butteR survey_collapse</a></li>
+<li class="chapter" data-level="10.4.1" data-path="archives.html"><a href="archives.html#hypegrammar"><i class="fa fa-check"></i><b>10.4.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="10.4.2" data-path="archives.html"><a href="archives.html#butter-survey_collapse"><i class="fa fa-check"></i><b>10.4.2</b> butteR survey_collapse</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -344,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="hello" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Hello<a href="index.html#hello" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Hello,</p>
-<p>This is book aims to be a small collection of code used across different mission. It will show you examples of different problems you can face and you could solve them. Those codes are not exhaustive but just examples.</p>
+<p>This book aims to be a small collection of codes used across different mission. It contains examples of different problems you can face and offers guidance to solve them. The codes are not exhaustive but just examples.</p>
 
 </div>
             </section>
@@ -357,7 +360,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -397,6 +399,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -410,7 +416,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
