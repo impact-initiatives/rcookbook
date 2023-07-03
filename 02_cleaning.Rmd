@@ -1084,7 +1084,10 @@ find.responses <- function(data, questions, values_to="response.uk"){
   question.db <- tool.survey %>% filter(name %in% questions) %>%
     rename(label=label_colname) %>%
     select("name", "label", "relevant") %>%
-    mutate(ref.name=as.character(lapply(relevant, get.ref.question))) %>%
+    mutate(ref.name=as.character(lapply(relevant, function(x) {
+      x.1 <- str_split(x, "\\{")[[1]][2]
+      return(str_split(x.1,"\\}")[[1]][1])
+    }))) %>%
     left_join(select(select.questions, "name", "q.type", "q.label", "list_name", "choices", "choices.label"),
               by=c("ref.name"="name")) %>%
     rename(ref.label=q.label, ref.type=q.type) %>%
@@ -1126,7 +1129,7 @@ This function will require the remote package `translateREACH`.
 This package can be installed by:
 
 > install.packages(“devtools”)
-> devtools::install_github(“AbrahamAz/translateREACH”)
+> devtools::install_github(“REACH-WoU-Regional/translateR”)
 
 ```{r}
 translate.responses <- function(responses, values_from = "response.uk", language_codes = 'uk', target_lang = "en", threshold = 200000){
