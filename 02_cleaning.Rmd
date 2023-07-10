@@ -1044,7 +1044,7 @@ API instances are setup at mission request and a normal procurement process appl
 1. Find Responses
 
 This function takes raw dataframe and find all the responses for a given set of questions.
-```{r}
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
 find.responses <- function(data, questions, values_to="response.uk"){
   #' Look up a raw Kobo dataframe to find all responses to a given set of questions.
   #'
@@ -1131,8 +1131,8 @@ This package can be installed by:
 > install.packages(“devtools”)
 > devtools::install_github(“REACH-WoU-Regional/translateR”)
 
-```{r}
-translate.responses <- function(responses, values_from = "response.uk", language_codes = 'uk', target_lang = "en", threshold = 200000){
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+translate.responses <- function(responses, values_from = "response.uk", language_codes = 'uk', target_lang = "en", microsoft.api.key = NULL, threshold = 200000){
 
   #' Translate a vector from a given dataframe.
   #'
@@ -1146,9 +1146,12 @@ translate.responses <- function(responses, values_from = "response.uk", language
   #' @param values_from Name of the column from `responses` which shall be translated.
   #' @param language_codes Character vector of two-letter language codes. The input vector will be translated from both of these languages.
   #' @param target_lang Input vector will be translated into this language.
+  #' @param microsoft.api.key Character input of the microsoft.api.key.
   #' @param threshold Input threshold to interrupt the user if the number of characters is exceeding 200,000 by default. 
   #' @returns The same dataframe as `responses`, but with a new column, containing the translation.
   #' The column will be named according to the given source and target languages. By default, the output will be stored in column named 'response.en.from.uk'
+  
+  if(is.null(microsoft.api.key)) stop("Please provide a microsoft.api.key while calling the function.")
   info_df <- data.frame()
   responses_batch <- data.frame()
   temp_resp_whole <- data.frame()
@@ -1188,7 +1191,7 @@ translate.responses <- function(responses, values_from = "response.uk", language
           # actual translation:
           result_vec <- NULL
           result_vec <- try(translateR::translate(content.vec = temp_resp_batch$input_vec,
-                              microsoft.api.key = source("resources/microsoft.api.key_ukraine.R")$value,
+                              microsoft.api.key = microsoft.api.key,
                               microsoft.api.region = "switzerlandnorth",
                               source.lang = code, target.lang = target_lang))
           if(inherits(result_vec,"try-error")) break
@@ -1239,11 +1242,10 @@ translate.responses <- function(responses, values_from = "response.uk", language
 
 3. Example:
 
-```{r}
-other_columns <- c("reason_bad_relationship_other")
-  tool.survey %>% filter(type == "text") %>% pull(name)
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+other_columns <- c("b12_1_situation_description_other")
 
-responses <- find.responses(data.list$main,other_columns,values_to = "response.uk")
-responses.j <- translate.responses(responses, language_codes = "sk")
+responses <- find.responses(main_dataset,other_columns,values_to = "response.en")
+responses.j <- translate.responses(responses, language_codes = "fr")
 ```
 
