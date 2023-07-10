@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Outputs | R cookbook for analysis with IMPACT</title>
   <meta name="description" content="8 Outputs | R cookbook for analysis with IMPACT" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Outputs | R cookbook for analysis with IMPACT" />
   <meta property="og:type" content="book" />
+  
   
   
   
@@ -31,8 +32,8 @@
   
 <link rel="prev" href="analysis.html"/>
 <link rel="next" href="miscellaneous.html"/>
+<script src="libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -48,17 +49,18 @@
 
 
 
+
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.27/datatables.js"></script>
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.19/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
@@ -128,10 +130,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
 
 </head>
 
@@ -145,98 +143,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello</a></li>
-<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
+<li><a href="index.html#hello" id="toc-hello"><span class="toc-section-number">1</span> Hello</a></li>
+<li><a href="meta-information.html#meta-information" id="toc-meta-information"><span class="toc-section-number">2</span> Meta information</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
+<li><a href="meta-information.html#creating-the-questionnaire-object" id="toc-creating-the-questionnaire-object"><span class="toc-section-number">2.1</span> Creating the questionnaire object</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html"><i class="fa fa-check"></i><b>3</b> Downloading data from kobo server</a>
+<li><a href="downloading-data-from-kobo-server.html#downloading-data-from-kobo-server" id="toc-downloading-data-from-kobo-server"><span class="toc-section-number">3</span> Downloading data from kobo server</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions"><i class="fa fa-check"></i><b>3.1</b> Defining the needed functions</a></li>
-<li class="chapter" data-level="3.2" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables"><i class="fa fa-check"></i><b>3.2</b> Creating data url and credentials variables</a></li>
-<li class="chapter" data-level="3.3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server"><i class="fa fa-check"></i><b>3.3</b> Fetching the data from the server</a></li>
+<li><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions" id="toc-defining-the-needed-functions"><span class="toc-section-number">3.1</span> Defining the needed functions</a></li>
+<li><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables" id="toc-creating-data-url-and-credentials-variables"><span class="toc-section-number">3.2</span> Creating data url and credentials variables</a></li>
+<li><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server" id="toc-fetching-the-data-from-the-server"><span class="toc-section-number">3.3</span> Fetching the data from the server</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>4</b> Pre analysis</a>
+<li><a href="pre-analysis.html#pre-analysis" id="toc-pre-analysis"><span class="toc-section-number">4</span> Pre analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>4.1</b> Checking the XLS kobo tools for constraints errors</a></li>
-<li class="chapter" data-level="4.2" data-path="pre-analysis.html"><a href="pre-analysis.html#sampling"><i class="fa fa-check"></i><b>4.2</b> Sampling</a>
+<li><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors" id="toc-checking-the-xls-kobo-tools-for-constraints-errors"><span class="toc-section-number">4.1</span> Checking the XLS kobo tools for constraints errors</a></li>
+<li><a href="pre-analysis.html#sampling" id="toc-sampling"><span class="toc-section-number">4.2</span> Sampling</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="pre-analysis.html"><a href="pre-analysis.html#simple-random-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Simple Random sampling</a></li>
-<li class="chapter" data-level="4.2.2" data-path="pre-analysis.html"><a href="pre-analysis.html#stratified-random-sampling"><i class="fa fa-check"></i><b>4.2.2</b> Stratified Random sampling</a></li>
-<li class="chapter" data-level="4.2.3" data-path="pre-analysis.html"><a href="pre-analysis.html#cluster-sampling"><i class="fa fa-check"></i><b>4.2.3</b> Cluster sampling</a></li>
-<li class="chapter" data-level="4.2.4" data-path="pre-analysis.html"><a href="pre-analysis.html#stages-random-sampling"><i class="fa fa-check"></i><b>4.2.4</b> 2 stages random sampling</a></li>
-<li class="chapter" data-level="4.2.5" data-path="pre-analysis.html"><a href="pre-analysis.html#sample-distribution-usin-population-raster"><i class="fa fa-check"></i><b>4.2.5</b> Sample distribution usin population raster</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>5</b> Data Collection and Processing</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>5.1</b> Testing the tool</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>5.1.1</b> Creating dummy data</a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>5.2</b> Download data</a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url"><i class="fa fa-check"></i><b>5.2.1</b> Downloading Audit files using audit_URL</a></li>
-<li class="chapter" data-level="5.2.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-audit-files-using-form-name"><i class="fa fa-check"></i><b>5.2.2</b> Download audit files using form name</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>5.3</b> Data collection follow-up</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame"><i class="fa fa-check"></i><b>5.3.1</b> checking surveys against the sampling frame</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>5.4</b> Data falsification</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>5.4.1</b> Check for time (in the dataset)</a></li>
-<li class="chapter" data-level="5.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>5.4.2</b> Check for time (audit files)</a></li>
-<li class="chapter" data-level="5.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>5.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
-<li class="chapter" data-level="5.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>5.4.4</b> Silouhette analysis</a></li>
-<li class="chapter" data-level="5.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>5.4.5</b> Check for duplicates</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>5.5</b> Data checks</a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>5.5.1</b> Check for outliers</a></li>
-<li class="chapter" data-level="5.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>5.5.2</b> Check others</a></li>
-<li class="chapter" data-level="5.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#issue-log-function"><i class="fa fa-check"></i><b>5.5.3</b> Issue log Function</a></li>
-<li class="chapter" data-level="5.5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>5.5.4</b> Check for logical check</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>5.6</b> cleaninginspectoR - inspect_all</a></li>
-<li class="chapter" data-level="5.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>5.7</b> Data cleaning</a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>5.7.1</b> Re-generate text column for select multiple questions</a></li>
-<li class="chapter" data-level="5.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>5.7.2</b> Clean data base on cleaning log</a></li>
-<li class="chapter" data-level="5.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>5.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
-</ul></li>
-<li class="chapter" data-level="5.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>5.8</b> Data cleaning - miscellaneous</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>5.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
-<li class="chapter" data-level="5.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>5.8.2</b> Turns label to xml</a></li>
-<li class="chapter" data-level="5.8.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>5.8.3</b> Statistical Disclosure Control Methods</a></li>
+<li><a href="pre-analysis.html#simple-random-sampling" id="toc-simple-random-sampling"><span class="toc-section-number">4.2.1</span> Simple Random sampling</a></li>
+<li><a href="pre-analysis.html#stratified-random-sampling" id="toc-stratified-random-sampling"><span class="toc-section-number">4.2.2</span> Stratified Random sampling</a></li>
+<li><a href="pre-analysis.html#cluster-sampling" id="toc-cluster-sampling"><span class="toc-section-number">4.2.3</span> Cluster sampling</a></li>
+<li><a href="pre-analysis.html#stages-random-sampling" id="toc-stages-random-sampling"><span class="toc-section-number">4.2.4</span> 2 stages random sampling</a></li>
+<li><a href="pre-analysis.html#sample-distribution-usin-population-raster" id="toc-sample-distribution-usin-population-raster"><span class="toc-section-number">4.2.5</span> Sample distribution usin population raster</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>6</b> Composite indicators</a>
+<li><a href="data-collection-and-processing.html#data-collection-and-processing" id="toc-data-collection-and-processing"><span class="toc-section-number">5</span> Data Collection and Processing</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>6.1</b> Composite with 1 categorical variable - select one</a></li>
-<li class="chapter" data-level="6.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Composite with 2 categorical variables</a></li>
-<li class="chapter" data-level="6.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>6.3</b> Composite with 1 categorical variable - select multiple</a></li>
-<li class="chapter" data-level="6.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>6.4</b> Composite with 1 numerical variable</a></li>
-<li class="chapter" data-level="6.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>6.5</b> Composite with 2 numerical variables</a></li>
-<li class="chapter" data-level="6.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>6.6</b> Composite with 2 or more numerical variables</a></li>
-<li class="chapter" data-level="6.7" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>6.7</b> New indicators from a loop to main dataset</a></li>
+<li><a href="data-collection-and-processing.html#testing-the-tool" id="toc-testing-the-tool"><span class="toc-section-number">5.1</span> Testing the tool</a>
+<ul>
+<li><a href="data-collection-and-processing.html#creating-dummy-data" id="toc-creating-dummy-data"><span class="toc-section-number">5.1.1</span> Creating dummy data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>7</b> Analysis</a>
+<li><a href="data-collection-and-processing.html#download-data" id="toc-download-data"><span class="toc-section-number">5.2</span> Download data</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>7.1</b> srvyr package</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>7.1.1</b> Categorical variables</a></li>
-<li class="chapter" data-level="7.1.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>7.1.2</b> Numeric variables</a></li>
-<li class="chapter" data-level="7.1.3" data-path="analysis.html"><a href="analysis.html#select_one"><i class="fa fa-check"></i><b>7.1.3</b> select_one</a></li>
-<li class="chapter" data-level="7.1.4" data-path="analysis.html"><a href="analysis.html#select_mutiple"><i class="fa fa-check"></i><b>7.1.4</b> select_mutiple</a></li>
+<li><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url" id="toc-downloading-audit-files-using-audit_url"><span class="toc-section-number">5.2.1</span> Downloading Audit files using audit_URL</a></li>
+<li><a href="data-collection-and-processing.html#download-audit-files-using-form-name" id="toc-download-audit-files-using-form-name"><span class="toc-section-number">5.2.2</span> Download audit files using form name</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>7.2</b> Analysis with numerical variables</a>
+<li><a href="data-collection-and-processing.html#data-collection-follow-up" id="toc-data-collection-follow-up"><span class="toc-section-number">5.3</span> Data collection follow-up</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="analysis.html"><a href="analysis.html#averages"><i class="fa fa-check"></i><b>7.2.1</b> Averages</a></li>
-<li class="chapter" data-level="7.2.2" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>7.2.2</b> Median</a></li>
+<li><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame" id="toc-checking-surveys-against-the-sampling-frame"><span class="toc-section-number">5.3.1</span> checking surveys against the sampling frame</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="analysis.html"><a href="analysis.html#ratios"><i class="fa fa-check"></i><b>7.3</b> Ratios</a>
+<li><a href="data-collection-and-processing.html#data-falsification" id="toc-data-falsification"><span class="toc-section-number">5.4</span> Data falsification</a>
+<ul>
+<li><a href="data-collection-and-processing.html#check-for-time-in-the-dataset" id="toc-check-for-time-in-the-dataset"><span class="toc-section-number">5.4.1</span> Check for time (in the dataset)</a></li>
+<li><a href="data-collection-and-processing.html#check-for-time-audit-files" id="toc-check-for-time-audit-files"><span class="toc-section-number">5.4.2</span> Check for time (audit files)</a></li>
+<li><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview" id="toc-check-for-time---calculating-the-elapsed-time-between-each-interview"><span class="toc-section-number">5.4.3</span> Check for time - calculating the elapsed time between each interview</a></li>
+<li><a href="data-collection-and-processing.html#silouhette-analysis" id="toc-silouhette-analysis"><span class="toc-section-number">5.4.4</span> Silouhette analysis</a></li>
+<li><a href="data-collection-and-processing.html#check-for-duplicates" id="toc-check-for-duplicates"><span class="toc-section-number">5.4.5</span> Check for duplicates</a></li>
+</ul></li>
+<li><a href="data-collection-and-processing.html#data-checks" id="toc-data-checks"><span class="toc-section-number">5.5</span> Data checks</a>
+<ul>
+<li><a href="data-collection-and-processing.html#check-for-outliers" id="toc-check-for-outliers"><span class="toc-section-number">5.5.1</span> Check for outliers</a></li>
+<li><a href="data-collection-and-processing.html#check-others" id="toc-check-others"><span class="toc-section-number">5.5.2</span> Check others</a></li>
+<li><a href="data-collection-and-processing.html#issue-log-function" id="toc-issue-log-function"><span class="toc-section-number">5.5.3</span> Issue log Function</a></li>
+<li><a href="data-collection-and-processing.html#check-for-logical-check" id="toc-check-for-logical-check"><span class="toc-section-number">5.5.4</span> Check for logical check</a></li>
+</ul></li>
+<li><a href="data-collection-and-processing.html#cleaninginspector---inspect_all" id="toc-cleaninginspector---inspect_all"><span class="toc-section-number">5.6</span> cleaninginspectoR - inspect_all</a></li>
+<li><a href="data-collection-and-processing.html#data-cleaning" id="toc-data-cleaning"><span class="toc-section-number">5.7</span> Data cleaning</a>
+<ul>
+<li><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions" id="toc-re-generate-text-column-for-select-multiple-questions"><span class="toc-section-number">5.7.1</span> Re-generate text column for select multiple questions</a></li>
+<li><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log" id="toc-clean-data-base-on-cleaning-log"><span class="toc-section-number">5.7.2</span> Clean data base on cleaning log</a></li>
+<li><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset" id="toc-check-cleaning-log-raw-dataset-and-clean-dataset"><span class="toc-section-number">5.7.3</span> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li><a href="data-collection-and-processing.html#data-cleaning---miscellaneous" id="toc-data-cleaning---miscellaneous"><span class="toc-section-number">5.8</span> Data cleaning - miscellaneous</a>
+<ul>
+<li><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices" id="toc-check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><span class="toc-section-number">5.8.1</span> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li><a href="data-collection-and-processing.html#turns-label-to-xml" id="toc-turns-label-to-xml"><span class="toc-section-number">5.8.2</span> Turns label to xml</a></li>
+<li><a href="data-collection-and-processing.html#statistical-disclosure-control-methods" id="toc-statistical-disclosure-control-methods"><span class="toc-section-number">5.8.3</span> Statistical Disclosure Control Methods</a></li>
+</ul></li>
+</ul></li>
+<li><a href="composite-indicators.html#composite-indicators" id="toc-composite-indicators"><span class="toc-section-number">6</span> Composite indicators</a>
+<ul>
+<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one" id="toc-composite-with-1-categorical-variable---select-one"><span class="toc-section-number">6.1</span> Composite with 1 categorical variable - select one</a></li>
+<li><a href="composite-indicators.html#composite-with-2-categorical-variables" id="toc-composite-with-2-categorical-variables"><span class="toc-section-number">6.2</span> Composite with 2 categorical variables</a></li>
+<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple" id="toc-composite-with-1-categorical-variable---select-multiple"><span class="toc-section-number">6.3</span> Composite with 1 categorical variable - select multiple</a></li>
+<li><a href="composite-indicators.html#composite-with-1-numerical-variable" id="toc-composite-with-1-numerical-variable"><span class="toc-section-number">6.4</span> Composite with 1 numerical variable</a></li>
+<li><a href="composite-indicators.html#composite-with-2-numerical-variables" id="toc-composite-with-2-numerical-variables"><span class="toc-section-number">6.5</span> Composite with 2 numerical variables</a></li>
+<li><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables" id="toc-composite-with-2-or-more-numerical-variables"><span class="toc-section-number">6.6</span> Composite with 2 or more numerical variables</a></li>
+<li><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset" id="toc-new-indicators-from-a-loop-to-main-dataset"><span class="toc-section-number">6.7</span> New indicators from a loop to main dataset</a></li>
+<li><a href="composite-indicators.html#the-co-occurrence-of-needs-in-an-msni" id="toc-the-co-occurrence-of-needs-in-an-msni"><span class="toc-section-number">6.8</span> The co-occurrence of needs in an MSNI</a></li>
+</ul></li>
+<li><a href="analysis.html#analysis" id="toc-analysis"><span class="toc-section-number">7</span> Analysis</a>
+<ul>
+<li><a href="analysis.html#srvyr-package" id="toc-srvyr-package"><span class="toc-section-number">7.1</span> srvyr package</a>
+<ul>
+<li><a href="analysis.html#categorical-variables" id="toc-categorical-variables"><span class="toc-section-number">7.1.1</span> Categorical variables</a></li>
+<li><a href="analysis.html#numeric-variables" id="toc-numeric-variables"><span class="toc-section-number">7.1.2</span> Numeric variables</a></li>
+<li><a href="analysis.html#select_one" id="toc-select_one"><span class="toc-section-number">7.1.3</span> select_one</a></li>
+<li><a href="analysis.html#select_mutiple" id="toc-select_mutiple"><span class="toc-section-number">7.1.4</span> select_mutiple</a></li>
+</ul></li>
+<li><a href="analysis.html#analysis-with-numerical-variables" id="toc-analysis-with-numerical-variables"><span class="toc-section-number">7.2</span> Analysis with numerical variables</a>
+<ul>
+<li><a href="analysis.html#averages" id="toc-averages"><span class="toc-section-number">7.2.1</span> Averages</a></li>
+<li><a href="analysis.html#median" id="toc-median"><span class="toc-section-number">7.2.2</span> Median</a></li>
+</ul></li>
+<li><a href="analysis.html#ratios" id="toc-ratios"><span class="toc-section-number">7.3</span> Ratios</a>
 <ul>
 <li><a href="analysis.html#example1" id="toc-example1"><span class="toc-section-number">7.3.1</span> Example1:<br />
 </a></li>
@@ -245,82 +244,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted" id="toc-example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.3.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
 </a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>7.4</b> Weights</a>
+<li><a href="analysis.html#weights" id="toc-weights"><span class="toc-section-number">7.4</span> Weights</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="analysis.html"><a href="analysis.html#tidyverse"><i class="fa fa-check"></i><b>7.4.1</b> tidyverse</a></li>
-<li class="chapter" data-level="7.4.2" data-path="analysis.html"><a href="analysis.html#surveyweights"><i class="fa fa-check"></i><b>7.4.2</b> surveyweights</a></li>
+<li><a href="analysis.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">7.4.1</span> tidyverse</a></li>
+<li><a href="analysis.html#surveyweights" id="toc-surveyweights"><span class="toc-section-number">7.4.2</span> surveyweights</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="analysis.html"><a href="analysis.html#impactr-based-on-srvyr"><i class="fa fa-check"></i><b>7.5</b> impactR, based on <code>srvyr</code></a>
+<li><a href="analysis.html#impactr-based-on-srvyr" id="toc-impactr-based-on-srvyr"><span class="toc-section-number">7.5</span> impactR, based on <code>srvyr</code></a>
 <ul>
-<li class="chapter" data-level="7.5.1" data-path="analysis.html"><a href="analysis.html#introduction"><i class="fa fa-check"></i><b>7.5.1</b> Introduction</a></li>
-<li class="chapter" data-level="7.5.2" data-path="analysis.html"><a href="analysis.html#first-stage-prepare-data-and-survey-design"><i class="fa fa-check"></i><b>7.5.2</b> First stage: prepare data and survey design</a></li>
-<li class="chapter" data-level="7.5.3" data-path="analysis.html"><a href="analysis.html#second-stage-one-variable-analysis"><i class="fa fa-check"></i><b>7.5.3</b> Second stage: One variable analysis</a></li>
-<li class="chapter" data-level="7.5.4" data-path="analysis.html"><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool"><i class="fa fa-check"></i><b>7.5.4</b> Third stage: one analysis at a time with the Kobo tool</a></li>
+<li><a href="analysis.html#introduction" id="toc-introduction"><span class="toc-section-number">7.5.1</span> Introduction</a></li>
+<li><a href="analysis.html#first-stage-prepare-data-and-survey-design" id="toc-first-stage-prepare-data-and-survey-design"><span class="toc-section-number">7.5.2</span> First stage: prepare data and survey design</a></li>
+<li><a href="analysis.html#second-stage-one-variable-analysis" id="toc-second-stage-one-variable-analysis"><span class="toc-section-number">7.5.3</span> Second stage: One variable analysis</a></li>
+<li><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool" id="toc-third-stage-one-analysis-at-a-time-with-the-kobo-tool"><span class="toc-section-number">7.5.4</span> Third stage: one analysis at a time with the Kobo tool</a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="analysis.html"><a href="analysis.html#example-survey-analysis-using-illuminate"><i class="fa fa-check"></i><b>7.6</b> EXAMPLE :: Survey analysis using illuminate</a>
+<li><a href="analysis.html#example-survey-analysis-using-illuminate" id="toc-example-survey-analysis-using-illuminate"><span class="toc-section-number">7.6</span> EXAMPLE :: Survey analysis using illuminate</a>
 <ul>
-<li class="chapter" data-level="7.6.1" data-path="analysis.html"><a href="analysis.html#step-0-call-libraries"><i class="fa fa-check"></i><b>7.6.1</b> Step 0:: Call libraries</a></li>
-<li class="chapter" data-level="7.6.2" data-path="analysis.html"><a href="analysis.html#step-1-read-data"><i class="fa fa-check"></i><b>7.6.2</b> Step 1:: Read data</a></li>
-<li class="chapter" data-level="7.6.3" data-path="analysis.html"><a href="analysis.html#step-optional-preaparing-the-data"><i class="fa fa-check"></i><b>7.6.3</b> Step OPTIONAL:: Preaparing the data</a></li>
-<li class="chapter" data-level="7.6.4" data-path="analysis.html"><a href="analysis.html#step-2-weight-calculation"><i class="fa fa-check"></i><b>7.6.4</b> Step 2:: Weight calculation</a></li>
-<li class="chapter" data-level="7.6.5" data-path="analysis.html"><a href="analysis.html#read-sampleframe"><i class="fa fa-check"></i><b>7.6.5</b> Read sampleframe</a></li>
-<li class="chapter" data-level="7.6.6" data-path="analysis.html"><a href="analysis.html#add-weights-to-the-dataframe"><i class="fa fa-check"></i><b>7.6.6</b> Add weights to the dataframe</a></li>
-<li class="chapter" data-level="7.6.7" data-path="analysis.html"><a href="analysis.html#step-3.1-weighted-analysis"><i class="fa fa-check"></i><b>7.6.7</b> Step 3.1:: Weighted analysis</a></li>
-<li class="chapter" data-level="7.6.8" data-path="analysis.html"><a href="analysis.html#step-3.2-unweighted-analysis"><i class="fa fa-check"></i><b>7.6.8</b> Step 3.2:: Unweighted analysis</a></li>
-<li class="chapter" data-level="7.6.9" data-path="analysis.html"><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis"><i class="fa fa-check"></i><b>7.6.9</b> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
-<li class="chapter" data-level="7.6.10" data-path="analysis.html"><a href="analysis.html#step-4-export-with-write_formatted_excel"><i class="fa fa-check"></i><b>7.6.10</b> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
+<li><a href="analysis.html#step-0-call-libraries" id="toc-step-0-call-libraries"><span class="toc-section-number">7.6.1</span> Step 0:: Call libraries</a></li>
+<li><a href="analysis.html#step-1-read-data" id="toc-step-1-read-data"><span class="toc-section-number">7.6.2</span> Step 1:: Read data</a></li>
+<li><a href="analysis.html#step-optional-preaparing-the-data" id="toc-step-optional-preaparing-the-data"><span class="toc-section-number">7.6.3</span> Step OPTIONAL:: Preaparing the data</a></li>
+<li><a href="analysis.html#step-2-weight-calculation" id="toc-step-2-weight-calculation"><span class="toc-section-number">7.6.4</span> Step 2:: Weight calculation</a></li>
+<li><a href="analysis.html#read-sampleframe" id="toc-read-sampleframe"><span class="toc-section-number">7.6.5</span> Read sampleframe</a></li>
+<li><a href="analysis.html#add-weights-to-the-dataframe" id="toc-add-weights-to-the-dataframe"><span class="toc-section-number">7.6.6</span> Add weights to the dataframe</a></li>
+<li><a href="analysis.html#step-3.1-weighted-analysis" id="toc-step-3.1-weighted-analysis"><span class="toc-section-number">7.6.7</span> Step 3.1:: Weighted analysis</a></li>
+<li><a href="analysis.html#step-3.2-unweighted-analysis" id="toc-step-3.2-unweighted-analysis"><span class="toc-section-number">7.6.8</span> Step 3.2:: Unweighted analysis</a></li>
+<li><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis" id="toc-step-3.3-weighted-and-disaggregated-by-gender-analysis"><span class="toc-section-number">7.6.9</span> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
+<li><a href="analysis.html#step-4-export-with-write_formatted_excel" id="toc-step-4-export-with-write_formatted_excel"><span class="toc-section-number">7.6.10</span> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>7.7</b> Repeating the above</a></li>
-<li class="chapter" data-level="7.8" data-path="analysis.html"><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple"><i class="fa fa-check"></i><b>7.8</b> Analysis - top X / ranking (select one and select multiple)</a></li>
-<li class="chapter" data-level="7.9" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>7.9</b> Borda count</a></li>
-<li class="chapter" data-level="7.10" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>7.10</b> Hypothesis testing</a>
+<li><a href="analysis.html#repeating-the-above" id="toc-repeating-the-above"><span class="toc-section-number">7.7</span> Repeating the above</a></li>
+<li><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple" id="toc-analysis---top-x-ranking-select-one-and-select-multiple"><span class="toc-section-number">7.8</span> Analysis - top X / ranking (select one and select multiple)</a></li>
+<li><a href="analysis.html#borda-count" id="toc-borda-count"><span class="toc-section-number">7.9</span> Borda count</a></li>
+<li><a href="analysis.html#hypothesis-testing" id="toc-hypothesis-testing"><span class="toc-section-number">7.10</span> Hypothesis testing</a>
 <ul>
-<li class="chapter" data-level="7.10.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>7.10.1</b> T-test</a></li>
-<li class="chapter" data-level="7.10.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>7.10.2</b> ANOVA</a></li>
-<li class="chapter" data-level="7.10.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>7.10.3</b> chi-squares</a></li>
-<li class="chapter" data-level="7.10.4" data-path="analysis.html"><a href="analysis.html#chi-squared-goodness-of-fit-test"><i class="fa fa-check"></i><b>7.10.4</b> Chi-squared Goodness of Fit test</a></li>
-<li class="chapter" data-level="7.10.5" data-path="analysis.html"><a href="analysis.html#proportion-tests-z-test"><i class="fa fa-check"></i><b>7.10.5</b> Proportion tests (z-test)</a></li>
+<li><a href="analysis.html#t-test" id="toc-t-test"><span class="toc-section-number">7.10.1</span> T-test</a></li>
+<li><a href="analysis.html#anova" id="toc-anova"><span class="toc-section-number">7.10.2</span> ANOVA</a></li>
+<li><a href="analysis.html#chi-squares" id="toc-chi-squares"><span class="toc-section-number">7.10.3</span> chi-squares</a></li>
+<li><a href="analysis.html#chi-squared-goodness-of-fit-test" id="toc-chi-squared-goodness-of-fit-test"><span class="toc-section-number">7.10.4</span> Chi-squared Goodness of Fit test</a></li>
+<li><a href="analysis.html#proportion-tests-z-test" id="toc-proportion-tests-z-test"><span class="toc-section-number">7.10.5</span> Proportion tests (z-test)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>8</b> Outputs</a>
+<li><a href="outputs.html#outputs" id="toc-outputs"><span class="toc-section-number">8</span> Outputs</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>8.1</b> From long to large table</a></li>
-<li class="chapter" data-level="8.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>8.2</b> Merge file</a></li>
-<li class="chapter" data-level="8.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>8.3</b> Graphs</a>
+<li><a href="outputs.html#from-long-to-large-table" id="toc-from-long-to-large-table"><span class="toc-section-number">8.1</span> From long to large table</a></li>
+<li><a href="outputs.html#merge-file" id="toc-merge-file"><span class="toc-section-number">8.2</span> Merge file</a></li>
+<li><a href="outputs.html#graphs" id="toc-graphs"><span class="toc-section-number">8.3</span> Graphs</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>8.3.1</b> spider graphs</a></li>
-<li class="chapter" data-level="8.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>8.3.2</b> prison graphs</a></li>
-<li class="chapter" data-level="8.3.3" data-path="outputs.html"><a href="outputs.html#bar-graphs"><i class="fa fa-check"></i><b>8.3.3</b> Bar graphs</a></li>
-<li class="chapter" data-level="8.3.4" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>8.3.4</b> Euler diagram</a></li>
-<li class="chapter" data-level="8.3.5" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>8.3.5</b> Venn diagram</a></li>
-<li class="chapter" data-level="8.3.6" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>8.3.6</b> UpSet plots</a></li>
-<li class="chapter" data-level="8.3.7" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>8.3.7</b> boxplots</a></li>
+<li><a href="outputs.html#spider-graphs" id="toc-spider-graphs"><span class="toc-section-number">8.3.1</span> spider graphs</a></li>
+<li><a href="outputs.html#prison-graphs" id="toc-prison-graphs"><span class="toc-section-number">8.3.2</span> prison graphs</a></li>
+<li><a href="outputs.html#bar-graphs" id="toc-bar-graphs"><span class="toc-section-number">8.3.3</span> Bar graphs</a></li>
+<li><a href="outputs.html#euler-diagram" id="toc-euler-diagram"><span class="toc-section-number">8.3.4</span> Euler diagram</a></li>
+<li><a href="outputs.html#venn-diagram" id="toc-venn-diagram"><span class="toc-section-number">8.3.5</span> Venn diagram</a></li>
+<li><a href="outputs.html#upset-plots" id="toc-upset-plots"><span class="toc-section-number">8.3.6</span> UpSet plots</a></li>
+<li><a href="outputs.html#boxplots" id="toc-boxplots"><span class="toc-section-number">8.3.7</span> boxplots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>8.4</b> Labels</a>
+<li><a href="outputs.html#labels" id="toc-labels"><span class="toc-section-number">8.4</span> Labels</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="outputs.html"><a href="outputs.html#xml-to-label"><i class="fa fa-check"></i><b>8.4.1</b> Xml to Label</a></li>
-<li class="chapter" data-level="8.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>8.4.2</b> change from label to xml</a></li>
+<li><a href="outputs.html#xml-to-label" id="toc-xml-to-label"><span class="toc-section-number">8.4.1</span> Xml to Label</a></li>
+<li><a href="outputs.html#change-from-label-to-xml" id="toc-change-from-label-to-xml"><span class="toc-section-number">8.4.2</span> change from label to xml</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>8.5</b> Dashboarding - Sharing information</a></li>
-<li class="chapter" data-level="8.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>8.6</b> Outputs with hypothesis testing results</a></li>
+<li><a href="outputs.html#dashboarding---sharing-information" id="toc-dashboarding---sharing-information"><span class="toc-section-number">8.5</span> Dashboarding - Sharing information</a></li>
+<li><a href="outputs.html#outputs-with-hypothesis-testing-results" id="toc-outputs-with-hypothesis-testing-results"><span class="toc-section-number">8.6</span> Outputs with hypothesis testing results</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous</a></li>
-<li class="chapter" data-level="10" data-path="archives.html"><a href="archives.html"><i class="fa fa-check"></i><b>10</b> Archives</a>
+<li><a href="miscellaneous.html#miscellaneous" id="toc-miscellaneous"><span class="toc-section-number">9</span> Miscellaneous</a></li>
+<li><a href="archives.html#archives" id="toc-archives"><span class="toc-section-number">10</span> Archives</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="archives.html"><a href="archives.html#pre-analysis-1"><i class="fa fa-check"></i><b>10.1</b> 01 Pre analysis</a>
+<li><a href="archives.html#pre-analysis-1" id="toc-pre-analysis-1"><span class="toc-section-number">10.1</span> 01 Pre analysis</a>
 <ul>
-<li class="chapter" data-level="10.1.1" data-path="archives.html"><a href="archives.html#generation-of-random-sample-points"><i class="fa fa-check"></i><b>10.1.1</b> Generation of random sample points</a></li>
+<li><a href="archives.html#generation-of-random-sample-points" id="toc-generation-of-random-sample-points"><span class="toc-section-number">10.1.1</span> Generation of random sample points</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="archives.html"><a href="archives.html#cleaning"><i class="fa fa-check"></i><b>10.2</b> Cleaning</a></li>
-<li class="chapter" data-level="10.3" data-path="archives.html"><a href="archives.html#spatial-verification-checks"><i class="fa fa-check"></i><b>10.3</b> Spatial verification checks</a>
+<li><a href="archives.html#cleaning" id="toc-cleaning"><span class="toc-section-number">10.2</span> Cleaning</a></li>
+<li><a href="archives.html#spatial-verification-checks" id="toc-spatial-verification-checks"><span class="toc-section-number">10.3</span> Spatial verification checks</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="archives.html"><a href="archives.html#spatial-verification-checks-on-settlement-level"><i class="fa fa-check"></i><b>10.3.1</b> Spatial verification checks on settlement level</a></li>
-<li class="chapter" data-level="10.3.2" data-path="archives.html"><a href="archives.html#spatial-verification-checks-on-sample-point-level"><i class="fa fa-check"></i><b>10.3.2</b> Spatial verification checks on sample point level</a></li>
+<li><a href="archives.html#spatial-verification-checks-on-settlement-level" id="toc-spatial-verification-checks-on-settlement-level"><span class="toc-section-number">10.3.1</span> Spatial verification checks on settlement level</a></li>
+<li><a href="archives.html#spatial-verification-checks-on-sample-point-level" id="toc-spatial-verification-checks-on-sample-point-level"><span class="toc-section-number">10.3.2</span> Spatial verification checks on sample point level</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="archives.html"><a href="archives.html#analayis"><i class="fa fa-check"></i><b>10.4</b> Analayis</a>
+<li><a href="archives.html#analayis" id="toc-analayis"><span class="toc-section-number">10.4</span> Analayis</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="archives.html"><a href="archives.html#hypegrammar"><i class="fa fa-check"></i><b>10.4.1</b> hypegrammaR</a></li>
-<li class="chapter" data-level="10.4.2" data-path="archives.html"><a href="archives.html#butter-survey_collapse"><i class="fa fa-check"></i><b>10.4.2</b> butteR survey_collapse</a></li>
+<li><a href="archives.html#hypegrammar" id="toc-hypegrammar"><span class="toc-section-number">10.4.1</span> hypegrammaR</a></li>
+<li><a href="archives.html#butter-survey_collapse" id="toc-butter-survey_collapse"><span class="toc-section-number">10.4.2</span> butteR survey_collapse</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -361,152 +360,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bar-graphs" class="section level3 hasAnchor" number="8.3.3">
 <h3><span class="header-section-number">8.3.3</span> Bar graphs<a href="outputs.html#bar-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Loading libraries and the main dataset</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="outputs.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb279-2"><a href="outputs.html#cb279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb279-3"><a href="outputs.html#cb279-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb279-4"><a href="outputs.html#cb279-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb279-5"><a href="outputs.html#cb279-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb279-6"><a href="outputs.html#cb279-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape)</span>
-<span id="cb279-7"><a href="outputs.html#cb279-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb279-8"><a href="outputs.html#cb279-8" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="outputs.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb278-2"><a href="outputs.html#cb278-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb278-3"><a href="outputs.html#cb278-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb278-4"><a href="outputs.html#cb278-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb278-5"><a href="outputs.html#cb278-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb278-6"><a href="outputs.html#cb278-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape)</span>
+<span id="cb278-7"><a href="outputs.html#cb278-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb278-8"><a href="outputs.html#cb278-8" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p>Choosing the needed indicator for building bar graph. The indicators in the questionnaire could be in 2 types: Only one answer can be selected (select_one question) and multiple answers can be selected (select_multiple question). Will review it separately.</p>
 <ol style="list-style-type: decimal">
 <li>For select one questions:</li>
 </ol>
 <p>Preparing values for visualization (replacing xml values to lables)</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="outputs.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading questionnaire</span></span>
-<span id="cb280-2"><a href="outputs.html#cb280-2" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb280-3"><a href="outputs.html#cb280-3" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb280-4"><a href="outputs.html#cb280-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-5"><a href="outputs.html#cb280-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type</span></span>
-<span id="cb280-6"><a href="outputs.html#cb280-6" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b9_hohh_marital_status&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb280-7"><a href="outputs.html#cb280-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-8"><a href="outputs.html#cb280-8" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
-<span id="cb280-9"><a href="outputs.html#cb280-9" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
-<span id="cb280-10"><a href="outputs.html#cb280-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
-<span id="cb280-11"><a href="outputs.html#cb280-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb280-12"><a href="outputs.html#cb280-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b9_hohh_marital_status =</span> name, <span class="at">b9_hohh_marital_status_label =</span> <span class="st">&quot;label::English&quot;</span>)</span>
-<span id="cb280-13"><a href="outputs.html#cb280-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-14"><a href="outputs.html#cb280-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the main dataset</span></span>
-<span id="cb280-15"><a href="outputs.html#cb280-15" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, main_dataset, <span class="at">by =</span> <span class="st">&#39;b9_hohh_marital_status&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="outputs.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading questionnaire</span></span>
+<span id="cb279-2"><a href="outputs.html#cb279-2" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb279-3"><a href="outputs.html#cb279-3" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb279-4"><a href="outputs.html#cb279-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb279-5"><a href="outputs.html#cb279-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type</span></span>
+<span id="cb279-6"><a href="outputs.html#cb279-6" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b9_hohh_marital_status&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb279-7"><a href="outputs.html#cb279-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb279-8"><a href="outputs.html#cb279-8" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
+<span id="cb279-9"><a href="outputs.html#cb279-9" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
+<span id="cb279-10"><a href="outputs.html#cb279-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
+<span id="cb279-11"><a href="outputs.html#cb279-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb279-12"><a href="outputs.html#cb279-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b9_hohh_marital_status =</span> name, <span class="at">b9_hohh_marital_status_label =</span> <span class="st">&quot;label::English&quot;</span>)</span>
+<span id="cb279-13"><a href="outputs.html#cb279-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb279-14"><a href="outputs.html#cb279-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the main dataset</span></span>
+<span id="cb279-15"><a href="outputs.html#cb279-15" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, main_dataset, <span class="at">by =</span> <span class="st">&#39;b9_hohh_marital_status&#39;</span>)</span></code></pre></div>
 <p>Building a bar graph</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="outputs.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>((main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb281-2"><a href="outputs.html#cb281-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(b9_hohh_marital_status_label)) <span class="sc">%&gt;%</span></span>
-<span id="cb281-3"><a href="outputs.html#cb281-3" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">group_by</span>(b9_hohh_marital_status_label) <span class="sc">%&gt;%</span></span>
-<span id="cb281-4"><a href="outputs.html#cb281-4" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">weight_sum =</span> <span class="fu">round</span>(<span class="fu">sum</span>(stratum.weight), <span class="dv">2</span>))), <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b9_hohh_marital_status_label, weight_sum), <span class="at">x =</span> weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum))) <span class="sc">+</span></span>
-<span id="cb281-5"><a href="outputs.html#cb281-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
-<span id="cb281-6"><a href="outputs.html#cb281-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>((weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum)<span class="sc">*</span><span class="dv">100</span>),<span class="dv">0</span>),<span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb281-7"><a href="outputs.html#cb281-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb281-8"><a href="outputs.html#cb281-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb281-9"><a href="outputs.html#cb281-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="outputs.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>((main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb280-2"><a href="outputs.html#cb280-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(b9_hohh_marital_status_label)) <span class="sc">%&gt;%</span></span>
+<span id="cb280-3"><a href="outputs.html#cb280-3" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">group_by</span>(b9_hohh_marital_status_label) <span class="sc">%&gt;%</span></span>
+<span id="cb280-4"><a href="outputs.html#cb280-4" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">weight_sum =</span> <span class="fu">round</span>(<span class="fu">sum</span>(stratum.weight), <span class="dv">2</span>))), <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b9_hohh_marital_status_label, weight_sum), <span class="at">x =</span> weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum))) <span class="sc">+</span></span>
+<span id="cb280-5"><a href="outputs.html#cb280-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
+<span id="cb280-6"><a href="outputs.html#cb280-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>((weight_sum<span class="sc">/</span><span class="fu">sum</span>(weight_sum)<span class="sc">*</span><span class="dv">100</span>),<span class="dv">0</span>),<span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb280-7"><a href="outputs.html#cb280-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb280-8"><a href="outputs.html#cb280-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb280-9"><a href="outputs.html#cb280-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <p>Removing temporary data</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="outputs.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="outputs.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>For select multiple questions:</li>
 </ol>
 <p>Preparing values for visualization (replacing xml values to lables; calculating results)</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="outputs.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting needed columns from the main dataset (indicator and weight)</span></span>
-<span id="cb283-2"><a href="outputs.html#cb283-2" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> main_dataset[,<span class="fu">grepl</span>(<span class="st">&quot;b10_hohh_vulnerability.|stratum.weight&quot;</span>, <span class="fu">names</span>(main_dataset))]</span>
-<span id="cb283-3"><a href="outputs.html#cb283-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-4"><a href="outputs.html#cb283-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the dataset</span></span>
-<span id="cb283-5"><a href="outputs.html#cb283-5" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">melt</span>(visual_dataset, <span class="at">id.vars =</span> <span class="st">&quot;stratum.weight&quot;</span>)</span>
-<span id="cb283-6"><a href="outputs.html#cb283-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-7"><a href="outputs.html#cb283-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouping by choices and getting sum of weights</span></span>
-<span id="cb283-8"><a href="outputs.html#cb283-8" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> visual_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb283-9"><a href="outputs.html#cb283-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> stratum.weight <span class="sc">*</span> value) <span class="sc">%&gt;%</span></span>
-<span id="cb283-10"><a href="outputs.html#cb283-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span> </span>
-<span id="cb283-11"><a href="outputs.html#cb283-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight))) <span class="sc">%&gt;%</span></span>
-<span id="cb283-12"><a href="outputs.html#cb283-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> <span class="fu">round</span>(weight_sum <span class="sc">/</span> <span class="fu">sum</span>(main_dataset<span class="sc">$</span>stratum.weight)<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb283-13"><a href="outputs.html#cb283-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> variable)</span>
-<span id="cb283-14"><a href="outputs.html#cb283-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-15"><a href="outputs.html#cb283-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type and replacing xmls to the labels and </span></span>
-<span id="cb283-16"><a href="outputs.html#cb283-16" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b10_hohh_vulnerability&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb283-17"><a href="outputs.html#cb283-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-18"><a href="outputs.html#cb283-18" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
-<span id="cb283-19"><a href="outputs.html#cb283-19" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
-<span id="cb283-20"><a href="outputs.html#cb283-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
-<span id="cb283-21"><a href="outputs.html#cb283-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb283-22"><a href="outputs.html#cb283-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> name, <span class="at">b10_hohh_vulnerability_label =</span> <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb283-23"><a href="outputs.html#cb283-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">b10_hohh_vulnerability =</span> <span class="fu">paste0</span>(<span class="st">&quot;b10_hohh_vulnerability.&quot;</span>, b10_hohh_vulnerability))</span>
-<span id="cb283-24"><a href="outputs.html#cb283-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb283-25"><a href="outputs.html#cb283-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the visualization dataset</span></span>
-<span id="cb283-26"><a href="outputs.html#cb283-26" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, visual_dataset, <span class="at">by =</span> <span class="st">&#39;b10_hohh_vulnerability&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="outputs.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting needed columns from the main dataset (indicator and weight)</span></span>
+<span id="cb282-2"><a href="outputs.html#cb282-2" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> main_dataset[,<span class="fu">grepl</span>(<span class="st">&quot;b10_hohh_vulnerability.|stratum.weight&quot;</span>, <span class="fu">names</span>(main_dataset))]</span>
+<span id="cb282-3"><a href="outputs.html#cb282-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-4"><a href="outputs.html#cb282-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the dataset</span></span>
+<span id="cb282-5"><a href="outputs.html#cb282-5" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">melt</span>(visual_dataset, <span class="at">id.vars =</span> <span class="st">&quot;stratum.weight&quot;</span>)</span>
+<span id="cb282-6"><a href="outputs.html#cb282-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-7"><a href="outputs.html#cb282-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouping by choices and getting sum of weights</span></span>
+<span id="cb282-8"><a href="outputs.html#cb282-8" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> visual_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb282-9"><a href="outputs.html#cb282-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight =</span> stratum.weight <span class="sc">*</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb282-10"><a href="outputs.html#cb282-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span> </span>
+<span id="cb282-11"><a href="outputs.html#cb282-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight))) <span class="sc">%&gt;%</span></span>
+<span id="cb282-12"><a href="outputs.html#cb282-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> <span class="fu">round</span>(weight_sum <span class="sc">/</span> <span class="fu">sum</span>(main_dataset<span class="sc">$</span>stratum.weight)<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb282-13"><a href="outputs.html#cb282-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> variable)</span>
+<span id="cb282-14"><a href="outputs.html#cb282-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-15"><a href="outputs.html#cb282-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on value we get option type and replacing xmls to the labels and </span></span>
+<span id="cb282-16"><a href="outputs.html#cb282-16" aria-hidden="true" tabindex="-1"></a>q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(questions[questions<span class="sc">$</span>name <span class="sc">==</span> <span class="st">&quot;b10_hohh_vulnerability&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(questions<span class="sc">$</span>name), <span class="st">&quot;type&quot;</span>], <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb282-17"><a href="outputs.html#cb282-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-18"><a href="outputs.html#cb282-18" aria-hidden="true" tabindex="-1"></a><span class="co"># New table with xml and labels</span></span>
+<span id="cb282-19"><a href="outputs.html#cb282-19" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> choices <span class="sc">%&gt;%</span></span>
+<span id="cb282-20"><a href="outputs.html#cb282-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span></span>
+<span id="cb282-21"><a href="outputs.html#cb282-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb282-22"><a href="outputs.html#cb282-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">b10_hohh_vulnerability =</span> name, <span class="at">b10_hohh_vulnerability_label =</span> <span class="st">&quot;label::English&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb282-23"><a href="outputs.html#cb282-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">b10_hohh_vulnerability =</span> <span class="fu">paste0</span>(<span class="st">&quot;b10_hohh_vulnerability.&quot;</span>, b10_hohh_vulnerability))</span>
+<span id="cb282-24"><a href="outputs.html#cb282-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-25"><a href="outputs.html#cb282-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column with English labels to the visualization dataset</span></span>
+<span id="cb282-26"><a href="outputs.html#cb282-26" aria-hidden="true" tabindex="-1"></a>visual_dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(labels, visual_dataset, <span class="at">by =</span> <span class="st">&#39;b10_hohh_vulnerability&#39;</span>)</span></code></pre></div>
 <p>Building a bar graph</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="outputs.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(visual_dataset, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b10_hohh_vulnerability_label, percentage), <span class="at">x =</span> percentage)) <span class="sc">+</span></span>
-<span id="cb284-2"><a href="outputs.html#cb284-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
-<span id="cb284-3"><a href="outputs.html#cb284-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(percentage, <span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb284-4"><a href="outputs.html#cb284-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb284-5"><a href="outputs.html#cb284-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb284-6"><a href="outputs.html#cb284-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="outputs.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(visual_dataset, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(b10_hohh_vulnerability_label, percentage), <span class="at">x =</span> percentage)) <span class="sc">+</span></span>
+<span id="cb283-2"><a href="outputs.html#cb283-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#EE5859&quot;</span>) <span class="sc">+</span></span>
+<span id="cb283-3"><a href="outputs.html#cb283-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(percentage, <span class="st">&quot;%&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb283-4"><a href="outputs.html#cb283-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb283-5"><a href="outputs.html#cb283-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#58585A&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb283-6"><a href="outputs.html#cb283-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
 <p>Removing temporary data</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="outputs.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="outputs.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(labels, q.list_name)</span></code></pre></div>
 </div>
 <div id="euler-diagram" class="section level3 hasAnchor" number="8.3.4">
 <h3><span class="header-section-number">8.3.4</span> Euler diagram<a href="outputs.html#euler-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><em>An Euler diagram is a diagrammatic means of representing sets and their relationships. They are particularly useful for explaining complex hierarchies and overlapping definitions. They are similar to another set diagramming technique, Venn diagrams. Unlike Venn diagrams, which show all possible relations between different sets, the Euler diagram shows only relevant relationships. <a href="https://en.wikipedia.org/wiki/Euler_diagram">Source</a></em></p>
 <p>First let’s load <a href="https://cran.r-project.org/web/packages/eulerr/vignettes/introduction.html">Eulerr library</a> and our dataset</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="outputs.html#cb286-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="outputs.html#cb285-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p>Euler diagrams are particularly useful to visualize overlaps between HH characteristics that help better understand the demographic profile of the area. For example, let’s visualize overlaps between such HH characteristics as age, displacement status, income level, disability, and employment status.</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="outputs.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eulerr)</span>
-<span id="cb287-2"><a href="outputs.html#cb287-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb287-3"><a href="outputs.html#cb287-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb287-4"><a href="outputs.html#cb287-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb287-5"><a href="outputs.html#cb287-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb287-6"><a href="outputs.html#cb287-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb287-7"><a href="outputs.html#cb287-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb287-8"><a href="outputs.html#cb287-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(UpSetR)</span>
-<span id="cb287-9"><a href="outputs.html#cb287-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb287-10"><a href="outputs.html#cb287-10" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb287-11"><a href="outputs.html#cb287-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,</span>
-<span id="cb287-12"><a href="outputs.html#cb287-12" aria-hidden="true" tabindex="-1"></a>           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)<span class="sc">%&gt;%</span></span>
-<span id="cb287-13"><a href="outputs.html#cb287-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select all necessary columns</span></span>
-<span id="cb287-14"><a href="outputs.html#cb287-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">displaced =</span> <span class="fu">ifelse</span>(d1_hh_displacement_status <span class="sc">==</span> <span class="st">&quot;no&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb287-15"><a href="outputs.html#cb287-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">low_income =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(b15_hohh_income) <span class="sc">&gt;=</span> <span class="dv">2189</span>, <span class="dv">0</span>, <span class="dv">1</span>))<span class="sc">%&gt;%</span> <span class="co">#2189 UAH(83$) is minimal monthly income in 2020</span></span>
-<span id="cb287-16"><a href="outputs.html#cb287-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate binary indicators in case they are not available in the dataset directly from select multiple questions</span></span>
-<span id="cb287-17"><a href="outputs.html#cb287-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>d1_hh_displacement_status, <span class="sc">-</span>b15_hohh_income)<span class="sc">%&gt;%</span></span>
-<span id="cb287-18"><a href="outputs.html#cb287-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;disability&quot;</span>, <span class="st">&quot;60+&quot;</span>, <span class="st">&quot;unemployed&quot;</span>, <span class="st">&quot;uuid&quot;</span>, <span class="st">&quot;strata&quot;</span>, <span class="st">&quot;weight&quot;</span>, <span class="st">&quot;displaced&quot;</span>, <span class="st">&quot;low_income&quot;</span>))</span>
-<span id="cb287-19"><a href="outputs.html#cb287-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#remove unnecessary columns and rename other column</span></span>
-<span id="cb287-20"><a href="outputs.html#cb287-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb287-21"><a href="outputs.html#cb287-21" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> <span class="co">#create column that will combine all binary columns into one (same approach as in </span><span class="al">###</span><span class="co"> Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)</span></span>
-<span id="cb287-22"><a href="outputs.html#cb287-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map2_df</span>(vulnerability_data, <span class="fu">names</span>(vulnerability_data), <span class="sc">~</span>  <span class="fu">replace</span>(.x, .x<span class="sc">==</span><span class="dv">1</span>, .y) <span class="sc">%&gt;%</span> </span>
-<span id="cb287-23"><a href="outputs.html#cb287-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb287-24"><a href="outputs.html#cb287-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(combined, disability, <span class="st">`</span><span class="at">60+</span><span class="st">`</span>, displaced, low_income, unemployed, <span class="at">remove =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;&amp;&#39;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb287-25"><a href="outputs.html#cb287-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>combined <span class="sc">==</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb287-26"><a href="outputs.html#cb287-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb287-27"><a href="outputs.html#cb287-27" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate weighted summary statistics for each combination</span></span>
-<span id="cb287-28"><a href="outputs.html#cb287-28" aria-hidden="true" tabindex="-1"></a>vulnerability_summary <span class="ot">&lt;-</span> vulnerability_data <span class="sc">%&gt;%</span></span>
-<span id="cb287-29"><a href="outputs.html#cb287-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(strata, weight, combined)<span class="sc">%&gt;%</span> </span>
-<span id="cb287-30"><a href="outputs.html#cb287-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(combined) <span class="sc">%&gt;%</span> </span>
-<span id="cb287-31"><a href="outputs.html#cb287-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight)))<span class="sc">%&gt;%</span></span>
-<span id="cb287-32"><a href="outputs.html#cb287-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">per =</span> weight_sum <span class="sc">/</span> <span class="fu">sum</span>(weight_sum) <span class="sc">*</span> <span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb287-33"><a href="outputs.html#cb287-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(per <span class="sc">&gt;</span> <span class="dv">1</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb287-34"><a href="outputs.html#cb287-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>weight_sum)</span>
-<span id="cb287-35"><a href="outputs.html#cb287-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb287-36"><a href="outputs.html#cb287-36" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data frame into named numeric vector that is used by plot function</span></span>
-<span id="cb287-37"><a href="outputs.html#cb287-37" aria-hidden="true" tabindex="-1"></a>vulnerability_input <span class="ot">&lt;-</span>  vulnerability_summary <span class="sc">%&gt;%</span></span>
-<span id="cb287-38"><a href="outputs.html#cb287-38" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">deframe</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="outputs.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eulerr)</span>
+<span id="cb286-2"><a href="outputs.html#cb286-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb286-3"><a href="outputs.html#cb286-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb286-4"><a href="outputs.html#cb286-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb286-5"><a href="outputs.html#cb286-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb286-6"><a href="outputs.html#cb286-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb286-7"><a href="outputs.html#cb286-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb286-8"><a href="outputs.html#cb286-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(UpSetR)</span>
+<span id="cb286-9"><a href="outputs.html#cb286-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb286-10"><a href="outputs.html#cb286-10" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb286-11"><a href="outputs.html#cb286-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(b10_hohh_vulnerability.disability_not_including_chronic_illness,b10_hohh_vulnerability.older_person,</span>
+<span id="cb286-12"><a href="outputs.html#cb286-12" aria-hidden="true" tabindex="-1"></a>           b10_hohh_vulnerability.unemployed,d1_hh_displacement_status,b15_hohh_income,X_uuid, strata, stratum.weight)<span class="sc">%&gt;%</span></span>
+<span id="cb286-13"><a href="outputs.html#cb286-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select all necessary columns</span></span>
+<span id="cb286-14"><a href="outputs.html#cb286-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">displaced =</span> <span class="fu">ifelse</span>(d1_hh_displacement_status <span class="sc">==</span> <span class="st">&quot;no&quot;</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb286-15"><a href="outputs.html#cb286-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">low_income =</span> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(b15_hohh_income) <span class="sc">&gt;=</span> <span class="dv">2189</span>, <span class="dv">0</span>, <span class="dv">1</span>))<span class="sc">%&gt;%</span> <span class="co">#2189 UAH(83$) is minimal monthly income in 2020</span></span>
+<span id="cb286-16"><a href="outputs.html#cb286-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate binary indicators in case they are not available in the dataset directly from select multiple questions</span></span>
+<span id="cb286-17"><a href="outputs.html#cb286-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>d1_hh_displacement_status, <span class="sc">-</span>b15_hohh_income)<span class="sc">%&gt;%</span></span>
+<span id="cb286-18"><a href="outputs.html#cb286-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;disability&quot;</span>, <span class="st">&quot;60+&quot;</span>, <span class="st">&quot;unemployed&quot;</span>, <span class="st">&quot;uuid&quot;</span>, <span class="st">&quot;strata&quot;</span>, <span class="st">&quot;weight&quot;</span>, <span class="st">&quot;displaced&quot;</span>, <span class="st">&quot;low_income&quot;</span>))</span>
+<span id="cb286-19"><a href="outputs.html#cb286-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#remove unnecessary columns and rename other column</span></span>
+<span id="cb286-20"><a href="outputs.html#cb286-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb286-21"><a href="outputs.html#cb286-21" aria-hidden="true" tabindex="-1"></a>vulnerability_data <span class="ot">&lt;-</span> <span class="co">#create column that will combine all binary columns into one (same approach as in </span><span class="al">###</span><span class="co"> Re-generate text                             column  for select multiple questions section of Data Cleaning chapter)</span></span>
+<span id="cb286-22"><a href="outputs.html#cb286-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map2_df</span>(vulnerability_data, <span class="fu">names</span>(vulnerability_data), <span class="sc">~</span>  <span class="fu">replace</span>(.x, .x<span class="sc">==</span><span class="dv">1</span>, .y) <span class="sc">%&gt;%</span> </span>
+<span id="cb286-23"><a href="outputs.html#cb286-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replace</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb286-24"><a href="outputs.html#cb286-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(combined, disability, <span class="st">`</span><span class="at">60+</span><span class="st">`</span>, displaced, low_income, unemployed, <span class="at">remove =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;&amp;&#39;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb286-25"><a href="outputs.html#cb286-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>combined <span class="sc">==</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb286-26"><a href="outputs.html#cb286-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb286-27"><a href="outputs.html#cb286-27" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate weighted summary statistics for each combination</span></span>
+<span id="cb286-28"><a href="outputs.html#cb286-28" aria-hidden="true" tabindex="-1"></a>vulnerability_summary <span class="ot">&lt;-</span> vulnerability_data <span class="sc">%&gt;%</span></span>
+<span id="cb286-29"><a href="outputs.html#cb286-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(strata, weight, combined)<span class="sc">%&gt;%</span> </span>
+<span id="cb286-30"><a href="outputs.html#cb286-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(combined) <span class="sc">%&gt;%</span> </span>
+<span id="cb286-31"><a href="outputs.html#cb286-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight_sum =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(weight)))<span class="sc">%&gt;%</span></span>
+<span id="cb286-32"><a href="outputs.html#cb286-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">per =</span> weight_sum <span class="sc">/</span> <span class="fu">sum</span>(weight_sum) <span class="sc">*</span> <span class="dv">100</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb286-33"><a href="outputs.html#cb286-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(per <span class="sc">&gt;</span> <span class="dv">1</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb286-34"><a href="outputs.html#cb286-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>weight_sum)</span>
+<span id="cb286-35"><a href="outputs.html#cb286-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb286-36"><a href="outputs.html#cb286-36" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data frame into named numeric vector that is used by plot function</span></span>
+<span id="cb286-37"><a href="outputs.html#cb286-37" aria-hidden="true" tabindex="-1"></a>vulnerability_input <span class="ot">&lt;-</span>  vulnerability_summary <span class="sc">%&gt;%</span></span>
+<span id="cb286-38"><a href="outputs.html#cb286-38" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">deframe</span>()</span></code></pre></div>
 <p>In this block we will build euler diagram using REACH color palette and some basic styling.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="outputs.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">euler</span>(vulnerability_input),</span>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="outputs.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">euler</span>(vulnerability_input),</span>
+<span id="cb287-2"><a href="outputs.html#cb287-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb287-3"><a href="outputs.html#cb287-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>),</span>
+<span id="cb287-4"><a href="outputs.html#cb287-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
+<span id="cb287-5"><a href="outputs.html#cb287-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
+<span id="cb287-6"><a href="outputs.html#cb287-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>)</span>
+<span id="cb287-7"><a href="outputs.html#cb287-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
+<p>As an alternative, we also can build a Venn diagram that shows each relation (even not possible in reality). As you can see Venn diagram in this case is less readable and usable.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="outputs.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">venn</span>(vulnerability_input),</span>
 <span id="cb288-2"><a href="outputs.html#cb288-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb288-3"><a href="outputs.html#cb288-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>),</span>
+<span id="cb288-3"><a href="outputs.html#cb288-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>), </span>
 <span id="cb288-4"><a href="outputs.html#cb288-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
 <span id="cb288-5"><a href="outputs.html#cb288-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
-<span id="cb288-6"><a href="outputs.html#cb288-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>)</span>
-<span id="cb288-7"><a href="outputs.html#cb288-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
-<p>As an alternative, we also can build a Venn diagram that shows each relation (even not possible in reality). As you can see Venn diagram in this case is less readable and usable.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="outputs.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">venn</span>(vulnerability_input),</span>
-<span id="cb289-2"><a href="outputs.html#cb289-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">edges =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb289-3"><a href="outputs.html#cb289-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;percent&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>), </span>
-<span id="cb289-4"><a href="outputs.html#cb289-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>),</span>
-<span id="cb289-5"><a href="outputs.html#cb289-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;60+&quot;</span>, <span class="st">&quot;Displaced&quot;</span>, <span class="st">&quot;Low income&quot;</span>, <span class="st">&quot;Disability&quot;</span>, <span class="st">&quot;Unemployed&quot;</span>)),</span>
-<span id="cb289-6"><a href="outputs.html#cb289-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-152-1.png" width="672" />
+<span id="cb288-6"><a href="outputs.html#cb288-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">fills =</span> <span class="fu">c</span>(<span class="st">&quot;#7CB6C4&quot;</span>,<span class="st">&quot;#B6C8B1&quot;</span>,<span class="st">&quot;#F6E3E3&quot;</span>,<span class="st">&quot;#D1CAB8&quot;</span>,<span class="st">&quot;#D1D3D4&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-153-1.png" width="672" />
 Another popular type of diagram that shows relation is <a href="https://github.com/hms-dbmi/UpSetR">UpSetR diagram</a>. Even with default styling, it’s quite good in the visualization of intersections between different HH characteristics.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="outputs.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">fromExpression</span>(vulnerability_input), <span class="at">order.by =</span> <span class="st">&quot;freq&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="outputs.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">fromExpression</span>(vulnerability_input), <span class="at">order.by =</span> <span class="st">&quot;freq&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
 </div>
 <div id="venn-diagram" class="section level3 hasAnchor" number="8.3.5">
 <h3><span class="header-section-number">8.3.5</span> Venn diagram<a href="outputs.html#venn-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -524,139 +523,139 @@ Another popular type of diagram that shows relation is <a href="https://github.c
 <h3><span class="header-section-number">8.4.1</span> Xml to Label<a href="outputs.html#xml-to-label" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code transform column headers, select_one and select_multiple values from XML to Label.</p>
 <p>Loading Libraries</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="outputs.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="outputs.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Dataset column headers function</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="outputs.html#cb292-1" aria-hidden="true" tabindex="-1"></a>xml2label_question <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, col){</span>
-<span id="cb292-2"><a href="outputs.html#cb292-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column check if it is a select multiple</span></span>
-<span id="cb292-3"><a href="outputs.html#cb292-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">str_detect</span>(col, <span class="st">&quot;/&quot;</span>)) {</span>
-<span id="cb292-4"><a href="outputs.html#cb292-4" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
-<span id="cb292-5"><a href="outputs.html#cb292-5" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tail</span>(<span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]], <span class="sc">-</span><span class="dv">1</span>), <span class="at">collapse=</span><span class="st">&quot;/&quot;</span>)</span>
-<span id="cb292-6"><a href="outputs.html#cb292-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb292-7"><a href="outputs.html#cb292-7" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> col</span>
-<span id="cb292-8"><a href="outputs.html#cb292-8" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb292-9"><a href="outputs.html#cb292-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb292-10"><a href="outputs.html#cb292-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb292-11"><a href="outputs.html#cb292-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># returning the label and make sure to include the label of multiple choices after /</span></span>
-<span id="cb292-12"><a href="outputs.html#cb292-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q.name <span class="sc">%in%</span> tool_survey<span class="sc">$</span>name){</span>
-<span id="cb292-13"><a href="outputs.html#cb292-13" aria-hidden="true" tabindex="-1"></a>    q <span class="ot">&lt;-</span> tool_survey[tool_survey<span class="sc">$</span>name<span class="sc">==</span>q.name,]</span>
-<span id="cb292-14"><a href="outputs.html#cb292-14" aria-hidden="true" tabindex="-1"></a>    q.label <span class="ot">&lt;-</span> q<span class="sc">$</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span></span>
-<span id="cb292-15"><a href="outputs.html#cb292-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.na</span>(q.label) <span class="sc">|</span> q<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;note&quot;</span>)) q.label <span class="ot">&lt;-</span> q.name</span>
-<span id="cb292-16"><a href="outputs.html#cb292-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(c.name)){</span>
-<span id="cb292-17"><a href="outputs.html#cb292-17" aria-hidden="true" tabindex="-1"></a>      q.list_name<span class="ot">=</span><span class="fu">ifelse</span>(q<span class="sc">$</span>list_name<span class="sc">==</span><span class="st">&quot;NA&quot;</span>, <span class="cn">NA</span>, q<span class="sc">$</span>list_name)</span>
-<span id="cb292-18"><a href="outputs.html#cb292-18" aria-hidden="true" tabindex="-1"></a>      c.label <span class="ot">&lt;-</span> tool_choices[tool_choices<span class="sc">$</span>list_name<span class="sc">==</span>q.list_name <span class="sc">&amp;</span> tool_choices<span class="sc">$</span>name<span class="sc">==</span>c.name, <span class="st">&quot;label::english&quot;</span>]</span>
-<span id="cb292-19"><a href="outputs.html#cb292-19" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> c.label <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb292-20"><a href="outputs.html#cb292-20" aria-hidden="true" tabindex="-1"></a>    label <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(c.label), q.label, <span class="fu">paste0</span>(q.label, <span class="st">&quot;/&quot;</span>, c.label))</span>
-<span id="cb292-21"><a href="outputs.html#cb292-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> label <span class="ot">&lt;-</span> q.name</span>
-<span id="cb292-22"><a href="outputs.html#cb292-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(label)</span>
-<span id="cb292-23"><a href="outputs.html#cb292-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="outputs.html#cb291-1" aria-hidden="true" tabindex="-1"></a>xml2label_question <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, col){</span>
+<span id="cb291-2"><a href="outputs.html#cb291-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column check if it is a select multiple</span></span>
+<span id="cb291-3"><a href="outputs.html#cb291-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">str_detect</span>(col, <span class="st">&quot;/&quot;</span>)) {</span>
+<span id="cb291-4"><a href="outputs.html#cb291-4" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
+<span id="cb291-5"><a href="outputs.html#cb291-5" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">tail</span>(<span class="fu">str_split</span>(col, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]], <span class="sc">-</span><span class="dv">1</span>), <span class="at">collapse=</span><span class="st">&quot;/&quot;</span>)</span>
+<span id="cb291-6"><a href="outputs.html#cb291-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb291-7"><a href="outputs.html#cb291-7" aria-hidden="true" tabindex="-1"></a>    q.name <span class="ot">&lt;-</span> col</span>
+<span id="cb291-8"><a href="outputs.html#cb291-8" aria-hidden="true" tabindex="-1"></a>    c.name <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb291-9"><a href="outputs.html#cb291-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb291-10"><a href="outputs.html#cb291-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb291-11"><a href="outputs.html#cb291-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># returning the label and make sure to include the label of multiple choices after /</span></span>
+<span id="cb291-12"><a href="outputs.html#cb291-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q.name <span class="sc">%in%</span> tool_survey<span class="sc">$</span>name){</span>
+<span id="cb291-13"><a href="outputs.html#cb291-13" aria-hidden="true" tabindex="-1"></a>    q <span class="ot">&lt;-</span> tool_survey[tool_survey<span class="sc">$</span>name<span class="sc">==</span>q.name,]</span>
+<span id="cb291-14"><a href="outputs.html#cb291-14" aria-hidden="true" tabindex="-1"></a>    q.label <span class="ot">&lt;-</span> q<span class="sc">$</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span></span>
+<span id="cb291-15"><a href="outputs.html#cb291-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.na</span>(q.label) <span class="sc">|</span> q<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;note&quot;</span>)) q.label <span class="ot">&lt;-</span> q.name</span>
+<span id="cb291-16"><a href="outputs.html#cb291-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(c.name)){</span>
+<span id="cb291-17"><a href="outputs.html#cb291-17" aria-hidden="true" tabindex="-1"></a>      q.list_name<span class="ot">=</span><span class="fu">ifelse</span>(q<span class="sc">$</span>list_name<span class="sc">==</span><span class="st">&quot;NA&quot;</span>, <span class="cn">NA</span>, q<span class="sc">$</span>list_name)</span>
+<span id="cb291-18"><a href="outputs.html#cb291-18" aria-hidden="true" tabindex="-1"></a>      c.label <span class="ot">&lt;-</span> tool_choices[tool_choices<span class="sc">$</span>list_name<span class="sc">==</span>q.list_name <span class="sc">&amp;</span> tool_choices<span class="sc">$</span>name<span class="sc">==</span>c.name, <span class="st">&quot;label::english&quot;</span>]</span>
+<span id="cb291-19"><a href="outputs.html#cb291-19" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> c.label <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb291-20"><a href="outputs.html#cb291-20" aria-hidden="true" tabindex="-1"></a>    label <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(c.label), q.label, <span class="fu">paste0</span>(q.label, <span class="st">&quot;/&quot;</span>, c.label))</span>
+<span id="cb291-21"><a href="outputs.html#cb291-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> label <span class="ot">&lt;-</span> q.name</span>
+<span id="cb291-22"><a href="outputs.html#cb291-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(label)</span>
+<span id="cb291-23"><a href="outputs.html#cb291-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Select_one values function</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="outputs.html#cb293-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_one <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
-<span id="cb293-2"><a href="outputs.html#cb293-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select the type column from each select_one question</span></span>
-<span id="cb293-3"><a href="outputs.html#cb293-3" aria-hidden="true" tabindex="-1"></a>  q.type <span class="ot">&lt;-</span> tool_survey<span class="sc">$</span>type[tool_survey<span class="sc">$</span>name<span class="sc">==</span>col]</span>
-<span id="cb293-4"><a href="outputs.html#cb293-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb293-5"><a href="outputs.html#cb293-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># take the id of the choices to get the list name</span></span>
-<span id="cb293-6"><a href="outputs.html#cb293-6" aria-hidden="true" tabindex="-1"></a>  q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(q.type, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb293-7"><a href="outputs.html#cb293-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb293-8"><a href="outputs.html#cb293-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># export the choices relevant to each select_one question</span></span>
-<span id="cb293-9"><a href="outputs.html#cb293-9" aria-hidden="true" tabindex="-1"></a>  choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb293-10"><a href="outputs.html#cb293-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label=</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
-<span id="cb293-11"><a href="outputs.html#cb293-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb293-12"><a href="outputs.html#cb293-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replace the xml with label using left_join</span></span>
-<span id="cb293-13"><a href="outputs.html#cb293-13" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(data[[col]])) <span class="sc">%&gt;%</span> </span>
-<span id="cb293-14"><a href="outputs.html#cb293-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
-<span id="cb293-15"><a href="outputs.html#cb293-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb293-16"><a href="outputs.html#cb293-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors </span></span>
-<span id="cb293-17"><a href="outputs.html#cb293-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>label)</span>
-<span id="cb293-18"><a href="outputs.html#cb293-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="outputs.html#cb292-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_one <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
+<span id="cb292-2"><a href="outputs.html#cb292-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select the type column from each select_one question</span></span>
+<span id="cb292-3"><a href="outputs.html#cb292-3" aria-hidden="true" tabindex="-1"></a>  q.type <span class="ot">&lt;-</span> tool_survey<span class="sc">$</span>type[tool_survey<span class="sc">$</span>name<span class="sc">==</span>col]</span>
+<span id="cb292-4"><a href="outputs.html#cb292-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb292-5"><a href="outputs.html#cb292-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># take the id of the choices to get the list name</span></span>
+<span id="cb292-6"><a href="outputs.html#cb292-6" aria-hidden="true" tabindex="-1"></a>  q.list_name <span class="ot">&lt;-</span> <span class="fu">str_split</span>(q.type, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb292-7"><a href="outputs.html#cb292-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb292-8"><a href="outputs.html#cb292-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># export the choices relevant to each select_one question</span></span>
+<span id="cb292-9"><a href="outputs.html#cb292-9" aria-hidden="true" tabindex="-1"></a>  choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> <span class="fu">filter</span>(list_name <span class="sc">==</span> q.list_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb292-10"><a href="outputs.html#cb292-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label=</span><span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
+<span id="cb292-11"><a href="outputs.html#cb292-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb292-12"><a href="outputs.html#cb292-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replace the xml with label using left_join</span></span>
+<span id="cb292-13"><a href="outputs.html#cb292-13" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(data[[col]])) <span class="sc">%&gt;%</span> </span>
+<span id="cb292-14"><a href="outputs.html#cb292-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
+<span id="cb292-15"><a href="outputs.html#cb292-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb292-16"><a href="outputs.html#cb292-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors </span></span>
+<span id="cb292-17"><a href="outputs.html#cb292-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>label)</span>
+<span id="cb292-18"><a href="outputs.html#cb292-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Select_multiple values function</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="outputs.html#cb294-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_multiple <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
-<span id="cb294-2"><a href="outputs.html#cb294-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select all the columns with all the options for each select_multiple</span></span>
-<span id="cb294-3"><a href="outputs.html#cb294-3" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb294-4"><a href="outputs.html#cb294-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">contains</span>(<span class="fu">paste0</span>(col,<span class="st">&quot;/&quot;</span>)))</span>
-<span id="cb294-5"><a href="outputs.html#cb294-5" aria-hidden="true" tabindex="-1"></a>  col_internal <span class="ot">&lt;-</span> <span class="fu">colnames</span>(d.join)</span>
-<span id="cb294-6"><a href="outputs.html#cb294-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb294-7"><a href="outputs.html#cb294-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column with options</span></span>
-<span id="cb294-8"><a href="outputs.html#cb294-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_internal)){</span>
-<span id="cb294-9"><a href="outputs.html#cb294-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># change all 1&#39;s to the xml answer</span></span>
-<span id="cb294-10"><a href="outputs.html#cb294-10" aria-hidden="true" tabindex="-1"></a>    xml_answer <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col_internal[j], <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
-<span id="cb294-11"><a href="outputs.html#cb294-11" aria-hidden="true" tabindex="-1"></a>    d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
-<span id="cb294-12"><a href="outputs.html#cb294-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, xml_answer, <span class="cn">NA</span>))</span>
-<span id="cb294-13"><a href="outputs.html#cb294-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb294-14"><a href="outputs.html#cb294-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the list of the xml and label options for each select multiple questions</span></span>
-<span id="cb294-15"><a href="outputs.html#cb294-15" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> <span class="fu">filter</span>(tool_survey, <span class="fu">str_starts</span>(name, <span class="fu">str_split</span>(col_internal[j],<span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])) <span class="sc">%&gt;%</span> </span>
-<span id="cb294-16"><a href="outputs.html#cb294-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(list_name)</span>
-<span id="cb294-17"><a href="outputs.html#cb294-17" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> choice_id<span class="sc">$</span>list_name</span>
-<span id="cb294-18"><a href="outputs.html#cb294-18" aria-hidden="true" tabindex="-1"></a>    t.choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> </span>
-<span id="cb294-19"><a href="outputs.html#cb294-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(list_name <span class="sc">==</span> choice_id) <span class="sc">%&gt;%</span> </span>
-<span id="cb294-20"><a href="outputs.html#cb294-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label =</span> <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
-<span id="cb294-21"><a href="outputs.html#cb294-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb294-22"><a href="outputs.html#cb294-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replace the xml with label using left_join</span></span>
-<span id="cb294-23"><a href="outputs.html#cb294-23" aria-hidden="true" tabindex="-1"></a>    d.new.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(d.join[[col_internal[j]]])) <span class="sc">%&gt;%</span></span>
-<span id="cb294-24"><a href="outputs.html#cb294-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">left_join</span>(t.choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
-<span id="cb294-25"><a href="outputs.html#cb294-25" aria-hidden="true" tabindex="-1"></a>    d.join[col_internal[j]] <span class="ot">&lt;-</span> d.new.join<span class="sc">$</span>label</span>
-<span id="cb294-26"><a href="outputs.html#cb294-26" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb294-27"><a href="outputs.html#cb294-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb294-28"><a href="outputs.html#cb294-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># concatenate all the answers, removing NAs in one cell and separated by a &#39;;&#39; </span></span>
-<span id="cb294-29"><a href="outputs.html#cb294-29" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
-<span id="cb294-30"><a href="outputs.html#cb294-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">&quot;Merged&quot;</span>, <span class="fu">everything</span>(), <span class="at">sep=</span> <span class="st">&quot;;&quot;</span>, <span class="at">na.rm =</span> T)</span>
-<span id="cb294-31"><a href="outputs.html#cb294-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb294-32"><a href="outputs.html#cb294-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors</span></span>
-<span id="cb294-33"><a href="outputs.html#cb294-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>Merged)</span>
-<span id="cb294-34"><a href="outputs.html#cb294-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="outputs.html#cb293-1" aria-hidden="true" tabindex="-1"></a>xml2label_choices_multiple <span class="ot">&lt;-</span> <span class="cf">function</span>(tool_survey, tool_choices, data, col) {</span>
+<span id="cb293-2"><a href="outputs.html#cb293-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select all the columns with all the options for each select_multiple</span></span>
+<span id="cb293-3"><a href="outputs.html#cb293-3" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb293-4"><a href="outputs.html#cb293-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">contains</span>(<span class="fu">paste0</span>(col,<span class="st">&quot;/&quot;</span>)))</span>
+<span id="cb293-5"><a href="outputs.html#cb293-5" aria-hidden="true" tabindex="-1"></a>  col_internal <span class="ot">&lt;-</span> <span class="fu">colnames</span>(d.join)</span>
+<span id="cb293-6"><a href="outputs.html#cb293-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb293-7"><a href="outputs.html#cb293-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each column with options</span></span>
+<span id="cb293-8"><a href="outputs.html#cb293-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_internal)){</span>
+<span id="cb293-9"><a href="outputs.html#cb293-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># change all 1&#39;s to the xml answer</span></span>
+<span id="cb293-10"><a href="outputs.html#cb293-10" aria-hidden="true" tabindex="-1"></a>    xml_answer <span class="ot">&lt;-</span> <span class="fu">str_split</span>(col_internal[j], <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb293-11"><a href="outputs.html#cb293-11" aria-hidden="true" tabindex="-1"></a>    d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
+<span id="cb293-12"><a href="outputs.html#cb293-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(<span class="sc">!!</span><span class="fu">sym</span>(col_internal[j]) <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, xml_answer, <span class="cn">NA</span>))</span>
+<span id="cb293-13"><a href="outputs.html#cb293-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb293-14"><a href="outputs.html#cb293-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the list of the xml and label options for each select multiple questions</span></span>
+<span id="cb293-15"><a href="outputs.html#cb293-15" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> <span class="fu">filter</span>(tool_survey, <span class="fu">str_starts</span>(name, <span class="fu">str_split</span>(col_internal[j],<span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb293-16"><a href="outputs.html#cb293-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(list_name)</span>
+<span id="cb293-17"><a href="outputs.html#cb293-17" aria-hidden="true" tabindex="-1"></a>    choice_id <span class="ot">&lt;-</span> choice_id<span class="sc">$</span>list_name</span>
+<span id="cb293-18"><a href="outputs.html#cb293-18" aria-hidden="true" tabindex="-1"></a>    t.choices <span class="ot">&lt;-</span> tool_choices <span class="sc">%&gt;%</span> </span>
+<span id="cb293-19"><a href="outputs.html#cb293-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(list_name <span class="sc">==</span> choice_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb293-20"><a href="outputs.html#cb293-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(name, <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">label =</span> <span class="st">`</span><span class="at">label::english</span><span class="st">`</span>)</span>
+<span id="cb293-21"><a href="outputs.html#cb293-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb293-22"><a href="outputs.html#cb293-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replace the xml with label using left_join</span></span>
+<span id="cb293-23"><a href="outputs.html#cb293-23" aria-hidden="true" tabindex="-1"></a>    d.new.join <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">col=</span><span class="fu">as.character</span>(d.join[[col_internal[j]]])) <span class="sc">%&gt;%</span></span>
+<span id="cb293-24"><a href="outputs.html#cb293-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">left_join</span>(t.choices, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;col&quot;</span><span class="ot">=</span><span class="st">&quot;name&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label)</span>
+<span id="cb293-25"><a href="outputs.html#cb293-25" aria-hidden="true" tabindex="-1"></a>    d.join[col_internal[j]] <span class="ot">&lt;-</span> d.new.join<span class="sc">$</span>label</span>
+<span id="cb293-26"><a href="outputs.html#cb293-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb293-27"><a href="outputs.html#cb293-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb293-28"><a href="outputs.html#cb293-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># concatenate all the answers, removing NAs in one cell and separated by a &#39;;&#39; </span></span>
+<span id="cb293-29"><a href="outputs.html#cb293-29" aria-hidden="true" tabindex="-1"></a>  d.join <span class="ot">&lt;-</span> d.join <span class="sc">%&gt;%</span> </span>
+<span id="cb293-30"><a href="outputs.html#cb293-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">&quot;Merged&quot;</span>, <span class="fu">everything</span>(), <span class="at">sep=</span> <span class="st">&quot;;&quot;</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb293-31"><a href="outputs.html#cb293-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb293-32"><a href="outputs.html#cb293-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return only the new label column and replace it in the for loop using vectors</span></span>
+<span id="cb293-33"><a href="outputs.html#cb293-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(d.join<span class="sc">$</span>Merged)</span>
+<span id="cb293-34"><a href="outputs.html#cb293-34" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Example</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="outputs.html#cb295-1" aria-hidden="true" tabindex="-1"></a>filename_tool <span class="ot">&lt;-</span> <span class="st">&quot;enter your tool link here&quot;</span></span>
-<span id="cb295-2"><a href="outputs.html#cb295-2" aria-hidden="true" tabindex="-1"></a>filename_cleaned_data <span class="ot">&lt;-</span> <span class="st">&quot;enter your data hear&quot;</span></span>
-<span id="cb295-3"><a href="outputs.html#cb295-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-4"><a href="outputs.html#cb295-4" aria-hidden="true" tabindex="-1"></a><span class="co"># loading tool</span></span>
-<span id="cb295-5"><a href="outputs.html#cb295-5" aria-hidden="true" tabindex="-1"></a>tool_survey <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb295-6"><a href="outputs.html#cb295-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(name)) <span class="sc">%&gt;%</span> </span>
-<span id="cb295-7"><a href="outputs.html#cb295-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding two columns showing the question type and the id of the list_name choices separately</span></span>
-<span id="cb295-8"><a href="outputs.html#cb295-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q.type =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])),</span>
-<span id="cb295-9"><a href="outputs.html#cb295-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">list_name =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])))</span>
-<span id="cb295-10"><a href="outputs.html#cb295-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-11"><a href="outputs.html#cb295-11" aria-hidden="true" tabindex="-1"></a>tool_choices <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb295-12"><a href="outputs.html#cb295-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(list_name))</span>
-<span id="cb295-13"><a href="outputs.html#cb295-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-14"><a href="outputs.html#cb295-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-15"><a href="outputs.html#cb295-15" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
-<span id="cb295-16"><a href="outputs.html#cb295-16" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_cleaned_data, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>)</span>
-<span id="cb295-17"><a href="outputs.html#cb295-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-18"><a href="outputs.html#cb295-18" aria-hidden="true" tabindex="-1"></a><span class="co"># creating another data frame with changes</span></span>
-<span id="cb295-19"><a href="outputs.html#cb295-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-20"><a href="outputs.html#cb295-20" aria-hidden="true" tabindex="-1"></a>data_labeled <span class="ot">&lt;-</span> main_dataset</span>
-<span id="cb295-21"><a href="outputs.html#cb295-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-22"><a href="outputs.html#cb295-22" aria-hidden="true" tabindex="-1"></a><span class="co"># select_one values - XML to Label</span></span>
-<span id="cb295-23"><a href="outputs.html#cb295-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-24"><a href="outputs.html#cb295-24" aria-hidden="true" tabindex="-1"></a>tool_select_one <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
-<span id="cb295-25"><a href="outputs.html#cb295-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_one &quot;</span>))</span>
-<span id="cb295-26"><a href="outputs.html#cb295-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-27"><a href="outputs.html#cb295-27" aria-hidden="true" tabindex="-1"></a>col_select_one <span class="ot">&lt;-</span> tool_select_one<span class="sc">$</span>name</span>
-<span id="cb295-28"><a href="outputs.html#cb295-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-29"><a href="outputs.html#cb295-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_one)){</span>
-<span id="cb295-30"><a href="outputs.html#cb295-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_one[i]]])){</span>
-<span id="cb295-31"><a href="outputs.html#cb295-31" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_one[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_one</span>(tool_survey,tool_choices,main_dataset,col_select_one[i])</span>
-<span id="cb295-32"><a href="outputs.html#cb295-32" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb295-33"><a href="outputs.html#cb295-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb295-34"><a href="outputs.html#cb295-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-35"><a href="outputs.html#cb295-35" aria-hidden="true" tabindex="-1"></a><span class="co"># select_multiple values - XML to Label</span></span>
-<span id="cb295-36"><a href="outputs.html#cb295-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-37"><a href="outputs.html#cb295-37" aria-hidden="true" tabindex="-1"></a>tool_select_multi <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
-<span id="cb295-38"><a href="outputs.html#cb295-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_multiple &quot;</span>))</span>
-<span id="cb295-39"><a href="outputs.html#cb295-39" aria-hidden="true" tabindex="-1"></a>col_select_multi <span class="ot">&lt;-</span> tool_select_multi<span class="sc">$</span>name</span>
-<span id="cb295-40"><a href="outputs.html#cb295-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-41"><a href="outputs.html#cb295-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_multi)){</span>
-<span id="cb295-42"><a href="outputs.html#cb295-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_multi[i]]])){</span>
-<span id="cb295-43"><a href="outputs.html#cb295-43" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_multi[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_multiple</span>(tool_survey,tool_choices,main_dataset,col_select_multi[i])</span>
-<span id="cb295-44"><a href="outputs.html#cb295-44" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb295-45"><a href="outputs.html#cb295-45" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb295-46"><a href="outputs.html#cb295-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-47"><a href="outputs.html#cb295-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Column headers - XML to Label</span></span>
-<span id="cb295-48"><a href="outputs.html#cb295-48" aria-hidden="true" tabindex="-1"></a>col_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(main_dataset)</span>
-<span id="cb295-49"><a href="outputs.html#cb295-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-50"><a href="outputs.html#cb295-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_names)) {</span>
-<span id="cb295-51"><a href="outputs.html#cb295-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(data_labeled)[i] <span class="ot">&lt;-</span> <span class="fu">xml2label_question</span>(tool_survey, tool_choices, col_names[i])</span>
-<span id="cb295-52"><a href="outputs.html#cb295-52" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb295-53"><a href="outputs.html#cb295-53" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="outputs.html#cb294-1" aria-hidden="true" tabindex="-1"></a>filename_tool <span class="ot">&lt;-</span> <span class="st">&quot;enter your tool link here&quot;</span></span>
+<span id="cb294-2"><a href="outputs.html#cb294-2" aria-hidden="true" tabindex="-1"></a>filename_cleaned_data <span class="ot">&lt;-</span> <span class="st">&quot;enter your data hear&quot;</span></span>
+<span id="cb294-3"><a href="outputs.html#cb294-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-4"><a href="outputs.html#cb294-4" aria-hidden="true" tabindex="-1"></a><span class="co"># loading tool</span></span>
+<span id="cb294-5"><a href="outputs.html#cb294-5" aria-hidden="true" tabindex="-1"></a>tool_survey <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;survey&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb294-6"><a href="outputs.html#cb294-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(name)) <span class="sc">%&gt;%</span> </span>
+<span id="cb294-7"><a href="outputs.html#cb294-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding two columns showing the question type and the id of the list_name choices separately</span></span>
+<span id="cb294-8"><a href="outputs.html#cb294-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">q.type =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])),</span>
+<span id="cb294-9"><a href="outputs.html#cb294-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">list_name =</span> <span class="fu">as.character</span>(<span class="fu">lapply</span>(type, <span class="cf">function</span>(x) <span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])))</span>
+<span id="cb294-10"><a href="outputs.html#cb294-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-11"><a href="outputs.html#cb294-11" aria-hidden="true" tabindex="-1"></a>tool_choices <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_tool, <span class="at">sheet =</span> <span class="st">&quot;choices&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb294-12"><a href="outputs.html#cb294-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(list_name))</span>
+<span id="cb294-13"><a href="outputs.html#cb294-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-14"><a href="outputs.html#cb294-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-15"><a href="outputs.html#cb294-15" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
+<span id="cb294-16"><a href="outputs.html#cb294-16" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(filename_cleaned_data, <span class="at">col_types =</span> <span class="st">&quot;text&quot;</span>)</span>
+<span id="cb294-17"><a href="outputs.html#cb294-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-18"><a href="outputs.html#cb294-18" aria-hidden="true" tabindex="-1"></a><span class="co"># creating another data frame with changes</span></span>
+<span id="cb294-19"><a href="outputs.html#cb294-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-20"><a href="outputs.html#cb294-20" aria-hidden="true" tabindex="-1"></a>data_labeled <span class="ot">&lt;-</span> main_dataset</span>
+<span id="cb294-21"><a href="outputs.html#cb294-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-22"><a href="outputs.html#cb294-22" aria-hidden="true" tabindex="-1"></a><span class="co"># select_one values - XML to Label</span></span>
+<span id="cb294-23"><a href="outputs.html#cb294-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-24"><a href="outputs.html#cb294-24" aria-hidden="true" tabindex="-1"></a>tool_select_one <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb294-25"><a href="outputs.html#cb294-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_one &quot;</span>))</span>
+<span id="cb294-26"><a href="outputs.html#cb294-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-27"><a href="outputs.html#cb294-27" aria-hidden="true" tabindex="-1"></a>col_select_one <span class="ot">&lt;-</span> tool_select_one<span class="sc">$</span>name</span>
+<span id="cb294-28"><a href="outputs.html#cb294-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-29"><a href="outputs.html#cb294-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_one)){</span>
+<span id="cb294-30"><a href="outputs.html#cb294-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_one[i]]])){</span>
+<span id="cb294-31"><a href="outputs.html#cb294-31" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_one[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_one</span>(tool_survey,tool_choices,main_dataset,col_select_one[i])</span>
+<span id="cb294-32"><a href="outputs.html#cb294-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb294-33"><a href="outputs.html#cb294-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb294-34"><a href="outputs.html#cb294-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-35"><a href="outputs.html#cb294-35" aria-hidden="true" tabindex="-1"></a><span class="co"># select_multiple values - XML to Label</span></span>
+<span id="cb294-36"><a href="outputs.html#cb294-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-37"><a href="outputs.html#cb294-37" aria-hidden="true" tabindex="-1"></a>tool_select_multi <span class="ot">&lt;-</span> tool_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb294-38"><a href="outputs.html#cb294-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(type, <span class="st">&quot;select_multiple &quot;</span>))</span>
+<span id="cb294-39"><a href="outputs.html#cb294-39" aria-hidden="true" tabindex="-1"></a>col_select_multi <span class="ot">&lt;-</span> tool_select_multi<span class="sc">$</span>name</span>
+<span id="cb294-40"><a href="outputs.html#cb294-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-41"><a href="outputs.html#cb294-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_select_multi)){</span>
+<span id="cb294-42"><a href="outputs.html#cb294-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data_labeled[[col_select_multi[i]]])){</span>
+<span id="cb294-43"><a href="outputs.html#cb294-43" aria-hidden="true" tabindex="-1"></a>    data_labeled[[col_select_multi[i]]] <span class="ot">&lt;-</span> <span class="fu">xml2label_choices_multiple</span>(tool_survey,tool_choices,main_dataset,col_select_multi[i])</span>
+<span id="cb294-44"><a href="outputs.html#cb294-44" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb294-45"><a href="outputs.html#cb294-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb294-46"><a href="outputs.html#cb294-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-47"><a href="outputs.html#cb294-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Column headers - XML to Label</span></span>
+<span id="cb294-48"><a href="outputs.html#cb294-48" aria-hidden="true" tabindex="-1"></a>col_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(main_dataset)</span>
+<span id="cb294-49"><a href="outputs.html#cb294-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-50"><a href="outputs.html#cb294-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(col_names)) {</span>
+<span id="cb294-51"><a href="outputs.html#cb294-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(data_labeled)[i] <span class="ot">&lt;-</span> <span class="fu">xml2label_question</span>(tool_survey, tool_choices, col_names[i])</span>
+<span id="cb294-52"><a href="outputs.html#cb294-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb294-53"><a href="outputs.html#cb294-53" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="change-from-label-to-xml" class="section level3 hasAnchor" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> change from label to xml<a href="outputs.html#change-from-label-to-xml" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -684,6 +683,7 @@ Shiny</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -723,10 +723,6 @@ gitbook.start({
 "text": null
 },
 "download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
 "toc": {
 "collapse": "subsection"
 }
@@ -740,7 +736,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

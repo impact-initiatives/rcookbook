@@ -187,3 +187,24 @@ main_dataset$FCS_score_baser  <- (main_dataset$fcs_cereal_roots * 2)+
 ## New indicators from a loop to main dataset
 e.g. aggregating the number of children going to school from a loop
 
+
+## The co-occurrence of needs in an MSNI
+
+The following example will fist create an choice multiple question and then will create a parent column which can be use for calculating co-occurrence of needs.
+```{r eval=F }
+lsg_cols <- c("wash","education","health","food","protection")
+
+for(i in lsg_cols){
+  col_name <- paste0("most_common_profile.",i)
+  most_common_data <- most_common_data %>% mutate(
+    !!sym(col_name) := as.numeric(!!sym(i)) >2 )}
+
+most_common_data <- most_common_data %>% mutate(
+  most_common_profile = NA)
+
+most_common_data <- most_common_data %>% 
+  illuminate::recalculate_concerted_col_for_select_multiple(uuid = "uuid")
+
+```
+
+
