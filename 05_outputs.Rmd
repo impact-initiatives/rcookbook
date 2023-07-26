@@ -358,6 +358,171 @@ for (i in 1:length(col_names)) {
 
 ### change from label to xml
 
+The following code transform column headers, select_one and select_multiple values from Label to XML.
+
+Conditions required for the code to function correctly:
+1- The "label::English" column in KOBO Tool must contain unique values.
+2- The labeled data should be saved in the Excel file format.
+3- When selecting options for select_multiple questions, ensure to determine if the options are separated by a forward slash ("/") or (".").
+
+Loading Libraries
+```{r warning=F}
+library(tidyverse)
+library(readxl)
+```
+
+Dataset column headers function
+
+```{r}
+label2xml_question <- function(tool_survey, tool_choices, label_colname = "label::English", col, sm_separator = "/"){
+  
+  # for each column check if it is a select multiple
+  if (str_detect(col, sm_separator)) {
+    q.label <- str_split(col, sm_separator)[[1]][1]
+    c.label <- paste0(tail(str_split(col, sm_separator)[[1]], -1), collapse=sm_separator)
+  } else {
+    q.label <- col
+    c.label <- NA
+  }
+  
+  # returning the xml and make sure to include the xml of multiple choices after sm_separator
+  if (q.label %in% tool_survey[[label_colname]]){
+    q <- tool_survey[tool_survey[[label_colname]] %in% q.label, ]
+    q.name <- q$name
+    if (is.na(q.name) | q$type %in% c("note")) q.name <- q.label
+    if (!is.na(c.label)){
+      q.list_name = ifelse(q$list_name == "NA", NA, q$list_name)
+      c.name <- tool_choices[tool_choices$list_name %in% q.list_name & tool_choices[[label_colname]]%in% c.label, "name"]
+    } else c.name <- NA
+    name <- ifelse(is.na(c.name), q.name, paste0(q.name, sm_separator, c.name))
+  } else name <- q.label
+  return(name)
+}
+```
+
+Select_one values function
+
+```{r}
+label2xml_choices_one <- function(tool_survey, tool_choices, label_colname = "label::English", data, col) {
+  
+  # select the type column from each select_one question
+  q.type <- tool_survey$type[tool_survey[[label_colname]] %in% col]
+  
+  # take the id of the choices to get the list name
+  q.list_name <- str_split(q.type, " ")[[1]][2]
+  
+  # export the choices relevant to each select_one question
+  choices <- tool_choices %>% filter(list_name == q.list_name) %>% 
+    select(name, !!sym(label_colname)) %>% rename(label=label_colname)
+  
+  # replace the label with xml using left_join
+  d.join <- data.frame(col = as.character(data[[col]])) %>% 
+    left_join(choices, by = c("col"="label")) %>% select(name)
+  
+  # return only the new name column and replace it in the for loop using vectors 
+  return(d.join$name)
+}
+```
+
+Select_multiple values function
+
+```{r}
+label2xml_choices_multiple <- function(tool_survey, tool_choices, data, label_colname = "label::English", col, sm_separator = "/") {
+  
+  # select all the columns with all the options for each select_multiple
+  d.join <- data %>% 
+    select(contains(paste0(col, sm_separator)))
+  col_internal <- colnames(d.join)
+  
+  # for each column with options
+  for(j in 1:length(col_internal)){
+    
+    # change all 1's to the label answer
+    label_answer <- str_split(col_internal[j], sm_separator)[[1]][2]
+    d.join <- d.join %>% 
+      mutate(!!sym(col_internal[j]) := ifelse(!!sym(col_internal[j]) == "1", label_answer, NA))
+    
+    # get the list of the label and xml options for each select multiple questions
+    choice_id <- tool_survey %>%
+      filter(!!sym(label_colname) %in% str_split(col_internal[j], sm_separator)[[1]][1]) %>% 
+      select(list_name)
+    choice_id <- choice_id$list_name
+    t.choices <- tool_choices %>% 
+      filter(list_name == choice_id) %>% 
+      select(name, !!sym(label_colname)) %>% rename(label = label_colname)
+    
+    # replace the label with xml using left_join
+    d.new.join <- data.frame(col = as.character(d.join[[col_internal[j]]])) %>%
+      left_join(t.choices, by=c("col"="label")) %>% select(name)
+    d.join[col_internal[j]] <- d.new.join$name
+  }
+  
+  # concatenate all the answers, removing NAs in one cell and separated by a ';' 
+  d.join <- d.join %>% 
+    unite("Merged", everything(), sep= ";", na.rm = T)
+  
+  # return only the new xml column and replace it in the for loop using vectors
+  return(d.join$Merged)
+}
+```
+
+Example
+
+```{r, eval = F}
+# input parameters
+filename_tool <- "enter your tool here"
+filename_labeled_data <- "enter your data here"
+label_colname <- "label::English"
+sm_separator <- "/"
+
+# loading tool
+tool_survey <- read_excel(filename_tool, sheet = "survey", col_types = "text") %>% 
+  filter(!is.na(name)) %>% 
+  # adding two columns showing the question type and the id of the list_name choices separately
+  mutate(q.type = as.character(lapply(type, function(x) str_split(x, " ")[[1]][1])),
+         list_name = as.character(lapply(type, function(x) str_split(x, " ")[[1]][2])))
+
+tool_choices <- read_excel(filename_tool, sheet = "choices", col_types = "text") %>% 
+  filter(!is.na(list_name))
+
+# loading your dataset with labels 
+data_labeled <- read_excel(filename_labeled_data, col_types = "text")
+
+# creating another data frame with changes
+data_xml <- data_labeled
+
+# select_one values - Label to XML
+tool_select_one <- tool_survey %>% 
+  filter(str_starts(type, "select_one "))
+
+col_select_one <- tool_select_one[[label_colname]]
+
+for (i in 1:length(col_select_one)){
+  if(!is.null(data_xml[[col_select_one[i]]])){
+    data_xml[[col_select_one[i]]] <- label2xml_choices_one(tool_survey, tool_choices, label_colname,  data = data_labeled, col = col_select_one[i])
+  }
+}
+
+# select_multiple values - Label to XML
+tool_select_multiple <- tool_survey %>% 
+  filter(str_starts(type, "select_multiple "))
+col_select_multiple <- tool_select_multiple[[label_colname]]
+
+for (i in 1:length(col_select_multiple)){
+  if(!is.null(data_xml[[col_select_multiple[i]]])){
+    data_xml[[col_select_multiple[i]]] <- label2xml_choices_multiple(tool_survey, tool_choices, label_colname, 
+                                                                     data = data_labeled, col = col_select_multiple[i], sm_separator)
+  }
+}
+
+# Column headers - Label to XML
+col_label <- colnames(data_labeled)
+
+for (i in 1:length(col_label)) {
+  colnames(data_xml)[i] <- label2xml_question(tool_survey, tool_choices, label_colname, col = col_label[i], sm_separator)
+}
+```
+
 ## Dashboarding - Sharing information
 Html files
 Tableau
