@@ -59,6 +59,8 @@ Imports:
     stringr,
     survey,
     surveyweights,
+    svDialogs,
+    tcltk,
     tibble,
     tidyr,
     tidyverse,
@@ -73,6 +75,7 @@ Remotes:
     impact-initiatives/surveyweights,
     impact-initiatives/xlsformfill,
     mhkhan27/illuminate,
+    REACH-WoU-Regional/translateREACH,
     zackarno/butteR
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
