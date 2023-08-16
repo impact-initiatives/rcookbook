@@ -160,6 +160,60 @@ if(!dir.exists("outputs")) {
 st_write(spatial_component, "outputs/spatial_component_check.geojson", delete_dsn = TRUE)
 ```
 
+###	Statistical Disclosure Control Methods	
+Statistical Disclosure Control techniques can be defined as the set of methods to reduce the risk of disclosing information on individuals or organizations.
+
+
+Statistical Disclosure Control Process
+
+1. Measuring the disclosure risk
+Disclosure risk occurs if an unacceptably narrow estimation of a respondent’s confidential information is possible or if exact disclosure is possible with a high level of confidence.
+
+so we'll need to clasify the variables into three categories;
+
+* Non-identifying variables (e.g. respondent feelings)
+* Direct identifiers (e.g. respondent names, phone numbers)
+* Quasi-identifiers (e.g. age, gender, gps coordinates)
+
+we'll use the main_dataset for demonstrating the process
+
+```{r, eval = F}
+# load the SdcMicro package 
+library(sdcMicro)
+
+# 
+selectedKeyVars <- c("a2_hh_representative_name", # direct identifiers
+                     "a3_1_phone", # direct identifiers
+                     "b4_gender", # quasi identifiers 
+                     "b5_age", # quasi identifiers
+                     "b8_hohh_sex", # quasi identifiers
+                     "b9_hohh_marital_status", # quasi identifiers
+                     "X_r6_gpslocation_latitude", # quasi identifiers
+                     "X_r6_gpslocation_longitude", # quasi identifiers
+                     "X_r6_gpslocation_precision") # quasi identifiers
+```
+
+
+2. Applying anonymization methods
+Sometimes we may have some direct identifier variables that feed our analysis plans and in that cases we will need to deduct data by categorizing continuous variables. 
+
+3. Measuring utility and information loss
+```{r eval=FALSE}
+# weight variable
+weightVars <- c('stratum.weight')
+
+# checking risk
+objSDC <- createSdcObj(dat = main_dataset, 
+                       keyVars = selectedKeyVars, weightVar = weightVars)
+
+
+print(objSDC, "risk")
+
+#Generate an internal report
+#report(objSDC, filename = "disclosure_risk_report",internal = T, verbose = TRUE) 
+
+```
+
 
 ## Analayis
 ### hypegrammaR 

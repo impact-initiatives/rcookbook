@@ -121,17 +121,7 @@ dfsvy %>%
 
 ```
 
-
-
-### select_one 
-### select_mutiple
-
 ## Analysis with numerical variables
-### Averages
-###Summarytools (CRAN package)
-
-###hypegrammaR / koboquest / butteR
-
 ### Median
 ####Spatstat
 [Spatstat](https://cran.r-project.org/web/packages/spatstat/index.html) - library with set of different functions for analyzing Spatial Point Patterns but also quite useful for analysis of weighted data.
