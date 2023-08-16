@@ -1,0 +1,5 @@
+# ignore folders for dependencies
+reach_global/
+_book/
+_bookdown_files/
+07_archives.Rmd
