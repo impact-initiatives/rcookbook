@@ -166,6 +166,7 @@ main_dataset <- main_dataset %>%
 
 ## Composite with 2 or more numerical variables
 
+
 This example will look at creating the food consumption score. 
 ```{r }
 main_dataset <- main_dataset %>%
@@ -183,7 +184,113 @@ main_dataset$FCS_score_baser  <- (main_dataset$fcs_cereal_roots * 2)+
 ```
 
 
+## Household Hunger Score (HHS) 
+
+For this example we will use addindicators package to compute the HHS 
+Link to the package: https://github.com/impact-initiatives/addindicators
+The package can be installed using devtools::install_github("impact-initiatives/addindicators")
+
+```{r}
+
+# Align the coding of the frequencies
+main_dataset <- main_dataset %>% mutate(
+  h3_1_how_often_day_and_night_hungry = case_when(
+    h3_1_how_often_day_and_night_hungry == "1_rarely_12" ~ "1_rarely_1_2",
+    TRUE ~ h3_1_how_often_day_and_night_hungry
+  )
+)
+
+
+main_dataset <- addindicators::add_hhs(
+  main_dataset,
+  hhs_nofoodhh_1 = "h1_nofood_noresources",
+  hhs_nofoodhh_1a = "h1_1_how_often_nofood_noresources",
+  hhs_sleephungry_2 = "h2_sleep_hungry",
+  hhs_sleephungry_2a = "h2_1_how_often_sleep_hungry",
+  hhs_alldaynight_3 = "h3_day_and_night_hungry",
+  hhs_alldaynight_3a = "h3_1_how_often_day_and_night_hungry",
+  yes_answer = "1_yes",
+  no_answer = "0_no",
+  rarely_answer = "1_rarely_1_2",
+  sometimes_answer = "2_sometimes_3_10",
+  often_answer = "3_often_10plus_times"
+)
+
+main_dataset %>% select(hhs_cat) %>% head()
+
+```
+
+## Food Cconsumption Score (FCS) 
+
+For this example we will use addindicators package to compute the FCS 
+Link to the package: https://github.com/impact-initiatives/addindicators
+The package can be installed using devtools::install_github("impact-initiatives/addindicators")
+
+
+```{r}
+
+main_dataset <- addindicators::add_fcs(
+  main_dataset,
+  cutoffs = "normal 21.5-35", # "normal 21.5-35", or "alternative 28-42"
+  fcs_cereal = "g1_cereals_consumption",
+  fcs_legumes = "g2_roots_consumption" ,
+  fcs_veg = "g3_vegetables_consumption",
+  fcs_fruit = "g4_fruits_consumption",
+  fcs_meat = "g5_meat_consumption",
+  fcs_dairy = "g8_dairy_consumption",
+  fcs_sugar = "g10_sugar_consumption",
+  fcs_oil = "g9_oil_consumption"
+)
+
+main_dataset %>% select(fcs_score,fcs_cat) %>% head()
+
+```
+
+
+## Livelihood coping strategy index (LCSI) 
+
+For this example we will use addindicators package to compute the LCSI 
+Link to the package: https://github.com/impact-initiatives/addindicators
+The package can be installed using devtools::install_github("impact-initiatives/addindicators")
+
+```{r}
+
+
+main_dataset <- addindicators::add_lcsi(main_dataset,
+                     lcsi_stress_vars = c("i1_coping_strategies", "i2_spent_savings", "i3_borrowed_food", "i4_live_another_family") ,
+                     lcsi_crisis_vars = c("i6_removed_children_from_school_kindergarten", "i7_reduced_health_care", "i8_reduced_education") ,
+                     lcsi_emergency_vars = c("i9_sold_house", "i10_hh_migrated", "i11_moved_for_work"),
+                     yes_val = "yes",
+                     no_val = "no_but_needed",
+                     exhausted_val = "no_already_done_so_cant_do_it_anymore",
+                     not_applicable_val = "no_was_not_needed")
+  
+main_dataset %>% select(lcsi_cat) %>% head()
+
+```
+
 
 ## New indicators from a loop to main dataset
 e.g. aggregating the number of children going to school from a loop
+
+
+## The co-occurrence of needs in an MSNI
+
+The following example will fist create an choice multiple question and then will create a parent column which can be use for calculating co-occurrence of needs.
+```{r eval=F }
+lsg_cols <- c("wash","education","health","food","protection")
+
+for(i in lsg_cols){
+  col_name <- paste0("most_common_profile.",i)
+  most_common_data <- most_common_data %>% mutate(
+    !!sym(col_name) := as.numeric(!!sym(i)) >2 )}
+
+most_common_data <- most_common_data %>% mutate(
+  most_common_profile = NA)
+
+most_common_data <- most_common_data %>% 
+  illuminate::recalculate_concerted_col_for_select_multiple(uuid = "uuid")
+
+```
+
 

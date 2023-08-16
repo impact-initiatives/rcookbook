@@ -635,7 +635,7 @@ dap
 
 
 Let's produce an analysis: 
-```{r}
+```{r, eval = F}
 # Getting a list
 an <- impactR::make_analysis_from_dap(design, survey, choices, dap)
 # Note that if the variables' labels cannot be found in the Kobo tool, the variable's values are used as choices labels
@@ -799,26 +799,77 @@ The indicator of interest is **e1_shelter_type** and the options are:
 
 ```{r}
 # Top X/ranking for select_one type questions 
-select_one_topX <- function(df, question_name, X = 3) { # by default return top 3
+select_one_topX <- function(df, question_name, X=3, weights_col=NULL, disaggregation_col=NULL){
   # test message
   if(length(colnames(df)[grepl(question_name, colnames(df), fixed = T)]) == 0) {
     stop(print(paste("question name:", question_name, "doesn't exist in the main dataset. Please double check and make required changes!")))
   }
   
-  df <- df %>%
-    select(!!sym(question_name))%>%          
-    filter(!is.na(!!sym(question_name))) %>% # remove NA values from percentage calculations 
-    mutate_at(question_name, as.factor) %>%  # added to have all groups
-    group_by(!!sym(question_name), .drop=F) %>% 
-    summarise(n = n()) %>%
-    mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
-    arrange(desc(percentages)) %>% 
-    mutate_at(question_name, as.character) %>% 
-    head(X)   # keep top X percentages only 
+  #### no disag
+  if(is.null(disaggregation_col)){
+    #no weights 
+    if(is.null(weights_col)){
+    df <- df %>% 
+      filter(!is.na(!!sym(question_name))) %>%
+      group_by(!!sym(question_name)) %>%
+      summarize(n=n()) %>%
+      mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
+      select(!!sym(question_name), n, percentages) %>%
+      arrange(desc(percentages)) %>% 
+      head(X)
+    }
+
+    # weights 
+    if(!is.null(weights_col)){
+    df <- df %>% 
+      filter(!is.na(!!sym(question_name))) %>%
+      group_by(!!sym(question_name)) %>%
+      summarize(n=sum(!!sym(weights_col))) %>%
+      mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
+      select(!!sym(question_name), n, percentages) %>%
+      arrange(desc(percentages)) %>% 
+      head(X)
+    }
+  }
   
-  if(nrow(df) == 0) warning("None of the choices was selected!")
- 
-  return(df)
+  
+  #### with disag
+  if(!is.null(disaggregation_col)){
+    #no weights 
+    if(is.null(weights_col)){
+      df <- df %>% 
+        filter(!is.na(!!sym(question_name))) %>%
+        group_by(!!sym(disaggregation_col), !!sym(question_name)) %>%
+        summarize(n=n()) %>%
+        mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
+        select(!!sym(disaggregation_col), !!sym(question_name), n, percentages) 
+      df <- split(df, df[[disaggregation_col]])
+      df <- lapply(df, function(x){
+        x %>% arrange(desc(percentages)) %>%
+        head(X)
+      })
+
+    }
+    
+    ## weights
+    if(!is.null(weights_col)){
+      df <- df %>% 
+        filter(!is.na(!!sym(question_name))) %>%
+        group_by(!!sym(disaggregation_col), !!sym(question_name)) %>%
+        summarize(n=sum(!!sym(weights_col))) %>%
+        mutate(percentages = round(n / sum(n) * 100, digits = 2)) %>%
+        select(!!sym(disaggregation_col), !!sym(question_name), n, percentages) 
+      df <- split(df, df[[disaggregation_col]])
+      df <- lapply(df, function(x){
+        x %>% arrange(desc(percentages)) %>%
+          head(X)
+      })
+      
+    }
+    
+  }
+    return(df)
+    
 }
 
 # return top 4 shelter types
@@ -842,31 +893,61 @@ The indicator of interest is **e3_shelter_enclosure_issues** and the options are
 
 ```{r}
 # Top X/ranking for select_multiple type questions
-select_multiple_topX <- function(df, question_name, X = 3) {
+select_multiple_topX <- function(df, question_name, X = 3, separator=".", weights_col=NULL, disaggregation_col=NULL) {
+  
   # test message
   if(length(colnames(df)[grepl(question_name, colnames(df), fixed = T)]) == 0){
     stop(print(paste("question name:", question_name, "doesn't exist in the main dataset. Please double check and make required changes!")))
   }
   
-  df <- df %>%
-    select(colnames(df)[grepl(paste0(question_name, "."), colnames(df), fixed = T)])
+  #work on the select multiple questions
+  df_mult <- df %>%
+    select(colnames(df)[grepl(paste0(question_name, separator), colnames(df), fixed = T)]) %>%
+    mutate_all(as.numeric)
+  
+  # Keeping only the options names in the colnames
+  colnames(df_mult) <- gsub(paste0(question_name, separator), "", colnames(df_mult))
   
   # if question was not answered
-  if(all(is.na(df))) warning("None of the choices was selected!")
+  if(all(is.na(df_mult))) warning("None of the choices was selected!")
+  
+  
+  #if weights, multiply each dummy by the weight of the HH
+  if(!is.null(weights_col)){
+    df_weight <- dplyr::pull(df, weights_col)
+    df_mult <- df_mult %>% mutate(across(everything(), ~. *df_weight))
+  }
 
-  # Keeping only the options names in the colnames
-  colnames(df) <- gsub(paste0(question_name, "\\."), "", colnames(df))
+  ### calculate top X percentages
+    # no disag
+    if(is.null(disaggregation_col)){
+      df <- df_mult %>%
+      pivot_longer(cols = everything(), names_to = question_name, values_to = "choices") %>%
+      group_by(!!sym(question_name), .drop=F) %>% 
+      summarise(n = sum(choices, na.rm = T),
+                percentages = round(sum(choices, na.rm = T) / n() * 100, digits = 2)) %>% # remove NA values from percentages calculations
+      arrange(desc(percentages)) %>% 
+      head(X)   # keep top X percentages only 
+    }
   
-  # calculate top X percentages
-  df <- df %>%
-    mutate_all(as.numeric) %>% 
-    pivot_longer(cols = everything(), names_to = question_name, values_to = "choices") %>%
-    group_by(!!sym(question_name), .drop=F) %>% 
-    summarise(n = sum(choices, na.rm = T),
-              percentages = round(sum(choices, na.rm = T) / n() * 100, digits = 2)) %>% # remove NA values from percentages calculations
-    arrange(desc(percentages)) %>% 
-    head(X)   # keep top X percentages only 
-  
+    # disag
+    if(!is.null(disaggregation_col)){
+      df <- df_mult %>% 
+      bind_cols(df %>% select(disaggregation_col)) 
+      df <- split(df, df[[disaggregation_col]]) #split
+      
+     df <- map(df, function(x){
+      x %>% select(-disaggregation_col) %>%  
+        pivot_longer(cols = everything(), names_to = question_name, values_to = "choices") %>%
+        group_by(!!sym(question_name)) %>%
+        summarise(n = sum(choices, na.rm = T),
+                  percentages = round(sum(choices, na.rm = T) / n() * 100, digits = 2)) %>% # remove NA values from percentages calculations
+        select(!!sym(question_name), n, percentages) %>%
+      arrange(desc(percentages)) %>%
+        head(X) # keep top X percentages only 
+      })
+    }
+
   return(df)
 }
 

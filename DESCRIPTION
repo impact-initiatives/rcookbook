@@ -26,6 +26,7 @@ Description: This is book aims to be a small collection of code used
     exhaustive but just examples.
 License: MIT + file LICENSE
 Imports:
+    addindicators,
     bookdown,
     cleaninginspectoR,
     data.table,
@@ -59,6 +60,8 @@ Imports:
     stringr,
     survey,
     surveyweights,
+    svDialogs,
+    tcltk,
     tibble,
     tidyr,
     tidyverse,
@@ -67,12 +70,14 @@ Imports:
     xlsformfill
 Remotes:
     gnoblet/impactR,
+    impact-initiatives/addindicators,
     impact-initiatives/cleaninginspectoR,
     impact-initiatives/hypegrammaR,
     impact-initiatives/kobostandards,
     impact-initiatives/surveyweights,
     impact-initiatives/xlsformfill,
     mhkhan27/illuminate,
+    REACH-WoU-Regional/translateREACH,
     zackarno/butteR
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
