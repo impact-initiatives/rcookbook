@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Downloading data from kobo server | R cookbook for analysis with IMPACT</title>
-  <meta name="description" content="3 Downloading data from kobo server | R cookbook for analysis with IMPACT" />
+  <title>Page not found | R cookbook for analysis with IMPACT</title>
+  <meta name="description" content="Page not found | R cookbook for analysis with IMPACT" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Downloading data from kobo server | R cookbook for analysis with IMPACT" />
+  <meta property="og:title" content="Page not found | R cookbook for analysis with IMPACT" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Downloading data from kobo server | R cookbook for analysis with IMPACT" />
+  <meta name="twitter:title" content="Page not found | R cookbook for analysis with IMPACT" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="meta-information.html"/>
-<link rel="next" href="pre-analysis.html"/>
+
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -343,115 +343,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="downloading-data-from-kobo-server" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Downloading data from kobo server<a href="downloading-data-from-kobo-server.html#downloading-data-from-kobo-server" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="defining-the-needed-functions" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Defining the needed functions<a href="downloading-data-from-kobo-server.html#defining-the-needed-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="downloading-data-from-kobo-server.html#cb3-1" tabindex="-1"></a>kobohr_getforms_csv <span class="ot">&lt;-</span><span class="cf">function</span>(url,u,pw){</span>
-<span id="cb3-2"><a href="downloading-data-from-kobo-server.html#cb3-2" tabindex="-1"></a>  rawdata<span class="ot">&lt;-</span><span class="fu">GET</span>(url,<span class="fu">authenticate</span>(u,pw),<span class="fu">progress</span>())</span>
-<span id="cb3-3"><a href="downloading-data-from-kobo-server.html#cb3-3" tabindex="-1"></a>  d_content_csv <span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="fu">content</span>(rawdata,<span class="st">&quot;raw&quot;</span>,<span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>))</span>
-<span id="cb3-4"><a href="downloading-data-from-kobo-server.html#cb3-4" tabindex="-1"></a>}</span>
-<span id="cb3-5"><a href="downloading-data-from-kobo-server.html#cb3-5" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="downloading-data-from-kobo-server.html#cb3-6" tabindex="-1"></a>download_data <span class="ot">&lt;-</span><span class="cf">function</span>(url,u,pw){</span>
-<span id="cb3-7"><a href="downloading-data-from-kobo-server.html#cb3-7" tabindex="-1"></a>  </span>
-<span id="cb3-8"><a href="downloading-data-from-kobo-server.html#cb3-8" tabindex="-1"></a>  rawdata<span class="ot">&lt;-</span> <span class="fu">GET</span>(url,<span class="fu">authenticate</span>(u,pw),<span class="fu">progress</span>())</span>
-<span id="cb3-9"><a href="downloading-data-from-kobo-server.html#cb3-9" tabindex="-1"></a>  d_content <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">content</span>(rawdata,<span class="st">&quot;raw&quot;</span>,<span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>),<span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;n/a&quot;</span>,<span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">setNames</span>(<span class="fu">gsub</span>(<span class="st">&quot;/&quot;</span>,<span class="st">&quot;.&quot;</span>,<span class="fu">names</span>(.))) </span>
-<span id="cb3-10"><a href="downloading-data-from-kobo-server.html#cb3-10" tabindex="-1"></a>  </span>
-<span id="cb3-11"><a href="downloading-data-from-kobo-server.html#cb3-11" tabindex="-1"></a>  d_content</span>
-<span id="cb3-12"><a href="downloading-data-from-kobo-server.html#cb3-12" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="downloading-data-from-kobo-server.html#cb3-13" tabindex="-1"></a>}</span>
-<span id="cb3-14"><a href="downloading-data-from-kobo-server.html#cb3-14" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="downloading-data-from-kobo-server.html#cb3-15" tabindex="-1"></a>create_export <span class="ot">&lt;-</span><span class="cf">function</span>(type,lang,fields_from_all_versions,hierarchy_in_labels,group_sep,asset_uid,kobo_user,Kobo_pw){</span>
-<span id="cb3-16"><a href="downloading-data-from-kobo-server.html#cb3-16" tabindex="-1"></a>  api_url_export<span class="ot">&lt;-</span><span class="fu">paste0</span>(kobo_server_url,<span class="st">&quot;exports/&quot;</span>)</span>
-<span id="cb3-17"><a href="downloading-data-from-kobo-server.html#cb3-17" tabindex="-1"></a>  api_url_asset<span class="ot">&lt;-</span><span class="fu">paste0</span>(kobo_server_url,<span class="st">&quot;assets/&quot;</span>,asset_uid,<span class="st">&quot;/&quot;</span>)</span>
-<span id="cb3-18"><a href="downloading-data-from-kobo-server.html#cb3-18" tabindex="-1"></a>  api_url_export_asset<span class="ot">&lt;-</span><span class="fu">paste0</span>(kobo_server_url,<span class="st">&quot;exports/&quot;</span>,asset_uid,<span class="st">&quot;/&quot;</span>)</span>
-<span id="cb3-19"><a href="downloading-data-from-kobo-server.html#cb3-19" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb3-20"><a href="downloading-data-from-kobo-server.html#cb3-20" tabindex="-1"></a>  d<span class="ot">&lt;-</span><span class="fu">list</span>(<span class="at">source=</span>api_url_asset,</span>
-<span id="cb3-21"><a href="downloading-data-from-kobo-server.html#cb3-21" tabindex="-1"></a>          <span class="at">type=</span>type,</span>
-<span id="cb3-22"><a href="downloading-data-from-kobo-server.html#cb3-22" tabindex="-1"></a>          <span class="at">lang=</span>lang,</span>
-<span id="cb3-23"><a href="downloading-data-from-kobo-server.html#cb3-23" tabindex="-1"></a>          <span class="at">fields_from_all_versions=</span>fields_from_all_versions,</span>
-<span id="cb3-24"><a href="downloading-data-from-kobo-server.html#cb3-24" tabindex="-1"></a>          <span class="at">hierarchy_in_labels=</span>hierarchy_in_labels,</span>
-<span id="cb3-25"><a href="downloading-data-from-kobo-server.html#cb3-25" tabindex="-1"></a>          <span class="at">group_sep=</span>group_sep)</span>
-<span id="cb3-26"><a href="downloading-data-from-kobo-server.html#cb3-26" tabindex="-1"></a>  <span class="co">#fetch data</span></span>
-<span id="cb3-27"><a href="downloading-data-from-kobo-server.html#cb3-27" tabindex="-1"></a>  result<span class="ot">&lt;-</span>httr<span class="sc">::</span><span class="fu">POST</span>(<span class="at">url=</span>api_url_export,</span>
-<span id="cb3-28"><a href="downloading-data-from-kobo-server.html#cb3-28" tabindex="-1"></a>                      <span class="at">body=</span>d,</span>
-<span id="cb3-29"><a href="downloading-data-from-kobo-server.html#cb3-29" tabindex="-1"></a>                      <span class="fu">authenticate</span>(kobo_user,Kobo_pw),</span>
-<span id="cb3-30"><a href="downloading-data-from-kobo-server.html#cb3-30" tabindex="-1"></a>                      <span class="fu">progress</span>()</span>
-<span id="cb3-31"><a href="downloading-data-from-kobo-server.html#cb3-31" tabindex="-1"></a>  )</span>
-<span id="cb3-32"><a href="downloading-data-from-kobo-server.html#cb3-32" tabindex="-1"></a>  </span>
-<span id="cb3-33"><a href="downloading-data-from-kobo-server.html#cb3-33" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;status code:&quot;</span>,result<span class="sc">$</span>status_code))</span>
-<span id="cb3-34"><a href="downloading-data-from-kobo-server.html#cb3-34" tabindex="-1"></a>  d_content <span class="ot">&lt;-</span> <span class="fu">rawToChar</span>(result<span class="sc">$</span>content)</span>
-<span id="cb3-35"><a href="downloading-data-from-kobo-server.html#cb3-35" tabindex="-1"></a>  <span class="fu">print</span>(d_content)</span>
-<span id="cb3-36"><a href="downloading-data-from-kobo-server.html#cb3-36" tabindex="-1"></a>  d_content <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(d_content)</span>
-<span id="cb3-37"><a href="downloading-data-from-kobo-server.html#cb3-37" tabindex="-1"></a>  <span class="fu">return</span>(d_content)</span>
-<span id="cb3-38"><a href="downloading-data-from-kobo-server.html#cb3-38" tabindex="-1"></a>}</span></code></pre></div>
-</div>
-<div id="creating-data-url-and-credentials-variables" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Creating data url and credentials variables<a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="downloading-data-from-kobo-server.html#cb4-1" tabindex="-1"></a>kobo_server_url<span class="ot">&lt;-</span><span class="st">&quot;https://kobo.humanitarianresponse.info/&quot;</span></span>
-<span id="cb4-2"><a href="downloading-data-from-kobo-server.html#cb4-2" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">&quot;https://kc.humanitarianresponse.info/api/v1/data.csv&quot;</span></span>
-<span id="cb4-3"><a href="downloading-data-from-kobo-server.html#cb4-3" tabindex="-1"></a>kobo_user <span class="ot">=</span> <span class="st">&quot;rcop_test&quot;</span></span>
-<span id="cb4-4"><a href="downloading-data-from-kobo-server.html#cb4-4" tabindex="-1"></a>kobo_pw <span class="ot">=</span> <span class="st">&quot;e4#xV8zKAU)A)h58&quot;</span></span>
-<span id="cb4-5"><a href="downloading-data-from-kobo-server.html#cb4-5" tabindex="-1"></a>list_forms <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">kobohr_getforms_csv</span> (url,kobo_user, kobo_pw))</span></code></pre></div>
-<pre><code>## 
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |======================================================================| 100%</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="downloading-data-from-kobo-server.html#cb6-1" tabindex="-1"></a><span class="do">####  Create a variable with the form id and create to dataurl link</span></span>
-<span id="cb6-2"><a href="downloading-data-from-kobo-server.html#cb6-2" tabindex="-1"></a>form_id <span class="ot">=</span> <span class="st">&quot;965004&quot;</span></span>
-<span id="cb6-3"><a href="downloading-data-from-kobo-server.html#cb6-3" tabindex="-1"></a>asset_uid <span class="ot">=</span> <span class="st">&quot;a9XVuozs7VQ2bvbvMwKSdS&quot;</span></span>
-<span id="cb6-4"><a href="downloading-data-from-kobo-server.html#cb6-4" tabindex="-1"></a>dataurl<span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://kc.humanitarianresponse.info/api/v1/data/&quot;</span>,form_id,<span class="st">&quot;.csv&quot;</span>)</span></code></pre></div>
-</div>
-<div id="fetching-the-data-from-the-server" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Fetching the data from the server<a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="downloading-data-from-kobo-server.html#cb7-1" tabindex="-1"></a><span class="do">#### Download data as csv</span></span>
-<span id="cb7-2"><a href="downloading-data-from-kobo-server.html#cb7-2" tabindex="-1"></a>df <span class="ot">&lt;-</span>  <span class="fu">download_data</span>(dataurl,kobo_user,kobo_pw)</span>
-<span id="cb7-3"><a href="downloading-data-from-kobo-server.html#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="downloading-data-from-kobo-server.html#cb7-4" tabindex="-1"></a><span class="do">#### Create an export and download it</span></span>
-<span id="cb7-5"><a href="downloading-data-from-kobo-server.html#cb7-5" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="st">&quot;xls&quot;</span></span>
-<span id="cb7-6"><a href="downloading-data-from-kobo-server.html#cb7-6" tabindex="-1"></a>lang <span class="ot">&lt;-</span> <span class="st">&quot;xml&quot;</span></span>
-<span id="cb7-7"><a href="downloading-data-from-kobo-server.html#cb7-7" tabindex="-1"></a>fields_from_all_versions <span class="ot">&lt;-</span> <span class="st">&quot;TRUE&quot;</span></span>
-<span id="cb7-8"><a href="downloading-data-from-kobo-server.html#cb7-8" tabindex="-1"></a>hierarchy_in_labels <span class="ot">&lt;-</span> <span class="st">&quot;FALSE&quot;</span></span>
-<span id="cb7-9"><a href="downloading-data-from-kobo-server.html#cb7-9" tabindex="-1"></a>group_sep <span class="ot">=</span> <span class="st">&quot;/&quot;</span></span>
-<span id="cb7-10"><a href="downloading-data-from-kobo-server.html#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="downloading-data-from-kobo-server.html#cb7-11" tabindex="-1"></a>d_exports<span class="ot">&lt;-</span><span class="fu">create_export</span>(<span class="at">type=</span>type,</span>
-<span id="cb7-12"><a href="downloading-data-from-kobo-server.html#cb7-12" tabindex="-1"></a>                                <span class="at">lang=</span>lang,</span>
-<span id="cb7-13"><a href="downloading-data-from-kobo-server.html#cb7-13" tabindex="-1"></a>                                <span class="at">fields_from_all_versions=</span>fields_from_all_versions,</span>
-<span id="cb7-14"><a href="downloading-data-from-kobo-server.html#cb7-14" tabindex="-1"></a>                                <span class="at">hierarchy_in_labels=</span>hierarchy_in_labels,</span>
-<span id="cb7-15"><a href="downloading-data-from-kobo-server.html#cb7-15" tabindex="-1"></a>                                <span class="at">group_sep=</span>group_sep,</span>
-<span id="cb7-16"><a href="downloading-data-from-kobo-server.html#cb7-16" tabindex="-1"></a>                                <span class="at">asset_uid=</span>asset_uid,</span>
-<span id="cb7-17"><a href="downloading-data-from-kobo-server.html#cb7-17" tabindex="-1"></a>                                kobo_user,</span>
-<span id="cb7-18"><a href="downloading-data-from-kobo-server.html#cb7-18" tabindex="-1"></a>                                kobo_pw)</span>
-<span id="cb7-19"><a href="downloading-data-from-kobo-server.html#cb7-19" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="downloading-data-from-kobo-server.html#cb7-20" tabindex="-1"></a>result<span class="ot">&lt;-</span>httr<span class="sc">::</span><span class="fu">GET</span> (<span class="at">url=</span><span class="fu">paste0</span>(<span class="fu">as.character</span>(d_exports<span class="sc">$</span>url),<span class="st">&quot;?format=json&quot;</span>),</span>
-<span id="cb7-21"><a href="downloading-data-from-kobo-server.html#cb7-21" tabindex="-1"></a>                    <span class="fu">authenticate</span>(kobo_user,kobo_pw),</span>
-<span id="cb7-22"><a href="downloading-data-from-kobo-server.html#cb7-22" tabindex="-1"></a>                    <span class="fu">progress</span>()</span>
-<span id="cb7-23"><a href="downloading-data-from-kobo-server.html#cb7-23" tabindex="-1"></a>)</span>
-<span id="cb7-24"><a href="downloading-data-from-kobo-server.html#cb7-24" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="downloading-data-from-kobo-server.html#cb7-25" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="downloading-data-from-kobo-server.html#cb7-26" tabindex="-1"></a>result_file<span class="ot">&lt;-</span>httr<span class="sc">::</span><span class="fu">GET</span> (<span class="at">url=</span>jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(result<span class="sc">$</span>content))<span class="sc">$</span>result,</span>
-<span id="cb7-27"><a href="downloading-data-from-kobo-server.html#cb7-27" tabindex="-1"></a>                   <span class="fu">authenticate</span>(kobo_user,kobo_pw),</span>
-<span id="cb7-28"><a href="downloading-data-from-kobo-server.html#cb7-28" tabindex="-1"></a>                   <span class="fu">progress</span>()</span>
-<span id="cb7-29"><a href="downloading-data-from-kobo-server.html#cb7-29" tabindex="-1"></a>)</span>
-<span id="cb7-30"><a href="downloading-data-from-kobo-server.html#cb7-30" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="downloading-data-from-kobo-server.html#cb7-31" tabindex="-1"></a>httr<span class="sc">::</span><span class="fu">GET</span> (result_file<span class="sc">$</span>url,</span>
-<span id="cb7-32"><a href="downloading-data-from-kobo-server.html#cb7-32" tabindex="-1"></a>           <span class="fu">authenticate</span>(kobo_user,kobo_pw),</span>
-<span id="cb7-33"><a href="downloading-data-from-kobo-server.html#cb7-33" tabindex="-1"></a>           <span class="fu">progress</span>(),</span>
-<span id="cb7-34"><a href="downloading-data-from-kobo-server.html#cb7-34" tabindex="-1"></a>           <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>))</span>
-<span id="cb7-35"><a href="downloading-data-from-kobo-server.html#cb7-35" tabindex="-1"></a>)</span>
-<span id="cb7-36"><a href="downloading-data-from-kobo-server.html#cb7-36" tabindex="-1"></a></span>
-<span id="cb7-37"><a href="downloading-data-from-kobo-server.html#cb7-37" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf)</span></code></pre></div>
-
-</div>
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="meta-information.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="pre-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

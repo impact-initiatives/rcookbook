@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Archives | R cookbook for analysis with IMPACT</title>
   <meta name="description" content="10 Archives | R cookbook for analysis with IMPACT" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Archives | R cookbook for analysis with IMPACT" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="miscellaneous.html"/>
 
-<script src="libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,18 +48,17 @@
 
 
 
-
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.27/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
@@ -130,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -143,98 +145,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="index.html#hello" id="toc-hello"><span class="toc-section-number">1</span> Hello</a></li>
-<li><a href="meta-information.html#meta-information" id="toc-meta-information"><span class="toc-section-number">2</span> Meta information</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Hello</a></li>
+<li class="chapter" data-level="2" data-path="meta-information.html"><a href="meta-information.html"><i class="fa fa-check"></i><b>2</b> Meta information</a>
 <ul>
-<li><a href="meta-information.html#creating-the-questionnaire-object" id="toc-creating-the-questionnaire-object"><span class="toc-section-number">2.1</span> Creating the questionnaire object</a></li>
+<li class="chapter" data-level="2.1" data-path="meta-information.html"><a href="meta-information.html#creating-the-questionnaire-object"><i class="fa fa-check"></i><b>2.1</b> Creating the questionnaire object</a></li>
 </ul></li>
-<li><a href="downloading-data-from-kobo-server.html#downloading-data-from-kobo-server" id="toc-downloading-data-from-kobo-server"><span class="toc-section-number">3</span> Downloading data from kobo server</a>
+<li class="chapter" data-level="3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html"><i class="fa fa-check"></i><b>3</b> Downloading data from kobo server</a>
 <ul>
-<li><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions" id="toc-defining-the-needed-functions"><span class="toc-section-number">3.1</span> Defining the needed functions</a></li>
-<li><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables" id="toc-creating-data-url-and-credentials-variables"><span class="toc-section-number">3.2</span> Creating data url and credentials variables</a></li>
-<li><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server" id="toc-fetching-the-data-from-the-server"><span class="toc-section-number">3.3</span> Fetching the data from the server</a></li>
+<li class="chapter" data-level="3.1" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#defining-the-needed-functions"><i class="fa fa-check"></i><b>3.1</b> Defining the needed functions</a></li>
+<li class="chapter" data-level="3.2" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#creating-data-url-and-credentials-variables"><i class="fa fa-check"></i><b>3.2</b> Creating data url and credentials variables</a></li>
+<li class="chapter" data-level="3.3" data-path="downloading-data-from-kobo-server.html"><a href="downloading-data-from-kobo-server.html#fetching-the-data-from-the-server"><i class="fa fa-check"></i><b>3.3</b> Fetching the data from the server</a></li>
 </ul></li>
-<li><a href="pre-analysis.html#pre-analysis" id="toc-pre-analysis"><span class="toc-section-number">4</span> Pre analysis</a>
+<li class="chapter" data-level="4" data-path="pre-analysis.html"><a href="pre-analysis.html"><i class="fa fa-check"></i><b>4</b> Pre analysis</a>
 <ul>
-<li><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors" id="toc-checking-the-xls-kobo-tools-for-constraints-errors"><span class="toc-section-number">4.1</span> Checking the XLS kobo tools for constraints errors</a></li>
-<li><a href="pre-analysis.html#sampling" id="toc-sampling"><span class="toc-section-number">4.2</span> Sampling</a>
+<li class="chapter" data-level="4.1" data-path="pre-analysis.html"><a href="pre-analysis.html#checking-the-xls-kobo-tools-for-constraints-errors"><i class="fa fa-check"></i><b>4.1</b> Checking the XLS kobo tools for constraints errors</a></li>
+<li class="chapter" data-level="4.2" data-path="pre-analysis.html"><a href="pre-analysis.html#sampling"><i class="fa fa-check"></i><b>4.2</b> Sampling</a>
 <ul>
-<li><a href="pre-analysis.html#simple-random-sampling" id="toc-simple-random-sampling"><span class="toc-section-number">4.2.1</span> Simple Random sampling</a></li>
-<li><a href="pre-analysis.html#stratified-random-sampling" id="toc-stratified-random-sampling"><span class="toc-section-number">4.2.2</span> Stratified Random sampling</a></li>
-<li><a href="pre-analysis.html#cluster-sampling" id="toc-cluster-sampling"><span class="toc-section-number">4.2.3</span> Cluster sampling</a></li>
-<li><a href="pre-analysis.html#stages-random-sampling" id="toc-stages-random-sampling"><span class="toc-section-number">4.2.4</span> 2 stages random sampling</a></li>
-<li><a href="pre-analysis.html#sample-distribution-usin-population-raster" id="toc-sample-distribution-usin-population-raster"><span class="toc-section-number">4.2.5</span> Sample distribution usin population raster</a></li>
-</ul></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-collection-and-processing" id="toc-data-collection-and-processing"><span class="toc-section-number">5</span> Data Collection and Processing</a>
-<ul>
-<li><a href="data-collection-and-processing.html#testing-the-tool" id="toc-testing-the-tool"><span class="toc-section-number">5.1</span> Testing the tool</a>
-<ul>
-<li><a href="data-collection-and-processing.html#creating-dummy-data" id="toc-creating-dummy-data"><span class="toc-section-number">5.1.1</span> Creating dummy data</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#download-data" id="toc-download-data"><span class="toc-section-number">5.2</span> Download data</a>
-<ul>
-<li><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url" id="toc-downloading-audit-files-using-audit_url"><span class="toc-section-number">5.2.1</span> Downloading Audit files using audit_URL</a></li>
-<li><a href="data-collection-and-processing.html#download-audit-files-using-form-name" id="toc-download-audit-files-using-form-name"><span class="toc-section-number">5.2.2</span> Download audit files using form name</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-collection-follow-up" id="toc-data-collection-follow-up"><span class="toc-section-number">5.3</span> Data collection follow-up</a>
-<ul>
-<li><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame" id="toc-checking-surveys-against-the-sampling-frame"><span class="toc-section-number">5.3.1</span> checking surveys against the sampling frame</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-falsification" id="toc-data-falsification"><span class="toc-section-number">5.4</span> Data falsification</a>
-<ul>
-<li><a href="data-collection-and-processing.html#check-for-time-in-the-dataset" id="toc-check-for-time-in-the-dataset"><span class="toc-section-number">5.4.1</span> Check for time (in the dataset)</a></li>
-<li><a href="data-collection-and-processing.html#check-for-time-audit-files" id="toc-check-for-time-audit-files"><span class="toc-section-number">5.4.2</span> Check for time (audit files)</a></li>
-<li><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview" id="toc-check-for-time---calculating-the-elapsed-time-between-each-interview"><span class="toc-section-number">5.4.3</span> Check for time - calculating the elapsed time between each interview</a></li>
-<li><a href="data-collection-and-processing.html#silouhette-analysis" id="toc-silouhette-analysis"><span class="toc-section-number">5.4.4</span> Silouhette analysis</a></li>
-<li><a href="data-collection-and-processing.html#check-for-duplicates" id="toc-check-for-duplicates"><span class="toc-section-number">5.4.5</span> Check for duplicates</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-checks" id="toc-data-checks"><span class="toc-section-number">5.5</span> Data checks</a>
-<ul>
-<li><a href="data-collection-and-processing.html#check-for-outliers" id="toc-check-for-outliers"><span class="toc-section-number">5.5.1</span> Check for outliers</a></li>
-<li><a href="data-collection-and-processing.html#check-others" id="toc-check-others"><span class="toc-section-number">5.5.2</span> Check others</a></li>
-<li><a href="data-collection-and-processing.html#issue-log-function" id="toc-issue-log-function"><span class="toc-section-number">5.5.3</span> Issue log Function</a></li>
-<li><a href="data-collection-and-processing.html#check-for-logical-check" id="toc-check-for-logical-check"><span class="toc-section-number">5.5.4</span> Check for logical check</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#cleaninginspector---inspect_all" id="toc-cleaninginspector---inspect_all"><span class="toc-section-number">5.6</span> cleaninginspectoR - inspect_all</a></li>
-<li><a href="data-collection-and-processing.html#data-cleaning" id="toc-data-cleaning"><span class="toc-section-number">5.7</span> Data cleaning</a>
-<ul>
-<li><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions" id="toc-re-generate-text-column-for-select-multiple-questions"><span class="toc-section-number">5.7.1</span> Re-generate text column for select multiple questions</a></li>
-<li><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log" id="toc-clean-data-base-on-cleaning-log"><span class="toc-section-number">5.7.2</span> Clean data base on cleaning log</a></li>
-<li><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset" id="toc-check-cleaning-log-raw-dataset-and-clean-dataset"><span class="toc-section-number">5.7.3</span> Check cleaning log, raw dataset and clean dataset</a></li>
-</ul></li>
-<li><a href="data-collection-and-processing.html#data-cleaning---miscellaneous" id="toc-data-cleaning---miscellaneous"><span class="toc-section-number">5.8</span> Data cleaning - miscellaneous</a>
-<ul>
-<li><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices" id="toc-check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><span class="toc-section-number">5.8.1</span> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
-<li><a href="data-collection-and-processing.html#turns-label-to-xml" id="toc-turns-label-to-xml"><span class="toc-section-number">5.8.2</span> Turns label to xml</a></li>
-<li><a href="data-collection-and-processing.html#statistical-disclosure-control-methods" id="toc-statistical-disclosure-control-methods"><span class="toc-section-number">5.8.3</span> Statistical Disclosure Control Methods</a></li>
+<li class="chapter" data-level="4.2.1" data-path="pre-analysis.html"><a href="pre-analysis.html#simple-random-sampling"><i class="fa fa-check"></i><b>4.2.1</b> Simple Random sampling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pre-analysis.html"><a href="pre-analysis.html#stratified-random-sampling"><i class="fa fa-check"></i><b>4.2.2</b> Stratified Random sampling</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pre-analysis.html"><a href="pre-analysis.html#cluster-sampling"><i class="fa fa-check"></i><b>4.2.3</b> Cluster sampling</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pre-analysis.html"><a href="pre-analysis.html#stages-random-sampling"><i class="fa fa-check"></i><b>4.2.4</b> 2 stages random sampling</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pre-analysis.html"><a href="pre-analysis.html#sample-distribution-usin-population-raster"><i class="fa fa-check"></i><b>4.2.5</b> Sample distribution usin population raster</a></li>
 </ul></li>
 </ul></li>
-<li><a href="composite-indicators.html#composite-indicators" id="toc-composite-indicators"><span class="toc-section-number">6</span> Composite indicators</a>
+<li class="chapter" data-level="5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html"><i class="fa fa-check"></i><b>5</b> Data Collection and Processing</a>
 <ul>
-<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one" id="toc-composite-with-1-categorical-variable---select-one"><span class="toc-section-number">6.1</span> Composite with 1 categorical variable - select one</a></li>
-<li><a href="composite-indicators.html#composite-with-2-categorical-variables" id="toc-composite-with-2-categorical-variables"><span class="toc-section-number">6.2</span> Composite with 2 categorical variables</a></li>
-<li><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple" id="toc-composite-with-1-categorical-variable---select-multiple"><span class="toc-section-number">6.3</span> Composite with 1 categorical variable - select multiple</a></li>
-<li><a href="composite-indicators.html#composite-with-1-numerical-variable" id="toc-composite-with-1-numerical-variable"><span class="toc-section-number">6.4</span> Composite with 1 numerical variable</a></li>
-<li><a href="composite-indicators.html#composite-with-2-numerical-variables" id="toc-composite-with-2-numerical-variables"><span class="toc-section-number">6.5</span> Composite with 2 numerical variables</a></li>
-<li><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables" id="toc-composite-with-2-or-more-numerical-variables"><span class="toc-section-number">6.6</span> Composite with 2 or more numerical variables</a></li>
-<li><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset" id="toc-new-indicators-from-a-loop-to-main-dataset"><span class="toc-section-number">6.7</span> New indicators from a loop to main dataset</a></li>
+<li class="chapter" data-level="5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#testing-the-tool"><i class="fa fa-check"></i><b>5.1</b> Testing the tool</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#creating-dummy-data"><i class="fa fa-check"></i><b>5.1.1</b> Creating dummy data</a></li>
 </ul></li>
-<li><a href="analysis.html#analysis" id="toc-analysis"><span class="toc-section-number">7</span> Analysis</a>
+<li class="chapter" data-level="5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-data"><i class="fa fa-check"></i><b>5.2</b> Download data</a>
 <ul>
-<li><a href="analysis.html#srvyr-package" id="toc-srvyr-package"><span class="toc-section-number">7.1</span> srvyr package</a>
-<ul>
-<li><a href="analysis.html#categorical-variables" id="toc-categorical-variables"><span class="toc-section-number">7.1.1</span> Categorical variables</a></li>
-<li><a href="analysis.html#numeric-variables" id="toc-numeric-variables"><span class="toc-section-number">7.1.2</span> Numeric variables</a></li>
-<li><a href="analysis.html#select_one" id="toc-select_one"><span class="toc-section-number">7.1.3</span> select_one</a></li>
-<li><a href="analysis.html#select_mutiple" id="toc-select_mutiple"><span class="toc-section-number">7.1.4</span> select_mutiple</a></li>
+<li class="chapter" data-level="5.2.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#downloading-audit-files-using-audit_url"><i class="fa fa-check"></i><b>5.2.1</b> Downloading Audit files using audit_URL</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#download-audit-files-using-form-name"><i class="fa fa-check"></i><b>5.2.2</b> Download audit files using form name</a></li>
 </ul></li>
-<li><a href="analysis.html#analysis-with-numerical-variables" id="toc-analysis-with-numerical-variables"><span class="toc-section-number">7.2</span> Analysis with numerical variables</a>
+<li class="chapter" data-level="5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-collection-follow-up"><i class="fa fa-check"></i><b>5.3</b> Data collection follow-up</a>
 <ul>
-<li><a href="analysis.html#averages" id="toc-averages"><span class="toc-section-number">7.2.1</span> Averages</a></li>
-<li><a href="analysis.html#median" id="toc-median"><span class="toc-section-number">7.2.2</span> Median</a></li>
+<li class="chapter" data-level="5.3.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#checking-surveys-against-the-sampling-frame"><i class="fa fa-check"></i><b>5.3.1</b> checking surveys against the sampling frame</a></li>
 </ul></li>
-<li><a href="analysis.html#ratios" id="toc-ratios"><span class="toc-section-number">7.3</span> Ratios</a>
+<li class="chapter" data-level="5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-falsification"><i class="fa fa-check"></i><b>5.4</b> Data falsification</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-in-the-dataset"><i class="fa fa-check"></i><b>5.4.1</b> Check for time (in the dataset)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time-audit-files"><i class="fa fa-check"></i><b>5.4.2</b> Check for time (audit files)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-time---calculating-the-elapsed-time-between-each-interview"><i class="fa fa-check"></i><b>5.4.3</b> Check for time - calculating the elapsed time between each interview</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#silouhette-analysis"><i class="fa fa-check"></i><b>5.4.4</b> Silouhette analysis</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-duplicates"><i class="fa fa-check"></i><b>5.4.5</b> Check for duplicates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-checks"><i class="fa fa-check"></i><b>5.5</b> Data checks</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-outliers"><i class="fa fa-check"></i><b>5.5.1</b> Check for outliers</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-others"><i class="fa fa-check"></i><b>5.5.2</b> Check others</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#issue-log-function"><i class="fa fa-check"></i><b>5.5.3</b> Issue log Function</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-logical-check"><i class="fa fa-check"></i><b>5.5.4</b> Check for logical check</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#cleaninginspector---inspect_all"><i class="fa fa-check"></i><b>5.6</b> cleaninginspectoR - inspect_all</a></li>
+<li class="chapter" data-level="5.7" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning"><i class="fa fa-check"></i><b>5.7</b> Data cleaning</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#re-generate-text-column-for-select-multiple-questions"><i class="fa fa-check"></i><b>5.7.1</b> Re-generate text column for select multiple questions</a></li>
+<li class="chapter" data-level="5.7.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#clean-data-base-on-cleaning-log"><i class="fa fa-check"></i><b>5.7.2</b> Clean data base on cleaning log</a></li>
+<li class="chapter" data-level="5.7.3" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-cleaning-log-raw-dataset-and-clean-dataset"><i class="fa fa-check"></i><b>5.7.3</b> Check cleaning log, raw dataset and clean dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#data-cleaning---miscellaneous"><i class="fa fa-check"></i><b>5.8</b> Data cleaning - miscellaneous</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#check-for-data-sanity-check-if-the-data-follow-odk-format-select_one-select_multiple-xxx-choices"><i class="fa fa-check"></i><b>5.8.1</b> Check for data sanity check if the data follow ODK format (select_one, select_multiple, xxx, choices)</a></li>
+<li class="chapter" data-level="5.8.2" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#turns-label-to-xml"><i class="fa fa-check"></i><b>5.8.2</b> Turns label to xml</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="data-collection-and-processing.html"><a href="data-collection-and-processing.html#translation-using-microsoft-api"><i class="fa fa-check"></i><b>5.9</b> Translation using Microsoft API</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="composite-indicators.html"><a href="composite-indicators.html"><i class="fa fa-check"></i><b>6</b> Composite indicators</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-one"><i class="fa fa-check"></i><b>6.1</b> Composite with 1 categorical variable - select one</a></li>
+<li class="chapter" data-level="6.2" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-categorical-variables"><i class="fa fa-check"></i><b>6.2</b> Composite with 2 categorical variables</a></li>
+<li class="chapter" data-level="6.3" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-categorical-variable---select-multiple"><i class="fa fa-check"></i><b>6.3</b> Composite with 1 categorical variable - select multiple</a></li>
+<li class="chapter" data-level="6.4" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-1-numerical-variable"><i class="fa fa-check"></i><b>6.4</b> Composite with 1 numerical variable</a></li>
+<li class="chapter" data-level="6.5" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-numerical-variables"><i class="fa fa-check"></i><b>6.5</b> Composite with 2 numerical variables</a></li>
+<li class="chapter" data-level="6.6" data-path="composite-indicators.html"><a href="composite-indicators.html#composite-with-2-or-more-numerical-variables"><i class="fa fa-check"></i><b>6.6</b> Composite with 2 or more numerical variables</a></li>
+<li class="chapter" data-level="6.7" data-path="composite-indicators.html"><a href="composite-indicators.html#household-hunger-score-hhs"><i class="fa fa-check"></i><b>6.7</b> Household Hunger Score (HHS)</a></li>
+<li class="chapter" data-level="6.8" data-path="composite-indicators.html"><a href="composite-indicators.html#food-cconsumption-score-fcs"><i class="fa fa-check"></i><b>6.8</b> Food Cconsumption Score (FCS)</a></li>
+<li class="chapter" data-level="6.9" data-path="composite-indicators.html"><a href="composite-indicators.html#livelihood-coping-strategy-index-lcsi"><i class="fa fa-check"></i><b>6.9</b> Livelihood coping strategy index (LCSI)</a></li>
+<li class="chapter" data-level="6.10" data-path="composite-indicators.html"><a href="composite-indicators.html#new-indicators-from-a-loop-to-main-dataset"><i class="fa fa-check"></i><b>6.10</b> New indicators from a loop to main dataset</a></li>
+<li class="chapter" data-level="6.11" data-path="composite-indicators.html"><a href="composite-indicators.html#the-co-occurrence-of-needs-in-an-msni"><i class="fa fa-check"></i><b>6.11</b> The co-occurrence of needs in an MSNI</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>7</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="analysis.html"><a href="analysis.html#srvyr-package"><i class="fa fa-check"></i><b>7.1</b> srvyr package</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="analysis.html"><a href="analysis.html#categorical-variables"><i class="fa fa-check"></i><b>7.1.1</b> Categorical variables</a></li>
+<li class="chapter" data-level="7.1.2" data-path="analysis.html"><a href="analysis.html#numeric-variables"><i class="fa fa-check"></i><b>7.1.2</b> Numeric variables</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="analysis.html"><a href="analysis.html#analysis-with-numerical-variables"><i class="fa fa-check"></i><b>7.2</b> Analysis with numerical variables</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="analysis.html"><a href="analysis.html#median"><i class="fa fa-check"></i><b>7.2.1</b> Median</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="analysis.html"><a href="analysis.html#ratios"><i class="fa fa-check"></i><b>7.3</b> Ratios</a>
 <ul>
 <li><a href="analysis.html#example1" id="toc-example1"><span class="toc-section-number">7.3.1</span> Example1:<br />
 </a></li>
@@ -243,82 +246,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="analysis.html#example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted" id="toc-example3---no-dissagregation-is-needed-andor-the-data-is-not-weighted"><span class="toc-section-number">7.3.3</span> Example3 - No dissagregation is needed and/or the data is not weighted:<br />
 </a></li>
 </ul></li>
-<li><a href="analysis.html#weights" id="toc-weights"><span class="toc-section-number">7.4</span> Weights</a>
+<li class="chapter" data-level="7.4" data-path="analysis.html"><a href="analysis.html#weights"><i class="fa fa-check"></i><b>7.4</b> Weights</a>
 <ul>
-<li><a href="analysis.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">7.4.1</span> tidyverse</a></li>
-<li><a href="analysis.html#surveyweights" id="toc-surveyweights"><span class="toc-section-number">7.4.2</span> surveyweights</a></li>
+<li class="chapter" data-level="7.4.1" data-path="analysis.html"><a href="analysis.html#tidyverse"><i class="fa fa-check"></i><b>7.4.1</b> tidyverse</a></li>
+<li class="chapter" data-level="7.4.2" data-path="analysis.html"><a href="analysis.html#surveyweights"><i class="fa fa-check"></i><b>7.4.2</b> surveyweights</a></li>
 </ul></li>
-<li><a href="analysis.html#impactr-based-on-srvyr" id="toc-impactr-based-on-srvyr"><span class="toc-section-number">7.5</span> impactR, based on <code>srvyr</code></a>
+<li class="chapter" data-level="7.5" data-path="analysis.html"><a href="analysis.html#impactr-based-on-srvyr"><i class="fa fa-check"></i><b>7.5</b> impactR, based on <code>srvyr</code></a>
 <ul>
-<li><a href="analysis.html#introduction" id="toc-introduction"><span class="toc-section-number">7.5.1</span> Introduction</a></li>
-<li><a href="analysis.html#first-stage-prepare-data-and-survey-design" id="toc-first-stage-prepare-data-and-survey-design"><span class="toc-section-number">7.5.2</span> First stage: prepare data and survey design</a></li>
-<li><a href="analysis.html#second-stage-one-variable-analysis" id="toc-second-stage-one-variable-analysis"><span class="toc-section-number">7.5.3</span> Second stage: One variable analysis</a></li>
-<li><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool" id="toc-third-stage-one-analysis-at-a-time-with-the-kobo-tool"><span class="toc-section-number">7.5.4</span> Third stage: one analysis at a time with the Kobo tool</a></li>
+<li class="chapter" data-level="7.5.1" data-path="analysis.html"><a href="analysis.html#introduction"><i class="fa fa-check"></i><b>7.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.5.2" data-path="analysis.html"><a href="analysis.html#first-stage-prepare-data-and-survey-design"><i class="fa fa-check"></i><b>7.5.2</b> First stage: prepare data and survey design</a></li>
+<li class="chapter" data-level="7.5.3" data-path="analysis.html"><a href="analysis.html#second-stage-one-variable-analysis"><i class="fa fa-check"></i><b>7.5.3</b> Second stage: One variable analysis</a></li>
+<li class="chapter" data-level="7.5.4" data-path="analysis.html"><a href="analysis.html#third-stage-one-analysis-at-a-time-with-the-kobo-tool"><i class="fa fa-check"></i><b>7.5.4</b> Third stage: one analysis at a time with the Kobo tool</a></li>
 </ul></li>
-<li><a href="analysis.html#example-survey-analysis-using-illuminate" id="toc-example-survey-analysis-using-illuminate"><span class="toc-section-number">7.6</span> EXAMPLE :: Survey analysis using illuminate</a>
+<li class="chapter" data-level="7.6" data-path="analysis.html"><a href="analysis.html#example-survey-analysis-using-illuminate"><i class="fa fa-check"></i><b>7.6</b> EXAMPLE :: Survey analysis using illuminate</a>
 <ul>
-<li><a href="analysis.html#step-0-call-libraries" id="toc-step-0-call-libraries"><span class="toc-section-number">7.6.1</span> Step 0:: Call libraries</a></li>
-<li><a href="analysis.html#step-1-read-data" id="toc-step-1-read-data"><span class="toc-section-number">7.6.2</span> Step 1:: Read data</a></li>
-<li><a href="analysis.html#step-optional-preaparing-the-data" id="toc-step-optional-preaparing-the-data"><span class="toc-section-number">7.6.3</span> Step OPTIONAL:: Preaparing the data</a></li>
-<li><a href="analysis.html#step-2-weight-calculation" id="toc-step-2-weight-calculation"><span class="toc-section-number">7.6.4</span> Step 2:: Weight calculation</a></li>
-<li><a href="analysis.html#read-sampleframe" id="toc-read-sampleframe"><span class="toc-section-number">7.6.5</span> Read sampleframe</a></li>
-<li><a href="analysis.html#add-weights-to-the-dataframe" id="toc-add-weights-to-the-dataframe"><span class="toc-section-number">7.6.6</span> Add weights to the dataframe</a></li>
-<li><a href="analysis.html#step-3.1-weighted-analysis" id="toc-step-3.1-weighted-analysis"><span class="toc-section-number">7.6.7</span> Step 3.1:: Weighted analysis</a></li>
-<li><a href="analysis.html#step-3.2-unweighted-analysis" id="toc-step-3.2-unweighted-analysis"><span class="toc-section-number">7.6.8</span> Step 3.2:: Unweighted analysis</a></li>
-<li><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis" id="toc-step-3.3-weighted-and-disaggregated-by-gender-analysis"><span class="toc-section-number">7.6.9</span> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
-<li><a href="analysis.html#step-4-export-with-write_formatted_excel" id="toc-step-4-export-with-write_formatted_excel"><span class="toc-section-number">7.6.10</span> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
+<li class="chapter" data-level="7.6.1" data-path="analysis.html"><a href="analysis.html#step-0-call-libraries"><i class="fa fa-check"></i><b>7.6.1</b> Step 0:: Call libraries</a></li>
+<li class="chapter" data-level="7.6.2" data-path="analysis.html"><a href="analysis.html#step-1-read-data"><i class="fa fa-check"></i><b>7.6.2</b> Step 1:: Read data</a></li>
+<li class="chapter" data-level="7.6.3" data-path="analysis.html"><a href="analysis.html#step-optional-preaparing-the-data"><i class="fa fa-check"></i><b>7.6.3</b> Step OPTIONAL:: Preaparing the data</a></li>
+<li class="chapter" data-level="7.6.4" data-path="analysis.html"><a href="analysis.html#step-2-weight-calculation"><i class="fa fa-check"></i><b>7.6.4</b> Step 2:: Weight calculation</a></li>
+<li class="chapter" data-level="7.6.5" data-path="analysis.html"><a href="analysis.html#read-sampleframe"><i class="fa fa-check"></i><b>7.6.5</b> Read sampleframe</a></li>
+<li class="chapter" data-level="7.6.6" data-path="analysis.html"><a href="analysis.html#add-weights-to-the-dataframe"><i class="fa fa-check"></i><b>7.6.6</b> Add weights to the dataframe</a></li>
+<li class="chapter" data-level="7.6.7" data-path="analysis.html"><a href="analysis.html#step-3.1-weighted-analysis"><i class="fa fa-check"></i><b>7.6.7</b> Step 3.1:: Weighted analysis</a></li>
+<li class="chapter" data-level="7.6.8" data-path="analysis.html"><a href="analysis.html#step-3.2-unweighted-analysis"><i class="fa fa-check"></i><b>7.6.8</b> Step 3.2:: Unweighted analysis</a></li>
+<li class="chapter" data-level="7.6.9" data-path="analysis.html"><a href="analysis.html#step-3.3-weighted-and-disaggregated-by-gender-analysis"><i class="fa fa-check"></i><b>7.6.9</b> Step 3.3:: Weighted and disaggregated by gender analysis</a></li>
+<li class="chapter" data-level="7.6.10" data-path="analysis.html"><a href="analysis.html#step-4-export-with-write_formatted_excel"><i class="fa fa-check"></i><b>7.6.10</b> Step 4:: Export with <code>write_formatted_excel()</code></a></li>
 </ul></li>
-<li><a href="analysis.html#repeating-the-above" id="toc-repeating-the-above"><span class="toc-section-number">7.7</span> Repeating the above</a></li>
-<li><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple" id="toc-analysis---top-x-ranking-select-one-and-select-multiple"><span class="toc-section-number">7.8</span> Analysis - top X / ranking (select one and select multiple)</a></li>
-<li><a href="analysis.html#borda-count" id="toc-borda-count"><span class="toc-section-number">7.9</span> Borda count</a></li>
-<li><a href="analysis.html#hypothesis-testing" id="toc-hypothesis-testing"><span class="toc-section-number">7.10</span> Hypothesis testing</a>
+<li class="chapter" data-level="7.7" data-path="analysis.html"><a href="analysis.html#repeating-the-above"><i class="fa fa-check"></i><b>7.7</b> Repeating the above</a></li>
+<li class="chapter" data-level="7.8" data-path="analysis.html"><a href="analysis.html#analysis---top-x-ranking-select-one-and-select-multiple"><i class="fa fa-check"></i><b>7.8</b> Analysis - top X / ranking (select one and select multiple)</a></li>
+<li class="chapter" data-level="7.9" data-path="analysis.html"><a href="analysis.html#borda-count"><i class="fa fa-check"></i><b>7.9</b> Borda count</a></li>
+<li class="chapter" data-level="7.10" data-path="analysis.html"><a href="analysis.html#hypothesis-testing"><i class="fa fa-check"></i><b>7.10</b> Hypothesis testing</a>
 <ul>
-<li><a href="analysis.html#t-test" id="toc-t-test"><span class="toc-section-number">7.10.1</span> T-test</a></li>
-<li><a href="analysis.html#anova" id="toc-anova"><span class="toc-section-number">7.10.2</span> ANOVA</a></li>
-<li><a href="analysis.html#chi-squares" id="toc-chi-squares"><span class="toc-section-number">7.10.3</span> chi-squares</a></li>
-<li><a href="analysis.html#chi-squared-goodness-of-fit-test" id="toc-chi-squared-goodness-of-fit-test"><span class="toc-section-number">7.10.4</span> Chi-squared Goodness of Fit test</a></li>
-<li><a href="analysis.html#proportion-tests-z-test" id="toc-proportion-tests-z-test"><span class="toc-section-number">7.10.5</span> Proportion tests (z-test)</a></li>
+<li class="chapter" data-level="7.10.1" data-path="analysis.html"><a href="analysis.html#t-test"><i class="fa fa-check"></i><b>7.10.1</b> T-test</a></li>
+<li class="chapter" data-level="7.10.2" data-path="analysis.html"><a href="analysis.html#anova"><i class="fa fa-check"></i><b>7.10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="7.10.3" data-path="analysis.html"><a href="analysis.html#chi-squares"><i class="fa fa-check"></i><b>7.10.3</b> chi-squares</a></li>
+<li class="chapter" data-level="7.10.4" data-path="analysis.html"><a href="analysis.html#chi-squared-goodness-of-fit-test"><i class="fa fa-check"></i><b>7.10.4</b> Chi-squared Goodness of Fit test</a></li>
+<li class="chapter" data-level="7.10.5" data-path="analysis.html"><a href="analysis.html#proportion-tests-z-test"><i class="fa fa-check"></i><b>7.10.5</b> Proportion tests (z-test)</a></li>
 </ul></li>
 </ul></li>
-<li><a href="outputs.html#outputs" id="toc-outputs"><span class="toc-section-number">8</span> Outputs</a>
+<li class="chapter" data-level="8" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>8</b> Outputs</a>
 <ul>
-<li><a href="outputs.html#from-long-to-large-table" id="toc-from-long-to-large-table"><span class="toc-section-number">8.1</span> From long to large table</a></li>
-<li><a href="outputs.html#merge-file" id="toc-merge-file"><span class="toc-section-number">8.2</span> Merge file</a></li>
-<li><a href="outputs.html#graphs" id="toc-graphs"><span class="toc-section-number">8.3</span> Graphs</a>
+<li class="chapter" data-level="8.1" data-path="outputs.html"><a href="outputs.html#from-long-to-large-table"><i class="fa fa-check"></i><b>8.1</b> From long to large table</a></li>
+<li class="chapter" data-level="8.2" data-path="outputs.html"><a href="outputs.html#merge-file"><i class="fa fa-check"></i><b>8.2</b> Merge file</a></li>
+<li class="chapter" data-level="8.3" data-path="outputs.html"><a href="outputs.html#graphs"><i class="fa fa-check"></i><b>8.3</b> Graphs</a>
 <ul>
-<li><a href="outputs.html#spider-graphs" id="toc-spider-graphs"><span class="toc-section-number">8.3.1</span> spider graphs</a></li>
-<li><a href="outputs.html#prison-graphs" id="toc-prison-graphs"><span class="toc-section-number">8.3.2</span> prison graphs</a></li>
-<li><a href="outputs.html#bar-graphs" id="toc-bar-graphs"><span class="toc-section-number">8.3.3</span> Bar graphs</a></li>
-<li><a href="outputs.html#euler-diagram" id="toc-euler-diagram"><span class="toc-section-number">8.3.4</span> Euler diagram</a></li>
-<li><a href="outputs.html#venn-diagram" id="toc-venn-diagram"><span class="toc-section-number">8.3.5</span> Venn diagram</a></li>
-<li><a href="outputs.html#upset-plots" id="toc-upset-plots"><span class="toc-section-number">8.3.6</span> UpSet plots</a></li>
-<li><a href="outputs.html#boxplots" id="toc-boxplots"><span class="toc-section-number">8.3.7</span> boxplots</a></li>
+<li class="chapter" data-level="8.3.1" data-path="outputs.html"><a href="outputs.html#spider-graphs"><i class="fa fa-check"></i><b>8.3.1</b> spider graphs</a></li>
+<li class="chapter" data-level="8.3.2" data-path="outputs.html"><a href="outputs.html#prison-graphs"><i class="fa fa-check"></i><b>8.3.2</b> prison graphs</a></li>
+<li class="chapter" data-level="8.3.3" data-path="outputs.html"><a href="outputs.html#bar-graphs"><i class="fa fa-check"></i><b>8.3.3</b> Bar graphs</a></li>
+<li class="chapter" data-level="8.3.4" data-path="outputs.html"><a href="outputs.html#euler-diagram"><i class="fa fa-check"></i><b>8.3.4</b> Euler diagram</a></li>
+<li class="chapter" data-level="8.3.5" data-path="outputs.html"><a href="outputs.html#venn-diagram"><i class="fa fa-check"></i><b>8.3.5</b> Venn diagram</a></li>
+<li class="chapter" data-level="8.3.6" data-path="outputs.html"><a href="outputs.html#upset-plots"><i class="fa fa-check"></i><b>8.3.6</b> UpSet plots</a></li>
+<li class="chapter" data-level="8.3.7" data-path="outputs.html"><a href="outputs.html#boxplots"><i class="fa fa-check"></i><b>8.3.7</b> boxplots</a></li>
+<li class="chapter" data-level="8.3.8" data-path="outputs.html"><a href="outputs.html#circular-barplots"><i class="fa fa-check"></i><b>8.3.8</b> Circular barplots</a></li>
 </ul></li>
-<li><a href="outputs.html#labels" id="toc-labels"><span class="toc-section-number">8.4</span> Labels</a>
+<li class="chapter" data-level="8.4" data-path="outputs.html"><a href="outputs.html#labels"><i class="fa fa-check"></i><b>8.4</b> Labels</a>
 <ul>
-<li><a href="outputs.html#xml-to-label" id="toc-xml-to-label"><span class="toc-section-number">8.4.1</span> Xml to Label</a></li>
-<li><a href="outputs.html#change-from-label-to-xml" id="toc-change-from-label-to-xml"><span class="toc-section-number">8.4.2</span> change from label to xml</a></li>
+<li class="chapter" data-level="8.4.1" data-path="outputs.html"><a href="outputs.html#xml-to-label"><i class="fa fa-check"></i><b>8.4.1</b> Xml to Label</a></li>
+<li class="chapter" data-level="8.4.2" data-path="outputs.html"><a href="outputs.html#change-from-label-to-xml"><i class="fa fa-check"></i><b>8.4.2</b> change from label to xml</a></li>
 </ul></li>
-<li><a href="outputs.html#dashboarding---sharing-information" id="toc-dashboarding---sharing-information"><span class="toc-section-number">8.5</span> Dashboarding - Sharing information</a></li>
-<li><a href="outputs.html#outputs-with-hypothesis-testing-results" id="toc-outputs-with-hypothesis-testing-results"><span class="toc-section-number">8.6</span> Outputs with hypothesis testing results</a></li>
+<li class="chapter" data-level="8.5" data-path="outputs.html"><a href="outputs.html#dashboarding---sharing-information"><i class="fa fa-check"></i><b>8.5</b> Dashboarding - Sharing information</a></li>
+<li class="chapter" data-level="8.6" data-path="outputs.html"><a href="outputs.html#outputs-with-hypothesis-testing-results"><i class="fa fa-check"></i><b>8.6</b> Outputs with hypothesis testing results</a></li>
 </ul></li>
-<li><a href="miscellaneous.html#miscellaneous" id="toc-miscellaneous"><span class="toc-section-number">9</span> Miscellaneous</a></li>
-<li><a href="archives.html#archives" id="toc-archives"><span class="toc-section-number">10</span> Archives</a>
+<li class="chapter" data-level="9" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>9</b> Miscellaneous</a></li>
+<li class="chapter" data-level="10" data-path="archives.html"><a href="archives.html"><i class="fa fa-check"></i><b>10</b> Archives</a>
 <ul>
-<li><a href="archives.html#pre-analysis-1" id="toc-pre-analysis-1"><span class="toc-section-number">10.1</span> 01 Pre analysis</a>
+<li class="chapter" data-level="10.1" data-path="archives.html"><a href="archives.html#pre-analysis-1"><i class="fa fa-check"></i><b>10.1</b> 01 Pre analysis</a>
 <ul>
-<li><a href="archives.html#generation-of-random-sample-points" id="toc-generation-of-random-sample-points"><span class="toc-section-number">10.1.1</span> Generation of random sample points</a></li>
+<li class="chapter" data-level="10.1.1" data-path="archives.html"><a href="archives.html#generation-of-random-sample-points"><i class="fa fa-check"></i><b>10.1.1</b> Generation of random sample points</a></li>
 </ul></li>
-<li><a href="archives.html#cleaning" id="toc-cleaning"><span class="toc-section-number">10.2</span> Cleaning</a></li>
-<li><a href="archives.html#spatial-verification-checks" id="toc-spatial-verification-checks"><span class="toc-section-number">10.3</span> Spatial verification checks</a>
+<li class="chapter" data-level="10.2" data-path="archives.html"><a href="archives.html#cleaning"><i class="fa fa-check"></i><b>10.2</b> Cleaning</a></li>
+<li class="chapter" data-level="10.3" data-path="archives.html"><a href="archives.html#spatial-verification-checks"><i class="fa fa-check"></i><b>10.3</b> Spatial verification checks</a>
 <ul>
-<li><a href="archives.html#spatial-verification-checks-on-settlement-level" id="toc-spatial-verification-checks-on-settlement-level"><span class="toc-section-number">10.3.1</span> Spatial verification checks on settlement level</a></li>
-<li><a href="archives.html#spatial-verification-checks-on-sample-point-level" id="toc-spatial-verification-checks-on-sample-point-level"><span class="toc-section-number">10.3.2</span> Spatial verification checks on sample point level</a></li>
+<li class="chapter" data-level="10.3.1" data-path="archives.html"><a href="archives.html#spatial-verification-checks-on-settlement-level"><i class="fa fa-check"></i><b>10.3.1</b> Spatial verification checks on settlement level</a></li>
+<li class="chapter" data-level="10.3.2" data-path="archives.html"><a href="archives.html#spatial-verification-checks-on-sample-point-level"><i class="fa fa-check"></i><b>10.3.2</b> Spatial verification checks on sample point level</a></li>
+<li class="chapter" data-level="10.3.3" data-path="archives.html"><a href="archives.html#statistical-disclosure-control-methods"><i class="fa fa-check"></i><b>10.3.3</b> Statistical Disclosure Control Methods</a></li>
 </ul></li>
-<li><a href="archives.html#analayis" id="toc-analayis"><span class="toc-section-number">10.4</span> Analayis</a>
+<li class="chapter" data-level="10.4" data-path="archives.html"><a href="archives.html#analayis"><i class="fa fa-check"></i><b>10.4</b> Analayis</a>
 <ul>
-<li><a href="archives.html#hypegrammar" id="toc-hypegrammar"><span class="toc-section-number">10.4.1</span> hypegrammaR</a></li>
-<li><a href="archives.html#butter-survey_collapse" id="toc-butter-survey_collapse"><span class="toc-section-number">10.4.2</span> butteR survey_collapse</a></li>
+<li class="chapter" data-level="10.4.1" data-path="archives.html"><a href="archives.html#hypegrammar"><i class="fa fa-check"></i><b>10.4.1</b> hypegrammaR</a></li>
+<li class="chapter" data-level="10.4.2" data-path="archives.html"><a href="archives.html#butter-survey_collapse"><i class="fa fa-check"></i><b>10.4.2</b> butteR survey_collapse</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -348,52 +353,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It is quite common practice to select survey locations before data collection, using randomly distributed points. In this case, the enumerator finds the location of a certain sample point using mobile device navigation tools and conducts an interview near that location. That practice ensures that all survey locations were selected in a random manner.
 <br>
 First, let’s join our sampling frame (in this case it was generated with <a href="https://impact-initiatives.shinyapps.io/r_sampling_tool_v2/">Probability sampling tool</a>) to the settlement polygons and generate a random set of points within each polygon. We will use settlement polygons but it’s possible to use rectangle or hexagon fishnet with interview numbers distributed using population raster to obtain sample size that will correspond with settlement population density.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="archives.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb310-2"><a href="archives.html#cb310-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb310-3"><a href="archives.html#cb310-3" aria-hidden="true" tabindex="-1"></a>ADM4 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;inputs/MSNA20_ADM4.geojson&quot;</span>)</span>
-<span id="cb310-4"><a href="archives.html#cb310-4" aria-hidden="true" tabindex="-1"></a>sampling_frame <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/sampling_frame20200701-132150.csv&quot;</span>)</span>
-<span id="cb310-5"><a href="archives.html#cb310-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb310-6"><a href="archives.html#cb310-6" aria-hidden="true" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4 <span class="sc">%&gt;%</span></span>
-<span id="cb310-7"><a href="archives.html#cb310-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">right_join</span>(sampling_frame, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;adm4Pcd&quot;</span> <span class="ot">=</span> <span class="st">&quot;adm4Pcode&quot;</span>))</span>
-<span id="cb310-8"><a href="archives.html#cb310-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb310-9"><a href="archives.html#cb310-9" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(ADM4_for_sample, <span class="fu">rep</span>(ADM4_for_sample<span class="sc">$</span>Survey, <span class="fu">nrow</span>(ADM4_for_sample)))<span class="sc">%&gt;%</span></span>
-<span id="cb310-10"><a href="archives.html#cb310-10" aria-hidden="true" tabindex="-1"></a>  st_as_sf</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="archives.html#cb328-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb328-2"><a href="archives.html#cb328-2" tabindex="-1"></a></span>
+<span id="cb328-3"><a href="archives.html#cb328-3" tabindex="-1"></a>ADM4 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;inputs/MSNA20_ADM4.geojson&quot;</span>)</span>
+<span id="cb328-4"><a href="archives.html#cb328-4" tabindex="-1"></a>sampling_frame <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/sampling_frame20200701-132150.csv&quot;</span>)</span>
+<span id="cb328-5"><a href="archives.html#cb328-5" tabindex="-1"></a></span>
+<span id="cb328-6"><a href="archives.html#cb328-6" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4 <span class="sc">%&gt;%</span></span>
+<span id="cb328-7"><a href="archives.html#cb328-7" tabindex="-1"></a>        <span class="fu">right_join</span>(sampling_frame, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;adm4Pcd&quot;</span> <span class="ot">=</span> <span class="st">&quot;adm4Pcode&quot;</span>))</span>
+<span id="cb328-8"><a href="archives.html#cb328-8" tabindex="-1"></a></span>
+<span id="cb328-9"><a href="archives.html#cb328-9" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(ADM4_for_sample, <span class="fu">rep</span>(ADM4_for_sample<span class="sc">$</span>Survey, <span class="fu">nrow</span>(ADM4_for_sample)))<span class="sc">%&gt;%</span></span>
+<span id="cb328-10"><a href="archives.html#cb328-10" tabindex="-1"></a>  st_as_sf</span></code></pre></div>
 <p>Now we would need to transfer attributes from the settlement layer to our random points.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="archives.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first we should generate indexes that will be used for this transfer</span></span>
-<span id="cb311-2"><a href="archives.html#cb311-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_along</span>(ADM4_for_sample<span class="sc">$</span>Survey), ADM4_for_sample<span class="sc">$</span>Survey)</span>
-<span id="cb311-3"><a href="archives.html#cb311-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb311-4"><a href="archives.html#cb311-4" aria-hidden="true" tabindex="-1"></a><span class="co">#now we should add indexes to the settlement layer and then join this layer to the random points</span></span>
-<span id="cb311-5"><a href="archives.html#cb311-5" aria-hidden="true" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4_for_sample <span class="sc">%&gt;%</span></span>
-<span id="cb311-6"><a href="archives.html#cb311-6" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb311-7"><a href="archives.html#cb311-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.data.frame</span>(<span class="at">row.names =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))<span class="sc">%&gt;%</span></span>
-<span id="cb311-8"><a href="archives.html#cb311-8" aria-hidden="true" tabindex="-1"></a>                   tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;index&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb311-9"><a href="archives.html#cb311-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">mutate_at</span>(<span class="dv">1</span>, as.numeric)</span>
-<span id="cb311-10"><a href="archives.html#cb311-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb311-11"><a href="archives.html#cb311-11" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(sample_all_pnt)<span class="sc">%&gt;%</span></span>
-<span id="cb311-12"><a href="archives.html#cb311-12" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb311-13"><a href="archives.html#cb311-13" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">bind_cols</span>(index)<span class="sc">%&gt;%</span></span>
-<span id="cb311-14"><a href="archives.html#cb311-14" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">set_colnames</span>(<span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>,<span class="st">&quot;Latitude_pnt&quot;</span>,<span class="st">&quot;index&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb311-15"><a href="archives.html#cb311-15" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">left_join</span>(ADM4_for_sample, <span class="at">by =</span> <span class="st">&quot;index&quot;</span>)</span>
-<span id="cb311-16"><a href="archives.html#cb311-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb311-17"><a href="archives.html#cb311-17" aria-hidden="true" tabindex="-1"></a><span class="co">#with the code below we will get the unique id for each point that will have a settlement name and point number</span></span>
-<span id="cb311-18"><a href="archives.html#cb311-18" aria-hidden="true" tabindex="-1"></a>sample_all_pnt<span class="sc">$</span>GPS_id <span class="ot">&lt;-</span> <span class="fu">paste</span>(sample_all_pnt<span class="sc">$</span>adm4NmL, data.table<span class="sc">::</span><span class="fu">rowid</span>(sample_all_pnt<span class="sc">$</span>adm4NmL), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
-<span id="cb311-19"><a href="archives.html#cb311-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb311-20"><a href="archives.html#cb311-20" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="at">x =</span> sample_all_pnt, </span>
-<span id="cb311-21"><a href="archives.html#cb311-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>, <span class="st">&quot;Latitude_pnt&quot;</span>),</span>
-<span id="cb311-22"><a href="archives.html#cb311-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span>
-<span id="cb311-23"><a href="archives.html#cb311-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb311-24"><a href="archives.html#cb311-24" aria-hidden="true" tabindex="-1"></a><span class="co">#and now we can visualize our random points for some settlement to check their distribution</span></span>
-<span id="cb311-25"><a href="archives.html#cb311-25" aria-hidden="true" tabindex="-1"></a>sample_all_pnt <span class="sc">%&gt;%</span></span>
-<span id="cb311-26"><a href="archives.html#cb311-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(adm4NmL <span class="sc">==</span> <span class="st">&quot;Bakhmut&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb311-27"><a href="archives.html#cb311-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(adm4NmL)<span class="sc">%&gt;%</span></span>
-<span id="cb311-28"><a href="archives.html#cb311-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="archives.html#cb329-1" tabindex="-1"></a><span class="co">#first we should generate indexes that will be used for this transfer</span></span>
+<span id="cb329-2"><a href="archives.html#cb329-2" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_along</span>(ADM4_for_sample<span class="sc">$</span>Survey), ADM4_for_sample<span class="sc">$</span>Survey)</span>
+<span id="cb329-3"><a href="archives.html#cb329-3" tabindex="-1"></a></span>
+<span id="cb329-4"><a href="archives.html#cb329-4" tabindex="-1"></a><span class="co">#now we should add indexes to the settlement layer and then join this layer to the random points</span></span>
+<span id="cb329-5"><a href="archives.html#cb329-5" tabindex="-1"></a>ADM4_for_sample <span class="ot">&lt;-</span> ADM4_for_sample <span class="sc">%&gt;%</span></span>
+<span id="cb329-6"><a href="archives.html#cb329-6" tabindex="-1"></a>                   <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb329-7"><a href="archives.html#cb329-7" tabindex="-1"></a>                   <span class="fu">as.data.frame</span>(<span class="at">row.names =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(.))<span class="sc">%&gt;%</span></span>
+<span id="cb329-8"><a href="archives.html#cb329-8" tabindex="-1"></a>                   tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;index&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb329-9"><a href="archives.html#cb329-9" tabindex="-1"></a>                   <span class="fu">mutate_at</span>(<span class="dv">1</span>, as.numeric)</span>
+<span id="cb329-10"><a href="archives.html#cb329-10" tabindex="-1"></a></span>
+<span id="cb329-11"><a href="archives.html#cb329-11" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(sample_all_pnt)<span class="sc">%&gt;%</span></span>
+<span id="cb329-12"><a href="archives.html#cb329-12" tabindex="-1"></a>                  <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb329-13"><a href="archives.html#cb329-13" tabindex="-1"></a>                  <span class="fu">bind_cols</span>(index)<span class="sc">%&gt;%</span></span>
+<span id="cb329-14"><a href="archives.html#cb329-14" tabindex="-1"></a>                  <span class="fu">set_colnames</span>(<span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>,<span class="st">&quot;Latitude_pnt&quot;</span>,<span class="st">&quot;index&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb329-15"><a href="archives.html#cb329-15" tabindex="-1"></a>                  <span class="fu">left_join</span>(ADM4_for_sample, <span class="at">by =</span> <span class="st">&quot;index&quot;</span>)</span>
+<span id="cb329-16"><a href="archives.html#cb329-16" tabindex="-1"></a></span>
+<span id="cb329-17"><a href="archives.html#cb329-17" tabindex="-1"></a><span class="co">#with the code below we will get the unique id for each point that will have a settlement name and point number</span></span>
+<span id="cb329-18"><a href="archives.html#cb329-18" tabindex="-1"></a>sample_all_pnt<span class="sc">$</span>GPS_id <span class="ot">&lt;-</span> <span class="fu">paste</span>(sample_all_pnt<span class="sc">$</span>adm4NmL, data.table<span class="sc">::</span><span class="fu">rowid</span>(sample_all_pnt<span class="sc">$</span>adm4NmL), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb329-19"><a href="archives.html#cb329-19" tabindex="-1"></a></span>
+<span id="cb329-20"><a href="archives.html#cb329-20" tabindex="-1"></a>sample_all_pnt <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="at">x =</span> sample_all_pnt, </span>
+<span id="cb329-21"><a href="archives.html#cb329-21" tabindex="-1"></a>                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude_pnt&quot;</span>, <span class="st">&quot;Latitude_pnt&quot;</span>),</span>
+<span id="cb329-22"><a href="archives.html#cb329-22" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span>
+<span id="cb329-23"><a href="archives.html#cb329-23" tabindex="-1"></a></span>
+<span id="cb329-24"><a href="archives.html#cb329-24" tabindex="-1"></a><span class="co">#and now we can visualize our random points for some settlement to check their distribution</span></span>
+<span id="cb329-25"><a href="archives.html#cb329-25" tabindex="-1"></a>sample_all_pnt <span class="sc">%&gt;%</span></span>
+<span id="cb329-26"><a href="archives.html#cb329-26" tabindex="-1"></a>  <span class="fu">filter</span>(adm4NmL <span class="sc">==</span> <span class="st">&quot;Bakhmut&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb329-27"><a href="archives.html#cb329-27" tabindex="-1"></a>  <span class="fu">select</span>(adm4NmL)<span class="sc">%&gt;%</span></span>
+<span id="cb329-28"><a href="archives.html#cb329-28" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <p>The last step will be to export the sample points into any suitable GIS format (GeoJSON, Shapefile, KML, etc.) and transfer that file to the mobile devices of the enumerators.</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="archives.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check if there are directory for the outputs and write there output geojson file</span></span>
-<span id="cb312-2"><a href="archives.html#cb312-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) {</span>
-<span id="cb312-3"><a href="archives.html#cb312-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)</span>
-<span id="cb312-4"><a href="archives.html#cb312-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb312-5"><a href="archives.html#cb312-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb312-6"><a href="archives.html#cb312-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(sample_all_pnt, <span class="st">&quot;outputs/sample_points.geojson&quot;</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="archives.html#cb330-1" tabindex="-1"></a><span class="co">#check if there are directory for the outputs and write there output geojson file</span></span>
+<span id="cb330-2"><a href="archives.html#cb330-2" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) {</span>
+<span id="cb330-3"><a href="archives.html#cb330-3" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)</span>
+<span id="cb330-4"><a href="archives.html#cb330-4" tabindex="-1"></a>}</span>
+<span id="cb330-5"><a href="archives.html#cb330-5" tabindex="-1"></a></span>
+<span id="cb330-6"><a href="archives.html#cb330-6" tabindex="-1"></a><span class="fu">st_write</span>(sample_all_pnt, <span class="st">&quot;outputs/sample_points.geojson&quot;</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="cleaning" class="section level2 hasAnchor" number="10.2">
@@ -405,74 +410,120 @@ First, let’s join our sampling frame (in this case it was generated with <a hr
 <h3><span class="header-section-number">10.3.1</span> Spatial verification checks on settlement level<a href="archives.html#spatial-verification-checks-on-settlement-level" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One of the important checks is to ensure that all surveys were collected in the correct locations (areas, settlements, sample points). The usual procedure to perform such checks is to compare GNSS-coordinates obtained by the data collection device with enumerator input that indicates data collection location</p>
 <p>First, let’s generate random spatial coordinates (as real coordinates were excluded as part of personal data) and select columns that we need for cleaning.</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="archives.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb313-2"><a href="archives.html#cb313-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span></code></pre></div>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="archives.html#cb314-1" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
-<span id="cb314-2"><a href="archives.html#cb314-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb314-3"><a href="archives.html#cb314-3" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>X_r6_gpslocation_latitude <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(main_dataset), <span class="at">min =</span> <span class="dv">47</span>, <span class="at">max =</span> <span class="dv">48</span>)</span>
-<span id="cb314-4"><a href="archives.html#cb314-4" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>X_r6_gpslocation_longitude <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(main_dataset), <span class="at">min =</span> <span class="dv">37</span>, <span class="at">max =</span> <span class="dv">40</span>)</span>
-<span id="cb314-5"><a href="archives.html#cb314-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb314-6"><a href="archives.html#cb314-6" aria-hidden="true" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb314-7"><a href="archives.html#cb314-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(r3_current_settlement,adm4NameLat,X_r6_gpslocation_latitude,X_r6_gpslocation_longitude,X_uuid)<span class="sc">%&gt;%</span></span>
-<span id="cb314-8"><a href="archives.html#cb314-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;code_settlement_dataset&quot;</span>,<span class="st">&quot;name_settlement_dataset&quot;</span>,<span class="st">&quot;latitude&quot;</span>,<span class="st">&quot;longitude&quot;</span>,<span class="st">&quot;X_uuid&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="archives.html#cb331-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb331-2"><a href="archives.html#cb331-2" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="archives.html#cb332-1" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb332-2"><a href="archives.html#cb332-2" tabindex="-1"></a></span>
+<span id="cb332-3"><a href="archives.html#cb332-3" tabindex="-1"></a>main_dataset<span class="sc">$</span>X_r6_gpslocation_latitude <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(main_dataset), <span class="at">min =</span> <span class="dv">47</span>, <span class="at">max =</span> <span class="dv">48</span>)</span>
+<span id="cb332-4"><a href="archives.html#cb332-4" tabindex="-1"></a>main_dataset<span class="sc">$</span>X_r6_gpslocation_longitude <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(main_dataset), <span class="at">min =</span> <span class="dv">37</span>, <span class="at">max =</span> <span class="dv">40</span>)</span>
+<span id="cb332-5"><a href="archives.html#cb332-5" tabindex="-1"></a></span>
+<span id="cb332-6"><a href="archives.html#cb332-6" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> main_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb332-7"><a href="archives.html#cb332-7" tabindex="-1"></a>  <span class="fu">select</span>(r3_current_settlement,adm4NameLat,X_r6_gpslocation_latitude,X_r6_gpslocation_longitude,X_uuid)<span class="sc">%&gt;%</span></span>
+<span id="cb332-8"><a href="archives.html#cb332-8" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;code_settlement_dataset&quot;</span>,<span class="st">&quot;name_settlement_dataset&quot;</span>,<span class="st">&quot;latitude&quot;</span>,<span class="st">&quot;longitude&quot;</span>,<span class="st">&quot;X_uuid&quot;</span>))</span></code></pre></div>
 <p>Now with <a href="https://cran.r-project.org/web/packages/sf/index.html">sf library</a> we should open geojson file with settlements boundaries and convert our dataset into sf data type.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="archives.html#cb315-1" aria-hidden="true" tabindex="-1"></a>ADM4 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;inputs/MSNA20_ADM4.geojson&quot;</span>)</span>
-<span id="cb315-2"><a href="archives.html#cb315-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb315-3"><a href="archives.html#cb315-3" aria-hidden="true" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="at">x =</span> spatial_component, </span>
-<span id="cb315-4"><a href="archives.html#cb315-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>),</span>
-<span id="cb315-5"><a href="archives.html#cb315-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="archives.html#cb333-1" tabindex="-1"></a>ADM4 <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;inputs/MSNA20_ADM4.geojson&quot;</span>)</span>
+<span id="cb333-2"><a href="archives.html#cb333-2" tabindex="-1"></a></span>
+<span id="cb333-3"><a href="archives.html#cb333-3" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="at">x =</span> spatial_component, </span>
+<span id="cb333-4"><a href="archives.html#cb333-4" tabindex="-1"></a>                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>),</span>
+<span id="cb333-5"><a href="archives.html#cb333-5" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span></code></pre></div>
 <p>With st_join() function from <a href="https://cran.r-project.org/web/packages/nngeo/index.html">nngeo library</a> we are doing spatial join of interviews locations and settlement boundaries. Parameter “maxdist” specifies that join should be performed for all the points that are within 1000 meters from the closest polygon. After that, we compare the code of the closest settlement and the settlement code chosen by the enumerator. In case there is a difference in the codes we put “CHECK” status for such interviews and clarify interview location with the Field team.
 <em>Keep in mind that for this example we used random coordinates so most likely all the interviews will have “CHECK” status</em></p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="archives.html#cb316-1" aria-hidden="true" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> <span class="fu">st_join</span>(spatial_component, ADM4, <span class="at">join =</span> st_nn, <span class="at">k =</span> <span class="dv">1</span>, <span class="at">maxdist =</span> <span class="dv">1000</span>)</span>
-<span id="cb316-2"><a href="archives.html#cb316-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb316-3"><a href="archives.html#cb316-3" aria-hidden="true" tabindex="-1"></a>spatial_component<span class="sc">$</span>spatial_check <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(spatial_component<span class="sc">$</span>code_settlement_dataset <span class="sc">==</span> spatial_component<span class="sc">$</span>adm4NmL</span>
-<span id="cb316-4"><a href="archives.html#cb316-4" aria-hidden="true" tabindex="-1"></a>                                          <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(spatial_component<span class="sc">$</span>adm4NmL),</span>
-<span id="cb316-5"><a href="archives.html#cb316-5" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">&quot;OK&quot;</span>,</span>
-<span id="cb316-6"><a href="archives.html#cb316-6" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">&quot;CHECK&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="archives.html#cb334-1" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> <span class="fu">st_join</span>(spatial_component, ADM4, <span class="at">join =</span> st_nn, <span class="at">k =</span> <span class="dv">1</span>, <span class="at">maxdist =</span> <span class="dv">1000</span>)</span>
+<span id="cb334-2"><a href="archives.html#cb334-2" tabindex="-1"></a></span>
+<span id="cb334-3"><a href="archives.html#cb334-3" tabindex="-1"></a>spatial_component<span class="sc">$</span>spatial_check <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(spatial_component<span class="sc">$</span>code_settlement_dataset <span class="sc">==</span> spatial_component<span class="sc">$</span>adm4NmL</span>
+<span id="cb334-4"><a href="archives.html#cb334-4" tabindex="-1"></a>                                          <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(spatial_component<span class="sc">$</span>adm4NmL),</span>
+<span id="cb334-5"><a href="archives.html#cb334-5" tabindex="-1"></a>                                          <span class="st">&quot;OK&quot;</span>,</span>
+<span id="cb334-6"><a href="archives.html#cb334-6" tabindex="-1"></a>                                          <span class="st">&quot;CHECK&quot;</span>)</span></code></pre></div>
 <p>Print number of interviews that needs review</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="archives.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Number interviews to check&quot;</span>,<span class="fu">unlist</span>(<span class="fu">table</span>(spatial_component<span class="sc">$</span>spatial_check))))</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="archives.html#cb335-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Number interviews to check&quot;</span>,<span class="fu">unlist</span>(<span class="fu">table</span>(spatial_component<span class="sc">$</span>spatial_check))))</span></code></pre></div>
 </div>
 <div id="spatial-verification-checks-on-sample-point-level" class="section level3 hasAnchor" number="10.3.2">
 <h3><span class="header-section-number">10.3.2</span> Spatial verification checks on sample point level<a href="archives.html#spatial-verification-checks-on-sample-point-level" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Previous spatial verification check can identify surveys that were collected in the wrong area (settlement). But if you are using random sampling points (as described in <a href="archives.html#generation-of-random-sample-points">Generation of random sample points</a>) you can also check how your surveys corresponds with initially planned sample points.
 <br>
 To perform spatial verification on sample point level we should add our sample ids to the dataset (<em>of course in a real-life scenario you will already have them in your dataset</em>). Also, we should open initial sampling points generated at the sampling stage and that were used by the enumerators.</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="archives.html#cb318-1" aria-hidden="true" tabindex="-1"></a>spatial_component<span class="sc">$</span>GPS_id_data <span class="ot">&lt;-</span> <span class="fu">paste</span>(spatial_component<span class="sc">$</span>name_settlement_dataset,</span>
-<span id="cb318-2"><a href="archives.html#cb318-2" aria-hidden="true" tabindex="-1"></a>                                  data.table<span class="sc">::</span><span class="fu">rowid</span>(spatial_component<span class="sc">$</span>name_settlement_dataset), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
-<span id="cb318-3"><a href="archives.html#cb318-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb318-4"><a href="archives.html#cb318-4" aria-hidden="true" tabindex="-1"></a>sample_points <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;outputs/sample_points.geojson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="archives.html#cb336-1" tabindex="-1"></a>spatial_component<span class="sc">$</span>GPS_id_data <span class="ot">&lt;-</span> <span class="fu">paste</span>(spatial_component<span class="sc">$</span>name_settlement_dataset,</span>
+<span id="cb336-2"><a href="archives.html#cb336-2" tabindex="-1"></a>                                  data.table<span class="sc">::</span><span class="fu">rowid</span>(spatial_component<span class="sc">$</span>name_settlement_dataset), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb336-3"><a href="archives.html#cb336-3" tabindex="-1"></a></span>
+<span id="cb336-4"><a href="archives.html#cb336-4" tabindex="-1"></a>sample_points <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;outputs/sample_points.geojson&quot;</span>)</span></code></pre></div>
 <p>Now let’s use again st_join() function but this time apply it on two point layers. We would put argument k equal 3 that will give us sample ids of 3 points in the dataset that are located in 1 km radius from our initial sample points. In case function return NA value it will mean that there are no points were collected near our planned sample point.
 <br>
 <em>Keep in mind that for this book we are using randomly generated survey locations so most of the points will have NA or CHECK status</em></p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="archives.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first let&#39;s run st_join() function. You can reduce or increase maxdist value considering your circumstances.</span></span>
-<span id="cb319-2"><a href="archives.html#cb319-2" aria-hidden="true" tabindex="-1"></a>sample_point_check <span class="ot">&lt;-</span> <span class="fu">st_join</span>(spatial_component, sample_points, <span class="at">join =</span> st_nn, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">maxdist =</span> <span class="dv">1000</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb319-3"><a href="archives.html#cb319-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
-<span id="cb319-4"><a href="archives.html#cb319-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb319-5"><a href="archives.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="co">#now we should reshape our dataset and select only columns with point ids</span></span>
-<span id="cb319-6"><a href="archives.html#cb319-6" aria-hidden="true" tabindex="-1"></a>sample_point_check <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">dcast</span>(sample_point_check, X_uuid <span class="sc">+</span> GPS_id_data  <span class="sc">~</span> GPS_id, <span class="at">value.var =</span> <span class="st">&quot;GPS_id&quot;</span>, </span>
-<span id="cb319-7"><a href="archives.html#cb319-7" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">fun.aggregate =</span>  <span class="cn">NULL</span>)</span>
-<span id="cb319-8"><a href="archives.html#cb319-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb319-9"><a href="archives.html#cb319-9" aria-hidden="true" tabindex="-1"></a>sample_point_check <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(<span class="fu">apply</span>(sample_point_check,<span class="dv">1</span>, <span class="cf">function</span>(x) { <span class="fu">return</span>(<span class="fu">c</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)],x[<span class="fu">is.na</span>(x)]) )} )))<span class="sc">%&gt;%</span></span>
-<span id="cb319-10"><a href="archives.html#cb319-10" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">select</span>(<span class="fu">where</span>(<span class="cf">function</span>(x) <span class="fu">any</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))))<span class="sc">%&gt;%</span></span>
-<span id="cb319-11"><a href="archives.html#cb319-11" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;uuid&quot;</span>, <span class="st">&quot;GPS_id&quot;</span>, <span class="st">&quot;pnt_1&quot;</span>, <span class="st">&quot;pnt_2&quot;</span>, <span class="st">&quot;pnt_3&quot;</span>))</span>
-<span id="cb319-12"><a href="archives.html#cb319-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb319-13"><a href="archives.html#cb319-13" aria-hidden="true" tabindex="-1"></a><span class="co">#and as a final step, we should mark all the interviews that will need additional review</span></span>
-<span id="cb319-14"><a href="archives.html#cb319-14" aria-hidden="true" tabindex="-1"></a>sample_point_check<span class="sc">$</span>Sample_Check <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sample_point_check<span class="sc">$</span>GPS_id <span class="sc">==</span> sample_point_check<span class="sc">$</span>pnt_1 <span class="sc">|</span> </span>
-<span id="cb319-15"><a href="archives.html#cb319-15" aria-hidden="true" tabindex="-1"></a>                                          sample_point_check<span class="sc">$</span>GPS_id <span class="sc">==</span> sample_point_check<span class="sc">$</span>pnt_2 <span class="sc">|</span> </span>
-<span id="cb319-16"><a href="archives.html#cb319-16" aria-hidden="true" tabindex="-1"></a>                                          sample_point_check<span class="sc">$</span>GPS_id <span class="sc">==</span> sample_point_check<span class="sc">$</span>pnt_3, </span>
-<span id="cb319-17"><a href="archives.html#cb319-17" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">&quot;OK&quot;</span>, </span>
-<span id="cb319-18"><a href="archives.html#cb319-18" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">&quot;CHECK&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="archives.html#cb337-1" tabindex="-1"></a><span class="co">#first let&#39;s run st_join() function. You can reduce or increase maxdist value considering your circumstances.</span></span>
+<span id="cb337-2"><a href="archives.html#cb337-2" tabindex="-1"></a>sample_point_check <span class="ot">&lt;-</span> <span class="fu">st_join</span>(spatial_component, sample_points, <span class="at">join =</span> st_nn, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">maxdist =</span> <span class="dv">1000</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb337-3"><a href="archives.html#cb337-3" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb337-4"><a href="archives.html#cb337-4" tabindex="-1"></a></span>
+<span id="cb337-5"><a href="archives.html#cb337-5" tabindex="-1"></a><span class="co">#now we should reshape our dataset and select only columns with point ids</span></span>
+<span id="cb337-6"><a href="archives.html#cb337-6" tabindex="-1"></a>sample_point_check <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">dcast</span>(sample_point_check, X_uuid <span class="sc">+</span> GPS_id_data  <span class="sc">~</span> GPS_id, <span class="at">value.var =</span> <span class="st">&quot;GPS_id&quot;</span>, </span>
+<span id="cb337-7"><a href="archives.html#cb337-7" tabindex="-1"></a>                                      <span class="at">fun.aggregate =</span>  <span class="cn">NULL</span>)</span>
+<span id="cb337-8"><a href="archives.html#cb337-8" tabindex="-1"></a></span>
+<span id="cb337-9"><a href="archives.html#cb337-9" tabindex="-1"></a>sample_point_check <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(<span class="fu">apply</span>(sample_point_check,<span class="dv">1</span>, <span class="cf">function</span>(x) { <span class="fu">return</span>(<span class="fu">c</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)],x[<span class="fu">is.na</span>(x)]) )} )))<span class="sc">%&gt;%</span></span>
+<span id="cb337-10"><a href="archives.html#cb337-10" tabindex="-1"></a>                      <span class="fu">select</span>(<span class="fu">where</span>(<span class="cf">function</span>(x) <span class="fu">any</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))))<span class="sc">%&gt;%</span></span>
+<span id="cb337-11"><a href="archives.html#cb337-11" tabindex="-1"></a>                      <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;uuid&quot;</span>, <span class="st">&quot;GPS_id&quot;</span>, <span class="st">&quot;pnt_1&quot;</span>, <span class="st">&quot;pnt_2&quot;</span>, <span class="st">&quot;pnt_3&quot;</span>))</span>
+<span id="cb337-12"><a href="archives.html#cb337-12" tabindex="-1"></a></span>
+<span id="cb337-13"><a href="archives.html#cb337-13" tabindex="-1"></a><span class="co">#and as a final step, we should mark all the interviews that will need additional review</span></span>
+<span id="cb337-14"><a href="archives.html#cb337-14" tabindex="-1"></a>sample_point_check<span class="sc">$</span>Sample_Check <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sample_point_check<span class="sc">$</span>GPS_id <span class="sc">==</span> sample_point_check<span class="sc">$</span>pnt_1 <span class="sc">|</span> </span>
+<span id="cb337-15"><a href="archives.html#cb337-15" tabindex="-1"></a>                                          sample_point_check<span class="sc">$</span>GPS_id <span class="sc">==</span> sample_point_check<span class="sc">$</span>pnt_2 <span class="sc">|</span> </span>
+<span id="cb337-16"><a href="archives.html#cb337-16" tabindex="-1"></a>                                          sample_point_check<span class="sc">$</span>GPS_id <span class="sc">==</span> sample_point_check<span class="sc">$</span>pnt_3, </span>
+<span id="cb337-17"><a href="archives.html#cb337-17" tabindex="-1"></a>                                          <span class="st">&quot;OK&quot;</span>, </span>
+<span id="cb337-18"><a href="archives.html#cb337-18" tabindex="-1"></a>                                          <span class="st">&quot;CHECK&quot;</span>)</span></code></pre></div>
 <p>Usually, there are always some interviews that were collected not accordingly to the sampling plan. They can be either too far away from the planned sample location or has different sample id due to enumerator mistake. Such cases are better to review manually using any GIS software (QGIS/ArcGIS Pro/ArcGIS Online/Google Earth Pro). But first, you will need to export your sample points into any spatial format (like geojson).</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="archives.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="co">#join spatial check on sample point level with spatial check on settlement level</span></span>
-<span id="cb320-2"><a href="archives.html#cb320-2" aria-hidden="true" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> spatial_component <span class="sc">%&gt;%</span></span>
-<span id="cb320-3"><a href="archives.html#cb320-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">left_join</span>(sample_point_check, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;X_uuid&quot;</span> <span class="ot">=</span> <span class="st">&quot;uuid&quot;</span>))</span>
-<span id="cb320-4"><a href="archives.html#cb320-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb320-5"><a href="archives.html#cb320-5" aria-hidden="true" tabindex="-1"></a><span class="co">#check if there are directory for the outputs and write there output geojson file</span></span>
-<span id="cb320-6"><a href="archives.html#cb320-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) {</span>
-<span id="cb320-7"><a href="archives.html#cb320-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)</span>
-<span id="cb320-8"><a href="archives.html#cb320-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb320-9"><a href="archives.html#cb320-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb320-10"><a href="archives.html#cb320-10" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(spatial_component, <span class="st">&quot;outputs/spatial_component_check.geojson&quot;</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="archives.html#cb338-1" tabindex="-1"></a><span class="co">#join spatial check on sample point level with spatial check on settlement level</span></span>
+<span id="cb338-2"><a href="archives.html#cb338-2" tabindex="-1"></a>spatial_component <span class="ot">&lt;-</span> spatial_component <span class="sc">%&gt;%</span></span>
+<span id="cb338-3"><a href="archives.html#cb338-3" tabindex="-1"></a>                     <span class="fu">left_join</span>(sample_point_check, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;X_uuid&quot;</span> <span class="ot">=</span> <span class="st">&quot;uuid&quot;</span>))</span>
+<span id="cb338-4"><a href="archives.html#cb338-4" tabindex="-1"></a></span>
+<span id="cb338-5"><a href="archives.html#cb338-5" tabindex="-1"></a><span class="co">#check if there are directory for the outputs and write there output geojson file</span></span>
+<span id="cb338-6"><a href="archives.html#cb338-6" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) {</span>
+<span id="cb338-7"><a href="archives.html#cb338-7" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)</span>
+<span id="cb338-8"><a href="archives.html#cb338-8" tabindex="-1"></a>}</span>
+<span id="cb338-9"><a href="archives.html#cb338-9" tabindex="-1"></a></span>
+<span id="cb338-10"><a href="archives.html#cb338-10" tabindex="-1"></a><span class="fu">st_write</span>(spatial_component, <span class="st">&quot;outputs/spatial_component_check.geojson&quot;</span>, <span class="at">delete_dsn =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="statistical-disclosure-control-methods" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Statistical Disclosure Control Methods<a href="archives.html#statistical-disclosure-control-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Statistical Disclosure Control techniques can be defined as the set of methods to reduce the risk of disclosing information on individuals or organizations.</p>
+<p>Statistical Disclosure Control Process</p>
+<ol style="list-style-type: decimal">
+<li>Measuring the disclosure risk
+Disclosure risk occurs if an unacceptably narrow estimation of a respondent’s confidential information is possible or if exact disclosure is possible with a high level of confidence.</li>
+</ol>
+<p>so we’ll need to clasify the variables into three categories;</p>
+<ul>
+<li>Non-identifying variables (e.g. respondent feelings)</li>
+<li>Direct identifiers (e.g. respondent names, phone numbers)</li>
+<li>Quasi-identifiers (e.g. age, gender, gps coordinates)</li>
+</ul>
+<p>we’ll use the main_dataset for demonstrating the process</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="archives.html#cb339-1" tabindex="-1"></a><span class="co"># load the SdcMicro package </span></span>
+<span id="cb339-2"><a href="archives.html#cb339-2" tabindex="-1"></a><span class="fu">library</span>(sdcMicro)</span>
+<span id="cb339-3"><a href="archives.html#cb339-3" tabindex="-1"></a></span>
+<span id="cb339-4"><a href="archives.html#cb339-4" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb339-5"><a href="archives.html#cb339-5" tabindex="-1"></a>selectedKeyVars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a2_hh_representative_name&quot;</span>, <span class="co"># direct identifiers</span></span>
+<span id="cb339-6"><a href="archives.html#cb339-6" tabindex="-1"></a>                     <span class="st">&quot;a3_1_phone&quot;</span>, <span class="co"># direct identifiers</span></span>
+<span id="cb339-7"><a href="archives.html#cb339-7" tabindex="-1"></a>                     <span class="st">&quot;b4_gender&quot;</span>, <span class="co"># quasi identifiers </span></span>
+<span id="cb339-8"><a href="archives.html#cb339-8" tabindex="-1"></a>                     <span class="st">&quot;b5_age&quot;</span>, <span class="co"># quasi identifiers</span></span>
+<span id="cb339-9"><a href="archives.html#cb339-9" tabindex="-1"></a>                     <span class="st">&quot;b8_hohh_sex&quot;</span>, <span class="co"># quasi identifiers</span></span>
+<span id="cb339-10"><a href="archives.html#cb339-10" tabindex="-1"></a>                     <span class="st">&quot;b9_hohh_marital_status&quot;</span>, <span class="co"># quasi identifiers</span></span>
+<span id="cb339-11"><a href="archives.html#cb339-11" tabindex="-1"></a>                     <span class="st">&quot;X_r6_gpslocation_latitude&quot;</span>, <span class="co"># quasi identifiers</span></span>
+<span id="cb339-12"><a href="archives.html#cb339-12" tabindex="-1"></a>                     <span class="st">&quot;X_r6_gpslocation_longitude&quot;</span>, <span class="co"># quasi identifiers</span></span>
+<span id="cb339-13"><a href="archives.html#cb339-13" tabindex="-1"></a>                     <span class="st">&quot;X_r6_gpslocation_precision&quot;</span>) <span class="co"># quasi identifiers</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Applying anonymization methods
+Sometimes we may have some direct identifier variables that feed our analysis plans and in that cases we will need to deduct data by categorizing continuous variables.</p></li>
+<li><p>Measuring utility and information loss</p></li>
+</ol>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="archives.html#cb340-1" tabindex="-1"></a><span class="co"># weight variable</span></span>
+<span id="cb340-2"><a href="archives.html#cb340-2" tabindex="-1"></a>weightVars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;stratum.weight&#39;</span>)</span>
+<span id="cb340-3"><a href="archives.html#cb340-3" tabindex="-1"></a></span>
+<span id="cb340-4"><a href="archives.html#cb340-4" tabindex="-1"></a><span class="co"># checking risk</span></span>
+<span id="cb340-5"><a href="archives.html#cb340-5" tabindex="-1"></a>objSDC <span class="ot">&lt;-</span> <span class="fu">createSdcObj</span>(<span class="at">dat =</span> main_dataset, </span>
+<span id="cb340-6"><a href="archives.html#cb340-6" tabindex="-1"></a>                       <span class="at">keyVars =</span> selectedKeyVars, <span class="at">weightVar =</span> weightVars)</span>
+<span id="cb340-7"><a href="archives.html#cb340-7" tabindex="-1"></a></span>
+<span id="cb340-8"><a href="archives.html#cb340-8" tabindex="-1"></a></span>
+<span id="cb340-9"><a href="archives.html#cb340-9" tabindex="-1"></a><span class="fu">print</span>(objSDC, <span class="st">&quot;risk&quot;</span>)</span>
+<span id="cb340-10"><a href="archives.html#cb340-10" tabindex="-1"></a></span>
+<span id="cb340-11"><a href="archives.html#cb340-11" tabindex="-1"></a><span class="co">#Generate an internal report</span></span>
+<span id="cb340-12"><a href="archives.html#cb340-12" tabindex="-1"></a><span class="co">#report(objSDC, filename = &quot;disclosure_risk_report&quot;,internal = T, verbose = TRUE) </span></span></code></pre></div>
 </div>
 </div>
 <div id="analayis" class="section level2 hasAnchor" number="10.4">
@@ -486,42 +537,42 @@ To perform spatial verification on sample point level we should add our sample i
 <li>kobotool (questions and choices),</li>
 <li>sample frame</li>
 </ul>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="archives.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hypegrammaR)</span>
-<span id="cb321-2"><a href="archives.html#cb321-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb321-3"><a href="archives.html#cb321-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(surveyweights)</span>
-<span id="cb321-4"><a href="archives.html#cb321-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
-<span id="cb321-5"><a href="archives.html#cb321-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb321-6"><a href="archives.html#cb321-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
-<span id="cb321-7"><a href="archives.html#cb321-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb321-8"><a href="archives.html#cb321-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb321-9"><a href="archives.html#cb321-9" aria-hidden="true" tabindex="-1"></a><span class="co">#load dataset</span></span>
-<span id="cb321-10"><a href="archives.html#cb321-10" aria-hidden="true" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>,<span class="at">stringsAsFactors =</span> F)</span>
-<span id="cb321-11"><a href="archives.html#cb321-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb321-12"><a href="archives.html#cb321-12" aria-hidden="true" tabindex="-1"></a><span class="co">#load kobotool</span></span>
-<span id="cb321-13"><a href="archives.html#cb321-13" aria-hidden="true" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
-<span id="cb321-14"><a href="archives.html#cb321-14" aria-hidden="true" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;choices&quot;</span>)</span>
-<span id="cb321-15"><a href="archives.html#cb321-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb321-16"><a href="archives.html#cb321-16" aria-hidden="true" tabindex="-1"></a><span class="co">#load sampling frame</span></span>
-<span id="cb321-17"><a href="archives.html#cb321-17" aria-hidden="true" tabindex="-1"></a>my_sampling_frame <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx&quot;</span>, </span>
-<span id="cb321-18"><a href="archives.html#cb321-18" aria-hidden="true" tabindex="-1"></a>                             <span class="at">sheet =</span> <span class="st">&quot;for_r&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="archives.html#cb341-1" tabindex="-1"></a><span class="fu">library</span>(hypegrammaR)</span>
+<span id="cb341-2"><a href="archives.html#cb341-2" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb341-3"><a href="archives.html#cb341-3" tabindex="-1"></a><span class="fu">library</span>(surveyweights)</span>
+<span id="cb341-4"><a href="archives.html#cb341-4" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb341-5"><a href="archives.html#cb341-5" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb341-6"><a href="archives.html#cb341-6" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb341-7"><a href="archives.html#cb341-7" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb341-8"><a href="archives.html#cb341-8" tabindex="-1"></a></span>
+<span id="cb341-9"><a href="archives.html#cb341-9" tabindex="-1"></a><span class="co">#load dataset</span></span>
+<span id="cb341-10"><a href="archives.html#cb341-10" tabindex="-1"></a>main_dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;&quot;</span>,<span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb341-11"><a href="archives.html#cb341-11" tabindex="-1"></a></span>
+<span id="cb341-12"><a href="archives.html#cb341-12" tabindex="-1"></a><span class="co">#load kobotool</span></span>
+<span id="cb341-13"><a href="archives.html#cb341-13" tabindex="-1"></a>questions <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;survey&quot;</span>)</span>
+<span id="cb341-14"><a href="archives.html#cb341-14" tabindex="-1"></a>choices <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_Questionnaire_24JUL2020.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;choices&quot;</span>)</span>
+<span id="cb341-15"><a href="archives.html#cb341-15" tabindex="-1"></a></span>
+<span id="cb341-16"><a href="archives.html#cb341-16" tabindex="-1"></a><span class="co">#load sampling frame</span></span>
+<span id="cb341-17"><a href="archives.html#cb341-17" tabindex="-1"></a>my_sampling_frame <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_GCA_Weights_26AUG2020.xlsx&quot;</span>, </span>
+<span id="cb341-18"><a href="archives.html#cb341-18" tabindex="-1"></a>                             <span class="at">sheet =</span> <span class="st">&quot;for_r&quot;</span>)</span></code></pre></div>
 <p>The questionnaire object is a list of function using the kobotool and dataset as input. For example, it will check if a given variable is a select multiple or not.</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="archives.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a questionnaire object</span></span>
-<span id="cb322-2"><a href="archives.html#cb322-2" aria-hidden="true" tabindex="-1"></a>my_questionnaire <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">load_questionnaire</span>(<span class="at">data =</span> main_dataset,</span>
-<span id="cb322-3"><a href="archives.html#cb322-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">questions =</span> questions,</span>
-<span id="cb322-4"><a href="archives.html#cb322-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">choices =</span> choices,</span>
-<span id="cb322-5"><a href="archives.html#cb322-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">choices.label.column.to.use =</span> <span class="st">&quot;label::English&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="archives.html#cb342-1" tabindex="-1"></a><span class="co">#create a questionnaire object</span></span>
+<span id="cb342-2"><a href="archives.html#cb342-2" tabindex="-1"></a>my_questionnaire <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">load_questionnaire</span>(<span class="at">data =</span> main_dataset,</span>
+<span id="cb342-3"><a href="archives.html#cb342-3" tabindex="-1"></a>                                    <span class="at">questions =</span> questions,</span>
+<span id="cb342-4"><a href="archives.html#cb342-4" tabindex="-1"></a>                                    <span class="at">choices =</span> choices,</span>
+<span id="cb342-5"><a href="archives.html#cb342-5" tabindex="-1"></a>                                    <span class="at">choices.label.column.to.use =</span> <span class="st">&quot;label::English&quot;</span>)</span></code></pre></div>
 <p>The weighting function is created by the weighting_fun_from_samplinframe from the surveyweights package. It calculates the design weight based on the sampling frame and the dataset. The stratification names values used in the sampling frame and the dataset <strong>HAS</strong> to be the same.
 What it does, it create a function that will calculate the weights based on your dataset.
 <em>(It was defined as a function so it could re-calculate weights depending on the subset. however, the current guidelines is to keep the same design weights through all the assessement; the function still works for that case)</em></p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="archives.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a weigthing function</span></span>
-<span id="cb323-2"><a href="archives.html#cb323-2" aria-hidden="true" tabindex="-1"></a>my_weigthing_function <span class="ot">&lt;-</span> surveyweights<span class="sc">::</span><span class="fu">weighting_fun_from_samplingframe</span>(<span class="at">sampling.frame =</span> my_sampling_frame,</span>
-<span id="cb323-3"><a href="archives.html#cb323-3" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">data.stratum.column =</span> <span class="st">&quot;strata&quot;</span>,</span>
-<span id="cb323-4"><a href="archives.html#cb323-4" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">sampling.frame.population.column =</span> <span class="st">&quot;population&quot;</span>, </span>
-<span id="cb323-5"><a href="archives.html#cb323-5" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">sampling.frame.stratum.column =</span> <span class="st">&quot;strata&quot;</span>, </span>
-<span id="cb323-6"><a href="archives.html#cb323-6" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="at">data =</span> main_dataset)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="archives.html#cb343-1" tabindex="-1"></a><span class="co">#create a weigthing function</span></span>
+<span id="cb343-2"><a href="archives.html#cb343-2" tabindex="-1"></a>my_weigthing_function <span class="ot">&lt;-</span> surveyweights<span class="sc">::</span><span class="fu">weighting_fun_from_samplingframe</span>(<span class="at">sampling.frame =</span> my_sampling_frame,</span>
+<span id="cb343-3"><a href="archives.html#cb343-3" tabindex="-1"></a>                                                                      <span class="at">data.stratum.column =</span> <span class="st">&quot;strata&quot;</span>,</span>
+<span id="cb343-4"><a href="archives.html#cb343-4" tabindex="-1"></a>                                                                      <span class="at">sampling.frame.population.column =</span> <span class="st">&quot;population&quot;</span>, </span>
+<span id="cb343-5"><a href="archives.html#cb343-5" tabindex="-1"></a>                                                                      <span class="at">sampling.frame.stratum.column =</span> <span class="st">&quot;strata&quot;</span>, </span>
+<span id="cb343-6"><a href="archives.html#cb343-6" tabindex="-1"></a>                                                                      <span class="at">data =</span> main_dataset)</span></code></pre></div>
 <p>If you want to add the weights to your dataframe this is how you can do it.</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="archives.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="co">#optional, if you want to add the weights into the dataset.</span></span>
-<span id="cb324-2"><a href="archives.html#cb324-2" aria-hidden="true" tabindex="-1"></a>main_dataset<span class="sc">$</span>stratum.weight <span class="ot">&lt;-</span> <span class="fu">my_weigthing_function</span>(main_dataset)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="archives.html#cb344-1" tabindex="-1"></a><span class="co">#optional, if you want to add the weights into the dataset.</span></span>
+<span id="cb344-2"><a href="archives.html#cb344-2" tabindex="-1"></a>main_dataset<span class="sc">$</span>stratum.weight <span class="ot">&lt;-</span> <span class="fu">my_weigthing_function</span>(main_dataset)</span></code></pre></div>
 <p>hypegrammaR uses cases to choose what type analysis to do. A “case” for hypegrammaR is a character string CASE_XXXX_YYYY_ZZZZ where :</p>
 <ul>
 <li>XXXX: hypothesis type (group_difference, direct_reporting)<br />
@@ -531,25 +582,25 @@ What it does, it create a function that will calculate the weights based on your
 <li>ZZZZ: independent var type (categorical, numerical, <em>empty</em> if no independent variable) .</li>
 </ul>
 <p>All cases implemented can been seen with this code.</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="archives.html#cb325-1" aria-hidden="true" tabindex="-1"></a>hypegrammaR<span class="sc">:::</span><span class="fu">list_all_cases</span>(<span class="at">implemented_only =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="archives.html#cb345-1" tabindex="-1"></a>hypegrammaR<span class="sc">:::</span><span class="fu">list_all_cases</span>(<span class="at">implemented_only =</span> T)</span></code></pre></div>
 <p>If you want to know what are the different proportion of the displacement status for each strata. The following information I need are:
 hypothesis : group_difference<br />
 dependent variable : d1_hh_displacement_status -&gt; categorical<br />
 independent_variable : strata -&gt; categorical</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="archives.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="co">#analysis </span></span>
-<span id="cb326-2"><a href="archives.html#cb326-2" aria-hidden="true" tabindex="-1"></a>my_case <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">map_to_case</span>(<span class="at">hypothesis.type =</span> <span class="st">&quot;group_difference&quot;</span>,</span>
-<span id="cb326-3"><a href="archives.html#cb326-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependent.var.type =</span> <span class="st">&quot;categorical&quot;</span>,</span>
-<span id="cb326-4"><a href="archives.html#cb326-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">independent.var.type =</span> <span class="st">&quot;categorical&quot;</span>)</span>
-<span id="cb326-5"><a href="archives.html#cb326-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb326-6"><a href="archives.html#cb326-6" aria-hidden="true" tabindex="-1"></a>my_case</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="archives.html#cb346-1" tabindex="-1"></a><span class="co">#analysis </span></span>
+<span id="cb346-2"><a href="archives.html#cb346-2" tabindex="-1"></a>my_case <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">map_to_case</span>(<span class="at">hypothesis.type =</span> <span class="st">&quot;group_difference&quot;</span>,</span>
+<span id="cb346-3"><a href="archives.html#cb346-3" tabindex="-1"></a>                       <span class="at">dependent.var.type =</span> <span class="st">&quot;categorical&quot;</span>,</span>
+<span id="cb346-4"><a href="archives.html#cb346-4" tabindex="-1"></a>                       <span class="at">independent.var.type =</span> <span class="st">&quot;categorical&quot;</span>)</span>
+<span id="cb346-5"><a href="archives.html#cb346-5" tabindex="-1"></a></span>
+<span id="cb346-6"><a href="archives.html#cb346-6" tabindex="-1"></a>my_case</span></code></pre></div>
 <p>The function map_to_result will calculate your summary statistics, it will take a couple of arguments.</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="archives.html#cb327-1" aria-hidden="true" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">map_to_result</span>(<span class="at">data =</span> main_dataset, </span>
-<span id="cb327-2"><a href="archives.html#cb327-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">dependent.var =</span> <span class="st">&quot;d1_hh_displacement_status&quot;</span>, </span>
-<span id="cb327-3"><a href="archives.html#cb327-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">independent.var =</span> <span class="st">&quot;strata&quot;</span>,</span>
-<span id="cb327-4"><a href="archives.html#cb327-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">case =</span> my_case, </span>
-<span id="cb327-5"><a href="archives.html#cb327-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">weighting =</span> my_weigthing_function,</span>
-<span id="cb327-6"><a href="archives.html#cb327-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">questionnaire =</span> my_questionnaire,</span>
-<span id="cb327-7"><a href="archives.html#cb327-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">confidence_level =</span> .<span class="dv">90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="archives.html#cb347-1" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">map_to_result</span>(<span class="at">data =</span> main_dataset, </span>
+<span id="cb347-2"><a href="archives.html#cb347-2" tabindex="-1"></a>                            <span class="at">dependent.var =</span> <span class="st">&quot;d1_hh_displacement_status&quot;</span>, </span>
+<span id="cb347-3"><a href="archives.html#cb347-3" tabindex="-1"></a>                            <span class="at">independent.var =</span> <span class="st">&quot;strata&quot;</span>,</span>
+<span id="cb347-4"><a href="archives.html#cb347-4" tabindex="-1"></a>                            <span class="at">case =</span> my_case, </span>
+<span id="cb347-5"><a href="archives.html#cb347-5" tabindex="-1"></a>                            <span class="at">weighting =</span> my_weigthing_function,</span>
+<span id="cb347-6"><a href="archives.html#cb347-6" tabindex="-1"></a>                            <span class="at">questionnaire =</span> my_questionnaire,</span>
+<span id="cb347-7"><a href="archives.html#cb347-7" tabindex="-1"></a>                            <span class="at">confidence_level =</span> .<span class="dv">90</span>)</span></code></pre></div>
 <p>The result object is a list with several information:</p>
 <ul>
 <li>parameters: returns the information used of that analysis</li>
@@ -557,7 +608,7 @@ independent_variable : strata -&gt; categorical</p>
 <li>hypothesis test: returns hypothesis testing information (if avalaible)</li>
 <li>message: returns a message (if the analysis went well or not)</li>
 </ul>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="archives.html#cb328-1" aria-hidden="true" tabindex="-1"></a>my_results<span class="sc">$</span>summary.statistic <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="archives.html#cb348-1" tabindex="-1"></a>my_results<span class="sc">$</span>summary.statistic <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <p>If you need to run several analysis, you can use a data analysis plan (DAP) file which is a file that comprises of the following columns:</p>
 <ul>
 <li>dependent.variable: name of the dependent variable (kobo name, column name)<br />
@@ -586,32 +637,32 @@ independent_variable : strata -&gt; categorical</p>
 <li>using no independent variable, for the complete dataset (national level?), (second 6 rows),</li>
 <li>using the <em>b9_hohh_marital_status</em> as independent variable but repeating each strata (last 6 rows)</li>
 </ul>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="archives.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dap </span></span>
-<span id="cb329-2"><a href="archives.html#cb329-2" aria-hidden="true" tabindex="-1"></a>my_dap <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dependent.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
-<span id="cb329-3"><a href="archives.html#cb329-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>, <span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
-<span id="cb329-4"><a href="archives.html#cb329-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>), <span class="dv">2</span>), <span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
-<span id="cb329-5"><a href="archives.html#cb329-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>,</span>
-<span id="cb329-6"><a href="archives.html#cb329-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)),</span>
-<span id="cb329-7"><a href="archives.html#cb329-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dependent.variable.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),<span class="dv">2</span>),<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),</span>
-<span id="cb329-8"><a href="archives.html#cb329-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">independent.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>, <span class="dv">5</span>)),</span>
-<span id="cb329-9"><a href="archives.html#cb329-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">independent.variable.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">5</span>)), </span>
-<span id="cb329-10"><a href="archives.html#cb329-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">hypothesis.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;direct_reporting&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">5</span>)), </span>
-<span id="cb329-11"><a href="archives.html#cb329-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">repeat.for.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">12</span>), <span class="fu">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">5</span>))</span>
-<span id="cb329-12"><a href="archives.html#cb329-12" aria-hidden="true" tabindex="-1"></a>                     )</span>
-<span id="cb329-13"><a href="archives.html#cb329-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb329-14"><a href="archives.html#cb329-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb329-15"><a href="archives.html#cb329-15" aria-hidden="true" tabindex="-1"></a>my_dap </span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="archives.html#cb349-1" tabindex="-1"></a><span class="co">#dap </span></span>
+<span id="cb349-2"><a href="archives.html#cb349-2" tabindex="-1"></a>my_dap <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dependent.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
+<span id="cb349-3"><a href="archives.html#cb349-3" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>, <span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
+<span id="cb349-4"><a href="archives.html#cb349-4" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>), <span class="dv">2</span>), <span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>, <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>, <span class="st">&quot;b7_hohh_age&quot;</span>,</span>
+<span id="cb349-5"><a href="archives.html#cb349-5" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>,</span>
+<span id="cb349-6"><a href="archives.html#cb349-6" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)),</span>
+<span id="cb349-7"><a href="archives.html#cb349-7" tabindex="-1"></a>                     <span class="at">dependent.variable.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),<span class="dv">2</span>),<span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;numerical&quot;</span>, <span class="st">&quot;categorical&quot;</span>),</span>
+<span id="cb349-8"><a href="archives.html#cb349-8" tabindex="-1"></a>                     <span class="at">independent.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>, <span class="dv">5</span>)),</span>
+<span id="cb349-9"><a href="archives.html#cb349-9" tabindex="-1"></a>                     <span class="at">independent.variable.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;categorical&quot;</span>, <span class="dv">5</span>)), </span>
+<span id="cb349-10"><a href="archives.html#cb349-10" tabindex="-1"></a>                     <span class="at">hypothesis.type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;direct_reporting&quot;</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;group_difference&quot;</span>, <span class="dv">5</span>)), </span>
+<span id="cb349-11"><a href="archives.html#cb349-11" tabindex="-1"></a>                     <span class="at">repeat.for.variable =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">12</span>), <span class="fu">rep</span>(<span class="st">&quot;strata&quot;</span>, <span class="dv">5</span>))</span>
+<span id="cb349-12"><a href="archives.html#cb349-12" tabindex="-1"></a>                     )</span>
+<span id="cb349-13"><a href="archives.html#cb349-13" tabindex="-1"></a></span>
+<span id="cb349-14"><a href="archives.html#cb349-14" tabindex="-1"></a></span>
+<span id="cb349-15"><a href="archives.html#cb349-15" tabindex="-1"></a>my_dap </span></code></pre></div>
 <p>To use a DAP, you need to use the function <strong>from_analysisplan_map_to_output</strong> instead of the combination of <strong>map_to_case</strong> and <strong>map_to_result</strong>. It will look for the case itself. <strong>from_analysisplan_map_to_output</strong> a list of list of results. So you need to wriggle a bit around to come to a master dataframe.</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="archives.html#cb330-1" aria-hidden="true" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">from_analysisplan_map_to_output</span>(<span class="at">data =</span>main_dataset,</span>
-<span id="cb330-2"><a href="archives.html#cb330-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">analysisplan =</span> my_dap,</span>
-<span id="cb330-3"><a href="archives.html#cb330-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">weighting =</span> my_weigthing_function,</span>
-<span id="cb330-4"><a href="archives.html#cb330-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">questionnaire =</span> my_questionnaire,</span>
-<span id="cb330-5"><a href="archives.html#cb330-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">confidence_level =</span> .<span class="dv">90</span>)</span>
-<span id="cb330-6"><a href="archives.html#cb330-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb330-7"><a href="archives.html#cb330-7" aria-hidden="true" tabindex="-1"></a>long_table <span class="ot">&lt;-</span> my_results<span class="sc">$</span>results <span class="sc">%&gt;%</span> </span>
-<span id="cb330-8"><a href="archives.html#cb330-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="cf">function</span>(x) x[[<span class="st">&quot;summary.statistic&quot;</span>]]) <span class="sc">%&gt;%</span> </span>
-<span id="cb330-9"><a href="archives.html#cb330-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, .)</span></code></pre></div>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="archives.html#cb331-1" aria-hidden="true" tabindex="-1"></a>long_table <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="archives.html#cb350-1" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> hypegrammaR<span class="sc">::</span><span class="fu">from_analysisplan_map_to_output</span>(<span class="at">data =</span>main_dataset,</span>
+<span id="cb350-2"><a href="archives.html#cb350-2" tabindex="-1"></a>                                <span class="at">analysisplan =</span> my_dap,</span>
+<span id="cb350-3"><a href="archives.html#cb350-3" tabindex="-1"></a>                                <span class="at">weighting =</span> my_weigthing_function,</span>
+<span id="cb350-4"><a href="archives.html#cb350-4" tabindex="-1"></a>                                <span class="at">questionnaire =</span> my_questionnaire,</span>
+<span id="cb350-5"><a href="archives.html#cb350-5" tabindex="-1"></a>                                <span class="at">confidence_level =</span> .<span class="dv">90</span>)</span>
+<span id="cb350-6"><a href="archives.html#cb350-6" tabindex="-1"></a></span>
+<span id="cb350-7"><a href="archives.html#cb350-7" tabindex="-1"></a>long_table <span class="ot">&lt;-</span> my_results<span class="sc">$</span>results <span class="sc">%&gt;%</span> </span>
+<span id="cb350-8"><a href="archives.html#cb350-8" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="cf">function</span>(x) x[[<span class="st">&quot;summary.statistic&quot;</span>]]) <span class="sc">%&gt;%</span> </span>
+<span id="cb350-9"><a href="archives.html#cb350-9" tabindex="-1"></a>  <span class="fu">do.call</span>(rbind, .)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="archives.html#cb351-1" tabindex="-1"></a>long_table <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 </div>
 <div id="butter-survey_collapse" class="section level3 hasAnchor" number="10.4.2">
 <h3><span class="header-section-number">10.4.2</span> butteR survey_collapse<a href="archives.html#butter-survey_collapse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -624,74 +675,74 @@ independent_variable : strata -&gt; categorical</p>
 </ol>
 <p>Below is an example of its use.</p>
 <p>First we must read in some data and make it into a srvyr object</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="archives.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="do">###makes some additions. </span></span>
-<span id="cb332-2"><a href="archives.html#cb332-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb332-3"><a href="archives.html#cb332-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(butteR)</span>
-<span id="cb332-4"><a href="archives.html#cb332-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
-<span id="cb332-5"><a href="archives.html#cb332-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb332-6"><a href="archives.html#cb332-6" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
-<span id="cb332-7"><a href="archives.html#cb332-7" aria-hidden="true" tabindex="-1"></a>dfsvy<span class="ot">&lt;-</span><span class="fu">as_survey</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="archives.html#cb352-1" tabindex="-1"></a><span class="do">###makes some additions. </span></span>
+<span id="cb352-2"><a href="archives.html#cb352-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb352-3"><a href="archives.html#cb352-3" tabindex="-1"></a><span class="fu">library</span>(butteR)</span>
+<span id="cb352-4"><a href="archives.html#cb352-4" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb352-5"><a href="archives.html#cb352-5" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb352-6"><a href="archives.html#cb352-6" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;inputs/UKR2007_MSNA20_HH_dataset_main_rcop.csv&quot;</span>)</span>
+<span id="cb352-7"><a href="archives.html#cb352-7" tabindex="-1"></a>dfsvy<span class="ot">&lt;-</span><span class="fu">as_survey</span>(df)</span></code></pre></div>
 <p>For the purpose of the example I next choose a variety of different column types to analyze. As you can see I have selected select_one (categorical), select_multiple (binary categorical), and numerical columns. I then put these all into one vector.</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="archives.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="co"># here are some random concatenated select multiple parent questions</span></span>
-<span id="cb333-2"><a href="archives.html#cb333-2" aria-hidden="true" tabindex="-1"></a>select_multiple_parent_cols<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>,</span>
-<span id="cb333-3"><a href="archives.html#cb333-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>)</span>
-<span id="cb333-4"><a href="archives.html#cb333-4" aria-hidden="true" tabindex="-1"></a>numeric_cols<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b7_hohh_age&quot;</span>,</span>
-<span id="cb333-5"><a href="archives.html#cb333-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>)</span>
-<span id="cb333-6"><a href="archives.html#cb333-6" aria-hidden="true" tabindex="-1"></a>select_one_cols<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
-<span id="cb333-7"><a href="archives.html#cb333-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)</span>
-<span id="cb333-8"><a href="archives.html#cb333-8" aria-hidden="true" tabindex="-1"></a>mixed_columns<span class="ot">&lt;-</span> <span class="fu">c</span>(select_multiple_parent_cols, numeric_cols, select_one_cols)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="archives.html#cb353-1" tabindex="-1"></a><span class="co"># here are some random concatenated select multiple parent questions</span></span>
+<span id="cb353-2"><a href="archives.html#cb353-2" tabindex="-1"></a>select_multiple_parent_cols<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;l4_which_difficult_access_health&quot;</span>,</span>
+<span id="cb353-3"><a href="archives.html#cb353-3" tabindex="-1"></a>                        <span class="st">&quot;j10_education_security_concerns_in_the_vicinity_of_facility&quot;</span>)</span>
+<span id="cb353-4"><a href="archives.html#cb353-4" tabindex="-1"></a>numeric_cols<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b7_hohh_age&quot;</span>,</span>
+<span id="cb353-5"><a href="archives.html#cb353-5" tabindex="-1"></a>                 <span class="st">&quot;b5_age&quot;</span>)</span>
+<span id="cb353-6"><a href="archives.html#cb353-6" tabindex="-1"></a>select_one_cols<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b9_hohh_marital_status&quot;</span>,</span>
+<span id="cb353-7"><a href="archives.html#cb353-7" tabindex="-1"></a>                    <span class="st">&quot;d1_hh_displacement_status&quot;</span>)</span>
+<span id="cb353-8"><a href="archives.html#cb353-8" tabindex="-1"></a>mixed_columns<span class="ot">&lt;-</span> <span class="fu">c</span>(select_multiple_parent_cols, numeric_cols, select_one_cols)</span></code></pre></div>
 <p>A nice feature of the standardized output produced by survey_collapse is that you can perform variety of different types of analyses and then bind them together into one dataframe/tibble.</p>
 <p>Therefore I fill an empty list with analysis to facilitate binding later. For the first analyses I simply aggregate all the columns specified as mean/pct mean. I next analyze the same variable but this time subset/disaggreated by the strata column. It’s a good idea to mutate an extra column indicating what exact analysis was done so that when they are binded together later they can more easily be manipulated</p>
 <p><strong>note: I am commenting this section as it seems to break with the latest update</strong></p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="archives.html#cb334-1" aria-hidden="true" tabindex="-1"></a>outputs<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
-<span id="cb334-2"><a href="archives.html#cb334-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb334-3"><a href="archives.html#cb334-3" aria-hidden="true" tabindex="-1"></a>outputs<span class="sc">$</span>overall<span class="ot">&lt;-</span>butteR<span class="sc">::</span><span class="fu">survey_collapse</span>(<span class="at">df =</span> dfsvy,<span class="at">vars_to_analyze =</span> mixed_columns) <span class="sc">%&gt;%</span></span>
-<span id="cb334-4"><a href="archives.html#cb334-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">analysis_level=</span> <span class="st">&quot;overall&quot;</span>)</span>
-<span id="cb334-5"><a href="archives.html#cb334-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb334-6"><a href="archives.html#cb334-6" aria-hidden="true" tabindex="-1"></a>outputs<span class="sc">$</span>strata<span class="ot">&lt;-</span>butteR<span class="sc">::</span><span class="fu">survey_collapse</span>(<span class="at">df =</span> dfsvy,<span class="at">vars_to_analyze =</span> mixed_columns,<span class="at">disag =</span> <span class="st">&quot;strata&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb334-7"><a href="archives.html#cb334-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">analysis_level=</span> <span class="st">&quot;strata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="archives.html#cb354-1" tabindex="-1"></a>outputs<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb354-2"><a href="archives.html#cb354-2" tabindex="-1"></a></span>
+<span id="cb354-3"><a href="archives.html#cb354-3" tabindex="-1"></a>outputs<span class="sc">$</span>overall<span class="ot">&lt;-</span>butteR<span class="sc">::</span><span class="fu">survey_collapse</span>(<span class="at">df =</span> dfsvy,<span class="at">vars_to_analyze =</span> mixed_columns) <span class="sc">%&gt;%</span></span>
+<span id="cb354-4"><a href="archives.html#cb354-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">analysis_level=</span> <span class="st">&quot;overall&quot;</span>)</span>
+<span id="cb354-5"><a href="archives.html#cb354-5" tabindex="-1"></a></span>
+<span id="cb354-6"><a href="archives.html#cb354-6" tabindex="-1"></a>outputs<span class="sc">$</span>strata<span class="ot">&lt;-</span>butteR<span class="sc">::</span><span class="fu">survey_collapse</span>(<span class="at">df =</span> dfsvy,<span class="at">vars_to_analyze =</span> mixed_columns,<span class="at">disag =</span> <span class="st">&quot;strata&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb354-7"><a href="archives.html#cb354-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">analysis_level=</span> <span class="st">&quot;strata&quot;</span>)</span></code></pre></div>
 <p>Here is an example of what the long format data looks like as a table.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="archives.html#cb335-1" aria-hidden="true" tabindex="-1"></a>outputs<span class="sc">$</span>strata <span class="sc">%&gt;%</span></span>
-<span id="cb335-2"><a href="archives.html#cb335-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb335-3"><a href="archives.html#cb335-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb335-4"><a href="archives.html#cb335-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size=</span><span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb335-5"><a href="archives.html#cb335-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">box_css =</span> <span class="st">&quot;border: 0px;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="archives.html#cb355-1" tabindex="-1"></a>outputs<span class="sc">$</span>strata <span class="sc">%&gt;%</span></span>
+<span id="cb355-2"><a href="archives.html#cb355-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb355-3"><a href="archives.html#cb355-3" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb355-4"><a href="archives.html#cb355-4" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size=</span><span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb355-5"><a href="archives.html#cb355-5" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">box_css =</span> <span class="st">&quot;border: 0px;&quot;</span>)</span></code></pre></div>
 <p>This is a great format for manipulating/filtering and then graphing with ggplot</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="archives.html#cb336-1" aria-hidden="true" tabindex="-1"></a>output_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(outputs)</span>
-<span id="cb336-2"><a href="archives.html#cb336-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb336-3"><a href="archives.html#cb336-3" aria-hidden="true" tabindex="-1"></a>output_df <span class="sc">%&gt;%</span></span>
-<span id="cb336-4"><a href="archives.html#cb336-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(analysis_level<span class="sc">==</span><span class="st">&quot;overall&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb336-5"><a href="archives.html#cb336-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">question_val=</span> <span class="fu">paste0</span>(variable,<span class="st">&quot;.&quot;</span>,variable_val)) <span class="sc">%&gt;%</span></span>
-<span id="cb336-6"><a href="archives.html#cb336-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> question_val,<span class="at">y=</span> <span class="st">`</span><span class="at">mean/pct</span><span class="st">`</span>))<span class="sc">+</span></span>
-<span id="cb336-7"><a href="archives.html#cb336-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
-<span id="cb336-8"><a href="archives.html#cb336-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span> <span class="st">`</span><span class="at">mean/pct_low</span><span class="st">`</span>, <span class="at">ymax=</span> <span class="st">`</span><span class="at">mean/pct_upp</span><span class="st">`</span>),</span>
-<span id="cb336-9"><a href="archives.html#cb336-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.2</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
-<span id="cb336-10"><a href="archives.html#cb336-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent,<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>))<span class="sc">+</span></span>
-<span id="cb336-11"><a href="archives.html#cb336-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb336-12"><a href="archives.html#cb336-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb336-13"><a href="archives.html#cb336-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb336-14"><a href="archives.html#cb336-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb336-15"><a href="archives.html#cb336-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>),</span>
-<span id="cb336-16"><a href="archives.html#cb336-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title=</span> <span class="fu">element_blank</span>()</span>
-<span id="cb336-17"><a href="archives.html#cb336-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb336-18"><a href="archives.html#cb336-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb336-19"><a href="archives.html#cb336-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb336-20"><a href="archives.html#cb336-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Easy to plot subset findings as well!</span></span>
-<span id="cb336-21"><a href="archives.html#cb336-21" aria-hidden="true" tabindex="-1"></a>output_df <span class="sc">%&gt;%</span></span>
-<span id="cb336-22"><a href="archives.html#cb336-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(analysis_level<span class="sc">==</span><span class="st">&quot;strata&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb336-23"><a href="archives.html#cb336-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">question_val=</span> <span class="fu">paste0</span>(variable,<span class="st">&quot;.&quot;</span>,variable_val)) <span class="sc">%&gt;%</span></span>
-<span id="cb336-24"><a href="archives.html#cb336-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> question_val,<span class="at">y=</span> <span class="st">`</span><span class="at">mean/pct</span><span class="st">`</span>, <span class="at">color=</span>subset_1_val))<span class="sc">+</span></span>
-<span id="cb336-25"><a href="archives.html#cb336-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
-<span id="cb336-26"><a href="archives.html#cb336-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span> <span class="st">`</span><span class="at">mean/pct_low</span><span class="st">`</span>, <span class="at">ymax=</span> <span class="st">`</span><span class="at">mean/pct_upp</span><span class="st">`</span>),</span>
-<span id="cb336-27"><a href="archives.html#cb336-27" aria-hidden="true" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.2</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
-<span id="cb336-28"><a href="archives.html#cb336-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent,<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>))<span class="sc">+</span></span>
-<span id="cb336-29"><a href="archives.html#cb336-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb336-30"><a href="archives.html#cb336-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb336-31"><a href="archives.html#cb336-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb336-32"><a href="archives.html#cb336-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb336-33"><a href="archives.html#cb336-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>),</span>
-<span id="cb336-34"><a href="archives.html#cb336-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title=</span> <span class="fu">element_blank</span>()</span>
-<span id="cb336-35"><a href="archives.html#cb336-35" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="archives.html#cb356-1" tabindex="-1"></a>output_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(outputs)</span>
+<span id="cb356-2"><a href="archives.html#cb356-2" tabindex="-1"></a></span>
+<span id="cb356-3"><a href="archives.html#cb356-3" tabindex="-1"></a>output_df <span class="sc">%&gt;%</span></span>
+<span id="cb356-4"><a href="archives.html#cb356-4" tabindex="-1"></a>  <span class="fu">filter</span>(analysis_level<span class="sc">==</span><span class="st">&quot;overall&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb356-5"><a href="archives.html#cb356-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">question_val=</span> <span class="fu">paste0</span>(variable,<span class="st">&quot;.&quot;</span>,variable_val)) <span class="sc">%&gt;%</span></span>
+<span id="cb356-6"><a href="archives.html#cb356-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> question_val,<span class="at">y=</span> <span class="st">`</span><span class="at">mean/pct</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb356-7"><a href="archives.html#cb356-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
+<span id="cb356-8"><a href="archives.html#cb356-8" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span> <span class="st">`</span><span class="at">mean/pct_low</span><span class="st">`</span>, <span class="at">ymax=</span> <span class="st">`</span><span class="at">mean/pct_upp</span><span class="st">`</span>),</span>
+<span id="cb356-9"><a href="archives.html#cb356-9" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.2</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
+<span id="cb356-10"><a href="archives.html#cb356-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent,<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>))<span class="sc">+</span></span>
+<span id="cb356-11"><a href="archives.html#cb356-11" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb356-12"><a href="archives.html#cb356-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb356-13"><a href="archives.html#cb356-13" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb356-14"><a href="archives.html#cb356-14" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb356-15"><a href="archives.html#cb356-15" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>),</span>
+<span id="cb356-16"><a href="archives.html#cb356-16" tabindex="-1"></a>    <span class="at">legend.title=</span> <span class="fu">element_blank</span>()</span>
+<span id="cb356-17"><a href="archives.html#cb356-17" tabindex="-1"></a>  )</span>
+<span id="cb356-18"><a href="archives.html#cb356-18" tabindex="-1"></a></span>
+<span id="cb356-19"><a href="archives.html#cb356-19" tabindex="-1"></a></span>
+<span id="cb356-20"><a href="archives.html#cb356-20" tabindex="-1"></a><span class="co"># Easy to plot subset findings as well!</span></span>
+<span id="cb356-21"><a href="archives.html#cb356-21" tabindex="-1"></a>output_df <span class="sc">%&gt;%</span></span>
+<span id="cb356-22"><a href="archives.html#cb356-22" tabindex="-1"></a>  <span class="fu">filter</span>(analysis_level<span class="sc">==</span><span class="st">&quot;strata&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb356-23"><a href="archives.html#cb356-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">question_val=</span> <span class="fu">paste0</span>(variable,<span class="st">&quot;.&quot;</span>,variable_val)) <span class="sc">%&gt;%</span></span>
+<span id="cb356-24"><a href="archives.html#cb356-24" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> question_val,<span class="at">y=</span> <span class="st">`</span><span class="at">mean/pct</span><span class="st">`</span>, <span class="at">color=</span>subset_1_val))<span class="sc">+</span></span>
+<span id="cb356-25"><a href="archives.html#cb356-25" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
+<span id="cb356-26"><a href="archives.html#cb356-26" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span> <span class="st">`</span><span class="at">mean/pct_low</span><span class="st">`</span>, <span class="at">ymax=</span> <span class="st">`</span><span class="at">mean/pct_upp</span><span class="st">`</span>),</span>
+<span id="cb356-27"><a href="archives.html#cb356-27" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.2</span>,<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>))<span class="sc">+</span></span>
+<span id="cb356-28"><a href="archives.html#cb356-28" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent,<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>))<span class="sc">+</span></span>
+<span id="cb356-29"><a href="archives.html#cb356-29" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb356-30"><a href="archives.html#cb356-30" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb356-31"><a href="archives.html#cb356-31" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb356-32"><a href="archives.html#cb356-32" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb356-33"><a href="archives.html#cb356-33" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>),</span>
+<span id="cb356-34"><a href="archives.html#cb356-34" tabindex="-1"></a>    <span class="at">legend.title=</span> <span class="fu">element_blank</span>()</span>
+<span id="cb356-35"><a href="archives.html#cb356-35" tabindex="-1"></a>  )</span></code></pre></div>
 
 </div>
 </div>
@@ -706,7 +757,6 @@ independent_variable : strata -&gt; categorical</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -746,6 +796,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -759,7 +813,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
