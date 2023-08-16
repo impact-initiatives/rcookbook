@@ -201,6 +201,189 @@ upset(fromExpression(vulnerability_input), order.by = "freq")
 ### UpSet plots
 ### boxplots
 
+### Circular barplots
+
+For creating circular barplots, frequency table with selected indicators should be prepared first.
+
+For the current example, let's create the table on everyday consumption of different kinds of food in a HH depending on the area of living urban/rural
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+main_dataset <- separate(main_dataset, strata, into = c("zone", "type"), "_")
+
+dnames <- names(main_dataset)
+
+cons_names <- dnames[grepl("consumption", dnames)]
+
+tidy_names <- c("Cereals", "Roots", "Vegetables", "Fruits", "Meat", "Eggs", "Pulses", "Dairy", "Oil", "Sugar", "Condiments")
+
+table_food <- as.data.frame(matrix(nrow = 0, ncol = 5))
+
+i <- 1
+for (i in 1:length(cons_names)) {
+ni <- cons_names[i]
+
+rur <- main_dataset |> filter(type == "rural") |> filter(!is.na(ni)) |> count(!!sym(ni)) |> mutate(base = sum(n), prop = round((n/base)*100, 0), group = tidy_names[i], individual = "Rural")
+
+urb <- main_dataset |> filter(type == "urban") |> filter(!is.na(ni)) |> count(!!sym(ni)) |> mutate(base = sum(n), prop = round((n/base)*100, 0), group = tidy_names[i], individual = "Urban")
+
+names(rur) <- c("fre_cons", "n", "base", "prop", "group", "individual")
+names(urb) <- c("fre_cons", "n", "base", "prop", "group", "individual")
+
+table_food <- rbind(table_food, rur, urb)
+}
+
+table_food$value <- table_food$prop
+```
+
+For the current chart, the everyday consumption of certain products will be selected, so frequency of consumption should be filtered so it is == 7
+
+```{r}
+table_food <- table_food |> filter(fre_cons == 7)
+```
+
+Adding "filler" field to make the bottom layer (unfilled space) with light grey. Filler should be equal to the "end of the scale", e.g 100%
+
+```{r}
+table_food$filler <- 100
+```
+
+Preparing grid data for the chart
+
+```{r}
+table_food$group <- as.factor(table_food$group)
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar <- 1
+to_add <- data.frame( matrix(NA, empty_bar*nlevels(table_food$group), ncol(table_food)))
+colnames(to_add) <- colnames(table_food)
+to_add$group <- rep(levels(table_food$group), each=empty_bar)
+table_food <- rbind(table_food, to_add)
+table_food <- table_food %>% arrange(group)
+table_food$id <- seq(1, nrow(table_food))
+
+#one more empty bar
+to_add <- data.frame( matrix(NA, empty_bar*nlevels(table_food$group), ncol(table_food)))
+colnames(to_add) <- colnames(table_food)
+to_add$group <- rep(levels(table_food$group), each=empty_bar)
+table_food <- rbind(table_food, to_add)
+table_food <- table_food %>% arrange(group)
+table_food$id <- seq(1, nrow(table_food))
+ 
+# Get the name and the y position of each label
+label_data <- table_food
+number_of_bar <- nrow(label_data)
+
+# Subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+angle <- 90 - 360 * (label_data$id-0.5) / number_of_bar 
+label_data$hjust <- ifelse(angle <- 85, 1, 0)
+label_data$angle <- ifelse(angle <- 85, angle + 180, angle)
+
+# prepare a data frame for base lines
+base_data <- table_food %>% 
+  group_by(group) %>% 
+  summarize(start=min(id), end=max(id) - empty_bar) %>% 
+  rowwise() %>% 
+  mutate(title=mean(c(start, end)))
+ 
+# prepare a data frame for grid (scales)
+grid_data <- base_data
+grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+grid_data$start <- grid_data$start - 1
+grid_data <- grid_data[-1,]
+ 
+# fixing grid data
+grid_data$start = grid_data$start - 0.2
+grid_data$end = grid_data$end + 0.2
+
+#label color - to put text within bars and placement of the label
+
+label_data$lab_color = "black"
+label_data$lab_placement= table_food$value-(table_food$value-1)
+```
+
+Picking the threshold for highlighting a bar in different color. Let's put <= 10% in red, 11% - 50% in grey an 51% - 100% in green
+
+```{r}
+table_food <- table_food |> mutate(highlight = case_when(table_food$value <= 10 ~ "bad",
+                                                         table_food$value >= 11 & table_food$value <= 50 ~ "moderate",
+                                                         table_food$value >= 51 ~ "good"))
+table_food$highlight = as.factor(table_food$highlight)
+
+```
+
+#### Adding thermometer visual elemant (if needed)
+
+```{r}
+cat_low = rep("bad", 10)
+cat_med = rep("moderate", 41)
+cat_high = rep("good", 49)
+thermometer = data.frame(cat  = c(cat_low, cat_med, cat_high),
+                        number = c(rep(1,100)),
+                        pos  = c(rep(1,100)))
+
+thermometer$cat = ordered(thermometer$cat, levels=c("bad", "moderate", "good"))
+ball = data.frame(v = 0,
+                  h = 1)
+                        
+ggplot(thermometer)+
+geom_col(aes(x = pos, y = number, fill = cat), position = position_stack(reverse = T), width = 0.1)+
+xlim(0,2)+
+ylim(-5, 105)+
+scale_fill_manual(breaks = c('bad', "moderate", "good"), values = c("moderate" = "dimgray", "good" = "seagreen", "bad" = "firebrick"))+
+geom_point(data = ball, aes(x = h, y = v-5), color = "firebrick", size = 20)
+```
+
+#### Creating the plot itself
+
+```{r}
+p <- ggplot(table_food, aes(x=as.factor(id), y=value), width = 0.3) +       
+  # Note that id is a factor. If x is numeric, there is some space between the first bar
+  # Placing base layer of bars
+  geom_bar(aes(x=as.factor(id), y=filler), fill="#E0E2E2", stat="identity", alpha=1) + 
+  geom_bar(aes(x=as.factor(id), y=value, fill=highlight), stat="identity", alpha=1) + 
+  scale_fill_manual(breaks = c("moderate", 'good', "bad"), values = c("moderate" = "#93A0A9", "good" = "#A5C9A1", "bad" = "#EE5859")) +
+  # Add a val=100/75/50/25 lines. Do it at the beginning to make sure barplots are OVER it.
+  geom_segment(data=grid_data, aes(x = end, y = 75, xend = start, yend = 75), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 25, xend = start, yend = 25), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
+  theme_minimal(base_family = "Arial") +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank()
+  ) +
+  coord_polar() + 
+  
+  # Add text showing the value of each 100/75/50/25 lines
+  annotate("text", x = rep(max(table_food$id),3), y = c(25, 50, 75), label = c("25%", "50%", "75%") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
+  # Labels inside bars
+  geom_text(data=label_data, aes(x=id, y=lab_placement+50, label=individual, hjust=hjust, ), color = "black", fontface="bold",alpha=0.8, size=2, inherit.aes = FALSE, family = "Arial Narrow") +
+  # Value numbers at the beginning of each bar
+  geom_text(data=label_data, aes(x=id, y=lab_placement+75, label=value, hjust=hjust, ), color = "black", fontface="bold",alpha=0.8, size=2, inherit.aes = FALSE, family = "Arial Narrow")+
+  # labels of groups
+  geom_text(data=base_data, aes(x = title, y = 25, label=group), size = 2, inherit.aes = FALSE)
+p
+
+```
+
+#### Adding a text in the center of the plot
+
+```{r}
+p + geom_text(x = 0, aes(y = -65, label = "7 days / week"), size = 4.5, fontface = "bold", family = "Arial Narrow", color = "gray28")
+```
+
+#### Adding a thermometer object to the plot
+
+```{r}
+p +  geom_col(data = thermometer, aes(x = 43.5, y = number, fill = cat), position = position_stack(reverse = T), width = 0.3, angle = 0)+
+geom_point(data = ball, aes(x = 43.5, y = v-2), color = "#EE5859", size = 5)+
+geom_text(aes(x = 42.8, y = 5, label = "Freq. of consumption"), color = "black", fontface="bold",alpha=0.6, size=2.3, angle= 100, hjust = 0, family = "Arial Narrow")
+
+```
 
 ## Labels
 ### Xml to Label
