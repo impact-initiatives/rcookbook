@@ -26,6 +26,7 @@ Description: This is book aims to be a small collection of code used
     exhaustive but just examples.
 License: MIT + file LICENSE
 Imports:
+    addindicators,
     bookdown,
     cleaninginspectoR,
     data.table,
@@ -69,6 +70,7 @@ Imports:
     xlsformfill
 Remotes:
     gnoblet/impactR,
+    impact-initiatives/addindicators,
     impact-initiatives/cleaninginspectoR,
     impact-initiatives/hypegrammaR,
     impact-initiatives/kobostandards,

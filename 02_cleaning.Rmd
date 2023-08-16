@@ -1242,7 +1242,7 @@ translate.responses <- function(responses, values_from = "response.uk", language
 
 3. Example:
 
-```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T}
+```{r, tidy=FALSE, message= F, warning=F, error=F, echo=T, eval=FALSE}
 other_columns <- c("b12_1_situation_description_other")
 
 responses <- find.responses(main_dataset,other_columns,values_to = "response.en")
